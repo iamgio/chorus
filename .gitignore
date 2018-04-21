@@ -1,0 +1,5 @@
+.idea/*
+lib/*
+*.iml
+/src/assets/fonts/
+/src/META-INF/

@@ -1,0 +1,53 @@
+.pane {
+    -fx-background-color: #31363e;
+}
+
+.split-pane > .split-pane-divider, .left-pane, .menu-item:focused {
+    -fx-background-color: #2b2e36;
+}
+
+.context-menu, .menu-item {
+    -fx-background-color: #333740;
+}
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.setting-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+}
+
+.setting-button:hover {
+    -fx-background-color: rgba(255, 255, 255, .05);
+}
+
+.selected-setting-button {
+    -fx-background-color: rgba(255, 255, 255, .1);
+    -fx-font-weight: bold;
+}
+
+.setting-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.setting-field, .setting-combobox, .setting-combobox .list-cell, .setting-checkbox .box, .setting-combobox .list-view {
+    -fx-background-color: #2a2d35;
+    -fx-text-fill: white;
+    -fx-highlight-fill: #4b5660;
+}
+
+.setting-combobox .list-cell:hover {
+    -fx-background-color: #3b414b;
+}
+
+.setting-combobox > .arrow-button > .arrow {
+    -fx-background-color: white;
+}
+
+.setting-checkbox:selected .mark {
+    -fx-background-color: white;
+}

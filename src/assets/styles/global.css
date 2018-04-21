@@ -1,0 +1,98 @@
+.pane {
+    -fx-font-family: "Noto Sans";
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 1 7 7 7, 0 6 6 6, 1 5 5 5;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar {
+    -fx-pref-width: 10;
+}
+
+.drop-menu > .drop-menu-button:disabled {
+    -fx-opacity: .8;
+}
+
+.drop-menu > .drop-menu-button:disabled > .label {
+    -fx-opacity: .5;
+}
+
+.hints-scrollpane > .scroll-bar > .increment-button, .hints-scrollpane > .scroll-bar > .decrement-button {
+    -fx-pref-width: .5;
+    -fx-pref-height: .5;
+}
+
+.combobox > .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.colored-text-control-button-b .text {
+    -fx-font-weight: bold;
+}
+
+.colored-text-control-button-i .text {
+    -fx-font-style: italic;
+}
+
+.colored-text-control-button-u .text {
+    -fx-underline: true;
+}
+
+.colored-text-control-button-s .text {
+    -fx-strikethrough: true;
+}
+
+.minecraft-chat-preview-flow {
+    -fx-padding: 0 3.5 .5 10;
+    -fx-background-color: rgba(0, 0, 0, .57);
+}
+
+.minecraft-chat-preview-flow .label, .minecraft-actionbar-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 15;
+}
+
+.minecraft-title-title-preview-flow {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 30;
+}
+
+.minecraft-title-subtitle-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 19;
+}
+
+.minecraft-sign-preview-flow .label {
+    -fx-font-family: "Minecraft";
+}
+
+.minecraft-bossbar-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 18;
+}
+
+.minecraft-bossbar-preview-flow .obfuscated {
+    -fx-font-family: "Alphabet of the Magi";
+    -fx-font-size: 9;
+}
+
+.minecraft-mobbar-preview-flow {
+    -fx-background-color: rgba(0, 0, 0, .4);
+}
+
+.minecraft-mobbar-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 19;
+}

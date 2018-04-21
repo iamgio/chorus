@@ -1,0 +1,104 @@
+.obfuscated {
+    -fx-font-family: "Alphabet of the Magi";
+    -fx-font-size: 13;
+}
+
+.bold {
+    -fx-font-weight: bold;
+}
+
+.strikethrough .text {
+    -fx-strikethrough: true;
+}
+
+.strikethrough {
+    -fx-strikethrough: true;
+}
+
+.underline {
+    -fx-underline: true;
+}
+
+.italic {
+    -fx-font-style: italic;
+}
+
+.black {
+    -fx-text-fill: black;
+    -fx-fill: black;
+}
+
+.dark-blue {
+    -fx-text-fill: #0000AA;
+    -fx-fill: #0000AA;
+}
+
+.dark-green {
+    -fx-text-fill: #00AA00;
+    -fx-fill: #00AA00;
+}
+
+.dark-aqua {
+    -fx-text-fill: #00AAAA;
+    -fx-fill: #00AAAA;
+}
+
+.dark-red {
+    -fx-text-fill: #AA0000;
+    -fx-fill: #AA0000;
+}
+
+.dark-purple {
+    -fx-text-fill: #AA00AA;
+    -fx-fill: #AA00AA;
+}
+
+.gold {
+    -fx-text-fill: #FFAA00;
+    -fx-fill: #FFAA00;
+}
+
+.gray {
+    -fx-text-fill: #AAAAAA;
+    -fx-fill: #AAAAAA;
+}
+
+.dark-gray {
+    -fx-text-fill: #555555;
+    -fx-fill: #555555;
+}
+
+.blue {
+    -fx-text-fill: #5555FF;
+    -fx-fill: #5555FF;
+}
+
+.green {
+    -fx-text-fill: #55FF55;
+    -fx-fill: #55FF55;
+}
+
+.aqua {
+    -fx-text-fill: #55FFFF;
+    -fx-fill: #55FFFF;
+}
+
+.red {
+    -fx-text-fill: #FF5555;
+    -fx-fill: #FF5555;
+}
+
+.light-purple {
+    -fx-text-fill: #FF55FF;
+    -fx-fill: #FF55FF;
+}
+
+.yellow {
+    -fx-text-fill: #FFFF55;
+    -fx-fill: #FFFF55;
+}
+
+.white {
+    -fx-text-fill: white;
+    -fx-fill: white;
+}

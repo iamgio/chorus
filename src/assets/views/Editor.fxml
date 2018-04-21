@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="950.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.91"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.iamgio.chorus.editor.EditorController"
+            stylesheets="@../styles/global.css">
+    <children>
+        <VBox fx:id="noTabsVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+            <children>
+                <ImageView styleClass="no-tabs-image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icon_notabs.png"/>
+                    </image>
+                </ImageView>
+                <Label styleClass="no-tabs-label" text="It's been rather quiet here, why don't you open a file?"/>
+                <Label fx:id="versionLabel" styleClass="version-label"/>
+            </children>
+        </VBox>
+        <VBox fx:id="vbox" prefHeight="600.0" prefWidth="950.0">
+            <children>
+                <MenuBar fx:id="menuBar" prefHeight="10.0" prefWidth="950.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Open">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" text="Refresh">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" text="Settings">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="DOWN" code="S" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Undo"/>
+                                <MenuItem mnemonicParsing="false" text="Redo"/>
+                                <MenuItem mnemonicParsing="false" text="Copy"/>
+                                <MenuItem mnemonicParsing="false" text="Paste"/>
+                                <MenuItem mnemonicParsing="false" text="Search">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" text="Replace">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" text="Variables">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Credits"/>
+                                <MenuItem mnemonicParsing="false" text="Report a bug"/>
+                                <MenuItem mnemonicParsing="false" text="Donate"/>
+                                <MenuItem mnemonicParsing="false" text="Donators list"/>
+                                <MenuItem mnemonicParsing="false" text="License"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <VBox fx:id="variablesVbox"/>
+                <TabPane fx:id="tabPane" prefHeight="654.0" prefWidth="950.0" tabClosingPolicy="ALL_TABS"/>
+            </children>
+        </VBox>
+        <Rectangle id="notification-rectangle" arcHeight="5.0" arcWidth="5.0" fill="#7a28ff" height="66.0"
+                   strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 10, 0, 0, 5)"
+                   translateY="-75.0" width="950.0"/>
+        <Label id="notification-label" layoutX="38.0"
+               style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold; -fx-opacity: .85;" text=" "
+               translateY="-57.5"/>
+    </children>
+</AnchorPane>
