@@ -22,8 +22,9 @@ Chorus has a lot of features to edit your configurations easier:
 * Adding **variables** (_%player%_, _{player}_, ...)
 
 ### Downloading
-Chorus is downloadable from ['Releases'](https://github.com/iAmGio/chorus/releases) tab.
+**This project is currently work in progress.**  
+Once finished, Chorus will be downloadable from ['Releases'](https://github.com/iAmGio/chorus/releases) tab.
 
 ### Donating
-I worked so hard on this project, which you just downloaded for free. If you like this software or you just want to support me, I'd enjoy donations.
+I worked so hard on this project, which you are downloading for free. If you like this software or you just want to support me, I'd enjoy donations.  
 Donating, you'll be added to 'Donators List' inside the program.

@@ -62,7 +62,7 @@ public class Chorus extends FXApplication {
 
         getStage().toStage().setOnCloseRequest(e -> {
             UtilsClass.closeTabs();
-            System.exit(1);
+            System.exit(0);
         });
 
         loadFont("NotoSans-Regular.ttf");
