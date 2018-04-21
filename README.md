@@ -23,7 +23,7 @@ Chorus has a lot of features to edit your configurations easier:
 
 ### Downloading
 **This project is currently work in progress.**  
-Once finished, Chorus will be downloadable from ['Releases'](https://github.com/iAmGio/chorus/releases) tab.
+Once finished, Chorus will be downloadable [here](https://github.com/iAmGio/chorus/releases).
 
 ### Donating
 I worked so hard on this project, which you are downloading for free. If you like this software or you just want to support me, I'd enjoy donations.  
