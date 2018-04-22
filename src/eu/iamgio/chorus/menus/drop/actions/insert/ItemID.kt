@@ -9,6 +9,6 @@ import eu.iamgio.chorus.util.config
 class ItemID : IdAction(Item::class.java) {
 
     override fun plus(): String {
-        return if(config.getBoolean("5.Insert.1.Insert_data_for_items")) return ":0" else ""
+        return if(config.getBoolean("4.Minecraft.5.Insert_item_data")) return ":0" else ""
     }
 }

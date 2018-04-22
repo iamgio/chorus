@@ -46,6 +46,7 @@ class SettingsBuilder private constructor() {
                         val inputSettingString = config.getString("$it%style")
                         val settingInput = SettingInput.valueOf(inputSettingString.split(" ")[0].split("{")[0])
                         val input = settingInput.clazz.newInstance()
+                        input.id = it.toString()
                         input.styleClass += settingInput.styleClass
                         nodes += it.toString() to input
                         when(input) {
@@ -53,23 +54,17 @@ class SettingsBuilder private constructor() {
                                 if(inputSettingString.contains(" ")) {
                                     (input as SettingTextField).regex = Regex(inputSettingString.replace("TEXTFIELD ", ""))
                                 }
-                                if(actions.containsKey(it)) {
-                                    input.textProperty().addListener {_ -> actions[it]!!.run()}
-                                }
                                 input.text = config.getString(it.toString())
+                                input.textProperty().addListener {_ -> actions[it]?.run()}
                             }
                             is SettingComboBox -> {
                                 input.items = stringToList(inputSettingString).toObservableList()
-                                if(actions.containsKey(it)) {
-                                    input.selectionModel.selectedItemProperty().addListener {_ -> actions[it]!!.run()}
-                                }
                                 input.value = config.getString(it.toString()).toLowerCase().capitalize()
+                                input.selectionModel.selectedItemProperty().addListener {_ -> actions[it]?.run()}
                             }
                             is SettingCheckBox -> {
                                 input.isSelected = config.getBoolean(it.toString())
-                                if(actions.containsKey(it)) {
-                                    input.selectedProperty().addListener {_ -> actions[it]!!.run()}
-                                }
+                                input.selectedProperty().addListener {_ -> actions[it]?.run()}
                             }
                         }
                         val hbox = HBox(25.0, label, input)

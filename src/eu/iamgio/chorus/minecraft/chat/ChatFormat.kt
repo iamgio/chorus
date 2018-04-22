@@ -1,5 +1,7 @@
 package eu.iamgio.chorus.minecraft.chat
 
+import eu.iamgio.chorus.settings.SettingsBuilder
+import eu.iamgio.chorus.util.config
 import eu.iamgio.libfx.timing.RepeatingTimer
 import javafx.application.Platform
 import javafx.scene.control.Label
@@ -23,8 +25,17 @@ enum class ChatFormat(override val char: Char, override val styleClass: String =
         var obfuscatedLabels = emptyList<Label>()
 
         init {
+            var timer = runObfuscatedLoop(null)
+            SettingsBuilder.addAction("4.Minecraft.6.Obfuscated_text_speed_(ms)", Runnable {
+                timer = runObfuscatedLoop(timer)
+            })
+        }
+
+        private fun runObfuscatedLoop(timer: RepeatingTimer?): RepeatingTimer {
+            timer?.end()
             val letters = "abcdefghijklmnopqrstuvwxyz"
-            RepeatingTimer().start({
+            val repeatingTimer = RepeatingTimer()
+            repeatingTimer.start({
                 obfuscatedLabels.forEach {
                     var text = ""
                     (0 until it.text.length).forEach {
@@ -32,7 +43,8 @@ enum class ChatFormat(override val char: Char, override val styleClass: String =
                     }
                     Platform.runLater {it.text = text}
                 }
-            }, Duration.seconds(.35))
+            }, Duration.millis(config.getInt("4.Minecraft.6.Obfuscated_text_speed_(ms)").toDouble()))
+            return repeatingTimer
         }
     }
 }
