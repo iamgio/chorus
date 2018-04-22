@@ -20,9 +20,7 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-
-        SettingsBuilder builder = new SettingsBuilder();
-        builder.buildLeft().forEach(leftVbox.getChildren()::add);
+        SettingsBuilder.buildLeft().forEach(leftVbox.getChildren()::add);
     }
 
     public static SettingsController getInstance() {

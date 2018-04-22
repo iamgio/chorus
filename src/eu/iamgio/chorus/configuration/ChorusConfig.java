@@ -24,10 +24,6 @@ public class ChorusConfig {
         internalProperties.load(Chorus.class.getResourceAsStream("/assets/configuration/application.properties"));
         if(!target.exists()) {
             if(!target.createNewFile()) return;
-            /*Files.copy(
-                    Chorus.class.getResourceAsStream("/assets/configuration/application.properties"),
-                    target.toPath(), StandardCopyOption.REPLACE_EXISTING
-            );*/
         }
         properties.load(new FileInputStream(target));
         for(Object key : internalProperties.keySet()) {
