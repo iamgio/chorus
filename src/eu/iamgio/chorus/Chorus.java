@@ -2,6 +2,7 @@ package eu.iamgio.chorus;
 
 import eu.iamgio.chorus.configuration.ChorusConfig;
 import eu.iamgio.chorus.configuration.ChorusFolder;
+import eu.iamgio.chorus.editor.EditorController;
 import eu.iamgio.chorus.editor.EditorTab;
 import eu.iamgio.chorus.editor.events.Events;
 import eu.iamgio.chorus.listeners.*;
@@ -9,10 +10,12 @@ import eu.iamgio.chorus.minecraft.effect.EffectIconLoader;
 import eu.iamgio.chorus.minecraft.entity.EntityIconLoader;
 import eu.iamgio.chorus.minecraft.item.ItemIconLoader;
 import eu.iamgio.chorus.minecraft.particle.ParticleIconLoader;
+import eu.iamgio.chorus.settings.SettingsBuilder;
 import eu.iamgio.chorus.theme.Theme;
 import eu.iamgio.chorus.util.UtilsClass;
 import eu.iamgio.libfx.application.FXApplication;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
@@ -65,6 +68,8 @@ public class Chorus extends FXApplication {
             System.exit(0);
         });
 
+        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(config.getEnum(Theme.class, "1.Appearance.1.Theme")));
+
         loadFont("NotoSans-Regular.ttf");
         loadFont("Minecraft.otf");
         loadFont("Minecraft-Bold.otf");
@@ -94,6 +99,16 @@ public class Chorus extends FXApplication {
                 new RightClickListener()
         ));
         launch(args);
+    }
+
+    private void setTheme(Theme theme) {
+        Scene scene = getStage().toStage().getScene();
+        scene.getStylesheets().clear();
+        loadStylesheet(scene, theme.getPath()[0]);
+        for(Tab tab : EditorController.getInstance().tabPane.getTabs()) {
+            ((eu.iamgio.chorus.nodes.Tab) tab).getArea().getStylesheets()
+                    .set(0, getClass().getResource(theme.getPath()[1]).toExternalForm());
+        }
     }
 
     private void loadFont(String name) {

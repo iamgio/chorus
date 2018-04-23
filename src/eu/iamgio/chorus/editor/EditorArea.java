@@ -22,9 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -131,6 +129,23 @@ public class EditorArea extends CodeArea {
             }
         }
         return null;
+    }
+
+    public List<Integer> getSelectionParagraphs() {
+        IndexRange selection = getSelection();
+        List<Integer> paragraphs = new ArrayList<>();
+        Integer paragraph = null;
+        for(int x = selection.getStart(); x < selection.getEnd(); x++) {
+            int p = getParagraphIndex(x);
+            if(paragraph == null || p != paragraph) {
+                paragraph = p;
+                paragraphs.add(p);
+            }
+        }
+        if(paragraphs.isEmpty()) {
+            paragraphs.add(getParagraphIndex(getCaretPosition()));
+        }
+        return paragraphs;
     }
 
     public IndexRange getSubstitutionRange() {

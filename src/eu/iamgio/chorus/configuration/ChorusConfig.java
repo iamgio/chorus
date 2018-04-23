@@ -34,10 +34,14 @@ public class ChorusConfig {
     }
 
     public Set<Object> getKeys() {
-        return internalProperties.keySet();
+        return properties.keySet();
     }
 
     public String getString(String key) {
+        return properties.getProperty(key);
+    }
+
+    public String getInternalString(String key) {
         return internalProperties.getProperty(key);
     }
 
@@ -54,7 +58,6 @@ public class ChorusConfig {
     }
 
     public void set(String key, String value) {
-        internalProperties.setProperty(key, value);
         properties.setProperty(key, value);
         try {
             properties.store(new FileOutputStream(target), "Chorus' configuration file. \nPlease edit properties in settings. Manual editing is not recommended.");

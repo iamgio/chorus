@@ -11,7 +11,7 @@ open class Openable(private val c1: Char, private val c2: Char) : EditorEvent() 
     override fun onChange(change: RichTextChange<Collection<String>, String, Collection<String>>, area: EditorArea) {
         try {
             val style = area.getStyleOfChar(change.position)
-            if(!style.contains("string") && !style.contains("key")) {
+            if(!style.contains("string") && !style.contains("key") && !style.contains("comment")) {
                 if(change.removed.text.isEmpty() && change.inserted.text == c1.toString() &&
                         (area.text.length - 1 == change.position ||
                                 area.text[change.position + 1] != c2)) {

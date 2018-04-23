@@ -8,7 +8,6 @@ import eu.iamgio.chorus.util.config
 import eu.iamgio.chorus.util.stringToList
 import eu.iamgio.chorus.util.toObservableList
 import javafx.geometry.Pos
-import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
@@ -20,8 +19,7 @@ class SettingsBuilder private constructor() {
 
     companion object {
         private val values = config.keys.sortedByDescending {it.toString()}
-        private val nodes = HashMap<String, Node>()
-        private val actions = HashMap<String, Runnable>()
+        private val actions = HashMap<String, List<Runnable>>()
 
         @JvmStatic fun buildLeft(): List<SettingButton> {
             val stringList = ArrayList<String>()
@@ -43,28 +41,27 @@ class SettingsBuilder private constructor() {
                         val label = Label(it.toString().split(".")[3].replace("_", " "))
                         label.styleClass += "setting-label"
 
-                        val inputSettingString = config.getString("$it%style")
+                        val inputSettingString = config.getInternalString("$it%style")
                         val settingInput = SettingInput.valueOf(inputSettingString.split(" ")[0].split("{")[0])
                         val input = settingInput.clazz.newInstance()
                         input.id = it.toString()
                         input.styleClass += settingInput.styleClass
-                        nodes += it.toString() to input
                         when(input) {
                             is TextField -> {
                                 if(inputSettingString.contains(" ")) {
                                     (input as SettingTextField).regex = Regex(inputSettingString.replace("TEXTFIELD ", ""))
                                 }
                                 input.text = config.getString(it.toString())
-                                input.textProperty().addListener {_ -> actions[it]?.run()}
+                                input.textProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingComboBox -> {
                                 input.items = stringToList(inputSettingString).toObservableList()
                                 input.value = config.getString(it.toString()).toLowerCase().capitalize()
-                                input.selectionModel.selectedItemProperty().addListener {_ -> actions[it]?.run()}
+                                input.selectionModel.selectedItemProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingCheckBox -> {
                                 input.isSelected = config.getBoolean(it.toString())
-                                input.selectedProperty().addListener {_ -> actions[it]?.run()}
+                                input.selectedProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                         }
                         val hbox = HBox(25.0, label, input)
@@ -74,10 +71,14 @@ class SettingsBuilder private constructor() {
             return list
         }
 
-        @JvmStatic fun getNode(setting: String): Node = nodes[setting]!!
-
         @JvmStatic fun addAction(setting: String, runnable: Runnable) {
-            actions += setting to runnable
+            if(!actions.containsKey(setting)) {
+                actions += setting to listOf(runnable)
+            } else {
+                var actions = actions[setting]!!
+                actions += runnable
+                this.actions += setting to actions
+            }
         }
     }
 }

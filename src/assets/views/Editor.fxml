@@ -78,7 +78,12 @@
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-
+                                <MenuItem mnemonicParsing="false" text="Comment">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="SLASH" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">

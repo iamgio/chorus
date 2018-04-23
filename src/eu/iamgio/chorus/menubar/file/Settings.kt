@@ -2,7 +2,9 @@ package eu.iamgio.chorus.menubar.file
 
 import eu.iamgio.chorus.Chorus
 import eu.iamgio.chorus.menubar.MenuBarAction
+import eu.iamgio.chorus.settings.SettingsBuilder
 import eu.iamgio.chorus.theme.Theme
+import eu.iamgio.chorus.util.config
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.control.SplitPane
@@ -19,6 +21,9 @@ class Settings : MenuBarAction {
         val root = FXMLLoader.load<SplitPane>(Chorus::class.java.getResource("/assets/views/Settings.fxml"))
         val scene = Scene(root, 800.0, 550.0)
         scene.stylesheets.add(Theme.byConfig(2))
+        SettingsBuilder.addAction("1.Appearance.1.Theme", Runnable {
+            scene.stylesheets.setAll(config.getEnum(Theme::class.java, "1.Appearance.1.Theme").path[2])
+        })
         stage.isResizable = false
         stage.title = "Chorus - Settings"
         stage.scene = scene

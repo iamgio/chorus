@@ -17,7 +17,7 @@ import static eu.iamgio.chorus.util.UtilsClass.joinEnum;
 public enum EditorPattern {
 
     COMMENT("#[^\\n]*"),
-    KEY("(?!\\s?-)^[^:]+(?=:)"),
+    KEY("(?!\\s?-)^[^:\n]+(?=:)"),
     COLON("(?<=[a-zA-Z]):"),
     COMMA(","),
     DASH("[ \\t\\n]+- "),

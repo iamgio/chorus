@@ -7,7 +7,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="650.0" prefWidth="585.0"
-            styleClass="pane">
+            styleClass="pane, help-pane">
     <Rectangle arcHeight="5.0" arcWidth="5.0" height="298.0" layoutX="-1.0" layoutY="-123.0" styleClass="help-rectangle" width="585.0" />
     <Label id="title" layoutX="14.0" layoutY="38.0" styleClass="help-title" />
     <VBox id="vbox" layoutX="24.0" layoutY="242.0" prefHeight="380.0" prefWidth="543.0" spacing="30.0" />
