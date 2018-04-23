@@ -1,5 +1,5 @@
-.idea/*
-lib/*
-*.iml
 /src/assets/fonts/
 /src/META-INF/
+.idea/
+lib/
+out/
