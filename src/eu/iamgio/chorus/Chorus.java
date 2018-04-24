@@ -107,7 +107,7 @@ public class Chorus extends FXApplication {
         loadStylesheet(scene, theme.getPath()[0]);
         for(Tab tab : EditorController.getInstance().tabPane.getTabs()) {
             ((eu.iamgio.chorus.nodes.Tab) tab).getArea().getStylesheets()
-                    .set(0, getClass().getResource(theme.getPath()[1]).toExternalForm());
+                    .set(2, getClass().getResource(theme.getPath()[1]).toExternalForm());
         }
     }
 

@@ -61,14 +61,13 @@
     -fx-opacity: .5;
 }
 
-.tab:selected .tab-close-button {
-    -fx-background-color: white;
+.tab .tab-close-button {
+    -fx-effect: innershadow(one-pass-box, white, 10, 1, 0, 0);
     -fx-opacity: .75;
 }
 
 .area, .colored-text-editor {
     -fx-background-color: -fx-menu-color;
-    -fx-font-size: 20;
 }
 
 .area, .colored-text-area {

@@ -1,10 +1,12 @@
 package eu.iamgio.chorus.editor;
 
+import eu.iamgio.chorus.Chorus;
 import eu.iamgio.chorus.editor.events.Events;
 import eu.iamgio.chorus.menus.drop.MainDropMenu;
 import eu.iamgio.chorus.nodes.Tab;
 import eu.iamgio.chorus.notification.Notification;
 import eu.iamgio.chorus.notification.NotificationType;
+import eu.iamgio.chorus.settings.SettingsBuilder;
 import eu.iamgio.chorus.theme.Theme;
 import eu.iamgio.chorus.yaml.Key;
 import javafx.application.Platform;
@@ -41,6 +43,10 @@ public class EditorArea extends CodeArea {
         getStylesheets().add(Theme.byConfig(1));
         getStyleClass().add("area");
         setParagraphGraphicFactory(LineNumberFactory.get(this));
+
+        final String fontSizeSetting = "1.Appearance.2.Font_size";
+        setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting));
+        SettingsBuilder.addAction(fontSizeSetting, () -> setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting)));
 
         if(!getText().isEmpty() && highlight) Platform.runLater(() -> setStyleSpans(0, computeHighlighting(getText())));
         richChanges().filter(change -> !getText().isEmpty() && !change.getInserted().equals(change.getRemoved()))

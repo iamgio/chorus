@@ -14,6 +14,7 @@ class Comment : MenuBarAction {
             val selection = area.selection
             when {
                 area.text.isEmpty() -> area.insertText(0, "#")
+                area.length == selection.start -> area.insertText(selection.start, "#")
                 area.text[selection.start] == '#' -> area.replaceSelection(area.selectedText.replace("#", ""))
                 else -> {
                     val paragraphs = area.selectionParagraphs

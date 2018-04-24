@@ -7,7 +7,7 @@ import eu.iamgio.chorus.util.config
  */
 enum class Theme {
 
-    LIGHT, DARK;
+    LIGHT, DARK, SEPIA;
 
     val path = arrayOf(
             "/assets/styles/${name.toLowerCase()}.css",

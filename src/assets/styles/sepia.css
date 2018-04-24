@@ -1,6 +1,6 @@
 * {
-    -fx-primary: #f1f1f1;
-    -fx-secondary: #2f88b4;
+    -fx-primary: #c6802c;
+    -fx-secondary: #592f17;
     -fx-tertiary: derive(-fx-secondary, 27%)
 }
 
@@ -9,7 +9,7 @@
 }
 
 .text-field {
-    -fx-highlight-fill: #cacaca;
+    -fx-highlight-fill: derive(-fx-secondary, -20%);
 }
 
 .menu-bar, .tab-pane .tab-header-area .tab-header-background {
@@ -36,7 +36,7 @@
 
 .no-tabs-image {
     -fx-opacity: .8;
-    -fx-effect: innershadow(one-pass-box, rgba(0, 0, 0, .7), 10, 1, 0, 0);
+    -fx-effect: innershadow(one-pass-box, -fx-secondary, 10, 1, 0, 0);
 }
 
 .no-tabs-label, .version-label {
@@ -53,7 +53,11 @@
     -fx-background-color: -fx-primary;
 }
 
-.tab:selected .tab-label, .tab-close-button {
+.tab .tab-close-button {
+    -fx-effect: innershadow(one-pass-box, -fx-secondary, 10, 1, 0, 0);
+}
+
+.tab:selected .tab-label {
     -fx-text-fill: black;
     -fx-opacity: .75;
 }
@@ -67,8 +71,12 @@
     -fx-background-color: -fx-primary;
 }
 
-.area, .colored-text-area {
-    -fx-highlight-fill: derive(-fx-primary, -20%)
+.area {
+    -fx-highlight-fill: derive(-fx-primary, -20%);
+}
+
+.colored-text-area {
+    -fx-highlight-fill: -fx-secondary
 }
 
 .area .paragraph-box:has-caret {
@@ -99,7 +107,7 @@
 }
 
 .scroll-bar:hover, .scroll-bar:focused {
-    -fx-background-color: derive(-fx-primary, -4%);
+    -fx-background-color: derive(-fx-primary, -10%);
 }
 
 .scroll-bar > .thumb {
@@ -141,15 +149,23 @@
 }
 
 .hint, .insert-menu {
-    -fx-background-color: derive(-fx-primary, -15%);
+    -fx-background-color: -fx-secondary;
+}
+
+.insert-menu .thumb {
+    -fx-background-color: -fx-tertiary;
+}
+
+.insert-menu .scroll-bar:hover, .insert-menu .scroll-bar:focused {
+    -fx-background-color: derive(-fx-tertiary, 1.5%);
 }
 
 .hint:hover {
-    -fx-background-color: derive(-fx-primary, -22.5%);
+    -fx-background-color: -fx-tertiary;
 }
 
 .hint_keyhover {
-    -fx-background-color: derive(-fx-primary, -20%);
+    -fx-background-color: derive(-fx-tertiary, -5%);
 }
 
 .insert-menu > .text-field {
@@ -158,7 +174,7 @@
 }
 
 .hint > .label {
-    -fx-text-fill: derive(-fx-primary, -65%);
+    -fx-text-fill: white
 }
 
 .information-head, .colored-text-control-bar {
