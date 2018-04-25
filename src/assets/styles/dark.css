@@ -375,3 +375,20 @@
     -fx-fill: #2b2e36;
     -fx-stroke-width: 0;
 }
+
+.updater {
+    -fx-background-color: derive(-fx-menu-color, -20%);
+}
+
+.updater .label {
+    -fx-text-fill: white;
+}
+
+.updater .button {
+    -fx-background-color: rgba(255, 255, 255, .2);
+    -fx-text-fill: white;
+}
+
+.updater .button:hover {
+    -fx-background-color: rgba(255, 255, 255, .35);
+}

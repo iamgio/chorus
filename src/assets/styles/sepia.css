@@ -387,3 +387,20 @@
     -fx-fill: derive(-fx-secondary, -15%);
     -fx-stroke-width: 0;
 }
+
+.updater {
+    -fx-background-color: derive(-fx-primary, -20%);
+}
+
+.updater .label {
+    -fx-text-fill: black;
+}
+
+.updater .button {
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: white;
+}
+
+.updater .button:hover {
+    -fx-background-color: derive(-fx-secondary, -7%);
+}

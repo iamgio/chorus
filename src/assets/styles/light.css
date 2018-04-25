@@ -1,7 +1,7 @@
 * {
     -fx-primary: #f1f1f1;
     -fx-secondary: #2f88b4;
-    -fx-tertiary: derive(-fx-secondary, 27%)
+    -fx-tertiary: derive(-fx-secondary, 27%);
 }
 
 .pane {
@@ -370,4 +370,20 @@
 .help-rectangle {
     -fx-fill: derive(-fx-secondary, -15%);
     -fx-stroke-width: 0;
+}
+
+.updater {
+    -fx-background-color: derive(-fx-secondary, -20%);
+}
+
+.updater .label {
+    -fx-text-fill: white;
+}
+
+.updater .button {
+    -fx-background-color: rgba(255, 255, 255, .2);
+}
+
+.updater .button:hover {
+    -fx-background-color: rgba(255, 255, 255, .35);
 }

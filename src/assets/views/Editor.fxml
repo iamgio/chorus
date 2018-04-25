@@ -93,6 +93,7 @@
                                 <MenuItem mnemonicParsing="false" text="Donate"/>
                                 <MenuItem mnemonicParsing="false" text="Donators list"/>
                                 <MenuItem mnemonicParsing="false" text="License"/>
+                                <MenuItem mnemonicParsing="false" text="Check for updates"/>
                             </items>
                         </Menu>
                     </menus>
