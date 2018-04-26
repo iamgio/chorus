@@ -30,15 +30,13 @@ fun stringToList(s: String): List<String> {
 class UtilsClass private constructor() {
 
     companion object {
-        @JvmStatic
-        fun closeTabs() {
+        @JvmStatic fun closeTabs() {
             EditorController.getInstance().tabPane.tabs.forEach {
                 (it as Tab).close(true)
             }
         }
 
-        @JvmStatic
-        fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray()) {
+        @JvmStatic fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray()) {
             val editorController = EditorController.getInstance()
                 if(filters.contains(InteractFilter.AREA) || filters.isEmpty()) {
                     area!!.addEventHandler(MouseEvent.MOUSE_PRESSED) {
@@ -72,8 +70,7 @@ class UtilsClass private constructor() {
             AREA, TABPANE, MENUS, ESC, TAB
         }
 
-        @JvmStatic
-        fun joinEnum(enumClass: Class<out Enum<*>>): String {
+        @JvmStatic fun joinEnum(enumClass: Class<out Enum<*>>): String {
             return enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")
         }
     }

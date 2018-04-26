@@ -4,10 +4,12 @@ import eu.iamgio.chorus.settings.nodes.SettingButton
 import eu.iamgio.chorus.settings.nodes.SettingCheckBox
 import eu.iamgio.chorus.settings.nodes.SettingComboBox
 import eu.iamgio.chorus.settings.nodes.SettingTextField
+import eu.iamgio.chorus.theme.Themes
 import eu.iamgio.chorus.util.config
 import eu.iamgio.chorus.util.stringToList
 import eu.iamgio.chorus.util.toObservableList
 import javafx.geometry.Pos
+import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
@@ -20,6 +22,7 @@ class SettingsBuilder private constructor() {
     companion object {
         private val values = config.keys.sortedByDescending {it.toString()}
         private val actions = HashMap<String, List<Runnable>>()
+        private val nodes = HashMap<String, Node>()
 
         @JvmStatic fun buildLeft(): List<SettingButton> {
             val stringList = ArrayList<String>()
@@ -46,6 +49,7 @@ class SettingsBuilder private constructor() {
                         val input = settingInput.clazz.newInstance()
                         input.id = it.toString()
                         input.styleClass += settingInput.styleClass
+                        nodes += it.toString() to input
                         when(input) {
                             is TextField -> {
                                 if(inputSettingString.contains(" ")) {
@@ -55,7 +59,11 @@ class SettingsBuilder private constructor() {
                                 input.textProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingComboBox -> {
-                                input.items = stringToList(inputSettingString).toObservableList()
+                                input.items = if(it == "1.Appearance.1.Theme") {
+                                    Themes.getThemes().map {it.name.toLowerCase().capitalize()}.toObservableList()
+                                } else {
+                                    stringToList(inputSettingString).toObservableList()
+                                }
                                 input.value = config.getString(it.toString()).toLowerCase().capitalize()
                                 input.selectionModel.selectedItemProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
@@ -80,5 +88,7 @@ class SettingsBuilder private constructor() {
                 this.actions += setting to actions
             }
         }
+
+        @JvmStatic fun getNode(setting: String) = nodes[setting]
     }
 }

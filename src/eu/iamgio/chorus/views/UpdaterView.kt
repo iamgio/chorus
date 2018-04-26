@@ -1,7 +1,7 @@
 package eu.iamgio.chorus.views
 
 import eu.iamgio.chorus.Chorus
-import eu.iamgio.chorus.theme.Theme
+import eu.iamgio.chorus.theme.Themes
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
@@ -34,7 +34,7 @@ class UpdaterView {
         hbox.alignment = Pos.CENTER
         root.children.addAll(label, hbox)
         val scene = Scene(root, 450.0, 350.0)
-        scene.stylesheets.addAll(Theme.byConfig(0), "/assets/styles/global.css")
+        scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
         stage.isResizable = false
         stage.title = "Checking for updates"
         stage.scene = scene

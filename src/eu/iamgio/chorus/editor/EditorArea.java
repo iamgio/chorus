@@ -7,7 +7,7 @@ import eu.iamgio.chorus.nodes.Tab;
 import eu.iamgio.chorus.notification.Notification;
 import eu.iamgio.chorus.notification.NotificationType;
 import eu.iamgio.chorus.settings.SettingsBuilder;
-import eu.iamgio.chorus.theme.Theme;
+import eu.iamgio.chorus.theme.Themes;
 import eu.iamgio.chorus.yaml.Key;
 import javafx.application.Platform;
 import javafx.scene.control.IndexRange;
@@ -40,7 +40,7 @@ public class EditorArea extends CodeArea {
     public EditorArea(File file, boolean highlight) throws IOException {
         super(String.join("\n", Files.readAllLines(file.toPath())));
         this.file = file;
-        getStylesheets().add(Theme.byConfig(1));
+        getStylesheets().add(Themes.byConfig().getPath()[1]);
         getStyleClass().add("area");
         setParagraphGraphicFactory(LineNumberFactory.get(this));
 

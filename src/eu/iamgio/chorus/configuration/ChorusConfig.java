@@ -53,9 +53,9 @@ public class ChorusConfig {
         return Boolean.parseBoolean(getString(key));
     }
 
-    public <T extends Enum<T>> T getEnum(Class<T> enumClass, String key) {
+/*    public <T extends Enum<T>> T getEnum(Class<T> enumClass, String key) {
         return T.valueOf(enumClass, getString(key));
-    }
+    }*/
 
     public void set(String key, String value) {
         properties.setProperty(key, value);

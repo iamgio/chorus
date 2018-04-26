@@ -1,7 +1,7 @@
 package eu.iamgio.chorus.menus.variables;
 
 import eu.iamgio.chorus.Chorus;
-import eu.iamgio.chorus.theme.Theme;
+import eu.iamgio.chorus.theme.Themes;
 import eu.iamgio.chorus.variable.Variable;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -32,7 +32,7 @@ public class VariablesMenu {
         scrollPane.prefWidthProperty().bind(root.widthProperty());
         scrollPane.prefHeightProperty().bind(root.prefHeightProperty());
         Scene scene = new Scene(scrollPane, 500.0, 400.0);
-        scrollPane.getStylesheets().addAll("/assets/styles/global.css", Theme.byConfig(0));
+        scrollPane.getStylesheets().addAll("/assets/styles/global.css", Themes.byConfig().getPath()[0]);
         scrollPane.getStyleClass().add("variables-menu");
         stage.setTitle("Variables");
         stage.setScene(scene);

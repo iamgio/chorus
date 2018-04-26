@@ -12,6 +12,7 @@ import eu.iamgio.chorus.minecraft.item.ItemIconLoader;
 import eu.iamgio.chorus.minecraft.particle.ParticleIconLoader;
 import eu.iamgio.chorus.settings.SettingsBuilder;
 import eu.iamgio.chorus.theme.Theme;
+import eu.iamgio.chorus.theme.Themes;
 import eu.iamgio.chorus.util.UtilsClass;
 import eu.iamgio.libfx.application.FXApplication;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class Chorus extends FXApplication {
     private static File passedFile;
 
     public ChorusConfig config = new ChorusConfig();
-    public ChorusFolder backups = new ChorusFolder();
+    public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder();
 
     private static Chorus instance;
 
@@ -45,7 +46,11 @@ public class Chorus extends FXApplication {
         ChorusFolder folder = new ChorusFolder();
         folder.createIfAbsent(ChorusFolder.RELATIVE);
         backups.createIfAbsent(new File(ChorusFolder.RELATIVE, "backups"));
+        themes.createIfAbsent(new File(ChorusFolder.RELATIVE, "themes"));
         config.createIfAbsent(folder);
+
+        Themes.loadInternalThemes();
+        Themes.loadExternalThemes();
 
         new Thread(() -> {
             ItemIconLoader.cache();
@@ -57,7 +62,12 @@ public class Chorus extends FXApplication {
         root = (AnchorPane) loadRoot("/assets/views/Editor.fxml");
         Scene scene = new Scene(root, 950, 600);
         getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();
-        loadStylesheet(scene, Theme.byConfig(0));
+        Theme theme = Themes.byConfig();
+        if(theme.getInternal()) {
+            loadStylesheet(scene, theme.getPath()[0]);
+        } else {
+            scene.getStylesheets().add(theme.getPath()[0]);
+        }
 
         if(passedFile != null) {
             new EditorTab(passedFile).add();
@@ -68,7 +78,7 @@ public class Chorus extends FXApplication {
             System.exit(0);
         });
 
-        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(config.getEnum(Theme.class, "1.Appearance.1.Theme")));
+        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.getString("1.Appearance.1.Theme"))));
 
         loadFont("NotoSans-Regular.ttf");
         loadFont("Minecraft.otf");
@@ -103,8 +113,7 @@ public class Chorus extends FXApplication {
 
     private void setTheme(Theme theme) {
         Scene scene = getStage().toStage().getScene();
-        scene.getStylesheets().clear();
-        loadStylesheet(scene, theme.getPath()[0]);
+        scene.getStylesheets().setAll(theme.getPath()[0]);
         for(Tab tab : EditorController.getInstance().tabPane.getTabs()) {
             ((eu.iamgio.chorus.nodes.Tab) tab).getArea().getStylesheets()
                     .set(2, getClass().getResource(theme.getPath()[1]).toExternalForm());
