@@ -27,7 +27,8 @@ public final class Themes {
     }
 
     public static Theme byConfig() {
-        return byName(Chorus.getInstance().config.getString("1.Appearance.1.Theme"));
+        Theme theme = byName(Chorus.getInstance().config.getString("1.Appearance.1.Theme"));
+        return theme == null ? themes.get(0) : theme;
     }
 
     public static List<Theme> getThemes() {
