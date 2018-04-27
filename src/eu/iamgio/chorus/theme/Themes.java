@@ -48,7 +48,7 @@ public final class Themes {
 
     public static void loadExternalThemes() {
         for(File folder : Chorus.getInstance().themes.getFile().listFiles()) {
-            if(!folder.isFile()) {
+            if(!folder.isFile() && folder.listFiles().length == 3) {
                 files.put(folder.getName(), folder.listFiles());
                 themes.add(new Theme(folder.getName(), false));
             }

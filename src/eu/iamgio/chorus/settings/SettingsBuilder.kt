@@ -59,12 +59,14 @@ class SettingsBuilder private constructor() {
                                 input.textProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingComboBox -> {
-                                input.items = if(it == "1.Appearance.1.Theme") {
-                                    Themes.getThemes().map {it.name.toLowerCase().capitalize()}.toObservableList()
+                                if(it == "1.Appearance.1.Theme") {
+                                    input.items = Themes.getThemes().map {it.name.toLowerCase().capitalize()}.toObservableList()
+                                    input.value = Themes.byConfig().name.toLowerCase().capitalize()
+
                                 } else {
-                                    stringToList(inputSettingString).toObservableList()
+                                    input.items = stringToList(inputSettingString).toObservableList()
+                                    input.value = config.getString(it.toString()).toLowerCase().capitalize()
                                 }
-                                input.value = config.getString(it.toString()).toLowerCase().capitalize()
                                 input.selectionModel.selectedItemProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingCheckBox -> {
