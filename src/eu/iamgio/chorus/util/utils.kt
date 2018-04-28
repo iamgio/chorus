@@ -3,6 +3,7 @@ package eu.iamgio.chorus.util
 import eu.iamgio.chorus.Chorus
 import eu.iamgio.chorus.editor.EditorArea
 import eu.iamgio.chorus.editor.EditorController
+import eu.iamgio.chorus.editor.EditorTab
 import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.nodes.Tab
 import javafx.scene.input.KeyCode
@@ -30,31 +31,33 @@ fun stringToList(s: String): List<String> {
 class UtilsClass private constructor() {
 
     companion object {
-        @JvmStatic fun closeTabs() {
+        @JvmStatic
+        fun closeTabs() {
             EditorController.getInstance().tabPane.tabs.forEach {
                 (it as Tab).close(true)
             }
         }
 
-        @JvmStatic fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray()) {
+        @JvmStatic
+        fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray()) {
             val editorController = EditorController.getInstance()
-                if(filters.contains(InteractFilter.AREA) || filters.isEmpty()) {
-                    area!!.addEventHandler(MouseEvent.MOUSE_PRESSED) {
+            if(filters.contains(InteractFilter.AREA) || filters.isEmpty()) {
+                area!!.addEventHandler(MouseEvent.MOUSE_PRESSED) {
+                    showable.hide()
+                }
+            }
+            if(filters.contains(InteractFilter.TABPANE) || filters.isEmpty()) {
+                editorController.tabPane.addEventHandler(MouseEvent.MOUSE_PRESSED) {
+                    showable.hide()
+                }
+            }
+            if(filters.contains(InteractFilter.MENUS) || filters.isEmpty()) {
+                editorController.menuBar.menus.forEach {
+                    it.setOnAction {
                         showable.hide()
                     }
                 }
-                if(filters.contains(InteractFilter.TABPANE) || filters.isEmpty()) {
-                    editorController.tabPane.addEventHandler(MouseEvent.MOUSE_PRESSED) {
-                        showable.hide()
-                    }
-                }
-                if(filters.contains(InteractFilter.MENUS) || filters.isEmpty()) {
-                    editorController.menuBar.menus.forEach {
-                        it.setOnAction {
-                            showable.hide()
-                        }
-                    }
-                }
+            }
             if(filters.contains(InteractFilter.ESC) || filters.contains(InteractFilter.TAB) || filters.isEmpty()) {
                 Chorus.getInstance().root.scene.addEventFilter(KeyEvent.KEY_PRESSED) {
                     if(((filters.contains(InteractFilter.ESC) || filters.isEmpty()) && it.code == KeyCode.ESCAPE) ||
@@ -64,13 +67,17 @@ class UtilsClass private constructor() {
                     }
                 }
             }
+            if(filters.contains(InteractFilter.TABOPEN) || filters.isEmpty()) {
+                EditorTab.showables.add(showable)
+            }
         }
 
         enum class InteractFilter {
-            AREA, TABPANE, MENUS, ESC, TAB
+            AREA, TABPANE, MENUS, ESC, TAB, TABOPEN;
         }
 
-        @JvmStatic fun joinEnum(enumClass: Class<out Enum<*>>): String {
+        @JvmStatic
+        fun joinEnum(enumClass: Class<out Enum<*>>): String {
             return enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")
         }
     }

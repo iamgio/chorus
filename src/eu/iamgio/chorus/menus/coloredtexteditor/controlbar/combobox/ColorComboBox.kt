@@ -16,6 +16,7 @@ class ColorComboBox : ComboBox<ChatColor>() {
     init {
         styleClass += "color-combo-box"
         stylesheets += "/assets/styles/chat-styles.css"
+        prefHeight = 50.0
         cellFactory = ColorCellFactory()
         val area = coloredTextArea!!
         ChatColor.values().forEach {

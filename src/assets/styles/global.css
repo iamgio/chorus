@@ -64,6 +64,10 @@
     -fx-font-size: 12;
 }
 
+.colored-text-control-button {
+    -fx-font-size: 20;
+}
+
 .colored-text-control-button-b .text {
     -fx-font-weight: bold;
 }
@@ -78,6 +82,10 @@
 
 .colored-text-control-button-s .text {
     -fx-strikethrough: true;
+}
+
+.color-combo-box {
+    -fx-font-size: 20;
 }
 
 .minecraft-chat-preview-flow {

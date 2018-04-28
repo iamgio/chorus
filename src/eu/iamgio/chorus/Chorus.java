@@ -103,6 +103,7 @@ public class Chorus extends FXApplication {
                 new DoubleQuoteListener()
         ));
         Events.getYamlComponents().addAll(Arrays.asList(
+                new EditorTab.Companion.ShowableRemover(),
                 new KeyHoverListener(),
                 new IconableHoverListener(),
                 new ColoredChatTextHoverListener(),

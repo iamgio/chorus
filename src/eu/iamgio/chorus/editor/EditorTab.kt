@@ -2,6 +2,7 @@ package eu.iamgio.chorus.editor
 
 import eu.iamgio.chorus.Chorus
 import eu.iamgio.chorus.editor.events.Events
+import eu.iamgio.chorus.listeners.TabOpenerListener
 import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.nodes.Tab
 import eu.iamgio.chorus.util.config
@@ -44,6 +45,16 @@ class EditorTab(private var file: File) {
             val root = Chorus.getInstance().root
             addAll(root.children)
             filterIsInstance<Showable>().forEach {root.children -= it as Node}
+        }
+    }
+
+    companion object {
+        @JvmStatic var showables = mutableListOf<Showable>()
+        class ShowableRemover : TabOpenerListener {
+            override fun onTabOpen(area: EditorArea) {
+                showables.forEach {it.hide()}
+                showables.clear()
+            }
         }
     }
 }

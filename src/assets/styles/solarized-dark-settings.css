@@ -1,0 +1,51 @@
+@import "solarized-dark.css";
+
+.pane {
+    -fx-background-color: -fx-base02;
+}
+
+.split-pane > .split-pane-divider, .left-pane, .context-menu, .menu-item {
+    -fx-background-color: derive(-fx-base03, -15%);
+}
+
+.menu-item:focused, .setting-combobox .list-cell:hover {
+    -fx-background-color: -fx-base01;
+}
+
+.menu-item .label {
+    -fx-text-fill: -fx-base3;
+}
+
+.setting-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-base3;
+    -fx-font-size: 15;
+}
+
+.setting-button:hover {
+    -fx-background-color: rgba(255, 255, 255, .05);
+}
+
+.selected-setting-button {
+    -fx-background-color: rgba(255, 255, 255, .1);
+    -fx-font-weight: bold;
+}
+
+.setting-label {
+    -fx-text-fill: -fx-base3;
+    -fx-font-weight: bold;
+}
+
+.setting-field, .setting-combobox, .setting-combobox .list-cell, .setting-checkbox .box, .setting-combobox .list-view {
+    -fx-background-color: -fx-base03;
+    -fx-text-fill: -fx-base3;
+    -fx-highlight-fill: rgba(255, 255, 255, .3);
+}
+
+.setting-combobox > .arrow-button > .arrow {
+    -fx-background-color: white;
+}
+
+.setting-checkbox:selected .mark {
+    -fx-background-color: white;
+}

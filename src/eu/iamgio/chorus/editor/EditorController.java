@@ -28,7 +28,6 @@ public class EditorController implements Initializable {
 
     @FXML public AnchorPane root;
     @FXML public VBox vbox;
-    @FXML public VBox variablesVbox;
     @FXML public MenuBar menuBar;
     @FXML public TabPane tabPane;
     @FXML private VBox noTabsVbox;
@@ -40,7 +39,6 @@ public class EditorController implements Initializable {
         versionLabel.setText("\nVersion: " + Chorus.VERSION);
         vbox.prefWidthProperty().bind(root.widthProperty());
         vbox.prefHeightProperty().bind(root.heightProperty());
-        variablesVbox.prefWidthProperty().bind(root.widthProperty());
         tabPane.prefHeightProperty().bind(root.heightProperty());
         noTabsVbox.prefWidthProperty().bind(root.widthProperty());
         noTabsVbox.prefHeightProperty().bind(root.heightProperty());

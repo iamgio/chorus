@@ -41,6 +41,7 @@ class HelpView(private val title: String) {
         val label = Label(text)
         label.styleClass += "help-text"
         if(bold) label.style = "-fx-font-weight: bold"
+        label.isWrapText = true
         nodes += label
     }
 }

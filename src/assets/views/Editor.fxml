@@ -98,7 +98,6 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <VBox fx:id="variablesVbox"/>
                 <TabPane fx:id="tabPane" prefHeight="654.0" prefWidth="950.0" tabClosingPolicy="ALL_TABS"/>
             </children>
         </VBox>

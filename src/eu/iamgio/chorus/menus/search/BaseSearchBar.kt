@@ -68,14 +68,14 @@ abstract class BaseSearchBar(private val area: EditorArea) : HBox(), Showable {
     }
 
     override fun show() {
-        hide()
+        if(area.selectedText.isNotEmpty()) textfield.text = area.selectedText
         val root = EditorController.getInstance().vbox
         val filtered = root.children.filterIsInstance<BaseSearchBar>()
         if(!root.children.contains(this) && filtered.isEmpty()) {
-            root.children.add(this)
+            root.children += this
             UtilsClass.hideMenuOnInteract(this,
                     UtilsClass.Companion.InteractFilter.TABPANE,
-                    UtilsClass.Companion.InteractFilter.MENUS,
+                    UtilsClass.Companion.InteractFilter.TABOPEN,
                     UtilsClass.Companion.InteractFilter.ESC)
             textfield.requestFocus()
             textfield.selectAll()

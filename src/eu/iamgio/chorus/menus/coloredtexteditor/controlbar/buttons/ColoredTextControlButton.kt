@@ -13,6 +13,7 @@ open class ColoredTextControlButton(text: String, val formatStyleClass: String) 
     init {
         styleClass.addAll("colored-text-control-button", "colored-text-control-button-${text.toLowerCase()}")
         prefWidth = 50.0
+        prefHeight = 50.0
         val area = coloredTextArea!!
         area.selectionProperty().addListener { _, _, new ->
             isSelected = if(new.length > 0) {
