@@ -13,9 +13,8 @@ import javafx.scene.layout.VBox
 class DonatorsList : MenuBarAction {
 
     override fun onAction() {
-        val helpView = HelpView("Donators list")
+        val helpView = HelpView("Donators")
 
-        //TEMPORARY LINK
         val connection = Connection("https://iamgio.altervista.org/chorus/donators.html")
         try {
             connection.connect()
