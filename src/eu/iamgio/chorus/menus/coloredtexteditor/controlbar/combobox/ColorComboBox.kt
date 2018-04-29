@@ -33,7 +33,7 @@ class ColorComboBox : ComboBox<ChatColor>() {
                         this.styleClass += selectionModel.selectedItem.styleClass
                         text = this
                     }
-                }, Duration(300.0))
+                }, Duration(500.0))
             } else {
                 with(text!!) {
                     ChatComponent.removeColors(this.styleClass)

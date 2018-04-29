@@ -1,0 +1,19 @@
+* {
+    /* Following: https://github.com/altercation/solarized/tree/master/apple-colorpalette-solarized */
+    -fx-base02: #073642;
+    -fx-base03: #002b36;
+    -fx-base01: derive(-fx-base03, 27%);
+    -fx-base00: #657b83;
+    -fx-base0: #839496;
+    -fx-base1: #93a1a1;
+    -fx-base2: #eee8d5;
+    -fx-base3: #fdf6e3;
+    -fx-yellow: #b58900;
+    -fx-orange: #cb4b16;
+    -fx-red: #dc322f;
+    -fx-magenta: #d33682;
+    -fx-violet: #6c71c4;
+    -fx-blue: #268bd2;
+    -fx-cyan: #2aa198;
+    -fx-green: #859900;
+}

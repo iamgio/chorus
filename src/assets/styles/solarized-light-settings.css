@@ -1,15 +1,15 @@
 @import "solarized-constants.css";
 
 .pane {
-    -fx-background-color: -fx-base02;
+    -fx-background-color: -fx-base3;
 }
 
 .split-pane > .split-pane-divider, .left-pane, .context-menu, .menu-item {
-    -fx-background-color: derive(-fx-base03, -15%);
+    -fx-background-color: -fx-base00;
 }
 
 .menu-item:focused, .setting-combobox .list-cell:hover {
-    -fx-background-color: -fx-base01;
+    -fx-background-color: derive(-fx-base00, -15%);
 }
 
 .menu-item .label {
@@ -23,23 +23,23 @@
 }
 
 .setting-button:hover {
-    -fx-background-color: rgba(255, 255, 255, .05);
+    -fx-background-color: rgba(0, 0, 0, .1);
 }
 
 .selected-setting-button {
-    -fx-background-color: rgba(255, 255, 255, .1);
+    -fx-background-color: rgba(0, 0, 0, .15);
     -fx-font-weight: bold;
 }
 
 .setting-label {
-    -fx-text-fill: -fx-base3;
+    -fx-text-fill: -fx-base00;
     -fx-font-weight: bold;
 }
 
 .setting-field, .setting-combobox, .setting-combobox .list-cell, .setting-checkbox .box, .setting-combobox .list-view {
-    -fx-background-color: -fx-base03;
+    -fx-background-color: -fx-base00;
     -fx-text-fill: -fx-base3;
-    -fx-highlight-fill: rgba(255, 255, 255, .3);
+    -fx-highlight-fill: rgba(0, 0, 0, .3);
 }
 
 .setting-combobox > .arrow-button > .arrow {
@@ -47,5 +47,5 @@
 }
 
 .setting-checkbox:selected .mark {
-    -fx-background-color: white;
+    -fx-background-color: -fx-base3;
 }

@@ -1,27 +1,27 @@
 @import "solarized-constants.css";
 
-.text, .colon {
-    -fx-fill: derive(-fx-base1, 4%);
+.text {
+    -fx-fill: derive(-fx-base00, -30%);
 }
 
 .key {
-    -fx-fill: -fx-yellow;
+    -fx-fill: -fx-green;
 }
 
-.comma, .bracket {
+.colon {
     -fx-fill: -fx-base00;
 }
 
+.comma, .bracket, .dash {
+    -fx-fill: -fx-base1;
+}
+
 .true {
-    -fx-fill: -fx-green;
+    -fx-fill: derive(-fx-green, -30%);
 }
 
 .false {
     -fx-fill: -fx-red;
-}
-
-.dash {
-    -fx-fill: #586e75;
 }
 
 .string {
@@ -29,12 +29,12 @@
 }
 
 .number {
-    -fx-fill: -fx-blue;
+    -fx-fill: -fx-yellow;
 }
 
 .comment {
     -fx-fill: -fx-base1;
-    -fx-opacity: .6;
+    -fx-opacity: .83;
 }
 
 .item {
