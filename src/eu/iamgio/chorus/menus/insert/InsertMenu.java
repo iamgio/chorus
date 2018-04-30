@@ -1,11 +1,8 @@
 package eu.iamgio.chorus.menus.insert;
 
 import eu.iamgio.chorus.Chorus;
-import eu.iamgio.chorus.menus.Showable;
-import eu.iamgio.chorus.menus.Showables;
+import eu.iamgio.chorus.menus.*;
 import eu.iamgio.chorus.minecraft.Iconable;
-import eu.iamgio.chorus.menus.BrowsableVBox;
-import eu.iamgio.chorus.menus.FixedScrollPane;
 import eu.iamgio.chorus.nodes.Tab;
 import eu.iamgio.chorus.util.UtilsClass;
 import javafx.application.Platform;
@@ -23,8 +20,9 @@ import java.util.List;
  */
 public class InsertMenu extends VBox implements Showable {
 
-    private TextField field;
+    private TextField textfield;
     private BrowsableVBox vbox;
+    private FixedScrollPane pane;
     private Class<Enum<?>> enumClass;
 
     private Runnable onSelect;
@@ -35,14 +33,14 @@ public class InsertMenu extends VBox implements Showable {
         getStyleClass().add("insert-menu");
         this.enumClass = enumClass;
 
-        field = new TextField();
-        field.setMinWidth(300);
-        field.setStyle("-fx-padding: 10");
-        field.selectAll();
-        getChildren().add(field);
+        textfield = new TextField();
+        textfield.setMinWidth(300);
+        textfield.setStyle("-fx-padding: 10");
+        textfield.selectAll();
+        getChildren().add(textfield);
 
         vbox = new BrowsableVBox();
-        FixedScrollPane pane = new FixedScrollPane(vbox);
+        pane = new FixedScrollPane(vbox);
         vbox.setScrollPane(pane);
         pane.getStyleClass().addAll("hints-scrollpane", "edge-to-edge");
         pane.setMaxHeight(350);
@@ -51,11 +49,9 @@ public class InsertMenu extends VBox implements Showable {
         getChildren().addAll(pane, vbox);
 
         update();
-        field.textProperty().addListener(o -> update());
+        textfield.textProperty().addListener(o -> update());
 
-        UtilsClass.hideMenuOnInteract(this);
-
-        Platform.runLater(field::requestFocus);
+        Platform.runLater(textfield::requestFocus);
     }
 
     private void update() {
@@ -63,7 +59,7 @@ public class InsertMenu extends VBox implements Showable {
         Enum[] values = enumClass.getEnumConstants();
         for(Enum value : values) {
             String name = value.name().toLowerCase().replace("_", " ");
-            if(name.replace("_", " ").contains(field.getText().toLowerCase())) {
+            if(name.replace("_", " ").contains(textfield.getText().toLowerCase())) {
                 List<Image> images = new ArrayList<>();
                 if(value instanceof Iconable) {
                     images = ((Iconable) value).getIcons();
@@ -81,6 +77,10 @@ public class InsertMenu extends VBox implements Showable {
 
     @Override
     public void show() {
+        MenuPlacer placer = new MenuPlacer(this);
+        setLayoutX(placer.getX());
+        setLayoutY(placer.getY());
+        UtilsClass.hideMenuOnInteract(this);
         AnchorPane root = Chorus.getInstance().root;
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
@@ -104,11 +104,31 @@ public class InsertMenu extends VBox implements Showable {
         };
     }
 
+    @Override
+    public double getMenuWidth() {
+        return textfield.getMinWidth() + 500;
+    }
+
+    @Override
+    public double getMenuHeight() {
+        return pane.getMaxHeight() + 30;
+    }
+
+    @Override
+    public double getMenuX() {
+        return getLayoutX();
+    }
+
+    @Override
+    public double getMenuY() {
+        return getLayoutY();
+    }
+
     public String getSelected() {
         return selected;
     }
 
     public TextField getTextField() {
-        return field;
+        return textfield;
     }
 }

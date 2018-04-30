@@ -1,6 +1,7 @@
 package eu.iamgio.chorus.menus.drop;
 
 import eu.iamgio.chorus.Chorus;
+import eu.iamgio.chorus.menus.MenuPlacer;
 import eu.iamgio.chorus.menus.Showable;
 import eu.iamgio.chorus.menus.Showables;
 import eu.iamgio.chorus.menus.BrowsableVBox;
@@ -36,6 +37,9 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
     @Override
     public void show() {
         hide();
+        MenuPlacer placer = new MenuPlacer(this);
+        setLayoutX(placer.getX());
+        setLayoutY(placer.getY());
         AnchorPane root = Chorus.getInstance().root;
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
@@ -48,5 +52,25 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
     public void hide() {
         Chorus.getInstance().root.getChildren().remove(this);
         Showables.SHOWING = null;
+    }
+
+    @Override
+    public double getMenuWidth() {
+        return 200;
+    }
+
+    @Override
+    public double getMenuHeight() {
+        return 37.5 * getButtons().size();
+    }
+
+    @Override
+    public double getMenuX() {
+        return getLayoutX();
+    }
+
+    @Override
+    public double getMenuY() {
+        return getLayoutY();
     }
 }

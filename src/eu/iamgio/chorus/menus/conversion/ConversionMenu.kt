@@ -1,6 +1,7 @@
 package eu.iamgio.chorus.menus.conversion
 
 import eu.iamgio.chorus.Chorus
+import eu.iamgio.chorus.menus.MenuPlacer
 import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.menus.Showables
 import eu.iamgio.chorus.nodes.control.NumericTextField
@@ -49,6 +50,9 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
 
     override fun show() {
         hide()
+        val placer = MenuPlacer(this)
+        layoutX = placer.x
+        layoutY = placer.y
         val root = Chorus.getInstance().root
         if(!root.children.contains(this)) {
             root.children += this
@@ -64,4 +68,12 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         Chorus.getInstance().root.children -= this
         Showables.SHOWING = null
     }
+
+    override fun getMenuWidth() = 400.0
+
+    override fun getMenuHeight() = 40.0
+
+    override fun getMenuX() = layoutX
+
+    override fun getMenuY() = layoutY
 }

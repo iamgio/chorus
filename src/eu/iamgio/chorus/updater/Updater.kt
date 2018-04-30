@@ -22,7 +22,6 @@ class Updater {
     val isUpdatePresent: Boolean
         get() =
             latestVersion
-                    .replace("v", "")
                     .replace(" ", "-")
                     .toLowerCase() != Chorus.VERSION
 

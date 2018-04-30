@@ -19,6 +19,7 @@ public class JSONParser {
         this.url = url;
     }
 
+    @SuppressWarnings("deprecation")
     public JSONObject parse() {
         try {
             return (JSONObject) JSONValue.parseWithException(IOUtils.toString(url));

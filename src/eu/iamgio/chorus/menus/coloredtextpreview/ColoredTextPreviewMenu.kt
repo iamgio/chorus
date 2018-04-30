@@ -1,6 +1,7 @@
 package eu.iamgio.chorus.menus.coloredtextpreview
 
 import eu.iamgio.chorus.Chorus
+import eu.iamgio.chorus.menus.MenuPlacer
 import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.menus.Showables
 import eu.iamgio.chorus.menus.TabBrowsable
@@ -31,6 +32,9 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
 
     override fun show() {
         hide()
+        val placer = MenuPlacer(this)
+        layoutX = placer.x
+        layoutY = placer.y
         val root = Chorus.getInstance().root
         if(!root.children.contains(this)) {
             root.children.add(this)
@@ -48,4 +52,12 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         Chorus.getInstance().root.children.remove(this)
         Showables.SHOWING = null
     }
+
+    override fun getMenuWidth() = image.image.width
+
+    override fun getMenuHeight() = image.image.height + 115
+
+    override fun getMenuX() = layoutX
+
+    override fun getMenuY() = layoutY
 }

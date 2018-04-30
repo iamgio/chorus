@@ -1,6 +1,7 @@
 package eu.iamgio.chorus.infobox
 
 import eu.iamgio.chorus.Chorus
+import eu.iamgio.chorus.menus.MenuPlacer
 import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.util.UtilsClass
 import javafx.application.Platform
@@ -27,6 +28,9 @@ open class InformationBox() : VBox(), Showable {
 
     override fun show() {
         hide()
+        val placer = MenuPlacer(this)
+        layoutX = placer.x
+        layoutY = placer.y
         children.addAll(head, body)
         val root = Chorus.getInstance().root
         if(!root.children.contains(this)) {
@@ -38,6 +42,14 @@ open class InformationBox() : VBox(), Showable {
     override fun hide() {
         Chorus.getInstance().root.children.remove(this)
     }
+
+    override fun getMenuWidth() = prefWidth * 1.2
+
+    override fun getMenuHeight() = 500.0
+
+    override fun getMenuX() = layoutX
+
+    override fun getMenuY() = layoutY
 
     open fun after() {}
 }
