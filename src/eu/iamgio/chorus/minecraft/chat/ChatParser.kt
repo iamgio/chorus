@@ -135,7 +135,7 @@ class ChatParser(private val string: String, private val useVariables: Boolean =
     fun parseToString(area: CodeArea): String {
         var string = ""
         var actualStyles = emptyList<String>()
-        area.getParagraph(0).text.toCharArray().forEachIndexed {index, char ->
+        area.text.replace("\n", "").forEachIndexed {index, char ->
             val style = area.getStyleOfChar(index).reversed()
             if(actualStyles != style) {
                 actualStyles = style

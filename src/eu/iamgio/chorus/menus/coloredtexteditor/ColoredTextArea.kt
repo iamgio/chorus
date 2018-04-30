@@ -2,7 +2,6 @@ package eu.iamgio.chorus.menus.coloredtexteditor
 
 import eu.iamgio.chorus.minecraft.chat.ChatComponent
 import eu.iamgio.chorus.minecraft.chat.ChatParser
-import javafx.scene.input.KeyCode
 import org.fxmisc.richtext.CodeArea
 
 /**
@@ -14,13 +13,6 @@ class ColoredTextArea(text: String, editor: ColoredTextEditor) : CodeArea(ChatPa
         style = "-fx-font-family: Minecraft; -fx-font-size: 25; -fx-padding: 15; -fx-background-color: transparent"
         styleClass += "colored-text-area"
         stylesheets += "/assets/styles/chat-styles.css"
-
-        setOnKeyPressed {
-            if(it.code == KeyCode.ENTER) {
-                undo()
-                it.consume()
-            }
-        }
 
         if(text.isNotEmpty()) ChatParser(text).styleArea(this)
         plainTextChanges().filter {change ->
