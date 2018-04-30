@@ -9,7 +9,7 @@
 }
 
 .menu-item:focused, .setting-combobox .list-cell:hover {
-    -fx-background-color: -fx-base01;
+    -fx-background-color: derive(-fx-base03, 27%);
 }
 
 .menu-item .label {

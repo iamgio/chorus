@@ -5,7 +5,7 @@
 }
 
 .text-field {
-    -fx-highlight-fill: -fx-base01;
+    -fx-highlight-fill: derive(-fx-base03, 27%);
 }
 
 .menu-bar, .tab-pane .tab-header-area .tab-header-background {
@@ -19,7 +19,7 @@
 .menu-bar > .container > .menu-button:hover,
 .menu-bar > .container > .menu-button:focused,
 .menu-bar > .container > .menu-button:showing {
-    -fx-background-color: -fx-base01;
+    -fx-background-color: derive(-fx-base03, 27%);
 }
 
 .context-menu, .menu-item {
@@ -27,7 +27,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: derive(-fx-base01, -7.5%);
+    -fx-background-color: derive(-fx-base03, 19.5%);
 }
 
 .no-tabs-image {
@@ -72,7 +72,7 @@
 }
 
 .area .paragraph-box:has-caret {
-    -fx-background-color: -fx-base01;
+    -fx-background-color: derive(-fx-base03, 27%);
 }
 
 .area .caret {
@@ -91,7 +91,7 @@
 }
 
 .lineno {
-    -fx-background-color: -fx-base01;
+    -fx-background-color: derive(-fx-base03, 27%);
     -fx-opacity: .6;
     -fx-text-fill: -fx-base3;
     -fx-font-style: normal;
@@ -231,7 +231,7 @@
 }
 
 .conversion-menu > .combo-box .list-cell:hover {
-    -fx-background-color: -fx-base01;
+    -fx-background-color: derive(-fx-base03, 27%);
 }
 
 .conversion-menu > .combo-box > .arrow-button > .arrow {
@@ -347,7 +347,7 @@
 }
 
 .variables-menu .table-row-cell:selected {
-    -fx-background-color: -fx-base01;
+    -fx-background-color: derive(-fx-base03, 27%);
 }
 
 .variables-menu .text-field {
