@@ -1,6 +1,6 @@
 package eu.iamgio.chorus.menus
 
-import com.sun.javafx.scene.control.skin.ScrollPaneSkin
+import eu.iamgio.chorus.util.SkinFix
 import javafx.scene.Node
 import javafx.scene.control.ScrollPane
 import javafx.scene.control.Skin
@@ -15,11 +15,13 @@ Class that fixes blurry text (https://bugs.openjdk.java.net/browse/JDK-8089499)
 class FixedScrollPane(content: Node) : ScrollPane(content) {
 
     override fun createDefaultSkin(): Skin<*> {
-        val skin = ScrollPaneSkin(this)
-        val field = ScrollPaneSkin::class.java.getDeclaredField("viewRect")
+        val skinClass = SkinFix.getSkinClass("ScrollPaneSkin")
+        val constructor = skinClass.getConstructor(ScrollPane::class.java)
+        val skin = constructor.newInstance(this)
+        val field = skinClass.getDeclaredField("viewRect")
         field.isAccessible = true
         val viewRect = field.get(skin) as StackPane
         viewRect.isCache = false
-        return skin
+        return skin as Skin<*>
     }
 }

@@ -1,11 +1,11 @@
 package eu.iamgio.chorus.infobox
 
-import com.sun.javafx.tk.Toolkit
 import javafx.geometry.Pos
 import javafx.scene.control.Label
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.StackPane
+import javafx.scene.text.Text
 
 /**
  * @author Gio
@@ -20,7 +20,9 @@ class InformationHead(image: Image?, text: String? = null) : StackPane() {
             children += imageView
         } else if(text != null) {
             val label = Label(text)
-            label.minWidth = Toolkit.getToolkit().fontLoader.computeStringWidth(text, label.font).toDouble() * 3
+            val t = Text(text)
+            t.style = "-fx-font-size: 35"
+            label.minWidth = t.layoutBounds.width * 3
             label.style = "-fx-font-size: 35"
             children += label
         }

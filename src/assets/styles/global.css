@@ -3,7 +3,6 @@
 }
 
 .context-menu {
-    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 1 7 7 7, 0 6 6 6, 1 5 5 5;
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
