@@ -11,7 +11,7 @@ import eu.iamgio.chorus.util.makeFormal
 class TicksInformationBox(ticks: Int) : InformationBox(InformationHead(null, "$ticks ticks")) {
 
     init {
-        val title = "$ticks ticks is:"
+        val title = "$ticks ticks are:"
         var text = ""
         TimeUnit.values().forEach {
             val s = ((ticks / it.value / 20)).toString()

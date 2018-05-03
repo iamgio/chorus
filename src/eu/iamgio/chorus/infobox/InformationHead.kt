@@ -22,7 +22,7 @@ class InformationHead(image: Image?, text: String? = null) : StackPane() {
             val label = Label(text)
             val t = Text(text)
             t.style = "-fx-font-size: 35"
-            label.minWidth = t.layoutBounds.width * 3
+            label.minWidth = t.layoutBounds.width * 3.5
             label.style = "-fx-font-size: 35"
             children += label
         }
