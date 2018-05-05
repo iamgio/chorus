@@ -4,11 +4,15 @@ import eu.iamgio.chorus.menus.coloredtexteditor.ColoredTextArea
 import eu.iamgio.chorus.menus.coloredtexteditor.coloredTextArea
 import eu.iamgio.chorus.minecraft.chat.ChatComponent
 import javafx.scene.control.ToggleButton
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
+import javafx.scene.input.KeyEvent
 
 /**
  * @author Gio
  */
-open class ColoredTextControlButton(text: String, val formatStyleClass: String) : ToggleButton(text) {
+open class ColoredTextControlButton(text: String, val formatStyleClass: String, shortcut: KeyCode) : ToggleButton(text) {
 
     init {
         styleClass.addAll("colored-text-control-button", "colored-text-control-button-${text.toLowerCase()}")
@@ -19,6 +23,11 @@ open class ColoredTextControlButton(text: String, val formatStyleClass: String) 
             isSelected = if(new.length > 0) {
                 shouldRemove(area)
             } else new.start > 0 && area.getStyleOfChar(new.start - 1).contains(formatStyleClass)
+        }
+        area.addEventFilter(KeyEvent.KEY_PRESSED) {
+            if(KeyCodeCombination(shortcut, KeyCombination.CONTROL_DOWN).match(it)) {
+                fire()
+            }
         }
         setOnAction {
             (area.selection.start until area.selection.end).forEach {

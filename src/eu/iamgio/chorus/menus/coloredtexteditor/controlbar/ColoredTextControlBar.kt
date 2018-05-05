@@ -4,6 +4,7 @@ import eu.iamgio.chorus.menus.coloredtexteditor.controlbar.buttons.ColoredTextCo
 import eu.iamgio.chorus.menus.coloredtexteditor.controlbar.buttons.ResetColoredTextControlButton
 import eu.iamgio.chorus.menus.coloredtexteditor.controlbar.combobox.ColorComboBox
 import javafx.geometry.Pos
+import javafx.scene.input.KeyCode
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
@@ -28,11 +29,11 @@ class ColoredTextControlBar : HBox() {
         formatsHbox = HBox(5.0)
         formatsHbox.alignment = Pos.CENTER_LEFT
         formatsHbox.children.addAll(
-                ColoredTextControlButton("B", "bold"),
-                ColoredTextControlButton("I", "italic"),
-                ColoredTextControlButton("U", "underline"),
-                ColoredTextControlButton("S", "strikethrough"),
-                ColoredTextControlButton("O", "obfuscated"),
+                ColoredTextControlButton("B", "bold", KeyCode.B),
+                ColoredTextControlButton("I", "italic", KeyCode.I),
+                ColoredTextControlButton("U", "underline", KeyCode.U),
+                ColoredTextControlButton("S", "strikethrough", KeyCode.M),
+                ColoredTextControlButton("O", "obfuscated", KeyCode.K),
                 ResetColoredTextControlButton(formatsHbox.children, colorComboBox)
         )
 
