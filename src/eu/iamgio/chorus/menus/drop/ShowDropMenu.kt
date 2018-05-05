@@ -63,7 +63,7 @@ class ShowDropMenu : DropMenu() {
                     (selected.toShortOrNull() != null && IdAble.byId(Enchantment::class.java, selected.toShort()) != null)) {
                 list[3].isDisable = false
             }
-            if(selected.matches(Regex("\\d+"))) {
+            if(selected.toIntOrNull() != null) {
                 list[4].isDisable = false
             }
         }

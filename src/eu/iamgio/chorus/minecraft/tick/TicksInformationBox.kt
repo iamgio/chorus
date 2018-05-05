@@ -14,8 +14,19 @@ class TicksInformationBox(ticks: Int) : InformationBox(InformationHead(null, "$t
         val title = "$ticks ticks are:"
         var text = ""
         TimeUnit.values().forEach {
-            val s = ((ticks / it.value / 20)).toString()
-            if(s != "2147483.647") text += "${it.name.makeFormal()}: $s\n"
+            var s = ((ticks / it.value / 20)).toString()
+            if(!(s.contains("E") || s.contains("-"))) {
+                if(s.contains(".")) {
+                    val p = s.split(".")
+                    if(p[1].length > 5) {
+                        s = p[0] + "." + p[1].substring(0, 4)
+                    }
+                }
+                if(s.endsWith(".0")) {
+                    s = s.substring(0, s.length - 2)
+                }
+                text += "${it.name.makeFormal()}: $s\n"
+            }
         }
         body = InformationBody(title, "", text)
     }
