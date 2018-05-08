@@ -10,6 +10,11 @@ Before Chorus, basic YAML editors have been used; now, with Chorus, you can have
 **Chorus has a lot of features to edit your configurations easier:**   
    
    
+* Editing **remote files** (SFTP);
+
+![SFTP](https://i.imgur.com/UwgLUas.png)
+   
+   
 * Showing **previews of chat, title, sign, action bar, boss bar, mob bar**;   
    
 ![Chat preview](https://i.imgur.com/Hnn2J7n.png)   
