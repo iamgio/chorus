@@ -12,7 +12,7 @@ Before Chorus, basic YAML editors have been used; now, with Chorus, you can have
    
 * Editing **remote files** (SFTP);
 
-![SFTP](https://i.imgur.com/UwgLUas.png)
+![SFTP](https://i.imgur.com/VKvmhNi.png)
    
    
 * Showing **previews of chat, title, sign, action bar, boss bar, mob bar**;   
