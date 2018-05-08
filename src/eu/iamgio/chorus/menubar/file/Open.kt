@@ -1,6 +1,7 @@
 package eu.iamgio.chorus.menubar.file
 
 import eu.iamgio.chorus.editor.EditorTab
+import eu.iamgio.chorus.file.LocalFile
 import eu.iamgio.chorus.menubar.MenuBarAction
 import eu.iamgio.libfx.files.FileChooser
 
@@ -16,7 +17,7 @@ class Open : MenuBarAction {
                 javafx.stage.FileChooser.ExtensionFilter("All types (*.*)", "*")
         )
         if(files != null && files.size > 0 && !files.contains(null)) {
-            files.forEach {f -> EditorTab(f).add()}
+            files.forEach {file -> EditorTab(LocalFile(file)).add()}
         }
     }
 }

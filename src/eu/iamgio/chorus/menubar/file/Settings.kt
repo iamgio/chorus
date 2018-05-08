@@ -20,7 +20,7 @@ class Settings : MenuBarAction {
         val stage = Stage()
         val root = FXMLLoader.load<SplitPane>(Chorus::class.java.getResource("/assets/views/Settings.fxml"))
         val scene = Scene(root, 800.0, 550.0)
-        scene.stylesheets.add(Themes.byConfig().path[2])
+        scene.stylesheets.addAll(Themes.byConfig().path[2], "/assets/styles/global.css")
         SettingsBuilder.addAction("1.Appearance.1.Theme", Runnable {
             scene.stylesheets.setAll(Themes.byName(config.getString("1.Appearance.1.Theme")).path[2])
         })

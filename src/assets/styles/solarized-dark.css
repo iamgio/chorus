@@ -106,6 +106,10 @@
     -fx-background-color: -fx-base00;
 }
 
+.arrow {
+    -fx-background-color: white;
+}
+
 .text-popup {
     -fx-text-fill: -fx-base1;
     -fx-background-color: derive(-fx-base03, -10%);
@@ -234,10 +238,6 @@
     -fx-background-color: derive(-fx-base03, 27%);
 }
 
-.conversion-menu > .combo-box > .arrow-button > .arrow {
-    -fx-background-color: white;
-}
-
 .colored-text-control-button {
     -fx-background-color: transparent;
     -fx-background-radius: 8;
@@ -263,10 +263,6 @@
     -fx-background-color: derive(-fx-base03, -30%);
 }
 
-.color-combo-box > .arrow-button > .arrow {
-    -fx-background-color: white;
-}
-
 .colored-text-preview-menu {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .7), 30, 0, 0, 10);
 }
@@ -275,6 +271,35 @@
     -fx-background-color: derive(-fx-base03, -20%);
     -fx-highlight-fill: rgba(0, 0, 0, .15);
     -fx-text-fill: -fx-base3;
+}
+
+.sftp-address-box {
+    -fx-background-color: -fx-base03;
+}
+
+.ip-box, .ip-box .list-cell, .username-field, .password-field, .connect-button {
+    -fx-background-color: derive(-fx-base03, -40%);
+    -fx-text-fill: white;
+}
+
+.connect-button:hover {
+    -fx-background-color: derive(-fx-base3, -25%);
+}
+
+.sftp-filechooser-button {
+    -fx-background-color: transparent;
+}
+
+.sftp-filechooser-button > .label {
+    -fx-text-fill: white
+}
+
+.sftp-filechooser-button:hover {
+    -fx-background-color: rgba(255, 255, 255, .07);
+}
+
+.sftp-filechooser-button:focused {
+    -fx-background-color: derive(-fx-cyan, -15%);
 }
 
 .variables-menu {

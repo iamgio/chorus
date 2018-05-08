@@ -2,27 +2,28 @@ package eu.iamgio.chorus.nodes
 
 import eu.iamgio.chorus.editor.EditorArea
 import eu.iamgio.chorus.editor.EditorController
+import eu.iamgio.chorus.file.FileMethod
 import eu.iamgio.chorus.util.tabs
 import javafx.scene.Node
 import javafx.scene.control.Tab
 import org.fxmisc.flowless.VirtualizedScrollPane
-import java.io.File
 
 /**
  * @author Gio
  */
-class Tab(text: String, content: Node, val file: File) : Tab(text + " ", content) {
+class Tab(text: String, content: Node, val file: FileMethod) : Tab("$text ", content) {
 
     init {
         setOnCloseRequest {
-            tabs.remove(file)
+            tabs.remove(file.formalAbsolutePath)
             close(false)
         }
     }
 
     fun close(isList: Boolean) {
-        this.area.saveFile()
+        area.saveFile()
         if(!isList) EditorController.getInstance().tabPane.tabs -= this
+        file.close()
     }
 
     @Suppress("UNCHECKED_CAST")

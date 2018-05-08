@@ -14,7 +14,7 @@ class Refresh : MenuBarAction {
     override fun onAction() {
         if(area != null) {
             if(area!!.refresh()) {
-                Notification("Refreshed " + Tab.currentTab!!.file, NotificationType.MESSAGE).send()
+                Notification("Refreshed " + Tab.currentTab!!.file.formalAbsolutePath, NotificationType.MESSAGE).send()
             }
         }
     }

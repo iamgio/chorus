@@ -1,9 +1,6 @@
 package eu.iamgio.chorus.settings
 
-import eu.iamgio.chorus.settings.nodes.SettingButton
-import eu.iamgio.chorus.settings.nodes.SettingCheckBox
-import eu.iamgio.chorus.settings.nodes.SettingComboBox
-import eu.iamgio.chorus.settings.nodes.SettingTextField
+import eu.iamgio.chorus.settings.nodes.*
 import eu.iamgio.chorus.theme.Themes
 import eu.iamgio.chorus.util.config
 import eu.iamgio.chorus.util.stringToList
@@ -11,7 +8,6 @@ import eu.iamgio.chorus.util.toObservableList
 import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.control.Label
-import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
 
 /**
@@ -51,18 +47,22 @@ class SettingsBuilder private constructor() {
                         input.styleClass += settingInput.styleClass
                         nodes += it.toString() to input
                         when(input) {
-                            is TextField -> {
+                            is SettingTextField -> {
                                 if(inputSettingString.contains(" ")) {
-                                    (input as SettingTextField).regex = Regex(inputSettingString.replace("TEXTFIELD ", ""))
+                                    input.regex = Regex(inputSettingString.replace("TEXTFIELD ", ""))
                                 }
                                 input.text = config.getString(it.toString())
+                                input.textProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
+                            }
+                            is SettingTextArea -> {
+                                input.prefWidth = 400.0
+                                input.text = config.getString(it.toString()).replace("\\n", "\n")
                                 input.textProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingComboBox -> {
                                 if(it == "1.Appearance.1.Theme") {
                                     input.items = Themes.getThemes().map {it.name.toLowerCase().capitalize()}.toObservableList()
                                     input.value = Themes.byConfig().name.toLowerCase().capitalize()
-
                                 } else {
                                     input.items = stringToList(inputSettingString).toObservableList()
                                     input.value = config.getString(it.toString()).toLowerCase().capitalize()

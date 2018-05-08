@@ -5,6 +5,7 @@ import eu.iamgio.chorus.configuration.ChorusFolder;
 import eu.iamgio.chorus.editor.EditorController;
 import eu.iamgio.chorus.editor.EditorTab;
 import eu.iamgio.chorus.editor.events.Events;
+import eu.iamgio.chorus.file.LocalFile;
 import eu.iamgio.chorus.listeners.*;
 import eu.iamgio.chorus.minecraft.effect.EffectIconLoader;
 import eu.iamgio.chorus.minecraft.entity.EntityIconLoader;
@@ -70,7 +71,7 @@ public class Chorus extends FXApplication {
         }
 
         if(passedFile != null) {
-            new EditorTab(passedFile).add();
+            new EditorTab(new LocalFile(passedFile)).add();
         }
 
         getStage().toStage().setOnCloseRequest(e -> {
@@ -80,7 +81,8 @@ public class Chorus extends FXApplication {
 
         SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.getString("1.Appearance.1.Theme"))));
 
-        loadFont("NotoSans-Regular.ttf");
+        loadFont("NotoSans-Regular.ttf"); // Google's Noto Sans
+        loadFont("NotoSans-Bold.ttf");    // https://fonts.google.com/specimen/Noto+Sans
         loadFont("Minecraft.otf");
         loadFont("Minecraft-Bold.otf");
         loadFont("Minecraft-Italic.otf");

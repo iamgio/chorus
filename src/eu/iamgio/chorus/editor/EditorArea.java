@@ -2,6 +2,7 @@ package eu.iamgio.chorus.editor;
 
 import eu.iamgio.chorus.Chorus;
 import eu.iamgio.chorus.editor.events.Events;
+import eu.iamgio.chorus.file.FileMethod;
 import eu.iamgio.chorus.menus.drop.MainDropMenu;
 import eu.iamgio.chorus.nodes.Tab;
 import eu.iamgio.chorus.notification.Notification;
@@ -20,11 +21,11 @@ import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,12 +34,12 @@ import java.util.regex.Pattern;
  */
 public class EditorArea extends CodeArea {
 
-    private File file;
+    private FileMethod file;
 
     private final Pattern pattern = EditorPattern.compile();
 
-    public EditorArea(File file, boolean highlight) throws IOException {
-        super(String.join("\n", Files.readAllLines(file.toPath())));
+    public EditorArea(FileMethod file, boolean highlight) {
+        super(String.join("\n", file.getLines()));
         this.file = file;
         getStylesheets().add(Themes.byConfig().getPath()[1]);
         getStyleClass().add("area");
@@ -80,13 +81,13 @@ public class EditorArea extends CodeArea {
         return spansBuilder.create();
     }
 
-    public boolean saveFile() {
-        try {
-            Files.write(file.toPath(), Arrays.asList(getText().split("\n")));
-            return true;
-        } catch(IOException e) {
+    public FileMethod getFile() {
+        return file;
+    }
+
+    public void saveFile() {
+        if(!file.save(getText())) {
             new Notification("Failed to save " + file.getName(), NotificationType.ERROR).send();
-            return false;
         }
     }
 
@@ -95,11 +96,11 @@ public class EditorArea extends CodeArea {
     }
 
     public boolean refresh() {
-        File file = Tab.getCurrentTab().getFile();
-        try {
-            replaceText(String.join("\n", Files.readAllLines(new File(file.getAbsolutePath()).toPath())));
+        FileMethod file = Tab.getCurrentTab().getFile().getUpdatedFile();
+        if(file != null) {
+            replaceText(String.join("\n", file.getLines()));
             return true;
-        } catch(IOException e) {
+        } else  {
             new Notification("Failed to refresh " + file.getName(), NotificationType.ERROR).send();
             return false;
         }

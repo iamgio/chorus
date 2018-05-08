@@ -40,6 +40,12 @@
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
+                                <MenuItem mnemonicParsing="false" text="Open from SFTP">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
                                 <MenuItem mnemonicParsing="false" text="Refresh">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP"

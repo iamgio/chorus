@@ -2,6 +2,7 @@ package eu.iamgio.chorus.editor;
 
 import eu.iamgio.chorus.Chorus;
 import eu.iamgio.chorus.editor.events.Events;
+import eu.iamgio.chorus.file.LocalFile;
 import eu.iamgio.chorus.menubar.MenuBarAction;
 import eu.iamgio.chorus.nodes.Tab;
 import eu.iamgio.chorus.util.StringUtils;
@@ -56,7 +57,7 @@ public class EditorController implements Initializable {
             e.setDropCompleted(success);
             e.consume();
             if(success) {
-                e.getDragboard().getFiles().forEach(f -> new EditorTab(f).add());
+                e.getDragboard().getFiles().forEach(file -> new EditorTab(new LocalFile(file)).add());
             }
         });
 
@@ -80,7 +81,7 @@ public class EditorController implements Initializable {
         tabPane.getSelectionModel().selectedItemProperty().addListener(e -> {
             Tab tab = Tab.getCurrentTab();
             Chorus.getInstance().getStage().withTitle(
-                    "Chorus" + (tab != null ? " - " + tab.getFile() : "")
+                    "Chorus" + (tab != null ? " - " + tab.getFile().getFormalAbsolutePath() : "")
             );
             if(tab != null) Platform.runLater(() -> tab.getArea().requestFocus());
         });

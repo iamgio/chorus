@@ -34,7 +34,7 @@
     -fx-font-weight: bold;
 }
 
-.setting-field, .setting-combobox, .setting-combobox .list-cell, .setting-checkbox .box, .setting-combobox .list-view {
+.setting-field, .setting-field .content, .setting-combobox, .setting-combobox .list-cell, .setting-checkbox .box, .setting-combobox .list-view {
     -fx-background-color: #2a2d35;
     -fx-text-fill: white;
     -fx-highlight-fill: #4b5660;
