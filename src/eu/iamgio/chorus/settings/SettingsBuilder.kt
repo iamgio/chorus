@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox
 class SettingsBuilder private constructor() {
 
     companion object {
-        private val values = config.keys.sortedByDescending {it.toString()}
+        private val values = config.internalKeys.sortedByDescending {it.toString()}
         private val actions = HashMap<String, List<Runnable>>()
         private val nodes = HashMap<String, Node>()
 
@@ -41,7 +41,10 @@ class SettingsBuilder private constructor() {
                         label.styleClass += "setting-label"
 
                         val inputSettingString = config.getInternalString("$it%style")
-                        val settingInput = SettingInput.valueOf(inputSettingString.split(" ")[0].split("{")[0])
+                        val settingInput =
+                                if(inputSettingString != null) {
+                                    SettingInput.valueOf(inputSettingString.split(" ")[0].split("{")[0])
+                                } else SettingInput.TEXT
                         val input = settingInput.clazz.newInstance()
                         input.id = it.toString()
                         input.styleClass += settingInput.styleClass
@@ -73,8 +76,12 @@ class SettingsBuilder private constructor() {
                                 input.isSelected = config.getBoolean(it.toString())
                                 input.selectedProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
+                            is SettingText -> {
+                                input.text = config.getInternalString(it.toString())
+                            }
                         }
-                        val hbox = HBox(25.0, label, input)
+                        val hbox = HBox(25.0, input)
+                        if(input !is SettingText) hbox.children.add(0, label)
                         hbox.alignment = Pos.CENTER_LEFT
                         list += hbox
                     }

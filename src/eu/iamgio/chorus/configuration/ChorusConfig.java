@@ -27,7 +27,7 @@ public class ChorusConfig {
         }
         properties.load(new FileInputStream(target));
         for(Object key : internalProperties.keySet()) {
-            if(!key.toString().contains("%style") && !properties.keySet().contains(key)) {
+            if(!key.toString().contains("%style") && !key.toString().contains("~") && !properties.keySet().contains(key)) {
                 set(key.toString(), internalProperties.getProperty(key.toString()));
             }
         }
@@ -35,6 +35,10 @@ public class ChorusConfig {
 
     public Set<Object> getKeys() {
         return properties.keySet();
+    }
+
+    public Set<Object> getInternalKeys() {
+        return internalProperties.keySet();
     }
 
     public String getString(String key) {

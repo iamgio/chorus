@@ -31,8 +31,11 @@
     -fx-font-weight: bold;
 }
 
-.setting-label {
+.setting-label, .setting-text {
     -fx-text-fill: -fx-base00;
+}
+
+.setting-label {
     -fx-font-weight: bold;
 }
 
