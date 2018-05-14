@@ -15,6 +15,12 @@ Before Chorus, basic YAML editors have been used; now, with Chorus, you can have
 ![SFTP](https://i.imgur.com/VKvmhNi.png)
    
    
+* **Auto-saving** (with customizable delays);
+   
+   
+* Replace **TABs** with **spaces**;   
+   
+   
 * Showing **previews of chat, title, sign, action bar, boss bar, mob bar**;   
    
 ![Chat preview](https://i.imgur.com/Hnn2J7n.png)   
@@ -67,4 +73,4 @@ Once finished, Chorus will be downloadable [here](https://github.com/iAmGio/chor
 
 ### Donating
 I worked so hard on this project, which you are downloading for free. If you like this software or you just want to support me, I'd enjoy donations.  
-Donating, you'll be added to 'Donators List' inside the program.
+By donating, you'll be added to 'Donators List' inside the program.
