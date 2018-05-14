@@ -10,7 +10,6 @@ import javafx.scene.control.Button
 import javafx.scene.control.IndexRange
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
-import javafx.scene.input.KeyCode
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
@@ -35,11 +34,8 @@ abstract class BaseSearchBar(private val area: EditorArea) : HBox(), Showable {
         textfield = TextField()
         textfield.promptText = "Search"
         textfield.alignment = Pos.CENTER_LEFT
-        textfield.setOnKeyPressed {
-            when(it.code) {
-                KeyCode.ENTER -> search(SearchResults.Type.NEXT)
-                else -> {}
-            }
+        textfield.setOnAction {
+            search(SearchResults.Type.NEXT)
         }
 
         label = Label()

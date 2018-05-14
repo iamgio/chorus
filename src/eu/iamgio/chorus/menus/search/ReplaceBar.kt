@@ -5,7 +5,6 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.IndexRange
 import javafx.scene.control.TextField
-import javafx.scene.input.KeyCode
 
 /**
  * @author Gio
@@ -18,11 +17,8 @@ class ReplaceBar(private val area: EditorArea) : BaseSearchBar(area) {
         textfield.promptText = "Replacing"
         replacement.promptText = "Replacement"
         replacement.alignment = Pos.CENTER_LEFT
-        replacement.setOnKeyPressed {
-            when(it.code) {
-                KeyCode.ENTER -> search(SearchResults.Type.NEXT)
-                else -> {}
-            }
+        replacement.setOnAction {
+            search(SearchResults.Type.NEXT)
         }
         children.add(1, replacement)
     }

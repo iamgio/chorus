@@ -9,7 +9,6 @@ import eu.iamgio.chorus.util.*
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.ComboBox
-import javafx.scene.input.KeyCode
 import javafx.scene.layout.HBox
 
 /**
@@ -33,10 +32,8 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
                     convert(enumClass.valueOf(combobox.selectionModel.selectedItem.toString().toUpperCase()) as T, textfield.text))
             hide()
         }
-        textfield.setOnKeyReleased {
-            if(it.code == KeyCode.ENTER) {
-                button.fire()
-            }
+        textfield.setOnAction {
+            button.fire()
         }
         textfield.textProperty().addListener {_ ->
             button.isDisable = textfield.text.isEmpty()

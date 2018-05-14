@@ -39,7 +39,7 @@ public class InsertMenu extends VBox implements Showable {
         textfield.selectAll();
         getChildren().add(textfield);
 
-        vbox = new BrowsableVBox();
+        vbox = new BrowsableVBox(textfield);
         pane = new FixedScrollPane(vbox);
         vbox.setScrollPane(pane);
         pane.getStyleClass().addAll("hints-scrollpane", "edge-to-edge");
