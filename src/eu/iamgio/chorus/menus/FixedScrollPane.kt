@@ -16,12 +16,15 @@ class FixedScrollPane(content: Node) : ScrollPane(content) {
 
     override fun createDefaultSkin(): Skin<*> {
         val skinClass = SkinFix.getSkinClass("ScrollPaneSkin")
-        val constructor = skinClass.getConstructor(ScrollPane::class.java)
-        val skin = constructor.newInstance(this)
-        val field = skinClass.getDeclaredField("viewRect")
-        field.isAccessible = true
-        val viewRect = field.get(skin) as StackPane
-        viewRect.isCache = false
-        return skin as Skin<*>
+        if(skinClass != null) {
+            val constructor = skinClass.getConstructor(ScrollPane::class.java)
+            val skin = constructor.newInstance(this)
+            val field = skinClass.getDeclaredField("viewRect")
+            field.isAccessible = true
+            val viewRect = field.get(skin) as StackPane
+            viewRect.isCache = false
+            return skin as Skin<*>
+        }
+        return super.createDefaultSkin()
     }
 }

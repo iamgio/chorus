@@ -12,7 +12,10 @@ public final class SkinFix {
 
     public static Class<?> getSkinClass(String name) {
         try {
-            return Class.forName((JAVA_VERSION <= 1.8 ? "com.sun.javafx.scene.control.skin." : "javafx.scene.control.skin.") + name);
+            if(JAVA_VERSION <= 1.8) {
+                return Class.forName("com.sun.javafx.scene.control.skin." + name);
+            }
+            return null;
         } catch(ClassNotFoundException e) {
             return null;
         }

@@ -93,6 +93,7 @@ class SFTPView {
         addressHbox.prefHeight = 75.0
         addressHbox.minHeight = addressHbox.prefHeight
         val scrollpane = ScrollPane(filesBox)
+        scrollpane.prefHeight = scene.height
         filesBox.styleClass += "files-box"
         filesBox.prefWidth = scene.width
         val mainVbox = VBox(addressHbox, scrollpane)
