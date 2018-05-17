@@ -13,7 +13,7 @@ import javafx.scene.text.TextFlow
  */
 class BossBarPreviewImage(text: String) : ColoredTextPreviewImage(
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/bossbar-background.png")),
-        listOf(ChatParser(text).toTextFlow().withStyleClass("minecraft-bossbar-preview-flow")).toFlowList()
+        listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-bossbar-preview-flow")).toFlowList()
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {

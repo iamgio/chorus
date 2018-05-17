@@ -13,7 +13,7 @@ import javafx.scene.text.TextFlow
  */
 class ActionBarPreviewImage(text: String) : ColoredTextPreviewImage(
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/actionbar-background.png")),
-        listOf(ChatParser(text).toTextFlow().withStyleClass("minecraft-actionbar-preview-flow")).toFlowList()
+        listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-actionbar-preview-flow")).toFlowList()
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {

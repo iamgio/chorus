@@ -12,7 +12,7 @@ import javafx.scene.text.TextFlow
  */
 class ChatPreviewImage(text: String) : ColoredTextPreviewImage(
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/chat-background.png")),
-        listOf(ChatParser(text).toTextFlow().withStyleClass("minecraft-chat-preview-flow")).toFlowList()
+        listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-chat-preview-flow")).toFlowList()
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {

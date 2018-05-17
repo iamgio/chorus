@@ -14,10 +14,10 @@ import javafx.scene.text.TextFlow
 class SignPreviewImage(text: String) : ColoredTextPreviewImage(
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/sign-background.png")),
         listOf(
-                ChatParser(text).toTextFlow().withStyleClass("minecraft-sign-preview-flow"),
-                ChatParser("").toTextFlow().withStyleClass("minecraft-sign-preview-flow"),
-                ChatParser("").toTextFlow().withStyleClass("minecraft-sign-preview-flow"),
-                ChatParser("").toTextFlow().withStyleClass("minecraft-sign-preview-flow")
+                ChatParser(text, true).toTextFlow().withStyleClass("minecraft-sign-preview-flow"),
+                TextFlow().withStyleClass("minecraft-sign-preview-flow"),
+                TextFlow().withStyleClass("minecraft-sign-preview-flow"),
+                TextFlow().withStyleClass("minecraft-sign-preview-flow")
         ).toFlowList()
 ) {
 

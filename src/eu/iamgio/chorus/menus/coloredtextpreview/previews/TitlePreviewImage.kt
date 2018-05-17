@@ -14,8 +14,8 @@ import javafx.scene.text.TextFlow
 class TitlePreviewImage(title: String) : ColoredTextPreviewImage(
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/title-background.png")),
         listOf(
-                ChatParser(title).toTextFlow().withStyleClass("minecraft-title-title-preview-flow"),
-                ChatParser("").toTextFlow().withStyleClass("minecraft-title-subtitle-preview-flow")
+                ChatParser(title, true).toTextFlow().withStyleClass("minecraft-title-title-preview-flow"),
+                TextFlow().withStyleClass("minecraft-title-subtitle-preview-flow")
         ).toFlowList()
 ) {
 

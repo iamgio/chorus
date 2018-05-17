@@ -16,7 +16,7 @@ import javafx.scene.text.TextFlow
  */
 class MobBarPreviewImage(text: String) : ColoredTextPreviewImage(
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/mobbar-background.png")),
-        listOf(ChatParser(text).toTextFlow().withStyleClass("minecraft-mobbar-preview-flow")).toFlowList()
+        listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-mobbar-preview-flow")).toFlowList()
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
