@@ -14,7 +14,7 @@ import eu.iamgio.chorus.minecraft.particle.ParticleIconLoader;
 import eu.iamgio.chorus.settings.SettingsBuilder;
 import eu.iamgio.chorus.theme.Theme;
 import eu.iamgio.chorus.theme.Themes;
-import eu.iamgio.chorus.util.UtilsClass;
+import eu.iamgio.chorus.util.Utils;
 import eu.iamgio.libfx.application.FXApplication;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -75,7 +75,7 @@ public class Chorus extends FXApplication {
         }
 
         getStage().toStage().setOnCloseRequest(e -> {
-            UtilsClass.closeTabs();
+            Utils.closeTabs();
             System.exit(0);
         });
 

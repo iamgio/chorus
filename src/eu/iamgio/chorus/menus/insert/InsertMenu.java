@@ -4,7 +4,7 @@ import eu.iamgio.chorus.Chorus;
 import eu.iamgio.chorus.menus.*;
 import eu.iamgio.chorus.minecraft.Iconable;
 import eu.iamgio.chorus.nodes.Tab;
-import eu.iamgio.chorus.util.UtilsClass;
+import eu.iamgio.chorus.util.Utils;
 import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -80,7 +80,7 @@ public class InsertMenu extends VBox implements Showable {
         MenuPlacer placer = new MenuPlacer(this);
         setLayoutX(placer.getX());
         setLayoutY(placer.getY());
-        UtilsClass.hideMenuOnInteract(this);
+        Utils.hideMenuOnInteract(this);
         AnchorPane root = Chorus.getInstance().root;
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);

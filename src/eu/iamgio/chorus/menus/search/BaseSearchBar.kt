@@ -4,7 +4,8 @@ import eu.iamgio.chorus.editor.EditorArea
 import eu.iamgio.chorus.editor.EditorController
 import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.menus.TabBrowsable
-import eu.iamgio.chorus.util.UtilsClass
+import eu.iamgio.chorus.util.InteractFilter
+import eu.iamgio.chorus.util.hideMenuOnInteract
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.IndexRange
@@ -69,10 +70,10 @@ abstract class BaseSearchBar(private val area: EditorArea) : HBox(), Showable {
         val filtered = root.children.filterIsInstance<BaseSearchBar>()
         if(!root.children.contains(this) && filtered.isEmpty()) {
             root.children += this
-            UtilsClass.hideMenuOnInteract(this,
-                    UtilsClass.Companion.InteractFilter.TABPANE,
-                    UtilsClass.Companion.InteractFilter.TABOPEN,
-                    UtilsClass.Companion.InteractFilter.ESC)
+            hideMenuOnInteract(this,
+                    InteractFilter.TABPANE,
+                    InteractFilter.TABOPEN,
+                    InteractFilter.ESC)
             textfield.requestFocus()
             textfield.selectAll()
 

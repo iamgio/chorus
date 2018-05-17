@@ -6,7 +6,7 @@ import eu.iamgio.chorus.menus.Showable;
 import eu.iamgio.chorus.menus.Showables;
 import eu.iamgio.chorus.menus.BrowsableVBox;
 import eu.iamgio.chorus.nodes.Tab;
-import eu.iamgio.chorus.util.UtilsClass;
+import eu.iamgio.chorus.util.Utils;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
 
@@ -44,7 +44,7 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
         }
-        UtilsClass.hideMenuOnInteract(this);
+        Utils.hideMenuOnInteract(this);
         Showables.SHOWING = this;
     }
 

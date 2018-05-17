@@ -3,7 +3,7 @@ package eu.iamgio.chorus.infobox
 import eu.iamgio.chorus.Chorus
 import eu.iamgio.chorus.menus.MenuPlacer
 import eu.iamgio.chorus.menus.Showable
-import eu.iamgio.chorus.util.UtilsClass
+import eu.iamgio.chorus.util.hideMenuOnInteract
 import javafx.application.Platform
 import javafx.scene.layout.VBox
 
@@ -23,7 +23,7 @@ open class InformationBox() : VBox(), Showable {
         prefWidth = 300.0
         styleClass += "information-box"
         @Suppress("LEAKINGTHIS")
-        UtilsClass.hideMenuOnInteract(this)
+        hideMenuOnInteract(this)
     }
 
     override fun show() {

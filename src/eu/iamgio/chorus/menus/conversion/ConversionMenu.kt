@@ -54,7 +54,7 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         if(!root.children.contains(this)) {
             root.children += this
         }
-        UtilsClass.hideMenuOnInteract(this)
+        hideMenuOnInteract(this)
         textfield.requestFocus()
         textfield.positionCaret(textfield.text.length)
         textfield.selectAll()

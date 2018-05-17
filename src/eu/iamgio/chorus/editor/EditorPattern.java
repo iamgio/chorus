@@ -9,7 +9,7 @@ import eu.iamgio.chorus.minecraft.sound.Sound;
 
 import java.util.regex.Pattern;
 
-import static eu.iamgio.chorus.util.UtilsClass.joinEnum;
+import static eu.iamgio.chorus.util.Utils.joinEnum;
 
 /**
  * @author Gio

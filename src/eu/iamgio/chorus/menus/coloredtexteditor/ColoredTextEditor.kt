@@ -5,7 +5,7 @@ import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.menus.Showables
 import eu.iamgio.chorus.menus.coloredtexteditor.controlbar.ColoredTextControlBar
 import eu.iamgio.chorus.minecraft.chat.ChatParser
-import eu.iamgio.chorus.util.UtilsClass
+import eu.iamgio.chorus.util.hideMenuOnInteract
 import javafx.scene.control.ScrollPane
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.VBox
@@ -49,7 +49,7 @@ class ColoredTextEditor : VBox(), Showable {
         if(!root.children.contains(this)) {
             root.children += this
         }
-        UtilsClass.hideMenuOnInteract(this)
+        hideMenuOnInteract(this)
         Showables.SHOWING = null
         area.requestFocus()
         area.moveTo(area.text.length)

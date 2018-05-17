@@ -6,7 +6,8 @@ import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.menus.Showables
 import eu.iamgio.chorus.menus.TabBrowsable
 import eu.iamgio.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
-import eu.iamgio.chorus.util.UtilsClass
+import eu.iamgio.chorus.util.InteractFilter
+import eu.iamgio.chorus.util.hideMenuOnInteract
 import javafx.scene.control.TextInputControl
 import javafx.scene.layout.VBox
 
@@ -39,7 +40,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         if(!root.children.contains(this)) {
             root.children.add(this)
         }
-        UtilsClass.hideMenuOnInteract(this, UtilsClass.Companion.InteractFilter.AREA, UtilsClass.Companion.InteractFilter.MENUS, UtilsClass.Companion.InteractFilter.ESC, UtilsClass.Companion.InteractFilter.TABPANE)
+        hideMenuOnInteract(this, InteractFilter.AREA, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
         Showables.SHOWING = this
         with(inputs[0]) {
             requestFocus()
