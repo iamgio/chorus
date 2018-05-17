@@ -20,9 +20,11 @@ class OpenFromSFTP : MenuBarAction {
         var connection: RemoteConnection? = null
         view.onConfirm { ip, username, password ->
             if(connection != null && connection!!.isValid) {
+                view.title = "Disconnecting..."
                 connection!!.channel!!.disconnect()
                 connection!!.session.disconnect()
             }
+            view.title = "Connecting..."
             connection = RemoteConnection(ip, username, password)
             val button = view.connectButton
             if(connection!!.isValid) {
