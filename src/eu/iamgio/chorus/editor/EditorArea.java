@@ -62,6 +62,8 @@ public class EditorArea extends CodeArea {
             }
         });
         setMouseOverTextDelay(Duration.ofMillis(750));
+
+        requestFollowCaret();
     }
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
