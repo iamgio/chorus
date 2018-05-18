@@ -132,24 +132,16 @@
     -fx-text-fill: derive(-fx-base3, -20%);
 }
 
-.drop-menu > .drop-menu-button:hover {
+.drop-menu > .drop-menu-button:bvhover {
     -fx-background-color: derive(-fx-base00, -20%);
-}
-
-.drop-menu > .drop-menu-button_keyhover {
-    -fx-background-color: derive(-fx-base00, -14%);
 }
 
 .hint, .insert-menu {
     -fx-background-color: derive(-fx-base00, -15%);
 }
 
-.hint:hover {
+.hint:bvhover {
     -fx-background-color: derive(-fx-base00, -30.5%);
-}
-
-.hint_keyhover {
-    -fx-background-color: derive(-fx-base00, -25%);
 }
 
 .insert-menu > .text-field {

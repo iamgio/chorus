@@ -134,24 +134,16 @@
     -fx-text-fill: #767676;
 }
 
-.drop-menu > .drop-menu-button:hover {
+.drop-menu > .drop-menu-button:bvhover {
     -fx-background-color: #2d3139;
-}
-
-.drop-menu > .drop-menu-button_keyhover {
-    -fx-background-color: #2e323a;
 }
 
 .hint, .insert-menu {
     -fx-background-color: #2b2e36;
 }
 
-.hint:hover {
+.hint:bvhover {
     -fx-background-color: #363943;
-}
-
-.hint_keyhover {
-    -fx-background-color: #383b45;
 }
 
 .insert-menu > .text-field {

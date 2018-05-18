@@ -144,12 +144,8 @@
     -fx-text-fill: #b0b0b0;
 }
 
-.drop-menu > .drop-menu-button:hover {
+.drop-menu > .drop-menu-button:bvhover {
     -fx-background-color: derive(-fx-secondary, -15%);
-}
-
-.drop-menu > .drop-menu-button_keyhover {
-    -fx-background-color: derive(-fx-secondary, -9%);
 }
 
 .hint, .insert-menu {
@@ -164,12 +160,8 @@
     -fx-background-color: derive(-fx-tertiary, 1.5%);
 }
 
-.hint:hover {
+.hint:bvhover {
     -fx-background-color: -fx-tertiary;
-}
-
-.hint_keyhover {
-    -fx-background-color: derive(-fx-tertiary, -5%);
 }
 
 .insert-menu > .text-field {

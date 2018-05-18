@@ -136,24 +136,16 @@
     -fx-text-fill: #b0b0b0;
 }
 
-.drop-menu > .drop-menu-button:hover {
+.drop-menu > .drop-menu-button:bvhover {
     -fx-background-color: derive(-fx-secondary, -15%);
-}
-
-.drop-menu > .drop-menu-button_keyhover {
-    -fx-background-color: derive(-fx-secondary, -9%);
 }
 
 .hint, .insert-menu {
     -fx-background-color: derive(-fx-primary, -15%);
 }
 
-.hint:hover {
+.hint:bvhover {
     -fx-background-color: derive(-fx-primary, -22.5%);
-}
-
-.hint_keyhover {
-    -fx-background-color: derive(-fx-primary, -20%);
 }
 
 .insert-menu > .text-field {
