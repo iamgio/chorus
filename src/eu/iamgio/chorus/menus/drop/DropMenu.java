@@ -56,7 +56,7 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
 
     @Override
     public double getMenuWidth() {
-        return 200;
+        return 250;
     }
 
     @Override

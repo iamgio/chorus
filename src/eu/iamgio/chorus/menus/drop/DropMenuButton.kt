@@ -17,7 +17,7 @@ class DropMenuButton(text: String, private val parent: String?) : Button(text) {
 
     init {
         styleClass += "drop-menu-button"
-        prefWidth = 200.0
+        prefWidth = 250.0
         prefHeight = 25.0
         alignment = Pos.CENTER_LEFT
         textAlignment = TextAlignment.LEFT
