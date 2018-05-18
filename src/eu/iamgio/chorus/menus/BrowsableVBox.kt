@@ -35,12 +35,12 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
                 children.forEach {node ->
                     node.setOnMouseMoved {
                         children.forEach {
-                            setHover(it, false)
+                            it.setBVHover(false)
                         }
-                        setHover(node)
+                        node.setBVHover()
                     }
                     node.setOnMouseExited {
-                        setHover(node, false)
+                        node.setBVHover(false)
                     }
                 }
             }
@@ -55,7 +55,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
                     val node: Node = if(children.size == 1) {
                         children[0]
                     } else {
-                        children.filtered {isHover(it)}.firstOrNull() ?: return@setOnKeyReleased
+                        children.filtered {it.isBVHover()}.firstOrNull() ?: return@setOnKeyReleased
                     }
                     if(node is Button) {
                         node.fire()
@@ -69,18 +69,18 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
 
     private fun browse(event: KeyEvent, showing: VBox) {
         if(event.code == KeyCode.UP || event.code == KeyCode.DOWN) {
-            val selected: Node? = showing.children.filtered {isHover(it)}.firstOrNull() ?: last
+            val selected: Node? = showing.children.filtered {it.isBVHover()}.firstOrNull() ?: last
             var index: Int
             if(selected == null) {
                 index = if(event.code == KeyCode.UP) lastIndex else 0
-                setHover(index)
+                setBVHover(index)
             } else {
                 index = children.indexOf(selected)
-                setHover(index, false)
+                setBVHover(index, false)
                 index = if(event.code == KeyCode.UP)
                     if(index == 0) lastIndex else index - 1 else if(index == lastIndex) 0 else index + 1
-                children.forEach {setHover(it, false)}
-                setHover(index)
+                children.forEach {it.setBVHover(false)}
+                setBVHover(index)
             }
             if(scrollPane != null) {
                 scrollPane!!.vvalue = index / (children.size.toDouble() - 1)
@@ -91,13 +91,12 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
     private val lastIndex
         get() = children.size - 1
 
-    private fun isHover(node: Node): Boolean =
-            node.pseudoClassStates.map {it.pseudoClassName}.contains(HOVER_STYLE_CLASS)
+    private fun Node.isBVHover(): Boolean = pseudoClassStates.map {it.pseudoClassName}.contains(HOVER_STYLE_CLASS)
 
-    private fun setHover(node: Node, state: Boolean = true) {
-        node.pseudoClassStateChanged(PseudoClass.getPseudoClass(HOVER_STYLE_CLASS), state)
-        last = node
+    private fun Node.setBVHover(state: Boolean = true) {
+        pseudoClassStateChanged(PseudoClass.getPseudoClass(HOVER_STYLE_CLASS), state)
+        last = this
     }
 
-    private fun setHover(i: Int, state: Boolean = true) = setHover(children[i], state)
+    private fun setBVHover(i: Int, state: Boolean = true) = children[i].setBVHover(state)
 }
