@@ -11,7 +11,7 @@ import javafx.scene.image.Image
 /**
  * @author Gio
  */
-class ItemInformationBox(val image: Image, private val item: Item) : InformationBox(InformationHead(image)) {
+class ItemInformationBox(val image: Image?, private val item: Item) : InformationBox(InformationHead(image)) {
 
     init {
         val area = area!!

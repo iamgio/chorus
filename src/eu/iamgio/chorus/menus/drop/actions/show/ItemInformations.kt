@@ -27,8 +27,8 @@ class ItemInformations : DropMenuAction() {
                 selected.replace(":", "_") else selected + "_0"
             item = IdAble.byId(Item::class.java, selected.split(":")[0].toShort()) as Item
         }
-        val image = Image(Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$path.png"))
-        val box = ItemInformationBox(image, item)
+        val input = Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$path.png")
+        val box = ItemInformationBox(if(input == null) null else Image(input), item)
         box.layoutX = source!!.layoutX
         box.layoutY = source!!.layoutY
         box.show()
