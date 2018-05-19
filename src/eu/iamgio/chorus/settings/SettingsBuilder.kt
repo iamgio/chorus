@@ -54,12 +54,12 @@ class SettingsBuilder private constructor() {
                                 if(inputSettingString.contains(" ")) {
                                     input.regex = Regex(inputSettingString.replace("TEXTFIELD ", ""))
                                 }
-                                input.text = config.getString(it.toString())
+                                input.text = config[it.toString()]
                                 input.textProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingTextArea -> {
                                 input.prefWidth = 400.0
-                                input.text = config.getString(it.toString()).replace("\\n", "\n")
+                                input.text = config[it.toString()].replace("\\n", "\n")
                                 input.textProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
                             is SettingComboBox -> {
@@ -68,7 +68,7 @@ class SettingsBuilder private constructor() {
                                     input.value = Themes.byConfig().name.toLowerCase().capitalize()
                                 } else {
                                     input.items = stringToList(inputSettingString).toObservableList()
-                                    input.value = config.getString(it.toString()).toLowerCase().capitalize()
+                                    input.value = config[it.toString()].toLowerCase().capitalize()
                                 }
                                 input.selectionModel.selectedItemProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }

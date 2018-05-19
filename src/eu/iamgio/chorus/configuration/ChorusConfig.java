@@ -41,7 +41,7 @@ public class ChorusConfig {
         return internalProperties.keySet();
     }
 
-    public String getString(String key) {
+    public String get(String key) {
         return properties.getProperty(key);
     }
 
@@ -50,11 +50,11 @@ public class ChorusConfig {
     }
 
     public int getInt(String key) {
-        return Integer.parseInt(getString(key));
+        return Integer.parseInt(get(key));
     }
 
     public boolean getBoolean(String key) {
-        return Boolean.parseBoolean(getString(key));
+        return Boolean.parseBoolean(get(key));
     }
 
     /*public <T extends Enum<T>> T getEnum(Class<T> enumClass, String key) {

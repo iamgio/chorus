@@ -22,7 +22,7 @@ class ColoredChatTextHoverListener : TabOpenerListener {
                 var s = charToWord(e.characterIndex, "string")
                         .substring(1)
                 s = s.substring(0, s.length - 1)
-                val prefix = config.getString("4.Minecraft.1.Color_prefix")
+                val prefix = config["4.Minecraft.1.Color_prefix"]
                 if(s.contains(prefix) || config.getBoolean("4.Minecraft.2.Force_string_preview")) {
                     popup!!.flow = ChatParser(s, true).toTextFlow()
                     popup!!.show(area, position.x, position.y + 10)

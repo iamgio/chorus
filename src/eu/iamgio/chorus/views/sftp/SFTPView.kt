@@ -45,7 +45,7 @@ class SFTPView {
     }
 
     init {
-        config.getString("5.SFTP.1.Servers").split("\\n").forEach {
+        config["5.SFTP.1.Servers"].split("\\n").forEach {
             with(it.split("|")) {
                 if(size == 2) {
                     ips += this[0] to this[1]

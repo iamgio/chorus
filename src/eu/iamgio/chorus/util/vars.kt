@@ -8,7 +8,7 @@ import javafx.scene.control.Tab
 import javafx.scene.image.Image
 
 val colorPrefix: String
-    get() = config.getString("4.Minecraft.1.Color_prefix")
+    get() = config["4.Minecraft.1.Color_prefix"]
 
 val tabs = HashMap<String, Tab>()
 val itemIcons = HashMap<Short, List<Image>>()

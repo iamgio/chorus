@@ -33,8 +33,8 @@ class VariablesControlBar(menu: VariablesMenu) : HBox(20.0) {
 
         add.setOnAction {
             menu.table.items.add(Variable(
-                    config.getString("4.Minecraft.3.Default_variable_name"),
-                    config.getString("4.Minecraft.4.Default_variable_value")
+                    config["4.Minecraft.3.Default_variable_name"],
+                    config["4.Minecraft.4.Default_variable_value"]
             ))
         }
 

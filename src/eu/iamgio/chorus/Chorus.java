@@ -79,7 +79,7 @@ public class Chorus extends FXApplication {
             System.exit(0);
         });
 
-        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.getString("1.Appearance.1.Theme"))));
+        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
 
         registerEvents();
 
