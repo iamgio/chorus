@@ -23,6 +23,10 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
 
     private var last: Node? = null
 
+    var hasSelectedNode = false
+
+    var onSelectUpdate: Runnable = Runnable {}
+
     init {
         textfield?.setOnKeyPressed {
             val showing = Showables.SHOWING
@@ -38,9 +42,11 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
                             it.setBVHover(false)
                         }
                         node.setBVHover()
+                        onSelectUpdate.run()
                     }
                     node.setOnMouseExited {
                         node.setBVHover(false)
+                        onSelectUpdate.run()
                     }
                 }
             }
@@ -55,7 +61,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
                     val node: Node = if(children.size == 1) {
                         children[0]
                     } else {
-                        children.filtered {it.isBVHover()}.firstOrNull() ?: return@setOnKeyReleased
+                        children.firstOrNull {it.isBVHover()} ?: return@setOnKeyReleased
                     }
                     if(node is Button) {
                         node.fire()
@@ -82,6 +88,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
                 children.forEach {it.setBVHover(false)}
                 setBVHover(index)
             }
+            onSelectUpdate.run()
             if(scrollPane != null) {
                 scrollPane!!.vvalue = index / (children.size.toDouble() - 1)
             }
@@ -94,11 +101,14 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
     private fun Node.isBVHover(): Boolean = pseudoClassStates.map {it.pseudoClassName}.contains(HOVER_STYLE_CLASS)
 
     private fun Node.setBVHover(state: Boolean = true) {
+        hasSelectedNode = state
         pseudoClassStateChanged(PseudoClass.getPseudoClass(HOVER_STYLE_CLASS), state)
         last = this
     }
 
     private fun setBVHover(i: Int, state: Boolean = true) {
-        if(i >= 0) children[i].setBVHover(state)
+        if(i >= 0) {
+            children[i].setBVHover(state)
+        }
     }
 }

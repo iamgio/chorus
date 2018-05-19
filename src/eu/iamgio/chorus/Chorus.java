@@ -81,6 +81,8 @@ public class Chorus extends FXApplication {
 
         SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.getString("1.Appearance.1.Theme"))));
 
+        registerEvents();
+
         loadFont("NotoSans-Regular.ttf"); // Google's Noto Sans
         loadFont("NotoSans-Bold.ttf");    // https://fonts.google.com/specimen/Noto+Sans
         loadFont("Minecraft.otf");
@@ -94,9 +96,13 @@ public class Chorus extends FXApplication {
         if(args.length > 0) {
             passedFile = new File(args[0]);
         }
+        launch(args);
+    }
 
+    private void registerEvents() {
         Events.getEvents().addAll(Arrays.asList(
                 new AutoSavingListener(),
+                new AutocompletionListener(),
                 new TabListener(),
                 new AutoTabListener(),
                 new BracketListener(),
@@ -111,7 +117,6 @@ public class Chorus extends FXApplication {
                 new ColoredChatTextHoverListener(),
                 new RightClickListener()
         ));
-        launch(args);
     }
 
     private void setTheme(Theme theme) {

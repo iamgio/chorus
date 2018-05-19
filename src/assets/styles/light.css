@@ -125,19 +125,19 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 20, 0, 0, 5);
 }
 
-.drop-menu > .drop-menu-button {
+.drop-menu .drop-menu-button {
     -fx-background-color: -fx-secondary;
     -fx-border-color: derive(-fx-secondary, -7.5%);
     -fx-border-width: 1;
     -fx-text-fill: white;
 }
 
-.drop-menu > .drop-menu-button:disabled {
+.drop-menu .drop-menu-button:disabled {
     -fx-opacity: 1;
     -fx-text-fill: #b0b0b0;
 }
 
-.drop-menu > .drop-menu-button:bvhover {
+.drop-menu .drop-menu-button:bvhover {
     -fx-background-color: derive(-fx-secondary, -15%);
 }
 

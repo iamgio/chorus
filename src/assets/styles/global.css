@@ -38,11 +38,11 @@
     -fx-pref-width: 10;
 }
 
-.drop-menu > .drop-menu-button:disabled {
+.drop-menu .drop-menu-button:disabled {
     -fx-opacity: .8;
 }
 
-.drop-menu > .drop-menu-button:disabled > .label {
+.drop-menu .drop-menu-button:disabled > .label {
     -fx-opacity: .5;
 }
 
