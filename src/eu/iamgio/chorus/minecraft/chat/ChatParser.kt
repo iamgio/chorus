@@ -13,7 +13,9 @@ import org.fxmisc.richtext.CodeArea
 /**
  * @author Gio
  */
-class ChatParser(private val string: String, private val useVariables: Boolean = false) {
+class ChatParser(string: String, private val useVariables: Boolean = false) {
+
+    private val string = string.replace("''", "'")
 
     private val prefix = colorPrefix
 
@@ -135,7 +137,7 @@ class ChatParser(private val string: String, private val useVariables: Boolean =
     fun parseToString(area: CodeArea): String {
         var string = ""
         var actualStyles = emptyList<String>()
-        area.text.replace("\n", "").forEachIndexed {index, char ->
+        area.text.replace("\n", "").replace("'", "''").forEachIndexed {index, char ->
             val style = area.getStyleOfChar(index).reversed()
             if(actualStyles != style) {
                 actualStyles = style
