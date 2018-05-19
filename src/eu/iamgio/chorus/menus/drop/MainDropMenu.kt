@@ -10,11 +10,15 @@ import eu.iamgio.chorus.util.area
 class MainDropMenu : DropMenu() {
 
     override fun getButtons(): MutableList<DropMenuButton> {
-        return arrayListOf(
+        val buttons = arrayListOf(
                 DropMenuButton("Insert..."),
                 DropMenuButton("Show..."),
                 DropMenuButton("Text previews...")
         )
+        if(area!!.selection.length > 0) {
+            buttons += DropMenuButton("Add as variable")
+        }
+        return buttons
     }
 
     companion object {

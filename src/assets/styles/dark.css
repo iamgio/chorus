@@ -8,6 +8,7 @@
 
 .text-field {
     -fx-highlight-fill: #4b5660;
+    -fx-text-fill: white;
 }
 
 .menu-bar, .sftp-address-box {
@@ -66,7 +67,7 @@
     -fx-opacity: .75;
 }
 
-.area, .colored-text-editor {
+.area, .colored-text-editor, .quick-variables-menu .text-field, .quick-variables-menu .button {
     -fx-background-color: -fx-menu-color;
 }
 
@@ -118,7 +119,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 15, 0, 0, 7);
 }
 
-.drop-menu, .insert-menu, .conversion-menu {
+.drop-menu, .insert-menu, .conversion-menu, .quick-variables-menu {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 20, 0, 0, 5);
 }
 
@@ -298,7 +299,7 @@
     -fx-background-color: rgba(58, 138, 142, .6);
 }
 
-.variables-menu {
+.variables-menu, .quick-variables-menu {
     -fx-background-color: #272b32;
 }
 
@@ -367,6 +368,10 @@
     -fx-text-fill: white;
     -fx-font-size: 17.5;
     -fx-highlight-fill: rgba(255, 255, 255, .2);
+}
+
+.quick-variables-menu .button {
+    -fx-text-fill: white;
 }
 
 .help-title {

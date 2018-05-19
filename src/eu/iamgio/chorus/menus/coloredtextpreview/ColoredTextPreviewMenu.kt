@@ -50,7 +50,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
     }
 
     override fun hide() {
-        Chorus.getInstance().root.children.remove(this)
+        Chorus.getInstance().root.children -= this
         Showables.SHOWING = null
     }
 

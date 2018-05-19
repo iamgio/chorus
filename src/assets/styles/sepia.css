@@ -128,7 +128,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 15, 0, 0, 7);
 }
 
-.drop-menu, .insert-menu, .conversion-menu {
+.drop-menu, .insert-menu, .conversion-menu, .quick-variables-menu {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 20, 0, 0, 5);
 }
 
@@ -383,6 +383,21 @@
     -fx-text-fill: black;
     -fx-font-size: 17.5;
     -fx-highlight-fill: rgba(255, 255, 255, .2);
+}
+
+.quick-variables-menu {
+    -fx-background-color: derive(-fx-secondary, 8%);
+}
+
+.quick-variables-menu .text-field {
+    -fx-text-fill: white;
+    -fx-background-color: derive(-fx-secondary, 21%);
+    -fx-highlight-fill: -fx-secondary;
+}
+
+.quick-variables-menu .button {
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: white;
 }
 
 .help-pane {
