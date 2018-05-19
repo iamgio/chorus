@@ -18,7 +18,12 @@ Before Chorus, basic YAML editors have been used; now, with Chorus, you can have
 * **Auto-saving** (with customizable delays);
    
    
-* Replace **TABs** with **spaces**;   
+* Replacing **TABs** with **spaces**;
+   
+   
+* Using **autocompletion** to insert elements quicker;
+   
+![Autocompletion](https://i.imgur.com/oSIsIRW.png)
    
    
 * Showing **previews of chat, title, sign, action bar, boss bar, mob bar**;   
