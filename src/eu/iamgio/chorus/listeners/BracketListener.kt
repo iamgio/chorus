@@ -5,5 +5,4 @@ import eu.iamgio.chorus.editor.events.Openable
 /**
  * @author Gio
  */
-class BracketListener : Openable('[', ']') {
-}
+class BracketListener : Openable('[', ']', true)

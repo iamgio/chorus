@@ -5,5 +5,4 @@ import eu.iamgio.chorus.editor.events.Openable
 /**
  * @author Gio
  */
-class QuoteListener : Openable('\'', '\'') {
-}
+class QuoteListener : Openable('\'', '\'')

@@ -5,5 +5,4 @@ import eu.iamgio.chorus.editor.events.Openable
 /**
  * @author Gio
  */
-class BraceListener : Openable('{', '}') {
-}
+class BraceListener : Openable('{', '}', true)

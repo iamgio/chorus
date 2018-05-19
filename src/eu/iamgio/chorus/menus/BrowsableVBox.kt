@@ -98,5 +98,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
         last = this
     }
 
-    private fun setBVHover(i: Int, state: Boolean = true) = children[i].setBVHover(state)
+    private fun setBVHover(i: Int, state: Boolean = true) {
+        if(i >= 0) children[i].setBVHover(state)
+    }
 }
