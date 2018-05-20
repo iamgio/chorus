@@ -50,9 +50,9 @@ public class EditorArea extends CodeArea {
         SettingsBuilder.addAction(fontSizeSetting, () -> setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting)));
 
         if(!getText().isEmpty() && highlight) Platform.runLater(() -> setStyleSpans(0, computeHighlighting(getText())));
-        richChanges().filter(change -> !getText().isEmpty() && !change.getInserted().equals(change.getRemoved()))
+        richChanges().filter(change -> !change.getInserted().equals(change.getRemoved()))
                 .subscribe(change -> {
-                    if(highlight) setStyleSpans(0, computeHighlighting(getText()));
+                    if(highlight && !getText().isEmpty()) setStyleSpans(0, computeHighlighting(getText()));
                     Events.getEvents().forEach(e -> e.onChange(change, this));
                 });
 
