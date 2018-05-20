@@ -3,6 +3,7 @@ package eu.iamgio.chorus.editor;
 import eu.iamgio.chorus.Chorus;
 import eu.iamgio.chorus.editor.events.Events;
 import eu.iamgio.chorus.file.FileMethod;
+import eu.iamgio.chorus.menus.autocompletion.AutocompletionMenu;
 import eu.iamgio.chorus.menus.drop.MainDropMenu;
 import eu.iamgio.chorus.nodes.Tab;
 import eu.iamgio.chorus.notification.Notification;
@@ -61,6 +62,13 @@ public class EditorArea extends CodeArea {
                 MainDropMenu.quickOpen();
             }
         });
+
+        caretPositionProperty().addListener((o, oldV, newV) -> {
+            if(newV < oldV) {
+                AutocompletionMenu.getActual().forEach(AutocompletionMenu::hide);
+            }
+        });
+
         setMouseOverTextDelay(Duration.ofMillis(750));
 
         requestFollowCaret();

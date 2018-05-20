@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox
 /**
  * @author Gio
  */
-class AutocompletionMenu(options: Array<String>, total: Int, word: String, listener: AutocompletionListener) : VBox(), Showable {
+class AutocompletionMenu(options: Array<String>, total: Int, word: String, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
 
     private val vbox = BrowsableVBox()
 
@@ -28,7 +28,7 @@ class AutocompletionMenu(options: Array<String>, total: Int, word: String, liste
                     if(option != "true" && option != "false") option.makeFormal() else option)
             button.setOnAction {
                 listener.b = true
-                area.replaceText(area.caretPosition - word.length, area.caretPosition, option)
+                area.replaceText(pos - word.length + 1, pos + 1, option)
                 hide()
                 listener.b = false
             }
@@ -79,6 +79,6 @@ class AutocompletionMenu(options: Array<String>, total: Int, word: String, liste
     override fun getMenuY(): Double = layoutY
 
     companion object {
-        val actual get() = Chorus.getInstance().root.children.filterIsInstance<AutocompletionMenu>()
+        @JvmStatic val actual get() = Chorus.getInstance().root.children.filterIsInstance<AutocompletionMenu>()
     }
 }

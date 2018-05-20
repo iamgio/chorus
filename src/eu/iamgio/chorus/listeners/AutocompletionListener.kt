@@ -46,7 +46,9 @@ class AutocompletionListener : EditorEvent() {
                     var options = options.filter {it.toLowerCase().contains(word.toLowerCase())}
                     val originalSize = options.size
                     if(options.size > size) options = options.subList(0, size)
-                    val menu = AutocompletionMenu(options.toTypedArray(), originalSize, word, this)
+                    val menu = AutocompletionMenu(
+                            options.toTypedArray(), originalSize, word, area.caretPosition, this
+                    )
                     actual.forEach {it.hide()}
                     if(menu.children.size > 0) {
                         val bounds = area.screenToLocal(area.caretBounds.get())
