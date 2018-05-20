@@ -11,6 +11,7 @@ class ColoredTextDropMenu : DropMenu() {
             DropMenuButton("Sign preview", "colored"),
             DropMenuButton("Action bar preview", "colored"),
             DropMenuButton("Boss bar preview", "colored"),
-            DropMenuButton("Mob bar preview", "colored")
+            DropMenuButton("Mob bar preview", "colored"),
+            DropMenuButton("MOTD Preview", "colored")
     )
 }

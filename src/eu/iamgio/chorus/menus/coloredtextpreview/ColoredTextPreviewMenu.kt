@@ -18,6 +18,8 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
 
     private val textfieldsVbox: VBox
 
+    var toFocus = 0
+
     init {
         styleClass += "colored-text-preview-menu"
         maxWidth = image.image.width
@@ -42,7 +44,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         }
         hideMenuOnInteract(this, InteractFilter.AREA, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
         Showables.SHOWING = this
-        with(inputs[0]) {
+        with(inputs[toFocus]) {
             requestFocus()
             positionCaret(text.length)
         }

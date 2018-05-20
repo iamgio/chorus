@@ -129,3 +129,8 @@
     -fx-font-family: "Minecraft";
     -fx-font-size: 19;
 }
+
+.minecraft-motd-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 12.5;
+}
