@@ -26,7 +26,7 @@ Before Chorus, basic YAML editors have been used; now, with Chorus, you can have
 ![Autocompletion](https://i.imgur.com/oSIsIRW.png)
    
    
-* Showing **previews of chat, title, sign, action bar, boss bar, mob bar**;   
+* Showing **previews of chat, title, sign, action bar, boss bar, mob bar, MOTD**;   
    
 ![Chat preview](https://i.imgur.com/Hnn2J7n.png)   
    
