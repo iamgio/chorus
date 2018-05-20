@@ -27,14 +27,14 @@ class Updater {
 
     val latestVersion: String
         get() {
-            val parsed = parsed ?: parser.parse()
-            return parsed["tag_name"].toString()
+            parsed = parsed ?: parser.parse()
+            return parsed!!["tag_name"].toString()
         }
 
     fun downloadLatest(type: Int): Pair<Status, File?> {
         val folder = ChorusFolder.RELATIVE
-        val parsed = parsed ?: parser.parse()
-        val fileStr = ((parsed["assets"] as JSONArray)[type] as JSONObject)["browser_download_url"].toString()
+        parsed = parsed ?: parser.parse()
+        val fileStr = ((parsed!!["assets"] as JSONArray)[type] as JSONObject)["browser_download_url"].toString()
         val file = File(folder, fileStr.split("/").last())
         if(file.exists()) return Status.ALREADY_EXISTS to file
         return try {

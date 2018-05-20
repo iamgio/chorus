@@ -3,7 +3,9 @@ package eu.iamgio.chorus.menubar.help
 import eu.iamgio.chorus.menubar.MenuBarAction
 import eu.iamgio.chorus.updater.Updater
 import eu.iamgio.chorus.views.UpdaterView
+import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.application.Platform
+import javafx.util.Duration
 
 /**
  * @author Gio
@@ -23,10 +25,12 @@ class CheckForUpdates : MenuBarAction {
                     yes.setOnAction {
                         val pair = view.setExeOrJar()
                         pair.first.setOnAction {
-                            download(0, updater, view, version)
+                            view.setDownloading(version)
+                            WaitingTimer().start({download(0, updater, view)}, Duration(100.0))
                         }
                         pair.second.setOnAction {
-                            download(1, updater, view, version)
+                            view.setDownloading(version)
+                            WaitingTimer().start({download(1, updater, view)}, Duration(100.0))
                         }
                     }
                 } else {
@@ -38,16 +42,13 @@ class CheckForUpdates : MenuBarAction {
         }
     }
 
-    private fun download(type: Int, updater: Updater, view: UpdaterView, version: String) {
-        view.setDownloading(version)
+    private fun download(type: Int, updater: Updater, view: UpdaterView) {
         Platform.runLater {
-            Platform.runLater {
-                with(updater.downloadLatest(type)) {
-                    when(first) {
-                        Updater.Status.SUCCESS -> view.setSuccess(second!!)
-                        Updater.Status.FAIL -> view.setFail()
-                        Updater.Status.ALREADY_EXISTS -> view.setAlreadyExists(second!!)
-                    }
+            with(updater.downloadLatest(type)) {
+                when(first) {
+                    Updater.Status.SUCCESS -> view.setSuccess(second!!)
+                    Updater.Status.FAIL -> view.setFail()
+                    Updater.Status.ALREADY_EXISTS -> view.setAlreadyExists(second!!)
                 }
             }
         }
