@@ -16,8 +16,15 @@ import javafx.stage.Stage
  */
 class Settings : MenuBarAction {
 
+    companion object {
+        private val stage = Stage()
+    }
+
     override fun onAction() {
-        val stage = Stage()
+        if(stage.isShowing) {
+            stage.requestFocus()
+            return
+        }
         val root = FXMLLoader.load<SplitPane>(Chorus::class.java.getResource("/assets/views/Settings.fxml"))
         val scene = Scene(root, 800.0, 550.0)
         scene.stylesheets.addAll(Themes.byConfig().path[2], "/assets/styles/global.css")
