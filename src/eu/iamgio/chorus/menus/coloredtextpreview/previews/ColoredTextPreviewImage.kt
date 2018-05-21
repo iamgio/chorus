@@ -10,14 +10,24 @@ import javafx.scene.text.TextFlow
 /**
  * @author Gio
  */
-abstract class ColoredTextPreviewImage(val image: Image, val flows: FlowList) : Pane(ImageView(image)) {
+abstract class ColoredTextPreviewImage(val image: Image, flows: FlowList, var reversed: Boolean = false) : Pane(ImageView(image)) {
+
+    var flows = flows
+        set(value) {
+            children.remove(1, children.size)
+            value.image = this
+            (if(reversed) value.reversed() else value).forEachIndexed { index, flow ->
+                initFlow(flow, index)
+                children += flow
+            }
+        }
 
     init {
         @Suppress("LEAKINGTHIS")
         flows.image = this
         prefWidth = image.width
         Platform.runLater {
-            flows.forEachIndexed { index, flow ->
+            (if(reversed) flows.reversed() else flows).forEachIndexed { index, flow ->
                 initFlow(flow, index)
                 children += flow
             }

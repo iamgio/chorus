@@ -12,11 +12,14 @@ import javafx.scene.text.TextFlow
  */
 class ChatPreviewImage(text: String) : ColoredTextPreviewImage(
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/chat-background.png")),
-        listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-chat-preview-flow")).toFlowList()
+        listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-chat-preview-flow")).toFlowList(),
+        true
 ) {
+
+    val styleClass = "minecraft-chat-preview-flow"
 
     override fun initFlow(flow: TextFlow, index: Int) {
         flow.prefWidth = image.width - 15.0
-        flow.layoutY = 190.0
+        flow.layoutY = 190.0 - index * 19.7
     }
 }

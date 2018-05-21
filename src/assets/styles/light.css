@@ -8,7 +8,7 @@
     -fx-background-color: -fx-primary;
 }
 
-.text-field {
+.text-field, .text-area {
     -fx-text-fill: white;
     -fx-highlight-fill: #cacaca;
 }
