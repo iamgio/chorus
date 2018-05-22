@@ -6,6 +6,7 @@
 
 .text-field, .text-area {
     -fx-text-fill: -fx-base3;
+    -fx-text-inner-fill: -fx-base3;
     -fx-highlight-fill: derive(-fx-base03, 27%);
 }
 

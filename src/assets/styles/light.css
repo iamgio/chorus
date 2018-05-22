@@ -10,6 +10,7 @@
 
 .text-field, .text-area {
     -fx-text-fill: white;
+    -fx-text-inner-fill: white;
     -fx-highlight-fill: #cacaca;
 }
 

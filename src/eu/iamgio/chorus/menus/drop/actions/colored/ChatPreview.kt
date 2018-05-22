@@ -24,7 +24,7 @@ class ChatPreview : DropMenuAction() {
             val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
             scrollpane.isCache = false
             scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
-        }, Duration(100.0))
+        }, Duration(300.0))
         textArea.prefHeight = 80.0
         textArea.promptText = "Text"
         val menu = ColoredTextPreviewMenu("Chat preview", ChatPreviewImage(area.selectedText), listOf(textArea))

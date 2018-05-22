@@ -9,6 +9,7 @@
 .text-field, .text-area {
     -fx-highlight-fill: #4b5660;
     -fx-text-fill: white;
+    -fx-text-inner-color: white;
 }
 
 .menu-bar, .sftp-address-box {
