@@ -19,7 +19,7 @@ class ChatPreviewImage(text: String) : ColoredTextPreviewImage(
     val styleClass = "minecraft-chat-preview-flow"
 
     override fun initFlow(flow: TextFlow, index: Int) {
-        flow.prefWidth = image.width - 15.0
+        flow.minWidth = image.width - 15.0
         flow.layoutY = 190.0 - index * 19.7
     }
 }
