@@ -30,8 +30,7 @@ class ChatPreview : DropMenuAction() {
         val menu = ColoredTextPreviewMenu("Chat preview", ChatPreviewImage(area.selectedText), listOf(textArea))
         textArea.textProperty().addListener {_ ->
             val lines = textArea.text.split("\n")
-            val flows = lines.map {ChatParser(it, true).toTextFlow().withStyleClass((menu.image as ChatPreviewImage).styleClass)
-            }
+            val flows = lines.map {ChatParser(it, true).toTextFlow().withStyleClass((menu.image as ChatPreviewImage).styleClass)}
             menu.image.flows = flows.toFlowList()
         }
         menu.layoutX = x

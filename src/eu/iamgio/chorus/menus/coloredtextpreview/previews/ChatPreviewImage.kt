@@ -20,6 +20,6 @@ class ChatPreviewImage(text: String) : ColoredTextPreviewImage(
 
     override fun initFlow(flow: TextFlow, index: Int) {
         flow.minWidth = image.width - 15.0
-        flow.layoutY = 190.0 - index * 19.7
+        flow.layoutY = 190.0 - index * 19.8
     }
 }
