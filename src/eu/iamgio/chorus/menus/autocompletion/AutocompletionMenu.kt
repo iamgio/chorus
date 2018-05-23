@@ -8,7 +8,6 @@ import eu.iamgio.chorus.menus.Showable
 import eu.iamgio.chorus.menus.Showables
 import eu.iamgio.chorus.util.area
 import eu.iamgio.chorus.util.hideMenuOnInteract
-import eu.iamgio.chorus.util.makeFormal
 import javafx.geometry.Pos
 import javafx.scene.control.Label
 import javafx.scene.layout.VBox
@@ -16,29 +15,32 @@ import javafx.scene.layout.VBox
 /**
  * @author Gio
  */
-class AutocompletionMenu(options: Array<String>, total: Int, word: String, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
+class AutocompletionMenu(options: Array<String>, word: String, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
 
     private val vbox = BrowsableVBox()
 
     init {
         styleClass += "drop-menu"
         val area = area!!
+        var list = emptyList<String>()
         options.forEach {option ->
-            val button = AutocompletionButton(
-                    if(option != "true" && option != "false") option.makeFormal() else option)
-            button.setOnAction {
-                listener.b = true
-                area.replaceText(pos - word.length + 1, pos + 1, option)
-                hide()
-                listener.b = false
+            if(!list.contains(option)) {
+                val button = AutocompletionButton(option)
+                button.setOnAction {
+                    listener.b = true
+                    area.replaceText(pos - word.length + 1, pos + 1, option)
+                    hide()
+                    listener.b = false
+                }
+                list += option
+                vbox.children += button
             }
-            vbox.children += button
         }
         if(vbox.children.size > 0) {
             val max = (vbox.children.sortedBy {(it as AutocompletionButton).prefWidth}.last() as AutocompletionButton)
             prefWidth = max.prefWidth
             vbox.children.forEach {(it as AutocompletionButton).prefWidth = max.prefWidth}
-            val label = Label("$total result${if(vbox.children.size > 1) "s" else ""}")
+            val label = Label("${list.size} result${if(list.size > 1) "s" else ""}")
             label.prefWidth = max.prefWidth
             label.styleClass += "colored-text-preview-title-bar"
             label.style = "-fx-font-size: 10; -fx-padding: 5; -fx-opacity: .7"
@@ -79,6 +81,7 @@ class AutocompletionMenu(options: Array<String>, total: Int, word: String, pos: 
     override fun getMenuY(): Double = layoutY
 
     companion object {
-        @JvmStatic val actual get() = Chorus.getInstance().root.children.filterIsInstance<AutocompletionMenu>()
+        @JvmStatic val actual
+            get() = Chorus.getInstance().root.children.filterIsInstance<AutocompletionMenu>().firstOrNull()
     }
 }

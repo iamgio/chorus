@@ -9,6 +9,7 @@ import eu.iamgio.chorus.minecraft.entity.Entity
 import eu.iamgio.chorus.minecraft.item.Item
 import eu.iamgio.chorus.minecraft.particle.Particle
 import eu.iamgio.chorus.util.config
+import eu.iamgio.chorus.util.makeFormal
 import eu.iamgio.chorus.variable.Variables
 import org.fxmisc.richtext.model.RichTextChange
 
@@ -17,14 +18,13 @@ import org.fxmisc.richtext.model.RichTextChange
  */
 class AutocompletionListener : EditorEvent() {
 
-    private val options = arrayOf(
+    private val options = mutableListOf(
             "true", "false",
-            *Item.values().map {it.name}.toTypedArray(),
-            *Entity.values().map {it.name}.toTypedArray(),
-            *Particle.values().map {it.name}.toTypedArray(),
-            *Effect.values().map {it.name}.toTypedArray(),
-            *Enchantment.values().map {it.name}.toTypedArray(),
-            *Variables.getVariables().map {it.name}.toTypedArray()
+            *Item.values().map {it.name.makeFormal()}.toTypedArray(),
+            *Entity.values().map {it.name.makeFormal()}.toTypedArray(),
+            *Particle.values().map {it.name.makeFormal()}.toTypedArray(),
+            *Effect.values().map {it.name.makeFormal()}.toTypedArray(),
+            *Enchantment.values().map {it.name.makeFormal()}.toTypedArray()
     )
 
     var b = false
@@ -37,27 +37,28 @@ class AutocompletionListener : EditorEvent() {
                 val pos = area.caretPosition
                 for(i in pos downTo 0) {
                     val char = area.text[i]
-                    if(char == ' ' || char == '\n' || char == '\'' || char == '"') break
+                    if(char.toString().matches(Regex("[^a-zA-Z0-9]"))) break
                     word += char
                 }
                 word = word.reversed()
                 if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
                     val size = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
-                    var options = options.filter {it.toLowerCase().contains(word.toLowerCase())}
-                    val originalSize = options.size
+                    var options = options
+                    Variables.getVariables().map {it.name}.reversed().forEach {options.add(0, it)}
+                    options = options.filter {it.toLowerCase().contains(word.toLowerCase())}.toMutableList()
                     if(options.size > size) options = options.subList(0, size)
                     val menu = AutocompletionMenu(
-                            options.toTypedArray(), originalSize, word, area.caretPosition, this
+                            options.toTypedArray(), word, area.caretPosition, this
                     )
-                    actual.forEach {it.hide()}
+                    actual?.hide()
                     if(menu.children.size > 0) {
                         val bounds = area.screenToLocal(area.caretBounds.get())
                         menu.layoutX = bounds.minX
                         menu.layoutY = bounds.minY + 90
                         menu.show()
                     }
-                } else actual.firstOrNull()?.hide()
-            } else actual.firstOrNull()?.hide()
+                } else actual?.hide()
+            } else actual?.hide()
         }
     }
 }

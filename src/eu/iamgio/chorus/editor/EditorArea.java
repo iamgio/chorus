@@ -65,7 +65,8 @@ public class EditorArea extends CodeArea {
 
         caretPositionProperty().addListener((o, oldV, newV) -> {
             if(newV < oldV) {
-                AutocompletionMenu.getActual().forEach(AutocompletionMenu::hide);
+                AutocompletionMenu menu = AutocompletionMenu.getActual();
+                if(menu != null) menu.hide();
             }
         });
 
