@@ -7,6 +7,7 @@ import eu.iamgio.chorus.editor.EditorTab;
 import eu.iamgio.chorus.editor.events.Events;
 import eu.iamgio.chorus.file.LocalFile;
 import eu.iamgio.chorus.listeners.*;
+import eu.iamgio.chorus.lock.Locker;
 import eu.iamgio.chorus.minecraft.effect.EffectIconLoader;
 import eu.iamgio.chorus.minecraft.entity.EntityIconLoader;
 import eu.iamgio.chorus.minecraft.item.ItemIconLoader;
@@ -20,7 +21,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.util.Arrays;
 
@@ -36,12 +39,37 @@ public class Chorus extends FXApplication {
     public ChorusConfig config = new ChorusConfig();
     public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder();
 
+    private static String[] args;
+
     private static Chorus instance;
 
     public AnchorPane root;
 
     @Override
     public void start() throws Exception {
+        Stage stage = getStage().toStage();
+        Locker locker = new Locker();
+        locker.setOnSecondInstance(message -> {
+            stage.setAlwaysOnTop(true);
+            stage.setAlwaysOnTop(false);
+            stage.requestFocus();
+            if(message.startsWith(Locker.ARG_PREFIX)) {
+                String name = message.substring(Locker.ARG_PREFIX.length(), message.length());
+                new EditorTab(new LocalFile(new File(name))).add();
+            }
+            try {
+                // Hacky way to focus the stage again
+                Robot robot = new Robot();
+                robot.mouseMove((int) (stage.getX() + stage.getWidth() / 2), (int) (stage.getY() + stage.getHeight() / 2));
+                robot.mousePress(0);
+                robot.mouseRelease(0);
+            } catch(AWTException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
+        if(locker.lock(args)) System.exit(0);
+
         instance = this;
 
         ChorusFolder folder = new ChorusFolder();
@@ -74,7 +102,7 @@ public class Chorus extends FXApplication {
             new EditorTab(new LocalFile(passedFile)).add();
         }
 
-        getStage().toStage().setOnCloseRequest(e -> {
+        stage.setOnCloseRequest(e -> {
             Utils.closeTabs();
             System.exit(0);
         });
@@ -93,6 +121,7 @@ public class Chorus extends FXApplication {
     }
 
     public static void main(String... args) {
+        Chorus.args = args;
         if(args.length > 0) {
             passedFile = new File(args[0]);
         }
