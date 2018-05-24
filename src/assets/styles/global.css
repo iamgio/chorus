@@ -87,14 +87,30 @@
     -fx-font-size: 20;
 }
 
-.minecraft-chat-preview-flow {
+.minecraft-chat-preview-flow, .minecraft-scoreboard-title-preview-flow, .minecraft-scoreboard-preview-flow {
     -fx-padding: 0 3.5 .5 10;
+}
+
+.minecraft-chat-preview-flow {
     -fx-background-color: rgba(0, 0, 0, .57);
+}
+
+.minecraft-scoreboard-title-preview-flow {
+    -fx-background-color: rgba(0, 0, 0, .35);
+}
+
+.minecraft-scoreboard-preview-flow {
+    -fx-background-color: rgba(0, 0, 0, .18);
 }
 
 .minecraft-chat-preview-flow .label, .minecraft-actionbar-preview-flow .label {
     -fx-font-family: "Minecraft";
     -fx-font-size: 15;
+}
+
+.minecraft-scoreboard-preview-flow .label, .minecraft-scoreboard-title-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 23;
 }
 
 .minecraft-title-title-preview-flow {

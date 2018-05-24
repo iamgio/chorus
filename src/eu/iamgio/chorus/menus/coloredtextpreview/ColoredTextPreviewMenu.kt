@@ -58,7 +58,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
 
     override fun getMenuWidth() = image.image.width
 
-    override fun getMenuHeight() = image.image.height + 115
+    override fun getMenuHeight() = image.image.height + 130
 
     override fun getMenuX() = layoutX
 
