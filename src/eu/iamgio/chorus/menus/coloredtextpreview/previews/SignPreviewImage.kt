@@ -22,7 +22,7 @@ class SignPreviewImage(text: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
-        flow.prefWidth = image.width
+        flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = 10.0 + (index * 39)
     }

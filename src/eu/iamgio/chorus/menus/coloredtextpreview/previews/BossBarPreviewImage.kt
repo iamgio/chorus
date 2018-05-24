@@ -17,7 +17,7 @@ class BossBarPreviewImage(text: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
-        flow.prefWidth = image.width
+        flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
     }
 }

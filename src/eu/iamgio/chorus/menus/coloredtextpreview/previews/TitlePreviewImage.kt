@@ -20,7 +20,7 @@ class TitlePreviewImage(title: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
-        flow.prefWidth = image.width
+        flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = if(index == 0) 75.0 else 120.0
     }
