@@ -150,3 +150,8 @@
     -fx-font-family: "Minecraft";
     -fx-font-size: 12.5;
 }
+
+.minecraft-animated-text-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 22.5;
+}

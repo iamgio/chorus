@@ -259,10 +259,14 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .7), 30, 0, 0, 10);
 }
 
-.colored-text-preview-title-bar, .colored-text-preview-textfield, .colored-text-preview-textfield .content {
+.colored-text-preview-title-bar, .colored-text-preview-button, .colored-text-preview-textfield, .colored-text-preview-textfield .content {
     -fx-background-color: derive(-fx-base00, -16.5%);
     -fx-highlight-fill: rgba(0, 0, 0, .15);
     -fx-text-fill: -fx-base3;
+}
+
+.colored-text-preview-button:hover {
+    -fx-background-color: derive(-fx-base00, -2%);
 }
 
 .sftp-address-box {

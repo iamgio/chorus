@@ -278,7 +278,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .7), 30, 0, 0, 10);
 }
 
-.colored-text-preview-title-bar, .colored-text-preview-textfield, .colored-text-preview-textfield .content {
+.colored-text-preview-title-bar, .colored-text-preview-button, .colored-text-preview-textfield, .colored-text-preview-textfield .content {
     -fx-background-color: derive(-fx-secondary, -20%);
     -fx-highlight-fill: rgba(0, 0, 0, .15);
     -fx-text-fill: white;
@@ -293,7 +293,7 @@
     -fx-text-fill: white;
 }
 
-.connect-button:hover {
+.connect-button:hover, .colored-text-preview-button:hover {
     -fx-background-color: derive(-fx-secondary, -15%);
 }
 

@@ -16,7 +16,8 @@ import javafx.scene.layout.VBox
  */
 class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, private val inputs: List<TextInputControl>) : VBox(ColoredTextPreviewTitleBar(title), image), Showable {
 
-    private val textfieldsVbox: VBox
+    private val textfieldsVbox = VBox(.7)
+    val vbox = VBox(1.2, textfieldsVbox)
 
     var toFocus = 0
 
@@ -25,12 +26,11 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         maxWidth = image.image.width
 
         (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
-        textfieldsVbox = VBox(1.5)
         inputs.forEach {
             it.styleClass += "colored-text-preview-textfield"
             textfieldsVbox.children += it
         }
-        children += textfieldsVbox
+        children += vbox
     }
 
     override fun show() {
