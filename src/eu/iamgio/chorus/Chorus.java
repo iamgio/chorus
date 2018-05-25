@@ -52,6 +52,7 @@ public class Chorus extends FXApplication {
         locker.setOnSecondInstance(message -> {
             stage.setAlwaysOnTop(true);
             stage.setAlwaysOnTop(false);
+            stage.setIconified(false);
             stage.requestFocus();
             if(message.startsWith(Locker.ARG_PREFIX)) {
                 String name = message.substring(Locker.ARG_PREFIX.length(), message.length());
