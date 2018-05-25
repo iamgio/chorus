@@ -3,6 +3,7 @@ package eu.iamgio.chorus.menus.drop.actions.colored
 import eu.iamgio.chorus.editor.EditorArea
 import eu.iamgio.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import eu.iamgio.chorus.menus.coloredtextpreview.previews.AnimatedTextPreviewImage
+import eu.iamgio.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import eu.iamgio.chorus.menus.drop.actions.DropMenuAction
 import eu.iamgio.chorus.minecraft.chat.ChatParser
 import eu.iamgio.chorus.nodes.control.NumericTextField
@@ -41,7 +42,7 @@ class AnimatedTextPreview : DropMenuAction() {
         textArea.textProperty().addListener {_ ->
             menu.image.flows[0] = ChatParser(textArea.charToLine(textArea.caretPosition), true).toTextFlow()
         }
-        val play = PlayButton(delay, count, textArea)
+        val play = PlayButton(delay, count, textArea, menu.image)
         play.prefWidth = menu.image.prefWidth
         menu.vbox.children += play
         menu.toFocus = 2
@@ -51,7 +52,7 @@ class AnimatedTextPreview : DropMenuAction() {
     }
 }
 
-private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea) : AnimationButton("Play") {
+private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, image: ColoredTextPreviewImage) : AnimationButton("Play") {
 
     init {
         setOnAction {
@@ -64,31 +65,26 @@ private class PlayButton(delayField: NumericTextField, countField: NumericTextFi
                     super.cancel()
                 }
             }
-            val lines = area.text.split("\n")
-            area.requestFocus()
-            area.positionCaret(lines[0].length)
+            val flows = area.text.split("\n").map {ChatParser(it, true).toTextFlow()}
             area.isDisable = true
             isDisable = true
             val delay = delayField.text.toLong()
             val count = countField.text.toInt()
             var i = 0
             var c = 0
-            var cpos = 0
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     Platform.runLater {
-                        if(i < lines.size - 1) {
-                            area.positionCaret(cpos + lines[i].length + 1)
-                            cpos = area.caretPosition
+                        if(i < flows.size) {
+                            image.flows[0] = flows[i]
                             i++
                         } else {
                             c++
                             if(c == count) {
                                 timer.cancel()
                             } else {
-                                i = 0
-                                area.positionCaret(lines[0].length)
-                                cpos = area.caretPosition
+                                image.flows[0] = flows[0]
+                                i = 1
                             }
                         }
                     }
