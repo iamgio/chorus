@@ -3,18 +3,19 @@ package eu.iamgio.chorus.menus.drop.actions.colored
 import eu.iamgio.chorus.editor.EditorArea
 import eu.iamgio.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import eu.iamgio.chorus.menus.coloredtextpreview.previews.AnimatedTextPreviewImage
-import eu.iamgio.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import eu.iamgio.chorus.menus.drop.actions.DropMenuAction
 import eu.iamgio.chorus.minecraft.chat.ChatParser
 import eu.iamgio.chorus.nodes.control.NumericTextField
 import eu.iamgio.libfx.timing.WaitingTimer
-import javafx.application.Platform
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
+import javafx.event.ActionEvent
+import javafx.event.EventHandler
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
 import javafx.util.Duration
-import java.util.*
 
 /**
  * @author Gio
@@ -42,8 +43,7 @@ class AnimatedTextPreview : DropMenuAction() {
         textArea.textProperty().addListener {_ ->
             menu.image.flows[0] = ChatParser(textArea.charToLine(textArea.caretPosition), true).toTextFlow()
         }
-        val play = PlayButton(delay, count, textArea, menu.image)
-        play.prefWidth = menu.image.prefWidth
+        val play = PlayButton(delay, count, textArea, menu)
         menu.vbox.children += play
         menu.toFocus = 2
         menu.layoutX = x
@@ -52,44 +52,52 @@ class AnimatedTextPreview : DropMenuAction() {
     }
 }
 
-private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, image: ColoredTextPreviewImage) : AnimationButton("Play") {
+private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, menu: ColoredTextPreviewMenu) : AnimationButton("Play"), Cloneable {
 
     init {
+        val image = menu.image
+        prefWidth = image.prefWidth
         setOnAction {
-            val timer = object : Timer() {
-                override fun cancel() {
-                    Platform.runLater {
-                        area.isDisable = false
-                        isDisable = false
-                    }
-                    super.cancel()
-                }
-            }
+            val delay = delayField.text.toDouble()
+            val count = countField.text.toInt()
+            val timeline = Timeline()
             val flows = area.text.split("\n").map {ChatParser(it, true).toTextFlow()}
             area.isDisable = true
             isDisable = true
-            val delay = delayField.text.toLong()
-            val count = countField.text.toInt()
-            var i = 0
-            var c = 0
-            timer.scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                    Platform.runLater {
-                        if(i < flows.size) {
-                            image.flows[0] = flows[i]
-                            i++
+            /*timeline.keyFrames += KeyFrame(delay, EventHandler<ActionEvent> {
+                println(i)
+                if(!b) {
+                    if(i < flows.size) {
+                        image.flows[0] = flows[i]
+                        i++
+                    } else {
+                        c++
+                        if(c == count) {
+                            b = true
+                            timeline.stop()
+                            area.isDisable = false
+                            isDisable = false
                         } else {
-                            c++
-                            if(c == count) {
-                                timer.cancel()
-                            } else {
-                                image.flows[0] = flows[0]
-                                i = 1
-                            }
+                            image.flows[0] = flows[0]
+                            i = 1
                         }
                     }
+                    timeline.playFromStart()
                 }
-            }, delay, delay)
+            })*/
+            flows.forEachIndexed { index, flow ->
+                timeline.keyFrames += KeyFrame(Duration(delay * (index + 1)), EventHandler<ActionEvent> {
+                    image.flows[0] = flow
+                    println(index)
+                })
+            }
+            timeline.setOnFinished {
+                area.isDisable = false
+                isDisable = false
+                menu.vbox.children[1] = PlayButton(delayField, countField, area, menu)
+            }
+            timeline.cycleCount = count
+            timeline.play()
         }
     }
 }

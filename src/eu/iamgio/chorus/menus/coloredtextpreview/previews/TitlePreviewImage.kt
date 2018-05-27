@@ -20,6 +20,8 @@ class TitlePreviewImage(title: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
+        flow.styleClass += if(index == 0) "minecraft-title-title-preview-flow" else "minecraft-title-subtitle-preview-flow"
+        println("$index $flow")
         flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = if(index == 0) 75.0 else 120.0

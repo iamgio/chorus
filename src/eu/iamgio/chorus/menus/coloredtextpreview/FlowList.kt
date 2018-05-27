@@ -13,7 +13,6 @@ class FlowList : ArrayList<TextFlow>() {
     override fun set(index: Int, element: TextFlow): TextFlow {
         image.children[index + 1] = element
         image.initFlow(element, index)
-        element.styleClass += this[index].styleClass
         return super.set(index, element)
     }
 }

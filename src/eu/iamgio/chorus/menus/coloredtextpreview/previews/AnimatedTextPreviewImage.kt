@@ -17,6 +17,7 @@ class AnimatedTextPreviewImage(text: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
+        flow.styleClass += "minecraft-animated-text-preview-flow"
         flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = 30.0

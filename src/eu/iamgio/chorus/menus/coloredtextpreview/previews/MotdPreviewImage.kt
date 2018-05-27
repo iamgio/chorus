@@ -20,6 +20,7 @@ class MotdPreviewImage(title: String, first: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
+        styleClass += "minecraft-motd-preview-flow"
         flow.layoutX = 65.0
         flow.layoutY = 5.0 + (index * (50 / 3))
     }

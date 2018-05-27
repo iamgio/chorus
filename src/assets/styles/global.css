@@ -113,7 +113,7 @@
     -fx-font-size: 23;
 }
 
-.minecraft-title-title-preview-flow {
+.minecraft-title-title-preview-flow .label {
     -fx-font-family: "Minecraft";
     -fx-font-size: 30;
 }

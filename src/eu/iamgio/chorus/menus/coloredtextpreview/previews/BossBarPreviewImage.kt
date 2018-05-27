@@ -17,6 +17,7 @@ class BossBarPreviewImage(text: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
+        flow.styleClass += "minecraft-bossbar-preview-flow"
         flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
     }

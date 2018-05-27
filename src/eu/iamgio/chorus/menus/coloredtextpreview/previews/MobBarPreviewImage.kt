@@ -23,6 +23,7 @@ class MobBarPreviewImage(text: String) : ColoredTextPreviewImage(
         val text = Text(flow.text)
         text.font = Font.font("Minecraft", 19.0)
         val padding = 20
+        flow.styleClass += "minecraft-mobbar-preview-flow"
         flow.minWidth = text.layoutBounds.width + padding
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutX = image.width / 2 - (flow.minWidth - padding) / 2

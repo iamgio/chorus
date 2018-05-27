@@ -17,6 +17,7 @@ class ActionBarPreviewImage(text: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
+        flow.styleClass += "minecraft-actionbar-preview-flow"
         flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = 140.0

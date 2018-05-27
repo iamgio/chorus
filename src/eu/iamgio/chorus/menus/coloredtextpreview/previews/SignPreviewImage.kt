@@ -22,6 +22,7 @@ class SignPreviewImage(text: String) : ColoredTextPreviewImage(
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
+        flow.styleClass += "minecraft-sign-preview-flow"
         flow.minWidth = image.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = 10.0 + (index * 39)
