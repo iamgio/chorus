@@ -4,7 +4,7 @@
     -fx-background-color: -fx-base02;
 }
 
-.text-field, .text-area {
+.text-field, .text-area, .text-area .content {
     -fx-text-fill: -fx-base3;
     -fx-text-inner-fill: -fx-base3;
     -fx-highlight-fill: derive(-fx-base03, 27%);

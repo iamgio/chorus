@@ -4,7 +4,7 @@
     -fx-background-color: -fx-base3;
 }
 
-.text-field, .text-area {
+.text-field, .text-area, .text-area .content {
     -fx-highlight-fill: rgba(0, 0, 0, .1);
 }
 

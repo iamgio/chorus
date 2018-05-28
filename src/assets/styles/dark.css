@@ -6,7 +6,7 @@
     -fx-background-color: -fx-menu-color;
 }
 
-.text-field, .text-area {
+.text-field, .text-area, .text-area .content {
     -fx-highlight-fill: #4b5660;
     -fx-text-fill: white;
     -fx-text-inner-color: white;
