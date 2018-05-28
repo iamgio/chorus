@@ -33,6 +33,7 @@ class AnimatedTextPreview : DropMenuAction() {
         val count = NumericTextField("1")
         count.promptText = "Count"
         val textArea = TextArea(if(area.selection.length > 0) area.selectedText else last)
+        last = textArea.text
         textArea.isCache = false
         WaitingTimer().start({
             val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
