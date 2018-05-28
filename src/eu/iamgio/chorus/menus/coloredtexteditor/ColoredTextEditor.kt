@@ -37,6 +37,7 @@ class ColoredTextEditor : VBox(), Showable {
                 val editorArea = eu.iamgio.chorus.util.area!!
                 editorArea.replaceText(editorArea.substitutionRange, ChatParser("").parseToString(area))
                 hide()
+                editorArea.requestFocus()
             }
         }
 
