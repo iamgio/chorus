@@ -5,7 +5,8 @@
 }
 
 .text-field, .text-area, .text-area .content {
-    -fx-highlight-fill: rgba(0, 0, 0, .1);
+    -fx-highlight-text-fill: derive(black, 15%);
+    -fx-highlight-fill: rgba(0, 0, 0, .25);
 }
 
 .menu-bar, .tab-pane .tab-header-area .tab-header-background {

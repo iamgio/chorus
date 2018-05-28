@@ -195,6 +195,7 @@
 }
 
 .search-menu > .buttons > .button, .search-menu > .text-field {
+    -fx-text-fill: black;
     -fx-background-color: #f8f8f8;
     -fx-focus-color: transparent;
 }

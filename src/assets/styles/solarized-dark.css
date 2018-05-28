@@ -185,6 +185,7 @@
 }
 
 .search-menu > .buttons > .button, .search-menu > .text-field {
+    -fx-text-fill: -fx-base03;
     -fx-background-color: #f8f8f8;
     -fx-focus-color: transparent;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 3, 0, 0, 2)

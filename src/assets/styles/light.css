@@ -11,6 +11,7 @@
 .text-field, .text-area, .text-area .content {
     -fx-text-fill: white;
     -fx-text-inner-fill: white;
+    -fx-highlight-text-fill: derive(black, 25%);
     -fx-highlight-fill: #cacaca;
 }
 
@@ -189,8 +190,10 @@
 }
 
 .search-menu > .buttons > .button, .search-menu > .text-field {
+    -fx-text-fill: black;
     -fx-background-color: #f8f8f8;
     -fx-focus-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 3, 0, 0, 2.7)
 }
 
 .search-menu > .results-label {
@@ -368,7 +371,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: black;
     -fx-font-size: 17.5;
-    -fx-highlight-fill: rgba(255, 255, 255, .2);
+    -fx-highlight-fill: rgba(255, 255, 255, .45);
 }
 
 .quick-variables-menu {
