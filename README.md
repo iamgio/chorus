@@ -2,11 +2,9 @@
 
 #### What is Chorus?
 Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for owners of Minecraft servers based on [Spigot](https://spigotmc.org).
+Thanks to its features, Chorus is perfect to edit your configurations quicker. 
 
 ### Why Chorus?
-Before Chorus, basic YAML editors have been used; now, with Chorus, you can have a full support for configurations. You'll love it!
-
-### What can I do with Chorus?
 **Chorus has a lot of features to edit your configurations easier:**   
    
    
@@ -72,10 +70,27 @@ Before Chorus, basic YAML editors have been used; now, with Chorus, you can have
 
    
 
+### Creating your own theme
+Chorus supports custom themes. If you want to create your own, create a folder into chorus/themes named as your theme's name.   
+In this folder, you have to create the following files:
+* **{name}.css**, to style the main view;    
+* **{name}-highlight.css** to style keywords;    
+* **{name}-settings.css** to style setting view;    
+
+_Note: {name} must be the same as your folder's name._
+
+To see the structure of a style file, take a look at this theme:   
+* [Main](https://github.com/iAmGio/chorus/blob/master/src/assets/styles/light.css)       
+* [Highlight](https://github.com/iAmGio/chorus/blob/master/src/assets/styles/light-highlight.css)    
+* [Settings](https://github.com/iAmGio/chorus/blob/master/src/assets/styles/light-settings.css)
+
 ### Downloading
 **This project is currently work in progress.**  
 Once finished, Chorus will be downloadable [here](https://github.com/iAmGio/chorus/releases).
 
 ### Donating
-I worked so hard on this project, which you are downloading for free. If you like this software or you just want to support me, I'd enjoy donations.  
+I (yes, Chorus is mantained by a single guy) worked so hard on this project, which you are downloading for free. If you like this software or you just want to support me, I'd enjoy donations.     
 By donating, you'll be added to 'Donators List' inside the program.
+
+### License
+Chorus and its source code are under Apache License 2.0. For further informations, check [LICENSE](https://github.com/iAmGio/chorus/blob/master/LICENSE).
