@@ -9,6 +9,7 @@ import eu.iamgio.chorus.nodes.control.NumericTextField
 import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
+import javafx.application.Platform
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Pos
@@ -22,12 +23,16 @@ import javafx.util.Duration
  */
 class AnimatedTextPreview : DropMenuAction() {
 
+    companion object {
+        var last = ""
+    }
+
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val delay = NumericTextField("350")
         delay.promptText = "Delay (ms)"
         val count = NumericTextField("1")
         count.promptText = "Count"
-        val textArea = TextArea(area.selectedText)
+        val textArea = TextArea(if(area.selection.length > 0) area.selectedText else last)
         textArea.isCache = false
         WaitingTimer().start({
             val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
@@ -38,10 +43,11 @@ class AnimatedTextPreview : DropMenuAction() {
         textArea.promptText = "Frames"
         val menu = ColoredTextPreviewMenu("Animated text preview", AnimatedTextPreviewImage(area.selectedText), listOf(delay, count, textArea))
         textArea.caretPositionProperty().addListener {_, _, new ->
-            menu.image.flows[0] = ChatParser(textArea.charToLine(new as Int), true).toTextFlow()
+            Platform.runLater {menu.image.flows[0] = ChatParser(textArea.charToLine(new as Int), true).toTextFlow()}
         }
         textArea.textProperty().addListener {_ ->
-            menu.image.flows[0] = ChatParser(textArea.charToLine(textArea.caretPosition), true).toTextFlow()
+            last = textArea.text
+            Platform.runLater {menu.image.flows[0] = ChatParser(textArea.charToLine(textArea.caretPosition), true).toTextFlow()}
         }
         val play = PlayButton(delay, count, textArea, menu)
         menu.vbox.children += play
@@ -49,6 +55,7 @@ class AnimatedTextPreview : DropMenuAction() {
         menu.layoutX = x
         menu.layoutY = y
         menu.show()
+        Platform.runLater {textArea.positionCaret(textArea.length)}
     }
 }
 
@@ -64,31 +71,9 @@ private class PlayButton(delayField: NumericTextField, countField: NumericTextFi
             val flows = area.text.split("\n").map {ChatParser(it, true).toTextFlow()}
             area.isDisable = true
             isDisable = true
-            /*timeline.keyFrames += KeyFrame(delay, EventHandler<ActionEvent> {
-                println(i)
-                if(!b) {
-                    if(i < flows.size) {
-                        image.flows[0] = flows[i]
-                        i++
-                    } else {
-                        c++
-                        if(c == count) {
-                            b = true
-                            timeline.stop()
-                            area.isDisable = false
-                            isDisable = false
-                        } else {
-                            image.flows[0] = flows[0]
-                            i = 1
-                        }
-                    }
-                    timeline.playFromStart()
-                }
-            })*/
             flows.forEachIndexed { index, flow ->
                 timeline.keyFrames += KeyFrame(Duration(delay * (index + 1)), EventHandler<ActionEvent> {
                     image.flows[0] = flow
-                    println(index)
                 })
             }
             timeline.setOnFinished {
