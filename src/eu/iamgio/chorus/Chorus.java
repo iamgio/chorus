@@ -5,6 +5,7 @@ import eu.iamgio.chorus.configuration.ChorusFolder;
 import eu.iamgio.chorus.editor.EditorController;
 import eu.iamgio.chorus.editor.EditorTab;
 import eu.iamgio.chorus.editor.events.Events;
+import eu.iamgio.chorus.editor.events.Openable;
 import eu.iamgio.chorus.file.LocalFile;
 import eu.iamgio.chorus.listeners.*;
 import eu.iamgio.chorus.lock.Locker;
@@ -135,10 +136,11 @@ public class Chorus extends FXApplication {
                 new AutocompletionListener(),
                 new TabListener(),
                 new AutoTabListener(),
-                new BracketListener(),
-                new BraceListener(),
-                new QuoteListener(),
-                new DoubleQuoteListener()
+                new Openable('[', ']', true),
+                new Openable('{', '}', true),
+                new Openable('%', '%', true, true),
+                new Openable('\'', '\''),
+                new Openable('"', '"')
         ));
         Events.getYamlComponents().addAll(Arrays.asList(
                 new EditorTab.Companion.ShowableRemover(),
