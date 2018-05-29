@@ -16,12 +16,14 @@ class TabBrowsable {
                 textfield.addEventFilter(KeyEvent.KEY_PRESSED) {
                     if(it.code == KeyCode.TAB) {
                         it.consume()
-                        inputs[if(i == inputs.size - 1) {
+                        val control = inputs[if(i == inputs.size - 1) {
                             0
-                        }
-                        else {
+                        } else {
                             i + 1
-                        }].requestFocus()
+                        }]
+                        control.requestFocus()
+                        control.positionCaret(control.text.length)
+                        control.selectAll()
                     }
                 }
             }
