@@ -40,7 +40,7 @@ public final class Themes {
     }
 
     public static void loadInternalThemes() {
-        String[] names = {"dark", "light", "sepia", "solarized-dark", "solarized-light"};
+        String[] names = {"dark", "light", "sepia", "solarized-dark", "solarized-light", "material-dark"};
         for(String name : names) {
             themes.add(new Theme(name, true));
         }

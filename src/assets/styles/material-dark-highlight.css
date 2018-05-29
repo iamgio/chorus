@@ -1,0 +1,74 @@
+.text {
+    -fx-fill: white;
+}
+
+.key, .colon {
+    -fx-fill: #FFC251;
+}
+
+.comma, .bracket {
+    -fx-fill: #c792ea;
+}
+
+.true {
+    -fx-fill: #197f36;
+}
+
+.false {
+    -fx-fill: #7f3130;
+}
+
+.dash {
+    -fx-font-weight: bold;
+    -fx-fill: #80cbc4;
+}
+
+.colon {
+    -fx-opacity: .85;
+}
+
+.string {
+    -fx-fill: #C3E887;
+}
+
+.number {
+    -fx-fill: #F77669;
+}
+
+.comment {
+    -fx-fill: #546E7A;
+}
+
+.item {
+    -fx-fill: #FF5370;
+    -fx-font-style: italic;
+}
+
+.itemid {
+    -fx-fill: #F55E53;
+}
+
+.particle {
+    -fx-fill: #297BDE;
+    -fx-font-style: italic;
+}
+
+.effect {
+    -fx-fill: #008080;
+    -fx-font-style: italic;
+}
+
+.sound {
+    -fx-fill: #7A7A43;
+    -fx-font-style: italic;
+}
+
+.entity {
+    -fx-fill: #F9CF0A;
+    -fx-font-style: italic;
+}
+
+.enchantment {
+    -fx-fill: #6DC2B8;
+    -fx-font-style: italic;
+}

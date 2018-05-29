@@ -1,0 +1,440 @@
+* {
+    -fx-primary: #222c35;
+    -fx-secondary: #263138;
+    -fx-tertiary: derive(-fx-secondary, 27%);
+    -fx-area-highlight-color: #002a36;
+}
+
+.pane {
+    -fx-background-color: -fx-primary;
+}
+
+.text-field, .text-area, .text-area .content {
+    -fx-text-fill: white;
+    -fx-text-inner-fill: white;
+    -fx-highlight-text-fill: derive(white, -25%);
+    -fx-highlight-fill: derive(-fx-primary, -10%);
+}
+
+.menu-bar, .tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: -fx-secondary;
+}
+
+.menu-bar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 7.5, 0, 0, 1.2);
+}
+
+.menu-bar .label, .menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background-color: -fx-tertiary;
+}
+
+.context-menu, .menu-item {
+    -fx-background-color: derive(-fx-secondary, -7.5%);
+}
+
+.menu-item:focused {
+    -fx-background-color: derive(-fx-tertiary, -7.5%);
+}
+
+.no-tabs-image {
+    -fx-opacity: .9;
+    -fx-effect: innershadow(one-pass-box, white, 10, 1, 0, 0);
+}
+
+.no-tabs-label, .version-label {
+    -fx-opacity: .75;
+    -fx-text-fill: white;
+}
+
+.tab {
+    -fx-background-color: derive(-fx-secondary, -15%);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, .2), 2.5, 0, 0, 0);
+}
+
+.tab:selected {
+    -fx-background-color: derive(-fx-secondary, 7%);
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #81d1ea;
+    -fx-font-weight: bold;
+}
+
+.tab-label {
+    -fx-text-fill: #c4ccc3;
+}
+
+.tab-close-button {
+    -fx-effect: innershadow(one-pass-box, white, 10, 1, 0, 0);
+}
+
+.area, .colored-text-editor {
+    -fx-background-color: -fx-primary;
+}
+
+.area, .colored-text-area {
+    -fx-highlight-fill: #314549;
+}
+
+.area .paragraph-box:has-caret {
+    -fx-background-color: -fx-area-highlight-color;
+}
+
+.area .caret, .colored-text-area .caret {
+    -fx-stroke: #ffcc00;
+    -fx-stroke-width: 3;
+}
+
+.colored-text-editor {
+    -fx-background-color: derive(-fx-primary, -20%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .62), 35, 0, 0, 5);
+}
+
+.lineno {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: #3a4c53;
+    -fx-opacity: .55;
+    -fx-font-style: normal;
+    -fx-font-size: 65%;
+}
+
+.scroll-bar:hover .thumb, .scroll-bar:focused .thumb {
+    -fx-opacity: .75;
+}
+
+.scroll-bar > .thumb {
+    -fx-opacity: .6;
+    -fx-background-color: #486c70;
+}
+
+.arrow {
+    -fx-background-color: white;
+}
+
+.text-popup {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(42, 40, 49, .65);
+}
+
+.image-popup {
+    -fx-background-color: derive(-fx-primary, -35%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 15, 0, 0, 7);
+}
+
+.drop-menu, .insert-menu, .conversion-menu, .quick-variables-menu {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 20, 0, 0, 5);
+}
+
+.drop-menu .drop-menu-button {
+    -fx-background-color: -fx-secondary;
+    -fx-border-color: derive(-fx-secondary, -7.5%);
+    -fx-border-width: 1;
+    -fx-text-fill: white;
+}
+
+.drop-menu .drop-menu-button:disabled {
+    -fx-opacity: 1;
+    -fx-text-fill: #b0b0b0;
+}
+
+.drop-menu .drop-menu-button:bvhover {
+    -fx-background-color: derive(-fx-secondary, -15%);
+}
+
+.hint, .insert-menu {
+    -fx-background-color: derive(-fx-secondary, -15%);
+}
+
+.hint:bvhover {
+    -fx-background-color: derive(-fx-secondary, -22.5%);
+}
+
+.insert-menu > .text-field {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: white;
+    -fx-border-width: 1;
+    -fx-border-color: derive(-fx-primary, -45%);
+}
+
+.hint > .label {
+    -fx-opacity: .85;
+    -fx-text-fill: white;
+}
+
+.information-head {
+    -fx-background-color: derive(-fx-secondary, -40%);
+}
+
+.information-head > .label {
+    -fx-text-fill: white;
+}
+
+.information-body {
+    -fx-background-color: derive(-fx-secondary, -15%);
+}
+
+.url {
+    -fx-fill: #97ddff;
+}
+
+.information-body > .label, .information-body > .header > .label {
+    -fx-text-fill: white;
+}
+
+.information-box {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 15, 0, 0, 7);
+}
+
+.search-menu {
+    -fx-background-color: derive(-fx-primary, -20%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .6), 12, 0, 0, -.3);
+}
+
+.search-menu > .buttons > .button, .search-menu > .text-field {
+    -fx-text-fill: black;
+    -fx-background-color: #f8f8f8;
+    -fx-focus-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 3, 0, 0, 2.7)
+}
+
+.search-menu > .results-label {
+    -fx-text-fill: white;
+}
+
+.close-button {
+    -fx-text-fill: #d9d9d9;
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
+}
+
+.close-button:hover {
+    -fx-background-color: rgba(255, 255, 255, .1);
+    -fx-background-radius: 360;
+}
+
+.conversion-menu {
+    -fx-background-color: derive(-fx-primary, -15%);
+    -fx-background-radius: 10;
+}
+
+.conversion-menu > .combo-box,
+.conversion-menu > .combo-box .list-cell,
+.conversion-menu > .combo-box .box,
+.conversion-menu > .combo-box .list-view,
+.conversion-menu > .text-field,
+.conversion-menu > .button {
+    -fx-background-color: derive(-fx-primary, -45%);
+    -fx-text-fill: white;
+}
+
+.conversion-menu > .button:hover {
+    -fx-background-color: derive(-fx-primary, -65%);
+}
+
+.conversion-menu > .button:disabled {
+    -fx-opacity: .8;
+}
+
+.conversion-menu > .combo-box .list-cell:hover {
+    -fx-background-color: -fx-tertiary;
+}
+
+.colored-text-control-bar {
+    -fx-background-color: derive(-fx-primary, -50%);
+}
+
+.colored-text-control-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+}
+
+.colored-text-control-button:hover {
+    -fx-background-color: rgba(255, 255, 255, .05);
+}
+
+.colored-text-control-button:selected {
+    -fx-background-color: rgba(255, 255, 255, .1);
+}
+
+.color-combo-box,
+.color-combo-box .list-cell,
+.color-combo-box .box,
+.color-combo-box .list-view {
+    -fx-background-color: derive(-fx-primary, -40%);
+}
+
+.color-combo-box .list-cell:hover {
+    -fx-background-color: derive(-fx-primary, -30%);
+}
+
+.colored-text-preview-menu {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .7), 30, 0, 0, 10);
+}
+
+.colored-text-preview-title-bar, .colored-text-preview-button, .colored-text-preview-textfield, .colored-text-preview-textfield .content {
+    -fx-background-color: derive(-fx-secondary, -20%);
+    -fx-highlight-fill: rgba(0, 0, 0, .15);
+    -fx-text-fill: white;
+}
+
+.sftp-address-box {
+    -fx-background-color: derive(-fx-primary, 7%);
+}
+
+.ip-box, .ip-box .list-cell, .username-field, .password-field, .connect-button {
+    -fx-background-color: derive(-fx-primary, -25%);
+    -fx-text-fill: white;
+}
+
+.connect-button:hover, .colored-text-preview-button:hover {
+    -fx-background-color: derive(-fx-primary, -15%);
+}
+
+.sftp-filechooser-button {
+    -fx-background-color: transparent;
+}
+
+.sftp-filechooser-button > .label {
+    -fx-text-fill: white;
+}
+
+.sftp-filechooser-button:hover {
+    -fx-background-color: rgba(0, 0, 0, .07);
+}
+
+.sftp-filechooser-button:focused {
+    -fx-background-color: -fx-area-highlight-color;
+}
+
+.variables-menu {
+    -fx-background-color: -fx-primary;
+}
+
+.variables-menu .table-view {
+    -fx-background-color: transparent;
+}
+
+.variables-menu .variables-control-bar {
+    -fx-background-color: derive(-fx-primary, -35%);
+}
+
+.variables-menu .placeholder {
+    -fx-text-fill: rgba(255, 255, 255, .7);
+}
+
+.variables-menu .placeholder-add-button, .variables-menu .add-button {
+    -fx-background-color: #c1e48a;
+}
+
+.variables-menu .add-button:hover {
+    -fx-background-color: #dcffa2;
+}
+
+.variables-menu .remove-button {
+    -fx-background-color: #d74d67;
+}
+
+.variables-menu .remove-button:hover {
+    -fx-background-color: #ff5b79;
+}
+
+.variables-menu .remove-button:disabled {
+    -fx-opacity: 0;
+}
+
+.variables-menu .column-header,
+.variables-menu .column-header .filler,
+.variables-menu .column-header-background .filler {
+    -fx-background-color: -fx-secondary;
+}
+
+.variables-menu .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.variables-menu .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: rgba(255, 255, 255, .2);
+}
+
+.variables-menu .table-row-cell .text {
+    -fx-font-size: 17.5;
+    -fx-fill: white;
+}
+
+.variables-menu .table-row-cell:even {
+    -fx-background-color: derive(-fx-primary, -2.5%)
+}
+
+.variables-menu .table-row-cell:odd {
+    -fx-background-color: derive(-fx-primary, -7%);
+}
+
+.variables-menu .table-row-cell:selected {
+    -fx-background-color: -fx-tertiary;
+}
+
+.variables-menu .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 17.5;
+}
+
+.quick-variables-menu {
+    -fx-background-color: derive(-fx-primary, -7%);
+}
+
+.quick-variables-menu .text-field {
+    -fx-background-color: derive(-fx-primary, 21%);
+}
+
+.quick-variables-menu .button {
+    -fx-background-color: derive(-fx-secondary, -15%);
+    -fx-text-fill: white;
+}
+
+.help-pane {
+    -fx-background-color: -fx-secondary;
+}
+
+.help-title {
+    -fx-text-fill: white;
+    -fx-font-size: 55;
+}
+
+.help-text {
+    -fx-text-fill: white;
+    -fx-font-size: 18;
+    -fx-wrap-text: true;
+}
+
+.help-rectangle {
+    -fx-fill: derive(-fx-secondary, -15%);
+    -fx-stroke-width: 0;
+}
+
+.updater {
+    -fx-background-color: derive(-fx-primary, -20%);
+}
+
+.updater .label {
+    -fx-text-fill: white;
+}
+
+.updater .button {
+    -fx-background-color: rgba(255, 255, 255, .2);
+}
+
+.updater .button:hover {
+    -fx-background-color: rgba(255, 255, 255, .35);
+}
