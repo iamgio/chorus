@@ -1,7 +1,7 @@
 package eu.iamgio.chorus.menus
 
 import eu.iamgio.chorus.Chorus
-import javafx.application.Platform
+import javafx.collections.ListChangeListener
 import javafx.css.PseudoClass
 import javafx.scene.Node
 import javafx.scene.control.Button
@@ -31,20 +31,23 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
         textfield?.setOnKeyPressed {
             val showing = Showables.SHOWING
             if(showing == this) {
+                it.consume()
                 browse(it, showing)
             }
         }
-        Platform.runLater {
-            if(Showables.SHOWING == this) {
-                children.forEach {node ->
-                    node.setOnMouseMoved {
+        children.addListener {_: ListChangeListener.Change<out Node> ->
+            children.forEach {node ->
+                node.setOnMouseMoved {
+                    if(Showables.SHOWING == this) {
                         children.forEach {
                             it.setBVHover(false)
                         }
                         node.setBVHover()
                         onSelectUpdate.run()
                     }
-                    node.setOnMouseExited {
+                }
+                node.setOnMouseExited {
+                    if(Showables.SHOWING == this) {
                         node.setBVHover(false)
                         onSelectUpdate.run()
                     }
