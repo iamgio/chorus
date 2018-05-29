@@ -1,6 +1,7 @@
 package eu.iamgio.chorus.menus.autocompletion
 
 import eu.iamgio.chorus.Chorus
+import eu.iamgio.chorus.listeners.AUTOCOMPLETION_REGEX
 import eu.iamgio.chorus.listeners.AutocompletionListener
 import eu.iamgio.chorus.menus.BrowsableVBox
 import eu.iamgio.chorus.menus.MenuPlacer
@@ -28,7 +29,13 @@ class AutocompletionMenu(options: Array<String>, word: String, pos: Int, listene
                 val button = AutocompletionButton(option)
                 button.setOnAction {
                     listener.b = true
-                    area.replaceText(pos - word.length + 1, pos + 1, option)
+                    var padding = 0
+                    for(i in pos until area.length) {
+                        val char = area.text[i]
+                        if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
+                        padding++
+                    }
+                    area.replaceText(pos - word.length + 1, pos + padding, option)
                     hide()
                     listener.b = false
                 }

@@ -13,6 +13,8 @@ import eu.iamgio.chorus.util.makeFormal
 import eu.iamgio.chorus.variable.Variables
 import org.fxmisc.richtext.model.RichTextChange
 
+const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}$]"
+
 /**
  * @author Gio
  */
@@ -37,7 +39,7 @@ class AutocompletionListener : EditorEvent() {
                 val pos = area.caretPosition
                 for(i in pos downTo 0) {
                     val char = area.text[i]
-                    if(char.toString().matches(Regex("[^a-zA-Z0-9]"))) break
+                    if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
                     word += char
                 }
                 word = word.reversed()
