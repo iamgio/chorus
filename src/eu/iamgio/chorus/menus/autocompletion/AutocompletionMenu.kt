@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox
 /**
  * @author Gio
  */
-class AutocompletionMenu(options: Array<String>, word: String, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
+class AutocompletionMenu(options: HashMap<String, String>, word: String, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
 
     private val vbox = BrowsableVBox()
 
@@ -25,8 +25,8 @@ class AutocompletionMenu(options: Array<String>, word: String, pos: Int, listene
         val area = area!!
         var list = emptyList<String>()
         options.forEach {option ->
-            if(!list.contains(option)) {
-                val button = AutocompletionButton(option)
+            if(!list.contains(option.key)) {
+                val button = AutocompletionButton(option.key)
                 button.setOnAction {
                     listener.b = true
                     var padding = 0
@@ -35,11 +35,11 @@ class AutocompletionMenu(options: Array<String>, word: String, pos: Int, listene
                         if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
                         padding++
                     }
-                    area.replaceText(pos - word.length + 1, pos + padding, option)
+                    area.replaceText(pos - word.length + 1, pos + padding, option.value)
                     hide()
                     listener.b = false
                 }
-                list += option
+                list += option.key
                 vbox.children += button
             }
         }

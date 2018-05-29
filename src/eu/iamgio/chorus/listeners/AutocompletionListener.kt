@@ -20,13 +20,13 @@ const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}$]"
  */
 class AutocompletionListener : EditorEvent() {
 
-    private val options = mutableListOf(
-            "true", "false",
-            *Item.values().map {it.name.makeFormal()}.toTypedArray(),
-            *Entity.values().map {it.name.makeFormal()}.toTypedArray(),
-            *Particle.values().map {it.name.makeFormal()}.toTypedArray(),
-            *Effect.values().map {it.name.makeFormal()}.toTypedArray(),
-            *Enchantment.values().map {it.name.makeFormal()}.toTypedArray()
+    private val options = linkedMapOf(
+            "true" to "true", "false" to "false",
+            *Item.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+            *Entity.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+            *Particle.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+            *Effect.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+            *Enchantment.values().map {it.name.makeFormal() to it.name}.toTypedArray()
     )
 
     var b = false
@@ -46,12 +46,24 @@ class AutocompletionListener : EditorEvent() {
                 if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
                     val size = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
                     var options = options
-                    Variables.getVariables().map {it.name}.reversed().forEach {options.add(0, it)}
-                    options = options.filter {it.toLowerCase().contains(word.toLowerCase())}.toMutableList()
-                    if(options.size > size) options = options.subList(0, size)
-                    val menu = AutocompletionMenu(
-                            options.toTypedArray(), word, area.caretPosition, this
-                    )
+                    val variables = Variables.getVariables().map {it.name}.reversed()
+                    options = options.filter {it.key.toLowerCase().contains(word.toLowerCase())} as LinkedHashMap<String, String>
+                    if(options.size > size) {
+                        @Suppress("UNCHECKED_CAST")
+                        val copy = options.clone() as LinkedHashMap<String, String>
+                        options.clear()
+                        var i = 0
+                        variables.forEach {
+                            options[it] = it
+                            i++
+                        }
+                        for((k, v) in copy) {
+                            if(i == size) break
+                            options[k] = v
+                            i++
+                        }
+                    }
+                    val menu = AutocompletionMenu(options, word, area.caretPosition, this)
                     actual?.hide()
                     if(menu.children.size > 0) {
                         val bounds = area.screenToLocal(area.caretBounds.get())
