@@ -8,6 +8,7 @@ import eu.iamgio.chorus.menus.TabBrowsable
 import eu.iamgio.chorus.menus.coloredtextpreview.ColoredTextPreviewTitleBar
 import eu.iamgio.chorus.util.InteractFilter
 import eu.iamgio.chorus.util.area
+import eu.iamgio.chorus.util.config
 import eu.iamgio.chorus.util.hideMenuOnInteract
 import eu.iamgio.chorus.variable.Variable
 import eu.iamgio.chorus.variable.Variables
@@ -23,7 +24,7 @@ import javafx.scene.layout.VBox
 class QuickVariablesMenu(varName: String) : VBox(), Showable {
 
     private val name = TextField(varName)
-    private val value = TextField()
+    private val value = TextField(config["4.Minecraft.4.Default_variable_value"])
 
     init {
         styleClass += "quick-variables-menu"
@@ -63,7 +64,9 @@ class QuickVariablesMenu(varName: String) : VBox(), Showable {
         hideMenuOnInteract(this, InteractFilter.AREA, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
         Showables.SHOWING = this
         TabBrowsable.initBrowsing(listOf(name, value))
-        name.requestFocus()
+        value.positionCaret(value.length)
+        value.selectAll()
+        value.requestFocus()
     }
 
     override fun hide() {
