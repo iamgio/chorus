@@ -15,11 +15,11 @@ class ScoreboardPreviewImage(title: String, text: String) : ColoredTextPreviewIm
         Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/scoreboard-background.png")),
         listOf(
                 ChatParser(title, true).toTextFlow().withStyleClass("minecraft-scoreboard-title-preview-flow"),
-                ChatParser(text, true).toTextFlow().withStyleClass("minecraft-scoreboard-preview-flow")
+                *text.split("\n").map {ChatParser(it, true).toTextFlow().withStyleClass("minecraft-scoreboard-preview-flow")}.toTypedArray()
         ).toFlowList()
-) {
+), IDefinedStyleClass {
 
-    val styleClass = "minecraft-scoreboard-preview-flow"
+    override val styleClass = "minecraft-scoreboard-preview-flow"
 
     override fun initFlow(flow: TextFlow, index: Int) {
         flow.minWidth = width - 15.0

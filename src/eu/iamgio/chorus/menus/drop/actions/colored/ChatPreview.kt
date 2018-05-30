@@ -4,9 +4,6 @@ import eu.iamgio.chorus.editor.EditorArea
 import eu.iamgio.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import eu.iamgio.chorus.menus.coloredtextpreview.previews.ChatPreviewImage
 import eu.iamgio.chorus.menus.drop.actions.DropMenuAction
-import eu.iamgio.chorus.minecraft.chat.ChatParser
-import eu.iamgio.chorus.util.toFlowList
-import eu.iamgio.chorus.util.withStyleClass
 import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
@@ -27,11 +24,10 @@ class ChatPreview : DropMenuAction() {
         }, Duration(300.0))
         textArea.prefHeight = 80.0
         textArea.promptText = "Text"
-        val menu = ColoredTextPreviewMenu("Chat preview", ChatPreviewImage(area.selectedText), listOf(textArea))
+        val menu = ColoredTextPreviewMenu("Chat preview", ChatPreviewImage("\n"), listOf(textArea))
+        menu.image.flows = generateFlowList(textArea, menu.image as ChatPreviewImage)
         textArea.textProperty().addListener {_ ->
-            val lines = textArea.text.split("\n")
-            val flows = lines.map {ChatParser(it, true).toTextFlow().withStyleClass((menu.image as ChatPreviewImage).styleClass)}
-            menu.image.flows = flows.toFlowList()
+            menu.image.flows = generateFlowList(textArea, menu.image)
         }
         menu.layoutX = x
         menu.layoutY = y
