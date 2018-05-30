@@ -31,6 +31,7 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
             area!!.replaceText(area!!.substitutionRange,
                     convert(enumClass.valueOf(combobox.selectionModel.selectedItem.toString().toUpperCase()) as T, textfield.text))
             hide()
+            area!!.requestFocus()
         }
         textfield.setOnAction {
             button.fire()
