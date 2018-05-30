@@ -92,7 +92,6 @@ public class Chorus extends FXApplication {
 
         root = (AnchorPane) loadRoot("/assets/views/Editor.fxml");
         Scene scene = new Scene(root, 950, 600);
-        getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();
         Theme theme = Themes.byConfig();
         if(theme.getInternal()) {
             loadStylesheet(scene, theme.getPath()[0]);
@@ -120,6 +119,8 @@ public class Chorus extends FXApplication {
         loadFont("Minecraft-Italic.otf");
         loadFont("Minecraft-BoldItalic.otf");
         loadFont("Obfuscated.TTF");
+
+        getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();
     }
 
     public static void main(String... args) {
