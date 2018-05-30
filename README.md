@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://i.imgur.com/4FyinoS.png" alt="Banner" />
+</p>
+
 # Chorus
 
 #### What is Chorus?
