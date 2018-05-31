@@ -31,7 +31,7 @@ class ScoreboardPreview : DropMenuAction() {
         textArea.promptText = "Text"
         val menu = ColoredTextPreviewMenu("Scoreboard preview", ScoreboardPreviewImage(title.text, area.selectedText), listOf(title, textArea))
         title.textProperty().addListener {_ ->
-            menu.image.flows[0] = ChatParser(title.text, true).toTextFlow()
+            menu.image.flows[0] = ChatParser(title.text, true).toTextFlow().withStyleClass("minecraft-scoreboard-title-preview-flow")
         }
         textArea.textProperty().addListener {_ ->
             val f1 = menu.image.flows[0]
