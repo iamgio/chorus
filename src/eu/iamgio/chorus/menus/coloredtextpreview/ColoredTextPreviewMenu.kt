@@ -23,6 +23,8 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
 
     init {
         styleClass += "colored-text-preview-menu"
+        maxWidth = image.prefWidth
+        (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
         image.prefWidthProperty().addListener { _ ->
             maxWidth = image.prefWidth
             (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
