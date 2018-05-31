@@ -11,7 +11,7 @@ import javafx.scene.text.TextFlow
  * @author Gio
  */
 class MotdPreviewImage(title: String, first: String) : ColoredTextPreviewImage(
-        Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/motd-background.png")),
+        ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/motd-background.png"))),
         listOf(
                 ChatParser(title, true).toTextFlow().withStyleClass("minecraft-motd-preview-flow"),
                 ChatParser(first, true).toTextFlow().withStyleClass("minecraft-motd-preview-flow"),

@@ -9,6 +9,7 @@ class ColoredTextDropMenu : DropMenu() {
             DropMenuButton("Chat preview", "colored"),
             DropMenuButton("Title preview", "colored"),
             DropMenuButton("Scoreboard preview", "colored"),
+            DropMenuButton("Item preview", "colored"),
             DropMenuButton("Sign preview", "colored"),
             DropMenuButton("Action bar preview", "colored"),
             DropMenuButton("Boss bar preview", "colored"),

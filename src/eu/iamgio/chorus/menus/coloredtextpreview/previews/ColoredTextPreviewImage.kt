@@ -2,15 +2,13 @@ package eu.iamgio.chorus.menus.coloredtextpreview.previews
 
 import eu.iamgio.chorus.menus.coloredtextpreview.FlowList
 import javafx.application.Platform
-import javafx.scene.image.Image
-import javafx.scene.image.ImageView
 import javafx.scene.layout.Pane
 import javafx.scene.text.TextFlow
 
 /**
  * @author Gio
  */
-abstract class ColoredTextPreviewImage(val image: Image, flows: FlowList, private val reversed: Boolean = false) : Pane(ImageView(image)) {
+abstract class ColoredTextPreviewImage(val background: ColoredTextBackground, flows: FlowList, private val reversed: Boolean = false) : Pane(background.rectangle) {
 
     var flows = flows
         set(value) {
@@ -25,7 +23,10 @@ abstract class ColoredTextPreviewImage(val image: Image, flows: FlowList, privat
     init {
         @Suppress("LEAKINGTHIS")
         flows.image = this
-        prefWidth = image.width
+        prefWidth = background.width
+        background.onWidthChange = Runnable {
+            prefWidth = background.width
+        }
         Platform.runLater {
             (if(reversed) flows.reversed() else flows).forEachIndexed { index, flow ->
                 initFlow(flow, index)

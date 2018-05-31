@@ -15,7 +15,7 @@ import javafx.scene.text.TextFlow
  * @author Gio
  */
 class MobBarPreviewImage(text: String) : ColoredTextPreviewImage(
-        Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/mobbar-background.png")),
+        ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/mobbar-background.png"))),
         listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-mobbar-preview-flow")).toFlowList()
 ) {
 
@@ -26,7 +26,7 @@ class MobBarPreviewImage(text: String) : ColoredTextPreviewImage(
         flow.styleClass += "minecraft-mobbar-preview-flow"
         flow.minWidth = text.layoutBounds.width + padding
         flow.textAlignment = TextAlignment.CENTER
-        flow.layoutX = image.width / 2 - (flow.minWidth - padding) / 2
+        flow.layoutX = background.width / 2 - (flow.minWidth - padding) / 2
         flow.layoutY = 75.0
     }
 }

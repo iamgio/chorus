@@ -12,7 +12,7 @@ import javafx.scene.text.TextFlow
  * @author Gio
  */
 class SignPreviewImage(text: String) : ColoredTextPreviewImage(
-        Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/sign-background.png")),
+        ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/sign-background.png"))),
         listOf(
                 ChatParser(text, true).toTextFlow().withStyleClass("minecraft-sign-preview-flow"),
                 TextFlow().withStyleClass("minecraft-sign-preview-flow"),
@@ -23,7 +23,7 @@ class SignPreviewImage(text: String) : ColoredTextPreviewImage(
 
     override fun initFlow(flow: TextFlow, index: Int) {
         flow.styleClass += "minecraft-sign-preview-flow"
-        flow.minWidth = image.width
+        flow.minWidth = background.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = 10.0 + (index * 39)
     }

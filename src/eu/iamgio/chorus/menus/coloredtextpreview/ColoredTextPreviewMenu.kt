@@ -23,9 +23,10 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
 
     init {
         styleClass += "colored-text-preview-menu"
-        maxWidth = image.image.width
-
-        (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
+        image.prefWidthProperty().addListener { _ ->
+            maxWidth = image.prefWidth
+            (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
+        }
         inputs.forEach {
             it.styleClass += "colored-text-preview-textfield"
             textfieldsVbox.children += it
@@ -56,9 +57,9 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         Showables.SHOWING = null
     }
 
-    override fun getMenuWidth() = image.image.width
+    override fun getMenuWidth() = image.background.width
 
-    override fun getMenuHeight() = image.image.height + 130
+    override fun getMenuHeight() = image.background.height + 130
 
     override fun getMenuX() = layoutX
 

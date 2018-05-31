@@ -12,13 +12,13 @@ import javafx.scene.text.TextFlow
  * @author Gio
  */
 class ActionBarPreviewImage(text: String) : ColoredTextPreviewImage(
-        Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/actionbar-background.png")),
+        ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/actionbar-background.png"))),
         listOf(ChatParser(text, true).toTextFlow().withStyleClass("minecraft-actionbar-preview-flow")).toFlowList()
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {
         flow.styleClass += "minecraft-actionbar-preview-flow"
-        flow.minWidth = image.width
+        flow.minWidth = background.width
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = 140.0
     }

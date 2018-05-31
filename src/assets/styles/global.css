@@ -123,6 +123,15 @@
     -fx-font-size: 19;
 }
 
+.minecraft-item-preview-flow {
+    -fx-opacity: .9;
+}
+
+.minecraft-item-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 19;
+}
+
 .minecraft-sign-preview-flow .label {
     -fx-font-family: "Minecraft";
 }

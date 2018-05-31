@@ -12,7 +12,7 @@ import javafx.scene.text.TextFlow
  * @author Gio
  */
 class ScoreboardPreviewImage(title: String, text: String) : ColoredTextPreviewImage(
-        Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/scoreboard-background.png")),
+        ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/scoreboard-background.png"))),
         listOf(
                 ChatParser(title, true).toTextFlow().withStyleClass("minecraft-scoreboard-title-preview-flow"),
                 *text.split("\n").map {ChatParser(it, true).toTextFlow().withStyleClass("minecraft-scoreboard-preview-flow")}.toTypedArray()
