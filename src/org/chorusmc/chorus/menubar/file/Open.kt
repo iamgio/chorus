@@ -1,14 +1,19 @@
 package org.chorusmc.chorus.menubar.file
 
+import eu.iamgio.libfx.files.FileChooser
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ObservableValue
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.file.LocalFile
 import org.chorusmc.chorus.menubar.MenuBarAction
-import eu.iamgio.libfx.files.FileChooser
 
 /**
  * @author Gio
  */
 class Open : MenuBarAction {
+
+    override val binding: ObservableValue<Boolean>
+        get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
         val chooser = FileChooser()

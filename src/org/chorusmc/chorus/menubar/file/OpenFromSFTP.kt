@@ -1,18 +1,23 @@
 package org.chorusmc.chorus.menubar.file
 
+import eu.iamgio.libfx.timing.WaitingTimer
+import javafx.application.Platform
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ObservableValue
+import javafx.util.Duration
 import org.chorusmc.chorus.connection.RemoteConnection
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.file.SFTPFile
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.views.sftp.SFTPView
-import eu.iamgio.libfx.timing.WaitingTimer
-import javafx.application.Platform
-import javafx.util.Duration
 
 /**
  * @author Gio
  */
 class OpenFromSFTP : MenuBarAction {
+
+    override val binding: ObservableValue<Boolean>
+        get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
         val view = SFTPView()

@@ -1,16 +1,21 @@
 package org.chorusmc.chorus.menubar.help
 
+import eu.iamgio.libfx.timing.WaitingTimer
+import javafx.application.Platform
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ObservableValue
+import javafx.util.Duration
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.updater.Updater
 import org.chorusmc.chorus.views.UpdaterView
-import eu.iamgio.libfx.timing.WaitingTimer
-import javafx.application.Platform
-import javafx.util.Duration
 
 /**
  * @author Gio
  */
 class CheckForUpdates : MenuBarAction {
+
+    override val binding: ObservableValue<Boolean>
+        get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
         val view = UpdaterView()

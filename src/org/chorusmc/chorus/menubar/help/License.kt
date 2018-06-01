@@ -1,15 +1,20 @@
 package org.chorusmc.chorus.menubar.help
 
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ObservableValue
+import javafx.scene.control.Label
+import javafx.scene.control.ScrollPane
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.nodes.control.UrlLabel
 import org.chorusmc.chorus.views.HelpView
-import javafx.scene.control.Label
-import javafx.scene.control.ScrollPane
 
 /**
  * @author Gio
  */
 class License : MenuBarAction {
+
+    override val binding: ObservableValue<Boolean>
+        get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
         val helpView = HelpView("License")

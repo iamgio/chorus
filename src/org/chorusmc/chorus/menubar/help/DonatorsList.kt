@@ -1,16 +1,21 @@
 package org.chorusmc.chorus.menubar.help
 
-import org.chorusmc.chorus.connection.Connection
-import org.chorusmc.chorus.menubar.MenuBarAction
-import org.chorusmc.chorus.views.HelpView
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ObservableValue
 import javafx.scene.control.Label
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
+import org.chorusmc.chorus.connection.Connection
+import org.chorusmc.chorus.menubar.MenuBarAction
+import org.chorusmc.chorus.views.HelpView
 
 /**
  * @author Gio
  */
 class DonatorsList : MenuBarAction {
+
+    override val binding: ObservableValue<Boolean>
+        get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
         val helpView = HelpView("Donators")

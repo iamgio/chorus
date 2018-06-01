@@ -1,20 +1,25 @@
 package org.chorusmc.chorus.menubar.file
 
-import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.menubar.MenuBarAction
-import org.chorusmc.chorus.settings.SettingsBuilder
-import org.chorusmc.chorus.theme.Themes
-import org.chorusmc.chorus.util.config
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ObservableValue
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.control.SplitPane
 import javafx.scene.image.Image
 import javafx.stage.Stage
+import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.menubar.MenuBarAction
+import org.chorusmc.chorus.settings.SettingsBuilder
+import org.chorusmc.chorus.theme.Themes
+import org.chorusmc.chorus.util.config
 
 /**
  * @author Gio
  */
 class Settings : MenuBarAction {
+
+    override val binding: ObservableValue<Boolean>
+        get() = SimpleBooleanProperty(false)
 
     companion object {
         private val stage = Stage()

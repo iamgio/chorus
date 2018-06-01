@@ -52,15 +52,15 @@
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Settings">
-                                    <accelerator>
-                                        <KeyCodeCombination alt="DOWN" code="S" control="DOWN" meta="UP" shift="UP"
-                                                            shortcut="UP"/>
-                                    </accelerator>
-                                </MenuItem>
                                 <MenuItem mnemonicParsing="false" text="Test file">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="DOWN"
+                                                            shortcut="UP"/>
+                                    </accelerator>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" text="Settings">
+                                    <accelerator>
+                                        <KeyCodeCombination alt="DOWN" code="S" control="DOWN" meta="UP" shift="UP"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
