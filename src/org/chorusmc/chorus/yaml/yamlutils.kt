@@ -15,7 +15,7 @@ fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true):
         toReverse += area.text[min]
     }
     toReverse.reversed().forEach {word += it}
-    while(plus < area.text.length && (!stopOnLineBreak || area.text[plus] != '\n') && area.getStyleOfChar(plus).contains(styleClass)) {
+    while(plus < area.text.length && (!stopOnLineBreak || area.text[plus] != '\n') && area.getStyleOfChar(plus + 1).contains(styleClass)) {
         word += area.text[plus]
         plus++
     }

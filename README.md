@@ -2,8 +2,6 @@
   <img src="https://i.imgur.com/4FyinoS.png" alt="Banner" />
 </p>
 
-# Chorus
-
 #### What is Chorus?
 Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for owners of Minecraft servers based on [Spigot](https://spigotmc.org).
 Thanks to its features, Chorus is perfect to edit your configurations quicker. 
@@ -28,7 +26,7 @@ Thanks to its features, Chorus is perfect to edit your configurations quicker.
 ![Autocompletion](https://i.imgur.com/oSIsIRW.png)
    
    
-* Showing **previews of chat, title, sign, action bar, boss bar, mob bar, MOTD**;   
+* Showing **previews** of **chat**, **title**, **scoreboard**, **item**, **sign**, **action bar**, **boss bar**, **mob bar**, **MOTD**, **animated text**;   
    
 ![Chat preview](https://i.imgur.com/Hnn2J7n.png)   
    
@@ -91,6 +89,20 @@ To see the structure of a style file, take a look at this theme:
 ### Downloading
 **This project is currently work in progress.**  
 Once finished, Chorus will be downloadable [here](https://github.com/iAmGio/chorus/releases).
+
+##### Windows
+Be sure you have Java 8 or above installed.   
+Download chorus-X.X.X.exe, move it to the desired installation folder and run it.  
+
+##### macOS / OS X
+Be sure you have Java 8 or above installed.  
+Download chorus-X.X.X.jar, move it to the desired installation folder and run it.
+
+##### Linux
+Be sure you have Java 8 or above and `openjfx` installed.  
+Download chorus-X.X.X.jar, move it to the desired installation folder and run it.  
+
+
 
 ### Donating
 I (yes, Chorus is mantained by a single guy) worked so hard on this project, which you are downloading for free. If you like this software or you just want to support me, I'd enjoy donations.     
