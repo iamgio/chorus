@@ -5,7 +5,7 @@ import org.chorusmc.chorus.menus.conversion.ConversionMenu
 /**
  * @author Gio
  */
-class TicksConversionMenu : ConversionMenu<TimeUnit>(TimeUnit::class.java, 3) {
+class TicksConversionMenu : ConversionMenu<TimeUnit>(TimeUnit::class.java, 1) {
 
     override fun convert(type: TimeUnit, text: String): String {
         val string = (text.toLong() * 20L * type.value.toLong()).toString()
