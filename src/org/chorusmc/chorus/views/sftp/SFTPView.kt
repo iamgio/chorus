@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.connection.RemoteConnection
+import org.chorusmc.chorus.nodes.control.NumericTextField
 import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.toObservableList
@@ -27,6 +28,7 @@ class SFTPView {
     private val ip = ComboBox<String>()
     private val username = TextField()
     private val password = PasswordField()
+    private val port = NumericTextField("22")
     val connectButton = Button("Connect")
     private val filesBox = VBox()
 
@@ -40,8 +42,8 @@ class SFTPView {
             stage.title = value
         }
 
-    fun onConfirm(unit: (String, String, String) -> Unit) = connectButton.setOnAction {
-        unit(ip.selectionModel.selectedItem, username.text, password.text)
+    fun onConfirm(unit: (String, String, Int, String) -> Unit) = connectButton.setOnAction {
+        unit(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text)
     }
 
     init {
@@ -71,6 +73,10 @@ class SFTPView {
         password.text = RemoteConnection.psw
         password.promptText = "Password"
         password.styleClass += "password-field"
+        port.promptText = "Port"
+        port.styleClass += "username-field"
+        port.prefWidth = 40.0
+        port.alignment = Pos.CENTER
         username.setOnAction {
             connectButton.fire()
         }
@@ -84,8 +90,9 @@ class SFTPView {
                 ip.selectionModel.selectedItemProperty().isNull
                         .or(username.textProperty().isEmpty)
                         .or(password.textProperty().isEmpty)
+                        .or(port.textProperty().isEmpty)
         )
-        val addressHbox = HBox(ip, username, password)
+        val addressHbox = HBox(ip, username, password, port)
         if(ip.selectionModel.selectedItem != null) addressHbox.children += connectButton
         addressHbox.styleClass += "sftp-address-box"
         addressHbox.alignment = Pos.CENTER

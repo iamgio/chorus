@@ -7,7 +7,7 @@ import com.jcraft.jsch.Session
 /**
  * @author Gio
  */
-class RemoteConnection(private val ip: String, private val username: String, private val password: String) {
+class RemoteConnection(private val ip: String, private val username: String, private val port: Int, private val password: String) {
 
     lateinit var session: Session
     var isValid = false
@@ -18,7 +18,7 @@ class RemoteConnection(private val ip: String, private val username: String, pri
         get() {
             val jsch = JSch()
             return try {
-                session = jsch.getSession(username, ip)
+                session = jsch.getSession(username, ip, port)
                 session.setConfig("StrictHostKeyChecking", "no")
                 session.setPassword(password)
                 session.connect()
