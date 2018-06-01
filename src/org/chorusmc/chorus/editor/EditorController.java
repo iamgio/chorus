@@ -68,6 +68,7 @@ public class EditorController implements Initializable {
                 MenuBarAction action = (MenuBarAction) clazz.newInstance();
                 Events.getMenuActions().add(action);
                 item.setOnAction(e -> action.onAction());
+                action.getListener().run();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -80,10 +81,12 @@ public class EditorController implements Initializable {
         });
         tabPane.getSelectionModel().selectedItemProperty().addListener(e -> {
             Tab tab = Tab.getCurrentTab();
-            Chorus.getInstance().getStage().withTitle(
-                    "Chorus" + (tab != null ? " - " + tab.getFile().getFormalAbsolutePath() : "")
-            );
-            if(tab != null) Platform.runLater(() -> tab.getArea().requestFocus());
+            if(tab != null) {
+                EditorArea area = tab.getArea();
+                Chorus.getInstance().getStage().withTitle("Chorus" +
+                        (tab != null ? " - " + tab.getFile().getFormalAbsolutePath() : ""));
+                Platform.runLater(area::requestFocus);
+            }
         });
     }
 

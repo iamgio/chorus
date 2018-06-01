@@ -5,5 +5,7 @@ package org.chorusmc.chorus.menubar
  */
 interface MenuBarAction {
 
+    val listener: Runnable
+
     fun onAction()
 }
