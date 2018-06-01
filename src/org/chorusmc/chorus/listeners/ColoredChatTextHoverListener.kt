@@ -3,6 +3,7 @@ package org.chorusmc.chorus.listeners
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.nodes.popup.TextFlowPopup
+import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.yaml.charToWord
 import org.fxmisc.richtext.event.MouseOverTextEvent
@@ -19,11 +20,10 @@ class ColoredChatTextHoverListener : TabOpenerListener {
             val index = e.characterIndex
             if(area.getStyleOfChar(index).contains("string")) {
                 val position = e.screenPosition
-                var s = charToWord(e.characterIndex, "string")
+                var s = charToWord(e.characterIndex, "string", false)
                         .substring(1)
                 s = s.substring(0, s.length - 1)
-                val prefix = config["4.Minecraft.1.Color_prefix"]
-                if(s.contains(prefix) || config.getBoolean("4.Minecraft.2.Force_string_preview")) {
+                if(s.contains(colorPrefix) || config.getBoolean("4.Minecraft.2.Force_string_preview")) {
                     popup!!.flow = ChatParser(s, true).toTextFlow()
                     popup!!.show(area, position.x, position.y + 10)
                 }

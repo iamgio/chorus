@@ -2,7 +2,7 @@ package org.chorusmc.chorus.yaml
 
 import org.chorusmc.chorus.util.area
 
-fun charToWord(index: Int, styleClass: String): String {
+fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true): String {
     val area = area!!
 
     var word = ""
@@ -10,12 +10,12 @@ fun charToWord(index: Int, styleClass: String): String {
     var plus = index
     val toReverse = ArrayList<Char>()
 
-    while(min > 0 && area.text[min] != '\n' && area.getStyleOfChar(min - 1).contains(styleClass)) {
+    while(min > 0 && (!stopOnLineBreak || area.text[min] != '\n') && area.getStyleOfChar(min - 1).contains(styleClass)) {
         min--
         toReverse += area.text[min]
     }
     toReverse.reversed().forEach {word += it}
-    while(plus < area.text.length && area.text[plus] != '\n' && area.getStyleOfChar(plus).contains(styleClass)) {
+    while(plus < area.text.length && (!stopOnLineBreak || area.text[plus] != '\n') && area.getStyleOfChar(plus).contains(styleClass)) {
         word += area.text[plus]
         plus++
     }
