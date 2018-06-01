@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.settings.nodes
 
-import org.chorusmc.chorus.util.config
 import javafx.scene.control.TextArea
+import org.chorusmc.chorus.util.config
 
 /**
  * @author Gio
@@ -10,9 +10,7 @@ class SettingTextArea : TextArea() {
 
     init {
         textProperty().addListener {_ ->
-            if(text.isNotEmpty()) {
-                config.set(id, text.replace("\n", "\\n"))
-            }
+            config.set(id, text.replace("\n", "\\n"))
         }
     }
 }
