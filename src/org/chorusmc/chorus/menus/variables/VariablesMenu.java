@@ -34,6 +34,8 @@ public class VariablesMenu {
         Scene scene = new Scene(scrollPane, 500.0, 400.0);
         scrollPane.getStylesheets().addAll("/assets/styles/global.css", Themes.byConfig().getPath()[0]);
         scrollPane.getStyleClass().add("variables-menu");
+        stage.setMinWidth(scene.getWidth());
+        stage.setMinHeight(scene.getHeight());
         stage.setTitle("Variables");
         stage.setScene(scene);
         stage.getIcons().add(new Image(Chorus.class.getResourceAsStream("/assets/images/icon.png")));

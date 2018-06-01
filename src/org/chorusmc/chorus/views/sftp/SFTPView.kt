@@ -1,11 +1,6 @@
 package org.chorusmc.chorus.views.sftp
 
 import com.jcraft.jsch.ChannelSftp
-import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.connection.RemoteConnection
-import org.chorusmc.chorus.theme.Themes
-import org.chorusmc.chorus.util.config
-import org.chorusmc.chorus.util.toObservableList
 import javafx.css.PseudoClass
 import javafx.geometry.Pos
 import javafx.scene.Scene
@@ -15,6 +10,11 @@ import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.connection.RemoteConnection
+import org.chorusmc.chorus.theme.Themes
+import org.chorusmc.chorus.util.config
+import org.chorusmc.chorus.util.toObservableList
 import java.util.*
 
 /**
@@ -98,6 +98,8 @@ class SFTPView {
         filesBox.prefWidth = scene.width
         val mainVbox = VBox(addressHbox, scrollpane)
         root.children += mainVbox
+        stage.minWidth = scene.width
+        stage.minHeight = scene.height
         stage.isResizable = false
         stage.title = title
         stage.scene = scene

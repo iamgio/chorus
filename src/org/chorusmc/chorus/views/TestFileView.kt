@@ -27,6 +27,8 @@ class TestFileView {
         area.isEditable = false
         val scene = Scene(area, 550.0, 400.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
+        stage.minWidth = scene.width
+        stage.minHeight = scene.height
         stage.isResizable = false
         stage.title = "Test results"
         stage.scene = scene

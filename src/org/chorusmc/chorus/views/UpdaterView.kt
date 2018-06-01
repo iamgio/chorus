@@ -1,7 +1,5 @@
 package org.chorusmc.chorus.views
 
-import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.theme.Themes
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
@@ -11,6 +9,8 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.theme.Themes
 import java.io.File
 
 /**
@@ -35,6 +35,8 @@ class UpdaterView {
         root.children.addAll(label, hbox)
         val scene = Scene(root, 450.0, 350.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
+        stage.minWidth = scene.width
+        stage.minHeight = scene.height
         stage.isResizable = false
         stage.title = "Checking for updates"
         stage.scene = scene

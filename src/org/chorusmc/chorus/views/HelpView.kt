@@ -1,7 +1,5 @@
 package org.chorusmc.chorus.views
 
-import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.theme.Themes
 import eu.iamgio.libfx.util.Roots
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
@@ -11,6 +9,8 @@ import javafx.scene.image.Image
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.theme.Themes
 
 /**
  * @author Gio
@@ -24,6 +24,8 @@ class HelpView(private val title: String) {
         val root = FXMLLoader.load<AnchorPane>(Chorus::class.java.getResource("/assets/views/Help.fxml"))
         val scene = Scene(root, 570.0, 650.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
+        stage.minWidth = scene.width
+        stage.minHeight = scene.height
         stage.isResizable = false
         stage.title = "Chorus - $title"
         stage.scene = scene

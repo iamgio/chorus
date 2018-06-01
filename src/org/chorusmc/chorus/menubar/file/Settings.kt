@@ -36,6 +36,8 @@ class Settings : MenuBarAction {
         SettingsBuilder.addAction("1.Appearance.1.Theme", Runnable {
             scene.stylesheets[0] = Themes.byName(config["1.Appearance.1.Theme"]).path[2]
         })
+        stage.minWidth = scene.width
+        stage.minHeight = scene.height
         stage.isResizable = false
         stage.title = "Chorus - Settings"
         stage.scene = scene
