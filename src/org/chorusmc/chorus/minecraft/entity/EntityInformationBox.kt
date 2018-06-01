@@ -1,0 +1,24 @@
+package org.chorusmc.chorus.minecraft.entity
+
+import org.chorusmc.chorus.infobox.FETCHING_TEXT
+import org.chorusmc.chorus.infobox.InformationBody
+import org.chorusmc.chorus.infobox.InformationBox
+import org.chorusmc.chorus.infobox.InformationHead
+import org.chorusmc.chorus.util.makeFormal
+import javafx.scene.image.Image
+
+/**
+ * @author Gio
+ */
+class EntityInformationBox(val image: Image?, private val entity: Entity) : InformationBox(InformationHead(image)) {
+
+    init {
+        prefWidth = 450.0
+        val title = entity.name.makeFormal()
+        body = InformationBody(title, "", FETCHING_TEXT, entity.connection.url)
+    }
+
+    override fun after() {
+        body.label.text = entity.description
+    }
+}

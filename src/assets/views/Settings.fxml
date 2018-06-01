@@ -7,7 +7,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
            prefHeight="550.0" prefWidth="800.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.91"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.iamgio.chorus.settings.SettingsController">
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chorusmc.chorus.settings.SettingsController">
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="left-pane">
             <children>

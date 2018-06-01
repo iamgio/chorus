@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="600.0" prefWidth="950.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.91"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.iamgio.chorus.editor.EditorController"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chorusmc.chorus.editor.EditorController"
             stylesheets="@../styles/global.css">
     <children>
         <VBox fx:id="noTabsVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
