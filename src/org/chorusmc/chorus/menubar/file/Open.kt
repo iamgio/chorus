@@ -18,7 +18,7 @@ class Open : MenuBarAction {
     override fun onAction() {
         val chooser = FileChooser()
         val files = chooser.chooseMulti("Choose files",
-                javafx.stage.FileChooser.ExtensionFilter("YAML files (*.YML)", "*.YML"),
+                javafx.stage.FileChooser.ExtensionFilter("YAML files (*.yml)", "*.yml"),
                 javafx.stage.FileChooser.ExtensionFilter("All types (*.*)", "*")
         )
         if(files != null && files.size > 0 && !files.contains(null)) {
