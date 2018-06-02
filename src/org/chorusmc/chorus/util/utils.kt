@@ -2,15 +2,16 @@
 
 package org.chorusmc.chorus.util
 
+import javafx.scene.Node
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
+import javafx.scene.input.MouseEvent
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.EditorController
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.Tab
-import javafx.scene.input.KeyCode
-import javafx.scene.input.KeyEvent
-import javafx.scene.input.MouseEvent
 import org.fxmisc.flowless.VirtualizedScrollPane
 
 @Suppress("UNCHECKED_CAST")
@@ -36,7 +37,8 @@ fun closeTabs() {
     }
 }
 
-fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray()) {
+@JvmOverloads
+fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray(), target: Node? = area) {
     val editorController = EditorController.getInstance()
     if(filters.contains(InteractFilter.AREA) || filters.isEmpty()) {
         area!!.addEventHandler(MouseEvent.MOUSE_PRESSED) {
@@ -60,7 +62,7 @@ fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = empt
             if(((filters.contains(InteractFilter.ESC) || filters.isEmpty()) && it.code == KeyCode.ESCAPE) ||
                     ((filters.contains(InteractFilter.TAB) || filters.isEmpty()) && it.code == KeyCode.TAB)) {
                 showable.hide()
-                if(area != null) area!!.requestFocus()
+                target?.requestFocus()
             }
         }
     }

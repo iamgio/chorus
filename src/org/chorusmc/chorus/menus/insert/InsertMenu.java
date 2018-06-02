@@ -1,11 +1,13 @@
 package org.chorusmc.chorus.menus.insert;
 
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.menus.*;
 import org.chorusmc.chorus.minecraft.Iconable;
 import org.chorusmc.chorus.nodes.Tab;
+import org.chorusmc.chorus.util.InteractFilter;
 import org.chorusmc.chorus.util.Utils;
 import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
@@ -26,6 +28,8 @@ public class InsertMenu extends VBox implements Showable {
     private BrowsableVBox vbox;
     private FixedScrollPane pane;
     private Class<Enum<?>> enumClass;
+
+    private Node target;
 
     private Runnable onSelect;
 
@@ -94,7 +98,7 @@ public class InsertMenu extends VBox implements Showable {
         MenuPlacer placer = new MenuPlacer(this);
         setLayoutX(placer.getX());
         setLayoutY(placer.getY());
-        Utils.hideMenuOnInteract(this);
+        Utils.hideMenuOnInteract(this, new InteractFilter[0], target);
         AnchorPane root = Chorus.getInstance().root;
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
@@ -136,6 +140,14 @@ public class InsertMenu extends VBox implements Showable {
     @Override
     public double getMenuY() {
         return getLayoutY();
+    }
+
+    public Node getTarget() {
+        return target;
+    }
+
+    public void setTarget(Node target) {
+        this.target = target;
     }
 
     public String getSelected() {
