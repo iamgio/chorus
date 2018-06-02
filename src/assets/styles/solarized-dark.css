@@ -82,6 +82,14 @@
     -fx-stroke-width: 2;
 }
 
+.spinner .increment-arrow-button, .spinner .decrement-arrow-button {
+    -fx-body-color: -fx-base03;
+}
+
+.spinner {
+    -fx-focus-color: transparent;
+}
+
 .colored-text-editor {
     -fx-background-color: derive(-fx-base02, -20%);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .62), 35, 0, 0, 5);
@@ -108,7 +116,7 @@
     -fx-background-color: -fx-base00;
 }
 
-.arrow {
+.arrow, .increment-arrow, .decrement-arrow {
     -fx-background-color: white;
 }
 

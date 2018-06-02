@@ -79,8 +79,16 @@
 }
 
 .colored-text-editor {
-    -fx-background-color: derive(-fx-base3, -17.5%);
+    -fx-background-color: derive(-fx-base00, -17.5%);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .62), 35, 0, 0, 5);
+}
+
+.spinner .increment-arrow-button, .spinner .decrement-arrow-button {
+    -fx-body-color: -fx-base00;
+}
+
+.spinner {
+    -fx-focus-color: transparent;
 }
 
 .colored-text-area .caret {
@@ -103,7 +111,7 @@
     -fx-background-color: -fx-base00;
 }
 
-.arrow {
+.arrow, .increment-arrow, .decrement-arrow {
     -fx-background-color: white;
 }
 

@@ -93,6 +93,14 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .62), 35, 0, 0, 5);
 }
 
+.spinner .increment-arrow-button, .spinner .decrement-arrow-button {
+    -fx-body-color: -fx-secondary;
+}
+
+.spinner {
+    -fx-focus-color: transparent;
+}
+
 .colored-text-area .caret {
     -fx-stroke: #363636;
     -fx-stroke-width: 1.8;
@@ -114,7 +122,7 @@
     -fx-background-color: -fx-secondary;
 }
 
-.arrow {
+.arrow, .increment-arrow, .decrement-arrow {
     -fx-background-color: white;
 }
 
