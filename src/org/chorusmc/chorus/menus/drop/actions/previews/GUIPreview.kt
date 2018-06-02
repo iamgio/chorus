@@ -9,7 +9,6 @@ import javafx.scene.input.MouseButton
 import javafx.scene.layout.Region
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
-import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.GUIPreviewImage
@@ -36,10 +35,6 @@ class GUIPreview : DropMenuAction() {
         val grid = Grid(textfield)
         updateMembers(grid, rows.value, image)
         val menu = ColoredTextPreviewMenu("GUI preview", image, listOf(textfield, rows))
-        textfield.focusedProperty().addListener {_ ->
-            Showables.SHOWING = menu
-            println("a")
-        }
         textfield.textProperty().addListener {_ ->
             menu.image.flows[0] = ChatParser(textfield.text, true).toTextFlow()
             updateMembers(grid, rows.value, image)
@@ -102,10 +97,11 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
     init {
         prefWidth = 34.0
         prefHeight = 34.0
-        val popup = LocalTextPopup("Slot: $n, X:$x, Y:$y")
+        val popup = LocalTextPopup()
         popup.layoutX = centerX - prefWidth
         popup.layoutY = centerY - 35
         setOnMouseEntered {
+            popup.text = "Slot: $n, X: $x, Y: $y${if(item != null) ", item: ${item!!.name}:$meta" else ""}"
             children += popup
             style = "-fx-background-color: rgba(255, 255, 255, .2)"
         }

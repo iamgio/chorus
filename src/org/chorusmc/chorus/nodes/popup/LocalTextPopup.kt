@@ -5,7 +5,7 @@ import javafx.scene.control.Label
 /**
  * @author Gio
  */
-class LocalTextPopup(text: String) : Label(text) {
+class LocalTextPopup : Label() {
 
     init {
         styleClass += "text-popup"
