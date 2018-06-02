@@ -132,6 +132,11 @@
     -fx-font-size: 19;
 }
 
+.minecraft-gui-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 19;
+}
+
 .minecraft-sign-preview-flow .label {
     -fx-font-family: "Minecraft";
 }

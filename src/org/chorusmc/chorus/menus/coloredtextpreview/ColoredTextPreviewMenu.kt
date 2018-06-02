@@ -1,5 +1,9 @@
 package org.chorusmc.chorus.menus.coloredtextpreview
 
+import javafx.scene.control.Control
+import javafx.scene.control.Spinner
+import javafx.scene.control.TextInputControl
+import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
@@ -8,13 +12,11 @@ import org.chorusmc.chorus.menus.TabBrowsable
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import org.chorusmc.chorus.util.InteractFilter
 import org.chorusmc.chorus.util.hideMenuOnInteract
-import javafx.scene.control.TextInputControl
-import javafx.scene.layout.VBox
 
 /**
  * @author Gio
  */
-class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, private val inputs: List<TextInputControl>) : VBox(ColoredTextPreviewTitleBar(title), image), Showable {
+class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, private val inputs: List<Control>) : VBox(ColoredTextPreviewTitleBar(title), image), Showable {
 
     private val textfieldsVbox = VBox(.7)
     val vbox = VBox(1.2, textfieldsVbox)
@@ -30,8 +32,9 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
             (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
         }
         inputs.forEach {
-            it.styleClass += "colored-text-preview-textfield"
+            (if(it is Spinner<*>) it.editor else it).styleClass += "colored-text-preview-textfield"
             textfieldsVbox.children += it
+            it.prefWidth = image.prefWidth
         }
         children += vbox
     }
@@ -47,7 +50,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         }
         hideMenuOnInteract(this, InteractFilter.AREA, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
         Showables.SHOWING = this
-        with(inputs[toFocus]) {
+        with(inputs.filterIsInstance<TextInputControl>()[toFocus]) {
             requestFocus()
             positionCaret(text.length)
         }

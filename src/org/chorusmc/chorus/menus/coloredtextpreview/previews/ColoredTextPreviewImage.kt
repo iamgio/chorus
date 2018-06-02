@@ -1,18 +1,20 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
-import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
 import javafx.application.Platform
 import javafx.scene.layout.Pane
 import javafx.scene.text.TextFlow
+import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
 
 /**
  * @author Gio
  */
 abstract class ColoredTextPreviewImage(val background: ColoredTextBackground, flows: FlowList, private val reversed: Boolean = false) : Pane(background.rectangle) {
 
+    var limit = 1
+
     var flows = flows
         set(value) {
-            children.remove(1, children.size)
+            children.remove(limit, children.size)
             value.image = this
             (if(reversed) value.reversed() else value).forEachIndexed { index, flow ->
                 initFlow(flow, index)

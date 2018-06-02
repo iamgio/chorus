@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.menus
 
+import javafx.scene.control.Control
 import javafx.scene.control.TextInputControl
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
@@ -11,9 +12,9 @@ class TabBrowsable {
 
     companion object {
 
-        @JvmStatic fun initBrowsing(inputs: List<TextInputControl>) {
-            for((i, textfield) in inputs.withIndex()) {
-                textfield.addEventFilter(KeyEvent.KEY_PRESSED) {
+        @JvmStatic fun initBrowsing(inputs: List<Control>) {
+            for((i, input) in inputs.withIndex()) {
+                input.addEventFilter(KeyEvent.KEY_PRESSED) {
                     if(it.code == KeyCode.TAB) {
                         it.consume()
                         val control = inputs[if(i == inputs.size - 1) {
@@ -22,8 +23,10 @@ class TabBrowsable {
                             i + 1
                         }]
                         control.requestFocus()
-                        control.positionCaret(control.text.length)
-                        control.selectAll()
+                        if(control is TextInputControl) {
+                            control.positionCaret(control.text.length)
+                            control.selectAll()
+                        }
                     }
                 }
             }

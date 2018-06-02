@@ -1,6 +1,5 @@
 package org.chorusmc.chorus.menus
 
-import org.chorusmc.chorus.Chorus
 import javafx.collections.ListChangeListener
 import javafx.css.PseudoClass
 import javafx.scene.Node
@@ -10,6 +9,7 @@ import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.VBox
+import org.chorusmc.chorus.Chorus
 
 
 const val HOVER_STYLE_CLASS = "bvhover"
@@ -31,7 +31,6 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
         textfield?.setOnKeyPressed {
             val showing = Showables.SHOWING
             if(showing == this) {
-                it.consume()
                 browse(it, showing)
             }
         }
