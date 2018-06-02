@@ -26,10 +26,11 @@ Thanks to its features, Chorus is perfect to edit your configurations quicker.
 ![Autocompletion](https://i.imgur.com/oSIsIRW.png)
    
    
-* Showing **previews** of **chat**, **title**, **scoreboard**, **item**, **sign**, **action bar**, **boss bar**, **mob bar**, **MOTD**, **animated text**;   
+* Showing **previews** of **chat**, **title**, **scoreboard**, **item**, **GUI**, **sign**, **action bar**, **boss bar**, **mob bar**, **MOTD**, **animated text**;   
    
 ![Chat preview](https://i.imgur.com/Hnn2J7n.png)   
-   
+
+![GUI preview](https://i.imgur.com/ENLn206.png)   
    
 * Quick-showing colored texts;   
     
