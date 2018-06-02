@@ -1,5 +1,7 @@
 package org.chorusmc.chorus.menus.insert;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.menus.*;
 import org.chorusmc.chorus.minecraft.Iconable;
@@ -28,6 +30,7 @@ public class InsertMenu extends VBox implements Showable {
     private Runnable onSelect;
 
     private String selected;
+    private int meta;
 
     public InsertMenu(Class<Enum<?>> enumClass) {
         getStyleClass().add("insert-menu");
@@ -65,8 +68,19 @@ public class InsertMenu extends VBox implements Showable {
                     images = ((Iconable) value).getIcons();
                 }
                 InsertMenuHint hint = new InsertMenuHint(name, images);
+                if(images != null && images.size() > 0) {
+                    textfield.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                        if(e.getCode() == KeyCode.RIGHT) {
+                            hint.selectNext();
+                        }
+                        if(e.getCode() == KeyCode.LEFT) {
+                            hint.selectPrevious();
+                        }
+                    });
+                }
                 hint.setAction(() -> {
                     selected = name;
+                    meta = hint.getSelected();
                     onSelect.run();
                 });
                 hint.setOnMouseClicked(e -> hint.getAction().run());
@@ -126,6 +140,10 @@ public class InsertMenu extends VBox implements Showable {
 
     public String getSelected() {
         return selected;
+    }
+
+    public int getMeta() {
+        return meta;
     }
 
     public TextField getTextField() {

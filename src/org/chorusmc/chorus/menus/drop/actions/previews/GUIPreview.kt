@@ -91,6 +91,7 @@ private class GridMember(n: Int, x: Int, y: Int) : Region() {
         get() = layoutY + prefHeight / 2
 
     var item: Item? = null
+    var meta = 0
 
     init {
         prefWidth = 34.0
@@ -119,7 +120,8 @@ private class GridMember(n: Int, x: Int, y: Int) : Region() {
                 menu.setOnSelect {
                     children.removeAll(children.filterIsInstance<ImageView>())
                     item = Item.valueOf(menu.selected.toUpperCase().replace(" ", "_"))
-                    children += ImageView(item!!.icons[0])
+                    meta = if(menu.meta > 0) menu.meta else 0
+                    children += ImageView(item!!.icons[meta])
                 }
                 menu.show()
                 showingMenu = menu

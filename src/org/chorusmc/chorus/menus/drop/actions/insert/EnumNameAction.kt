@@ -20,10 +20,8 @@ open class EnumNameAction(private val enumClass: Class<out Enum<*>>) : DropMenuA
         menu.layoutX = x
         menu.layoutY = y
         menu.setOnSelect {
-            area.replaceText(area.substitutionRange, menu.selected.toUpperCase().replace(" ", "_") + plus())
+            area.replaceText(area.substitutionRange, menu.selected.toUpperCase().replace(" ", "_") + if(menu.meta >= 0) ":" + menu.meta else "")
         }
         menu.show()
     }
-
-    protected open fun plus(): String = ""
 }

@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.menus.insert.InsertMenuHint
 
 
 const val HOVER_STYLE_CLASS = "bvhover"
@@ -31,7 +32,10 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
         textfield?.setOnKeyPressed {
             val showing = Showables.SHOWING
             if(showing == this) {
-                browse(it, showing)
+                when(it.code) {
+                    KeyCode.UP, KeyCode.DOWN -> browse(it, showing)
+                    else -> {}
+                }
             }
         }
         children.addListener {_: ListChangeListener.Change<out Node> ->
@@ -78,6 +82,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
     private fun browse(event: KeyEvent, showing: VBox) {
         if(event.code == KeyCode.UP || event.code == KeyCode.DOWN) {
             val selected: Node? = showing.children.filtered {it.isBVHover()}.firstOrNull() ?: last
+            if(selected is InsertMenuHint) selected.selectNone()
             var index: Int
             if(selected == null) {
                 index = if(event.code == KeyCode.UP) lastIndex else 0

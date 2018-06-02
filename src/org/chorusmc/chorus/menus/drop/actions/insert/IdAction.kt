@@ -34,7 +34,7 @@ open class IdAction(private val enumClass: Class<out IdAble>) : DropMenuAction()
         menu.layoutY = y
         menu.setOnSelect {
             area.replaceText(area.substitutionRange,
-                    valueOf(menu.selected.toUpperCase().replace(" ", "_")).id.toString() + plus()
+                    valueOf(menu.selected.toUpperCase().replace(" ", "_")).id.toString() + if(menu.meta >= 0) ":" + menu.meta else ""
             )
         }
         menu.show()
@@ -44,6 +44,4 @@ open class IdAction(private val enumClass: Class<out IdAble>) : DropMenuAction()
         @Suppress("UNCHECKED_CAST")
         return (enumClass as Class<out Enum<*>>).valueOf(string) as IdAble
     }
-
-    protected open fun plus(): String = ""
 }
