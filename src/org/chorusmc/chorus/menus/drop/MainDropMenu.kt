@@ -13,7 +13,7 @@ class MainDropMenu : DropMenu() {
         val buttons = arrayListOf(
                 DropMenuButton("Insert..."),
                 DropMenuButton("Show..."),
-                DropMenuButton("Text previews...")
+                DropMenuButton("Previews...")
         )
         if(area!!.selection.length > 0) {
             buttons += DropMenuButton("Add as variable")

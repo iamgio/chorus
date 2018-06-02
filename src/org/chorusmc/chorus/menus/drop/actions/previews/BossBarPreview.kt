@@ -1,4 +1,4 @@
-package org.chorusmc.chorus.menus.drop.actions.colored
+package org.chorusmc.chorus.menus.drop.actions.previews
 
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu

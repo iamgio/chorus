@@ -9,7 +9,7 @@ import javafx.scene.text.TextFlow
 /**
  * @author Gio
  */
-class ItemPreviewImage(name: String, text: String) : ColoredTextPreviewImage(
+class LorePreviewImage(name: String, text: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Paint.valueOf("10020f")),
         listOf(
                 ChatParser(name, true).toTextFlow().withStyleClass("minecraft-item-preview-flow"),
