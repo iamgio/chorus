@@ -8,12 +8,13 @@ import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.*
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import org.chorusmc.chorus.util.InteractFilter
+import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.hideMenuOnInteract
 
 /**
  * @author Gio
  */
-class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, private val inputs: List<Control>) : VBox(ColoredTextPreviewTitleBar(title), image), Showable {
+class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, private val inputs: List<Control>) : VBox(ColoredTextPreviewTitleBar(title, true), image), Showable {
 
     private val textfieldsVbox = VBox(.7)
     val vbox = VBox(1.2, textfieldsVbox)
@@ -26,6 +27,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         val titlebar = children[0] as ColoredTextPreviewTitleBar
         titlebar.prefWidth = image.prefWidth
         Draggable(titlebar, this).initDrag()
+        titlebar.close.setOnAction {hide()}
         image.prefWidthProperty().addListener {_ ->
             maxWidth = image.prefWidth
             titlebar.prefWidth = image.prefWidth
@@ -59,6 +61,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
     override fun hide() {
         Chorus.getInstance().root.children -= this
         Showables.SHOWING = null
+        area!!.requestFocus()
     }
 
     override fun getMenuWidth() = image.background.width

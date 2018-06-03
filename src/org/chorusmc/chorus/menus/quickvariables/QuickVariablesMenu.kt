@@ -1,10 +1,12 @@
 package org.chorusmc.chorus.menus.quickvariables
 
+import javafx.geometry.Pos
+import javafx.scene.control.Button
+import javafx.scene.control.TextField
+import javafx.scene.layout.HBox
+import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.menus.MenuPlacer
-import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.menus.Showables
-import org.chorusmc.chorus.menus.TabBrowsable
+import org.chorusmc.chorus.menus.*
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewTitleBar
 import org.chorusmc.chorus.util.InteractFilter
 import org.chorusmc.chorus.util.area
@@ -12,11 +14,6 @@ import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.hideMenuOnInteract
 import org.chorusmc.chorus.variable.Variable
 import org.chorusmc.chorus.variable.Variables
-import javafx.geometry.Pos
-import javafx.scene.control.Button
-import javafx.scene.control.TextField
-import javafx.scene.layout.HBox
-import javafx.scene.layout.VBox
 
 /**
  * @author Gio
@@ -33,6 +30,7 @@ class QuickVariablesMenu(varName: String) : VBox(), Showable {
         alignment = Pos.CENTER
         val bar = ColoredTextPreviewTitleBar("Add variable")
         bar.prefWidth = prefWidth
+        Draggable(bar, this).initDrag()
         val hbox = HBox(7.5)
         hbox.children.addAll(name, value)
         val buttons = HBox(3.0)
