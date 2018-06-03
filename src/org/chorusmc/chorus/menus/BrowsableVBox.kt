@@ -52,6 +52,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
                 node.setOnMouseExited {
                     if(Showables.SHOWING == this) {
                         node.setBVHover(false)
+                        (node as? InsertMenuHint)?.selectNone()
                         onSelectUpdate.run()
                     }
                 }
@@ -82,7 +83,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
     private fun browse(event: KeyEvent, showing: VBox) {
         if(event.code == KeyCode.UP || event.code == KeyCode.DOWN) {
             val selected: Node? = showing.children.filtered {it.isBVHover()}.firstOrNull() ?: last
-            if(selected is InsertMenuHint) selected.selectNone()
+            (selected as? InsertMenuHint)?.selectNone()
             var index: Int
             if(selected == null) {
                 index = if(event.code == KeyCode.UP) lastIndex else 0
