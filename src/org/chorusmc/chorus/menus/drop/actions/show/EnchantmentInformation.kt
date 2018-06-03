@@ -10,7 +10,7 @@ import org.chorusmc.chorus.minecraft.enchantment.EnchantmentInformationBox
 /**
  * @author Gio
  */
-class EnchantmentInformations : DropMenuAction() {
+class EnchantmentInformation : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val enchantment = if(area.selectedText.matches(Regex(EditorPattern.ENCHANTMENT.pattern))) {

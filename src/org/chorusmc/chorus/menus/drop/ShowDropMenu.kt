@@ -15,10 +15,10 @@ class ShowDropMenu : DropMenu() {
 
     override fun getButtons(): MutableList<DropMenuButton> {
         val list = arrayListOf(
-                DropMenuButton("Item Informations", "show"),
-                DropMenuButton("Effect informations", "show"),
-                DropMenuButton("Entity informations", "show"),
-                DropMenuButton("Enchantment informations", "show"),
+                DropMenuButton("Item Information", "show"),
+                DropMenuButton("Effect information", "show"),
+                DropMenuButton("Entity information", "show"),
+                DropMenuButton("Enchantment information", "show"),
                 DropMenuButton("Ticks calculation", "show")
         )
         val area = Tab.currentTab!!.area

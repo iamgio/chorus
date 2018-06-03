@@ -10,7 +10,7 @@ import javafx.scene.image.Image
 /**
  * @author Gio
  */
-class EntityInformations : DropMenuAction() {
+class EntityInformation : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val entity = Entity.valueOf(area.selectedText)

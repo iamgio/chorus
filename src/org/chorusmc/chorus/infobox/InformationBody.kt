@@ -1,9 +1,9 @@
 package org.chorusmc.chorus.infobox
 
-import org.chorusmc.chorus.nodes.control.UrlLabel
 import javafx.scene.control.Label
 import javafx.scene.layout.VBox
 import javafx.scene.text.TextFlow
+import org.chorusmc.chorus.nodes.control.UrlLabel
 
 /**
  * @author Gio
@@ -35,4 +35,4 @@ class InformationBody(title: String, subtitle: String, text: String, url: String
     }
 }
 
-const val FETCHING_TEXT = "Fetching informations..."
+const val FETCHING_TEXT = "Fetching information..."

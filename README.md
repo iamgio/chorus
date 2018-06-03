@@ -57,7 +57,7 @@ Thanks to its features, Chorus is perfect to edit your configurations quicker.
 ![Tick conversion](https://i.imgur.com/o8pQhmJ.png)   
 
    
-* Fetching informations of items, effects, entities, enchantments;   
+* Fetching information of items, effects, entities, enchantments;   
    
 ![Fetch information](https://i.imgur.com/ak2YgNI.png)   
 
@@ -110,4 +110,4 @@ I (yes, Chorus is mantained by a single guy) worked so hard on this project, whi
 By donating, you'll be added to 'Donators List' inside the program.
 
 ### License
-Chorus and its source code are under Apache License 2.0. For further informations, check [LICENSE](https://github.com/iAmGio/chorus/blob/master/LICENSE).
+Chorus and its source code are under Apache License 2.0. For further information, check [LICENSE](https://github.com/iAmGio/chorus/blob/master/LICENSE).

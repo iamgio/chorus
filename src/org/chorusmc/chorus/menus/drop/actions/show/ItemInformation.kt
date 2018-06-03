@@ -12,7 +12,7 @@ import javafx.scene.image.Image
 /**
  * @author Gio
  */
-class ItemInformations : DropMenuAction() {
+class ItemInformation : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val selected = area.selectedText

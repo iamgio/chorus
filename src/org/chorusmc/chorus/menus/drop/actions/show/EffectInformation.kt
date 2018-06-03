@@ -12,7 +12,7 @@ import javafx.scene.image.Image
 /**
  * @author Gio
  */
-class EffectInformations : DropMenuAction() {
+class EffectInformation : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val effect = if(area.selectedText.matches(Regex(EditorPattern.EFFECT.pattern))) {
