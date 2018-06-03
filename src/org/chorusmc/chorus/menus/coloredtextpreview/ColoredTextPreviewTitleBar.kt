@@ -16,11 +16,12 @@ class ColoredTextPreviewTitleBar(text: String, closeButton: Boolean = false) : H
     val close = Button("x")
 
     init {
+        style = "-fx-padding: 9 8 9 15; -fx-background-radius: 6.5 6.5 0 0"
         styleClass += "colored-text-preview-title-bar"
         alignment = Pos.CENTER_LEFT
         val label = Label(text)
         label.styleClass += "colored-text-preview-title-bar"
-        label.style = "-fx-font-weight: bold; -fx-font-size: 20; -fx-padding: 15; -fx-background-radius: 7.5 7.5 0 0"
+        label.style = "-fx-font-weight: bold; -fx-font-size: 20"
         children += label
         if(closeButton) {
             val spacer = Pane()
