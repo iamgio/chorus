@@ -76,6 +76,4 @@ enum class InteractFilter {
 }
 
 
-fun joinEnum(enumClass: Class<out Enum<*>>): String {
-    return enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")
-}
+fun joinEnum(enumClass: Class<out Enum<*>>): String = enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")

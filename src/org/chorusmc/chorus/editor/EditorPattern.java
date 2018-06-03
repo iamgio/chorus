@@ -27,11 +27,11 @@ public enum EditorPattern {
     ITEMID("\\b((([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9]):\\d(\\d)?)|(22((5[8-9])|(6[0-7])):0))\\b"),
     NUMBER("(\\d+(\\.\\d+))|(?<!:)\\d(?!:)+"),
     BRACKET("\\[|\\]"),
+    ITEM("(" + joinEnum(Item.class) + ")(:\\d(\\d)?)?"),
     PARTICLE(joinEnum(Particle.class)),
     EFFECT(joinEnum(Effect.class)),
     SOUND(joinEnum(Sound.class)),
     ENCHANTMENT(joinEnum(Enchantment.class)),
-    ITEM("(" + joinEnum(Item.class) + ")(:\\d(\\d)?)?"),
     ENTITY(joinEnum(Entity.class));
 
     private String pattern;
