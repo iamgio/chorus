@@ -129,7 +129,8 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
                     children.removeAll(children.filterIsInstance<ImageView>())
                     item = Item.valueOf(menu.selected.toUpperCase().replace(" ", "_"))
                     meta = if(menu.meta > 0) menu.meta else 0
-                    children += ImageView(item!!.icons[meta])
+                    val icons = item!!.icons
+                    children += ImageView(if(icons.size > meta) icons[meta] else Item.BEDROCK.icons[0])
                     Platform.runLater {titleField.requestFocus()}
                 }
                 menu.show()
