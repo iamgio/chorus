@@ -11,11 +11,11 @@
 }
 
 .true {
-    -fx-fill: #197f36;
+    -fx-fill: #3b985b;
 }
 
 .false {
-    -fx-fill: #7f3130;
+    -fx-fill: #b83c3b;
 }
 
 .dash {
