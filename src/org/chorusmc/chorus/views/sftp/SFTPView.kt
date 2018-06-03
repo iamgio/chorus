@@ -135,7 +135,7 @@ class SFTPView {
         val channel = connection.channel!! as ChannelSftp
         @Suppress("UNCHECKED_CAST")
         val files = channel.ls(location) as Vector<ChannelSftp.LsEntry>
-        files.filter {it.filename != "."}.sortedBy {!it.attrs.isDir}.forEach {
+        files.filter {it.filename != "."}.sortedBy {it.filename}.sortedBy {!it.attrs.isDir}.forEach {
             if(!(location == "/" && it.filename == "..")) {
                 val button = SFTPButton(it.filename, "$location${if(location.endsWith("/")) "" else "/"}${it.filename}", this, connection, it.attrs.isDir)
                 button.prefWidth = filesBox.prefWidth
