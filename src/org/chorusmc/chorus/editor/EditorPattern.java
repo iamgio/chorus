@@ -23,7 +23,7 @@ public enum EditorPattern {
     DASH("[ \\t\\n]+- "),
     TRUE("\\btrue\\b"),
     FALSE("\\bfalse\\b"),
-    STRING("(\\'((.|\n)*?)\\')|(\\\"((.|\n)*?)\\\")"),
+    STRING("('(.*?)')|(\"(.*?)\")"),
     ITEMID("\\b((([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9]):\\d(\\d)?)|(22((5[8-9])|(6[0-7])):0))\\b"),
     NUMBER("(\\d+(\\.\\d+))|(?<!:)\\d(?!:)+"),
     BRACKET("\\[|\\]"),
@@ -52,6 +52,6 @@ public enum EditorPattern {
         for(EditorPattern editorPattern : EditorPattern.values()) {
             patternBuilder.append("(?<").append(editorPattern.name()).append(">").append(editorPattern.pattern).append(")|");
         }
-        return Pattern.compile(patternBuilder.toString().substring(0, patternBuilder.toString().length() - 1), Pattern.MULTILINE);
+        return Pattern.compile(patternBuilder.toString().substring(0, patternBuilder.toString().length() - 1), Pattern.MULTILINE | Pattern.DOTALL);
     }
 }
