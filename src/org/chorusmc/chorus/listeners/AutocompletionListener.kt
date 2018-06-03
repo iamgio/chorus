@@ -13,7 +13,7 @@ import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.variable.Variables
 import org.fxmisc.richtext.model.RichTextChange
 
-const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}$]"
+const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}_$]"
 
 /**
  * @author Gio
@@ -47,7 +47,7 @@ class AutocompletionListener : EditorEvent() {
                     val size = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
                     var options = options
                     val variables = Variables.getVariables().map {it.name}.reversed()
-                    options = options.filter {it.key.toLowerCase().contains(word.toLowerCase())} as LinkedHashMap<String, String>
+                    options = options.filter {it.key.toLowerCase().replace(" ", "_").contains(word.toLowerCase())} as LinkedHashMap<String, String>
                     if(options.size > size) {
                         @Suppress("UNCHECKED_CAST")
                         val copy = options.clone() as LinkedHashMap<String, String>
