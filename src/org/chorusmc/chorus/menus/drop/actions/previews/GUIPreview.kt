@@ -19,6 +19,7 @@ import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.nodes.popup.LocalTextPopup
 import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.makeFormal
+import org.chorusmc.chorus.util.toFlowList
 
 /**
  * @author Gio
@@ -40,7 +41,8 @@ class GUIPreview : DropMenuAction() {
         updateMembers(grid, rows.value, image)
         val menu = ColoredTextPreviewMenu("GUI preview", image, listOf(textfield, rows))
         textfield.textProperty().addListener {_ ->
-            menu.image.flows[0] = ChatParser(textfield.text, true).toTextFlow()
+            menu.image.flows = listOf(ChatParser(textfield.text, true).toTextFlow()).toFlowList()
+            println(image.flows)
             updateMembers(grid, rows.value, image)
         }
         rows.valueProperty().addListener {_ ->

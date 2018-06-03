@@ -10,11 +10,9 @@ import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
  */
 abstract class ColoredTextPreviewImage(val background: ColoredTextBackground, flows: FlowList, private val reversed: Boolean = false) : Pane(background.rectangle) {
 
-    var limit = 1
-
     var flows = flows
         set(value) {
-            children.remove(limit, children.size)
+            children.remove(1, children.size)
             value.image = this
             (if(reversed) value.reversed() else value).forEachIndexed { index, flow ->
                 initFlow(flow, index)
