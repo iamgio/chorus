@@ -23,7 +23,7 @@ Thanks to its features, Chorus is perfect to edit your configurations quicker.
    
 * Using **autocompletion** to insert elements quicker;
    
-![Autocompletion](https://i.imgur.com/oSIsIRW.png)
+![Autocompletion](https://i.imgur.com/vKauqfs.png)
    
    
 * Showing **previews** of **chat**, **title**, **scoreboard**, **item**, **GUI**, **sign**, **action bar**, **boss bar**, **mob bar**, **MOTD**, **animated text**;   
