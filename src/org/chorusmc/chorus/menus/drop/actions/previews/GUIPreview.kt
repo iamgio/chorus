@@ -27,7 +27,11 @@ class GUIPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val textfield = TextField(
-                if(area.selectedText.startsWith(colorPrefix)) area.selectedText else colorPrefix + "8" + area.selectedText
+                when {
+                    area.selectedText.startsWith(colorPrefix) -> area.selectedText
+                    area.selection.length > 0 -> colorPrefix + "8" + area.selectedText
+                    else -> colorPrefix + "8GUI"
+                }
         )
         textfield.promptText = "Title"
         val rows = Spinner<Int>(1, 6, 1)
