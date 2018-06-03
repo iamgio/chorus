@@ -42,7 +42,6 @@ class GUIPreview : DropMenuAction() {
         val menu = ColoredTextPreviewMenu("GUI preview", image, listOf(textfield, rows))
         textfield.textProperty().addListener {_ ->
             menu.image.flows = listOf(ChatParser(textfield.text, true).toTextFlow()).toFlowList()
-            println(image.flows)
             updateMembers(grid, rows.value, image)
         }
         rows.valueProperty().addListener {_ ->

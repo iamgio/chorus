@@ -5,10 +5,7 @@ import javafx.scene.control.Spinner
 import javafx.scene.control.TextInputControl
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.menus.MenuPlacer
-import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.menus.Showables
-import org.chorusmc.chorus.menus.TabBrowsable
+import org.chorusmc.chorus.menus.*
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import org.chorusmc.chorus.util.InteractFilter
 import org.chorusmc.chorus.util.hideMenuOnInteract
@@ -26,10 +23,12 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
     init {
         styleClass += "colored-text-preview-menu"
         maxWidth = image.prefWidth
-        (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
-        image.prefWidthProperty().addListener { _ ->
+        val titlebar = children[0] as ColoredTextPreviewTitleBar
+        titlebar.prefWidth = image.prefWidth
+        Draggable(titlebar, this).initDrag()
+        image.prefWidthProperty().addListener {_ ->
             maxWidth = image.prefWidth
-            (children[0] as ColoredTextPreviewTitleBar).prefWidth = image.prefWidth
+            titlebar.prefWidth = image.prefWidth
         }
         inputs.forEach {
             (if(it is Spinner<*>) it.editor else it).styleClass += "colored-text-preview-textfield"
@@ -48,7 +47,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         if(!root.children.contains(this)) {
             root.children.add(this)
         }
-        hideMenuOnInteract(this, InteractFilter.AREA, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
+        hideMenuOnInteract(this, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
         Showables.SHOWING = this
         with(inputs.filterIsInstance<TextInputControl>()[toFocus]) {
             requestFocus()
