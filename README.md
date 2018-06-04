@@ -2,11 +2,11 @@
   <img src="https://i.imgur.com/4FyinoS.png" alt="Banner" />
 </p>
 
-#### What is Chorus?
+## What is Chorus?
 Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for owners of Minecraft servers based on [Spigot](https://spigotmc.org).
 Thanks to its features, Chorus is perfect to edit your configurations quicker. 
 
-### Why Chorus?
+## Why Chorus?
 **Chorus has a lot of features to edit your configurations easier:**   
    
    
@@ -73,7 +73,7 @@ Thanks to its features, Chorus is perfect to edit your configurations quicker.
 
    
 
-### Creating your own theme
+## Creating your own theme
 Chorus supports custom themes. If you want to create your own, create a folder into chorus/themes named as your theme's name.   
 In this folder, you have to create the following files:
 * **{name}.css**, to style the main view;    
@@ -87,20 +87,20 @@ To see the structure of a style file, take a look at this theme:
 * [Highlight](https://github.com/iAmGio/chorus/blob/master/src/assets/styles/light-highlight.css)    
 * [Settings](https://github.com/iAmGio/chorus/blob/master/src/assets/styles/light-settings.css)
 
-### Downloading
+## Downloading
 **This project is currently work in progress.**  
 Once finished, Chorus will be downloadable on [chorusmc.org](http://chorusmc.org).  
 Older versions can be found [here](https://github.com/iAmGio/chorus/releases).
 
-##### Windows
+#### Windows
 Be sure you have Java 8 or above installed.   
 Download chorus-X.X.X.exe, move it to the desired installation folder and run it.  
 
-##### macOS / OS X
+#### macOS / OS X
 Be sure you have Java 8 or above installed.  
 Download chorus-X.X.X.jar, move it to the desired installation folder and run it.
 
-##### Linux
+#### Linux
 Be sure you have Java 8 or above and `openjfx` installed.  
 Download chorus-X.X.X.jar, move it to the desired installation folder and run it.  
 
