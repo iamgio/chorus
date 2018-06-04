@@ -1,9 +1,9 @@
 package org.chorusmc.chorus.updater
 
+import org.apache.commons.io.FileUtils
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.configuration.ChorusFolder
 import org.chorusmc.chorus.json.JSONParser
-import org.apache.commons.io.FileUtils
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import java.io.File
@@ -20,10 +20,7 @@ class Updater {
     private var parsed: JSONObject? = null
 
     val isUpdatePresent: Boolean
-        get() =
-            latestVersion
-                    .replace("v", "")
-                    .toLowerCase() != Chorus.VERSION
+        get() = Chorus.VERSION != latestVersion.replace("v", "")
 
     val latestVersion: String
         get() {
