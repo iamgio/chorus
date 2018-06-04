@@ -12,7 +12,7 @@ Thanks to its features, Chorus is perfect to edit your configurations quicker.
    
 * Editing **remote files** (SFTP);
 
-![SFTP](https://i.imgur.com/VKvmhNi.png)
+![SFTP](https://i.imgur.com/t2u5VrY.png)
    
    
 * **Auto-saving** (with customizable delays);
