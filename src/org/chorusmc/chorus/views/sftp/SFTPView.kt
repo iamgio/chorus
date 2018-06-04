@@ -80,6 +80,7 @@ class SFTPView {
         username.setOnAction {
             connectButton.fire()
         }
+        port.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
         username.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
         password.setOnAction {
             connectButton.fire()
