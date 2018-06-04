@@ -25,7 +25,7 @@ public enum EditorPattern {
     FALSE("\\bfalse\\b"),
     STRING("('(.*?)')|(\"(.*?)\")"),
     ITEMID("\\b((([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9]):\\d(\\d)?)|(22((5[8-9])|(6[0-7])):0))\\b"),
-    NUMBER("\\d+(\\.\\d+)"),
+    NUMBER("\\d+(\\.\\d+)?"),
     BRACKET("\\[|\\]"),
     ITEM("(" + joinEnum(Item.class) + ")(:\\d(\\d)?)?"),
     PARTICLE(joinEnum(Particle.class)),
