@@ -89,7 +89,8 @@ To see the structure of a style file, take a look at this theme:
 
 ### Downloading
 **This project is currently work in progress.**  
-Once finished, Chorus will be downloadable [here](https://github.com/iAmGio/chorus/releases).
+Once finished, Chorus will be downloadable on [chorusmc.org](http://chorusmc.org).  
+Older versions can be found [here](https://github.com/iAmGio/chorus/releases).
 
 ##### Windows
 Be sure you have Java 8 or above installed.   
