@@ -1,14 +1,14 @@
 package org.chorusmc.chorus.settings
 
+import javafx.geometry.Pos
+import javafx.scene.Node
+import javafx.scene.control.Label
+import javafx.scene.layout.HBox
 import org.chorusmc.chorus.settings.nodes.*
 import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.stringToList
 import org.chorusmc.chorus.util.toObservableList
-import javafx.geometry.Pos
-import javafx.scene.Node
-import javafx.scene.control.Label
-import javafx.scene.layout.HBox
 
 /**
  * @author Gio
@@ -23,7 +23,7 @@ class SettingsBuilder private constructor() {
         @JvmStatic fun buildLeft(): List<SettingButton> {
             val stringList = ArrayList<String>()
             val list = ArrayList<SettingButton>()
-            values.reversed().filter {!it.toString().startsWith(".")}.forEach {
+            values.reversed().filter {!it.toString().startsWith("_") && !it.toString().startsWith(".")}.forEach {
                 val s = it.toString().replace("_", " ").split(".")[1]
                 if(!stringList.contains(s)) {
                     stringList += s
@@ -35,7 +35,7 @@ class SettingsBuilder private constructor() {
 
         @JvmStatic fun buildRight(s: String): List<HBox> {
             val list = ArrayList<HBox>()
-            values.reversed().filter {it.toString().split(".")[1].contains(s) && !it.toString().contains("%style") && !it.toString().startsWith(".")}
+            values.reversed().filter {!it.toString().startsWith("_") && !it.toString().contains("%style") && !it.toString().startsWith(".") && it.toString().split(".")[1].contains(s)}
                     .forEach {
                         val label = Label(it.toString().split(".")[3].replace("_", " "))
                         label.styleClass += "setting-label"
