@@ -1,11 +1,11 @@
 package org.chorusmc.chorus.minecraft.chat
 
-import org.chorusmc.chorus.settings.SettingsBuilder
-import org.chorusmc.chorus.util.config
 import eu.iamgio.libfx.timing.RepeatingTimer
 import javafx.application.Platform
 import javafx.scene.control.Label
 import javafx.util.Duration
+import org.chorusmc.chorus.settings.SettingsBuilder
+import org.chorusmc.chorus.util.config
 import java.util.*
 
 /**
@@ -17,7 +17,7 @@ enum class ChatFormat(override val char: Char, override val styleClass: String =
     BOLD('l', "bold"),
     STRIKETHROUGH('m', "strikethrough"),
     UNDERLINE('n', "underline"),
-    ITALIC('i', "italic"),
+    ITALIC('o', "italic"),
     RESET('r');
 
     companion object {

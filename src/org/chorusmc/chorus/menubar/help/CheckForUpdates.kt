@@ -31,11 +31,11 @@ class CheckForUpdates : MenuBarAction {
                         val pair = view.setExeOrJar()
                         pair.first.setOnAction {
                             view.setDownloading(version)
-                            WaitingTimer().start({download(0, updater, view)}, Duration(100.0))
+                            WaitingTimer().start({download(1, updater, view)}, Duration(100.0))
                         }
                         pair.second.setOnAction {
                             view.setDownloading(version)
-                            WaitingTimer().start({download(1, updater, view)}, Duration(100.0))
+                            WaitingTimer().start({download(0, updater, view)}, Duration(100.0))
                         }
                     }
                 } else {
