@@ -33,7 +33,7 @@ import java.util.Arrays;
  */
 public class Chorus extends FXApplication {
 
-    public static final String VERSION = "Beta 0.1.0";
+    public static final String VERSION = "0.1.0";
 
     private static File passedFile;
 
