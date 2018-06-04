@@ -91,7 +91,8 @@ public class Chorus extends FXApplication {
         }).start();
 
         root = (AnchorPane) loadRoot("/assets/views/Editor.fxml");
-        Scene scene = new Scene(root, config.getInt("_win.width"), config.getInt("_win.height"));
+        boolean inherit = config.getBoolean("1.Appearance.3.Inherit_window_size");
+        Scene scene = new Scene(root, inherit ? config.getInt("_win.width") : 950, inherit ? config.getInt("_win.height") : 600);
         Theme theme = Themes.byConfig();
         if(theme.getInternal()) {
             loadStylesheet(scene, theme.getPath()[0]);
@@ -123,7 +124,7 @@ public class Chorus extends FXApplication {
         loadFont("Minecraft-BoldItalic.otf");
         loadFont("Obfuscated.TTF");
 
-        stage.setMaximized(config.getBoolean("_win.max"));
+        if(inherit) stage.setMaximized(config.getBoolean("_win.max"));
         getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();
     }
 
