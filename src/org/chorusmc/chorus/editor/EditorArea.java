@@ -60,6 +60,8 @@ public class EditorArea extends CodeArea {
         addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             if(new KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN).match(e)) {
                 MainDropMenu.quickOpen();
+            } else if(e.getCode() == KeyCode.DOWN && AutocompletionMenu.getActual() != null) {
+                e.consume();
             }
         });
 
