@@ -87,6 +87,8 @@ To see the structure of a style file, take a look at this theme:
 * [Highlight](https://github.com/iAmGio/chorus/blob/master/src/assets/styles/light-highlight.css)    
 * [Settings](https://github.com/iAmGio/chorus/blob/master/src/assets/styles/light-settings.css)
 
+If you want to make it public, you can add it to the official [themes repository](https://github.com/iAmGio/chorus-themes) following [these](https://github.com/iAmGio/chorus-themes/blob/master/README.md) guidelines.
+
 ## Downloading
 **This project is currently work in progress.**  
 Once finished, Chorus will be downloadable on [chorusmc.org](http://chorusmc.org).  
