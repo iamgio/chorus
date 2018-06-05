@@ -82,10 +82,10 @@ public class EditorController implements Initializable {
         tabPane.getSelectionModel().selectedItemProperty().addListener(e -> {
             Tab tab = Tab.getCurrentTab();
             Tab.Companion.TabProperty property = Tab.Companion.getCurrentTabProperty();
+            Chorus.getInstance().getStage().withTitle("Chorus" +
+                    (tab != null ? " - " + tab.getFile().getFormalAbsolutePath() : ""));
             if(tab != null) {
                 EditorArea area = tab.getArea();
-                Chorus.getInstance().getStage().withTitle("Chorus" +
-                        (tab != null ? " - " + tab.getFile().getFormalAbsolutePath() : ""));
                 Platform.runLater(area::requestFocus);
                 property.set(tab);
                 property.getAreaProperty().set(area);
