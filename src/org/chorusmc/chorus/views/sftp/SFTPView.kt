@@ -23,12 +23,12 @@ import java.util.*
  */
 class SFTPView {
 
-    private var ips = emptyMap<String, String>()
+    private var ips = emptyMap<String, Pair<String, String>>()
 
     private val ip = ComboBox<String>()
     private val username = TextField()
     private val password = PasswordField()
-    private val port = NumericTextField("22")
+    private val port = NumericTextField()
     val connectButton = Button("Connect")
     private val filesBox = VBox()
 
@@ -50,7 +50,9 @@ class SFTPView {
         config["5.SFTP.1.Servers"].split("\\n").forEach {
             with(it.split("|")) {
                 if(size == 2) {
-                    ips += this[0] to this[1]
+                    ips += this[0] to (this[1] to "22")
+                } else if(size == 3) {
+                    ips += this[0] to (this[1] to this[2])
                 }
             }
         }
@@ -61,10 +63,13 @@ class SFTPView {
         root.styleClass += "pane"
         val scene = Scene(root, 730.0, 400.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
-        ip.promptText = "Add servers from Settings > SFTP"
         ip.selectionModel.selectedItemProperty().addListener {_ ->
-            username.text = ips[ip.selectionModel.selectedItem]
+            val pair = ips[ip.selectionModel.selectedItem]!!
+            username.text = pair.first
+            port.text = pair.second
+            password.requestFocus()
         }
+        ip.promptText = "Add servers from Settings > SFTP"
         ip.items = ips.keys.toList().toObservableList()
         if(ip.items.size > 0) ip.selectionModel.selectFirst() else ip.isDisable = true
         ip.styleClass += "ip-box"
@@ -93,6 +98,9 @@ class SFTPView {
                         .or(password.textProperty().isEmpty)
                         .or(port.textProperty().isEmpty)
         )
+        port.setOnAction {
+            connectButton.fire()
+        }
         val addressHbox = HBox(ip, username, password, port)
         if(ip.selectionModel.selectedItem != null) addressHbox.children += connectButton
         addressHbox.styleClass += "sftp-address-box"
