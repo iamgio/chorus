@@ -7,7 +7,7 @@ import com.jcraft.jsch.Session
 /**
  * @author Gio
  */
-class RemoteConnection(private val ip: String, private val username: String, private val port: Int, private val password: String) {
+class RemoteConnection(val ip: String, private val username: String, private val port: Int, private val password: String) {
 
     lateinit var session: Session
     var isValid = false

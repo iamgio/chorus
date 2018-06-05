@@ -140,10 +140,15 @@ class SFTPView {
                 location = location.substring(0, location.length - 1)
             }
         } else location = loc
-        title = "Chorus - SFTP [$location]"
         val channel = connection.channel!! as ChannelSftp
         @Suppress("UNCHECKED_CAST")
-        val files = channel.ls(location) as Vector<ChannelSftp.LsEntry>
+        val files = try {
+            channel.ls(location)
+        } catch(e: Exception) {
+            location = channel.home
+            channel.ls(location)
+        } as Vector<ChannelSftp.LsEntry>
+        title = "Chorus - SFTP [$location]"
         files.filter {it.filename != "."}.sortedBy {it.filename}.sortedBy {!it.attrs.isDir}.forEach {
             if(!(location == "/" && it.filename == "..")) {
                 val button = SFTPButton(it.filename, "$location${if(location.endsWith("/")) "" else "/"}${it.filename}", this, connection, it.attrs.isDir)

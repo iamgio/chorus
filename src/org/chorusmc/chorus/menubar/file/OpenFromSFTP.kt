@@ -35,7 +35,8 @@ class OpenFromSFTP : MenuBarAction {
             if(connection!!.isValid) {
                 button.style = ""
                 button.text = "Connect"
-                view.generateFiles(connection!!)
+                val loc = lastLoc[ip]
+                if(loc != null) view.generateFiles(connection!!, loc) else view.generateFiles(connection!!)
             } else {
                 view.clear()
                 view.title = "Chorus - SFTP"
@@ -51,5 +52,9 @@ class OpenFromSFTP : MenuBarAction {
         view.onSelect = Runnable {
             EditorTab(SFTPFile(connection!!, view.selectedPath)).add()
         }
+    }
+
+    companion object {
+        var lastLoc = emptyMap<String, String>()
     }
 }

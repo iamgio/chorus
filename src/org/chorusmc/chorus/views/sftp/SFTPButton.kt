@@ -1,13 +1,14 @@
 package org.chorusmc.chorus.views.sftp
 
-import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.connection.RemoteConnection
 import javafx.css.PseudoClass
 import javafx.geometry.Pos
 import javafx.scene.control.Label
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.HBox
+import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.connection.RemoteConnection
+import org.chorusmc.chorus.menubar.file.OpenFromSFTP
 
 /**
  * @author Gio
@@ -26,6 +27,7 @@ class SFTPButton(text: String, private var loc: String, view: SFTPView, connecti
             pseudoClassStateChanged(PseudoClass.getPseudoClass("focused"), true)
             if(it.clickCount == 2) {
                 if(isFolder) {
+                    OpenFromSFTP.lastLoc += connection.ip to loc
                     view.generateFiles(connection, loc)
                 } else {
                     view.selectedPath = loc
