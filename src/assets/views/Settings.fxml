@@ -17,7 +17,7 @@
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <children>
-                <ScrollPane prefHeight="560.0" prefWidth="627.0" style="-fx-padding: 20 0 0 30" hbarPolicy="NEVER">
+                <ScrollPane prefHeight="560.0" prefWidth="627.0" style="-fx-padding: 20 0 20 30" hbarPolicy="NEVER">
                     <VBox fx:id="rightVbox" prefHeight="521.0" prefWidth="569.0"
                           spacing="30.0"/>
                 </ScrollPane>
