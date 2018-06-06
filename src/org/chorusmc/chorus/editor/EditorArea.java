@@ -74,7 +74,7 @@ public class EditorArea extends CodeArea {
                 e.consume();
                 int fontSize = Chorus.getInstance().config.getInt(fontSizeSetting);
                 if(e.getDeltaY() > 0) {
-                    fontSize++;
+                    if(fontSize < Integer.MAX_VALUE) fontSize++;
                 } else if(fontSize > 1) {
                     fontSize--;
                 }
