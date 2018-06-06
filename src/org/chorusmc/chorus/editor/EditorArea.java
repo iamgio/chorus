@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.editor;
 
+import javafx.scene.input.*;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.editor.events.Events;
 import org.chorusmc.chorus.file.FileMethod;
@@ -13,10 +14,6 @@ import org.chorusmc.chorus.theme.Themes;
 import org.chorusmc.chorus.yaml.Key;
 import javafx.application.Platform;
 import javafx.scene.control.IndexRange;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -69,6 +66,20 @@ public class EditorArea extends CodeArea {
             if(newV < oldV) {
                 AutocompletionMenu menu = AutocompletionMenu.getActual();
                 if(menu != null) menu.hide();
+            }
+        });
+
+        addEventFilter(ScrollEvent.ANY, e -> {
+            if(e.isControlDown()) {
+                e.consume();
+                int fontSize = Chorus.getInstance().config.getInt(fontSizeSetting);
+                if(e.getDeltaY() > 0) {
+                    fontSize++;
+                } else if(fontSize > 1) {
+                    fontSize--;
+                }
+                Chorus.getInstance().config.set(fontSizeSetting, String.valueOf(fontSize));
+                SettingsBuilder.callAction(fontSizeSetting);
             }
         });
 

@@ -98,6 +98,8 @@ class SettingsBuilder private constructor() {
             }
         }
 
-        @JvmStatic fun getNode(setting: String) = nodes[setting]
+        @JvmStatic fun callAction(setting: String) {
+            actions[setting]?.forEach {it.run()}
+        }
     }
 }
