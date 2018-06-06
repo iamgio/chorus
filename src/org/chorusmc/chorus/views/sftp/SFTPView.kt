@@ -101,8 +101,8 @@ class SFTPView {
         port.setOnAction {
             connectButton.fire()
         }
-        val addressHbox = HBox(ip, username, password, port)
-        if(ip.selectionModel.selectedItem != null) addressHbox.children += connectButton
+        val addressHbox = HBox(ip)
+        if(ip.selectionModel.selectedItem != null) addressHbox.children.addAll(connectButton, username, password, port)
         addressHbox.styleClass += "sftp-address-box"
         addressHbox.alignment = Pos.CENTER
         addressHbox.spacing = 15.0
