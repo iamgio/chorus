@@ -17,12 +17,7 @@ const val URL = "https://api.github.com/repos/iAmGio/chorus/releases/latest"
 class Updater {
 
     private val parser = JSONParser(java.net.URL(URL))
-    private var _parsed: JSONObject? = null
-    private val parsed: JSONObject
-        get() {
-            if(_parsed == null) _parsed = parser.parse()
-            return _parsed!!
-        }
+    private val parsed: JSONObject = parser.parse()
 
     val isUpdatePresent: Boolean
         get() = Chorus.VERSION != latestVersion.replace("v", "")

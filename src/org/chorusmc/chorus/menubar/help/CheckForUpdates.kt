@@ -20,10 +20,10 @@ class CheckForUpdates : MenuBarAction {
     override fun onAction() {
         val view = UpdaterView()
         view.show()
-        val updater = Updater()
         view.setChecking()
         Platform.runLater {
             try {
+                val updater = Updater()
                 if(updater.isUpdatePresent) {
                     val version = updater.latestVersion
                     val yes = view.setRequesting(version)
