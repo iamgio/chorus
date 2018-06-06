@@ -1,5 +1,7 @@
 package org.chorusmc.chorus.menus.coloredtextpreview
 
+import javafx.geometry.Pos
+import javafx.scene.control.Button
 import javafx.scene.control.Control
 import javafx.scene.control.Spinner
 import javafx.scene.control.TextInputControl
@@ -34,6 +36,10 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         }
         inputs.forEach {
             (if(it is Spinner<*>) it.editor else it).styleClass += "colored-text-preview-textfield"
+            if(it is Button) {
+                it.alignment = Pos.CENTER
+                it.styleClass += "colored-text-preview-button"
+            }
             textfieldsVbox.children += it
             it.prefWidth = image.prefWidth
         }

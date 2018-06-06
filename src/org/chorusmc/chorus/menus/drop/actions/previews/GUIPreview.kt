@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
 import javafx.application.Platform
+import javafx.scene.control.Button
 import javafx.scene.control.Spinner
 import javafx.scene.control.TextField
 import javafx.scene.image.Image
@@ -26,6 +27,10 @@ import org.chorusmc.chorus.util.toFlowList
  */
 class GUIPreview : DropMenuAction() {
 
+    private companion object {
+        var grid: Grid? = null
+    }
+
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val textfield = TextField(
                 when {
@@ -37,15 +42,23 @@ class GUIPreview : DropMenuAction() {
         textfield.promptText = "Title"
         val rows = Spinner<Int>(1, 6, 1)
         val image = GUIPreviewImage(textfield.text, rows.value)
-        val grid = Grid(textfield)
-        updateMembers(grid, rows.value, image)
-        val menu = ColoredTextPreviewMenu("GUI preview", image, listOf(textfield, rows))
+        val button = Button("Clear")
+        button.setOnAction {
+            grid!!.members.forEach {it.clear()}
+            grid = Grid(textfield)
+            updateMembers(grid!!, rows.value, image)
+        }
+        if(grid == null) {
+            grid = Grid(textfield)
+        }
+        updateMembers(grid!!, rows.value, image)
+        val menu = ColoredTextPreviewMenu("GUI preview", image, listOf(textfield, rows, button))
         textfield.textProperty().addListener {_ ->
             menu.image.flows = listOf(ChatParser(textfield.text, true).toTextFlow()).toFlowList()
-            updateMembers(grid, rows.value, image)
+            updateMembers(grid!!, rows.value, image)
         }
         rows.valueProperty().addListener {_ ->
-            updateMembers(grid, rows.value, image)
+            updateMembers(grid!!, rows.value, image)
             menu.image.background.image = Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-${rows.value}.png"))
         }
         menu.layoutX = x
@@ -133,7 +146,7 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
                 menu.layoutX = layoutX + 40
                 menu.layoutY = layoutY
                 menu.setOnSelect {
-                    children.removeAll(children.filterIsInstance<ImageView>())
+                    removeImage()
                     item = Item.valueOf(menu.selected.toUpperCase().replace(" ", "_"))
                     meta = if(menu.meta > 0) menu.meta else 0
                     val icons = item!!.icons
@@ -144,9 +157,17 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
                 showingMenu = menu
             } else {
                 item = null
-                children.removeAll(children.filterIsInstance<ImageView>())
+                removeImage()
             }
         }
+    }
+
+    fun removeImage() = children.removeAll(children.filterIsInstance<ImageView>())
+
+    fun clear() {
+        item = null
+        meta = 0
+        removeImage()
     }
 
     companion object {

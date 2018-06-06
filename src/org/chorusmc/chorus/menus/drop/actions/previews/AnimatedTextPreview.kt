@@ -1,22 +1,21 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
-import org.chorusmc.chorus.editor.EditorArea
-import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
-import org.chorusmc.chorus.menus.coloredtextpreview.previews.AnimatedTextPreviewImage
-import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
-import org.chorusmc.chorus.minecraft.chat.ChatParser
-import org.chorusmc.chorus.nodes.control.NumericTextField
 import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
 import javafx.util.Duration
+import org.chorusmc.chorus.editor.EditorArea
+import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
+import org.chorusmc.chorus.menus.coloredtextpreview.previews.AnimatedTextPreviewImage
+import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
+import org.chorusmc.chorus.minecraft.chat.ChatParser
+import org.chorusmc.chorus.nodes.control.NumericTextField
 
 /**
  * @author Gio
@@ -60,7 +59,7 @@ class AnimatedTextPreview : DropMenuAction() {
     }
 }
 
-private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, menu: ColoredTextPreviewMenu) : AnimationButton("Play"), Cloneable {
+private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, menu: ColoredTextPreviewMenu) : Button("Play"), Cloneable {
 
     init {
         val image = menu.image
@@ -85,14 +84,6 @@ private class PlayButton(delayField: NumericTextField, countField: NumericTextFi
             timeline.cycleCount = count
             timeline.play()
         }
-    }
-}
-
-private open class AnimationButton(text: String) : Button(text) {
-
-    init {
-        alignment = Pos.CENTER
-        styleClass += "colored-text-preview-button"
     }
 }
 
