@@ -64,27 +64,37 @@ private fun updateMembers(grid: Grid, rows: Int, image: ColoredTextPreviewImage)
 private class Grid(private val titleField: TextField) {
 
     var members = mutableListOf<GridMember>()
+    private var positions = emptyList<Pair<Double, Double>>()
 
     var rows = 1
     private val columns = 9
 
     fun updateMembers() {
-        members.clear()
         var n = 0
         val pass = 36.0
         var y = 26.0
         for(i in 0 until rows) {
             var x = 8.0
             for(j in 0 until columns) {
-                val member = GridMember(n, j, i, titleField)
-                member.layoutX = x
-                member.layoutY = y
-                members.add(member)
-                x += pass
+                if(!positions.contains(x to y)) {
+                    val member = GridMember(n, j, i, titleField)
+                    member.layoutX = x
+                    member.layoutY = y
+                    members.add(member)
+                    positions += x to y
+                    x += pass
+                }
                 n++
             }
             y += pass
         }
+        if(members.size > rows * columns) {
+            members = members.subList(0, rows * columns)
+            positions = positions.subList(0, rows * columns)
+        }
+        println(members.size)
+        println(positions.size)
+        println()
     }
 }
 

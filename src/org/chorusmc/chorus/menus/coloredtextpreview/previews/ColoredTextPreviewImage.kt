@@ -12,7 +12,7 @@ abstract class ColoredTextPreviewImage(val background: ColoredTextBackground, fl
 
     var flows = flows
         set(value) {
-            children.remove(1, children.size)
+            children.removeAll(children.filterIsInstance<TextFlow>())
             value.image = this
             (if(reversed) value.reversed() else value).forEachIndexed { index, flow ->
                 initFlow(flow, index)
