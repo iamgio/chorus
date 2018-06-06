@@ -92,9 +92,6 @@ private class Grid(private val titleField: TextField) {
             members = members.subList(0, rows * columns)
             positions = positions.subList(0, rows * columns)
         }
-        println(members.size)
-        println(positions.size)
-        println()
     }
 }
 
