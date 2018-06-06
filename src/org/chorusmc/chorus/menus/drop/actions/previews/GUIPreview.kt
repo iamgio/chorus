@@ -40,7 +40,7 @@ class GUIPreview : DropMenuAction() {
                 }
         )
         textfield.promptText = "Title"
-        val rows = Spinner<Int>(1, 6, 1)
+        val rows = Spinner<Int>(1, 6, if(grid == null) 1 else grid!!.rows)
         val image = GUIPreviewImage(textfield.text, rows.value)
         val button = Button("Clear")
         button.setOnAction {
