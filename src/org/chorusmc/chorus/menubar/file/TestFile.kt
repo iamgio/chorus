@@ -21,7 +21,7 @@ class TestFile : MenuBarAction {
     override fun onAction() {
         val area = area ?: return
         if(!area.file.name.endsWith(".yml")) {
-            Notification("Not working on YAML file", NotificationType.ERROR).send()
+            Notification("Cannot test this file.", NotificationType.ERROR).send()
             return
         }
         val view = TestFileView()
