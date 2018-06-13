@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
+import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.application.Platform
 import javafx.scene.control.Button
 import javafx.scene.control.Spinner
@@ -8,6 +9,7 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.MouseButton
 import javafx.scene.layout.Region
+import javafx.util.Duration
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
@@ -47,6 +49,8 @@ class GUIPreview : DropMenuAction() {
             grid!!.members.forEach {it.clear()}
             grid = Grid(textfield)
             updateMembers(grid!!, rows.value, image)
+            textfield.requestFocus()
+            textfield.positionCaret(textfield.length)
         }
         if(grid == null) {
             grid = Grid(textfield)
@@ -108,7 +112,7 @@ private class Grid(private val titleField: TextField) {
     }
 }
 
-private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region() {
+private class GridMember(private val n: Int, private val x: Int, private val y: Int, titleField: TextField) : Region() {
 
     private val centerX: Double
         get() = layoutX + prefWidth / 2
@@ -126,7 +130,7 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
         popup.layoutX = centerX - prefWidth
         popup.layoutY = centerY - 35
         setOnMouseEntered {
-            popup.text = "Slot: $n, X: $x, Y: $y${if(item != null) ", item: ${item!!.name}:$meta" else ""}"
+            updatePopupText(popup)
             children += popup
             style = "-fx-background-color: rgba(255, 255, 255, .2)"
         }
@@ -152,7 +156,10 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
                         meta = if(menu.meta > 0) menu.meta else 0
                         val icons = item!!.icons
                         children += ImageView(if(icons.size > meta) icons[meta] else Item.BEDROCK.icons[0])
-                        Platform.runLater {titleField.requestFocus()}
+                        WaitingTimer().start({Platform.runLater {
+                            titleField.requestFocus()
+                            titleField.positionCaret(titleField.length)
+                        }}, Duration(2.0))
                     }
                     menu.show()
                     showingMenu = menu
@@ -173,6 +180,7 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
                                 }
                                 item = copied.item
                                 meta = copied.meta
+                                updatePopupText(popup)
                             }
                         }
                     }
@@ -180,6 +188,10 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
                 else -> {}
             }
         }
+    }
+
+    private fun updatePopupText(popup: LocalTextPopup) {
+        popup.text = "Slot: $n, X: $x, Y: $y${if(item != null) ", item: ${item!!.name}:$meta" else ""}"
     }
 
     val image: ImageView?
