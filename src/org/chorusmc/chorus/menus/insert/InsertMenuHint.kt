@@ -25,7 +25,21 @@ class InsertMenuHint(val text: String, images: List<Image>?) : HBox(), Actionabl
         spacing = 9.0
         alignment = Pos.CENTER_LEFT
 
-        imageViews?.forEach {children += it}
+        imageViews?.forEachIndexed {index, view ->
+            view.setOnMouseMoved {
+                selected = if(it.isControlDown) index else -1
+                setOpacity()
+            }
+            view.setOnMouseExited {
+                selected = -1
+                setOpacity()
+            }
+            view.setOnMousePressed {
+                selected = if(it.isControlDown) index else -1
+                setOpacity()
+            }
+            children += view
+        }
         children += Label(text.replace("tnt", "TNT").capitalize())
     }
 
@@ -51,7 +65,9 @@ class InsertMenuHint(val text: String, images: List<Image>?) : HBox(), Actionabl
     }
 
     private fun setOpacity() {
-        imageViews!!.forEach {it.opacity = .3}
-        imageViews[selected].opacity = 1.0
+        if(selected >= 0) {
+            imageViews!!.forEach {it.opacity = .3}
+            imageViews[selected].opacity = 1.0
+        } else imageViews!!.forEach {it.opacity = 1.0}
     }
 }
