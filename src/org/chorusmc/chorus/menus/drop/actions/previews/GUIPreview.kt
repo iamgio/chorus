@@ -136,33 +136,56 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
         }
         setOnMouseClicked {
             showingMenu?.hide()
-            if(it.button == MouseButton.PRIMARY) {
-                @Suppress("UNCHECKED_CAST")
-                val menu = InsertMenu(Item::class.java as Class<Enum<*>>)
-                menu.target = titleField
-                if(item != null) {
-                    menu.textField.text = item!!.name.makeFormal()
+            when(it.button) {
+                MouseButton.PRIMARY -> {
+                    @Suppress("UNCHECKED_CAST")
+                    val menu = InsertMenu(Item::class.java as Class<Enum<*>>)
+                    menu.target = titleField
+                    if(item != null) {
+                        menu.textField.text = item!!.name.makeFormal()
+                    }
+                    menu.layoutX = layoutX + 40
+                    menu.layoutY = layoutY
+                    menu.setOnSelect {
+                        removeImage()
+                        item = Item.valueOf(menu.selected.toUpperCase().replace(" ", "_"))
+                        meta = if(menu.meta > 0) menu.meta else 0
+                        val icons = item!!.icons
+                        children += ImageView(if(icons.size > meta) icons[meta] else Item.BEDROCK.icons[0])
+                        Platform.runLater {titleField.requestFocus()}
+                    }
+                    menu.show()
+                    showingMenu = menu
                 }
-                menu.layoutX = layoutX + 40
-                menu.layoutY = layoutY
-                menu.setOnSelect {
+                MouseButton.SECONDARY -> {
+                    item = null
                     removeImage()
-                    item = Item.valueOf(menu.selected.toUpperCase().replace(" ", "_"))
-                    meta = if(menu.meta > 0) menu.meta else 0
-                    val icons = item!!.icons
-                    children += ImageView(if(icons.size > meta) icons[meta] else Item.BEDROCK.icons[0])
-                    Platform.runLater {titleField.requestFocus()}
                 }
-                menu.show()
-                showingMenu = menu
-            } else {
-                item = null
-                removeImage()
+                MouseButton.MIDDLE -> {
+                    when(it.isControlDown) {
+                        true -> Clipboard.copied = this
+                        false -> {
+                            val copied = Clipboard.copied
+                            if(copied != null) {
+                                removeImage()
+                                if(copied.image != null) {
+                                    children += ImageView(copied.image!!.image)
+                                }
+                                item = copied.item
+                                meta = copied.meta
+                            }
+                        }
+                    }
+                }
+                else -> {}
             }
         }
     }
 
-    fun removeImage() = children.removeAll(children.filterIsInstance<ImageView>())
+    val image: ImageView?
+        get() = children.filterIsInstance<ImageView>().firstOrNull()
+
+    fun removeImage() = children.remove(image)
 
     fun clear() {
         item = null
@@ -173,4 +196,8 @@ private class GridMember(n: Int, x: Int, y: Int, titleField: TextField) : Region
     companion object {
         var showingMenu: InsertMenu? = null
     }
+}
+
+private object Clipboard {
+    var copied: GridMember? = null
 }
