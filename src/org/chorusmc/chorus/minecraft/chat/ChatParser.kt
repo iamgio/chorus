@@ -1,21 +1,26 @@
 package org.chorusmc.chorus.minecraft.chat
 
-import org.chorusmc.chorus.util.colorPrefix
-import org.chorusmc.chorus.variable.Variables
 import javafx.scene.control.Label
 import javafx.scene.effect.BlurType
 import javafx.scene.effect.DropShadow
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.TextFlow
+import org.chorusmc.chorus.util.colorPrefix
+import org.chorusmc.chorus.util.maxTo
+import org.chorusmc.chorus.variable.Variables
 import org.fxmisc.richtext.CodeArea
 
 /**
  * @author Gio
  */
-class ChatParser(string: String, private val useVariables: Boolean = false) {
+class ChatParser(string: String, private val useVariables: Boolean = false, maxLength: Int = -1) {
 
-    private val string = string.replace("''", "'")
+    private var string = string.replace("''", "'")
+
+    init {
+        if(maxLength != -1) this.string = string.maxTo(maxLength + getUnshownCharactersSize(maxLength))
+    }
 
     private val prefix = colorPrefix
 
@@ -85,13 +90,34 @@ class ChatParser(string: String, private val useVariables: Boolean = false) {
             return list
         }
 
+    private fun getUnshownCharactersSize(to: Int = string.length): Int {
+        var size = 0
+        var i = 0
+        val max = if(to > string.length) string.length else to
+        while(i < max) {
+            val char = string[i]
+            if(char.toString() == colorPrefix && i + 1 < string.length) {
+                try {
+                    val colorChar = string[i + 1]
+                    ChatFormat.byChar(colorChar)
+                    ChatColor.byChar(colorChar)
+                    size += colorPrefix.length + 1
+                    i++
+                } catch(e: IllegalArgumentException) {}
+            }
+            i++
+        }
+        return size
+    }
+
     fun toPlainText(): String {
         var text = ""
         parsed.forEach {text += it.first}
         return text
     }
 
-    fun toTextFlow(): TextFlow {
+
+    fun toTextFlow(shadows: Boolean = true): TextFlow {
         val flow = TextFlow()
 
         parsed.forEach {
@@ -99,18 +125,20 @@ class ChatParser(string: String, private val useVariables: Boolean = false) {
             it.second.forEach {
                 when(it) {
                     is ChatColor -> {
-                        label.effect = DropShadow(
-                                BlurType.GAUSSIAN,
-                                Color.color(
-                                        it.backgroundRGB[0] / 100.0,
-                                        it.backgroundRGB[1] / 100.0,
-                                        it.backgroundRGB[2] / 100.0,
-                                        .3),
-                                1.0,
-                                1.0,
-                                2.0,
-                                2.0
-                        )
+                        if(shadows) {
+                            label.effect = DropShadow(
+                                    BlurType.GAUSSIAN,
+                                    Color.color(
+                                            it.backgroundRGB[0] / 100.0,
+                                            it.backgroundRGB[1] / 100.0,
+                                            it.backgroundRGB[2] / 100.0,
+                                            .3),
+                                    1.0,
+                                    1.0,
+                                    2.0,
+                                    2.0
+                            )
+                        }
                     }
                     ChatFormat.OBFUSCATED -> {
                         ChatFormat.obfuscatedLabels += label
