@@ -1,12 +1,12 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
+import javafx.scene.image.Image
+import javafx.scene.text.TextAlignment
+import javafx.scene.text.TextFlow
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.withStyleClass
-import javafx.scene.image.Image
-import javafx.scene.text.TextAlignment
-import javafx.scene.text.TextFlow
 
 /**
  * @author Gio
@@ -25,6 +25,6 @@ class SignPreviewImage(text: String) : ColoredTextPreviewImage(
         flow.styleClass += "minecraft-sign-preview-flow"
         flow.minWidth = background.width
         flow.textAlignment = TextAlignment.CENTER
-        flow.layoutY = 10.0 + (index * 39)
+        flow.layoutY = index * 39.0
     }
 }

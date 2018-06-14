@@ -139,6 +139,7 @@
 
 .minecraft-sign-preview-flow .label {
     -fx-font-family: "Minecraft";
+    -fx-font-size: 35;
 }
 
 .minecraft-bossbar-preview-flow .label {
