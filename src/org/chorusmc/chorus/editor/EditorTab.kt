@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.editor
 
+import javafx.scene.Node
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.events.Events
 import org.chorusmc.chorus.file.FileMethod
@@ -8,7 +9,6 @@ import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.Tab
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.tabs
-import javafx.scene.Node
 import org.fxmisc.flowless.VirtualizedScrollPane
 import java.io.File
 import java.nio.file.Files
@@ -47,6 +47,8 @@ class EditorTab(private var file: FileMethod) {
             addAll(root.children)
             filterIsInstance<Showable>().forEach {root.children -= it as Node}
         }
+
+        area.requestFocus()
     }
 
     companion object {

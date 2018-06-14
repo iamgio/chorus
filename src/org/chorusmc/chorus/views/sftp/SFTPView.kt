@@ -108,15 +108,16 @@ class SFTPView {
         addressHbox.spacing = 15.0
         addressHbox.prefHeight = 75.0
         addressHbox.minHeight = addressHbox.prefHeight
+        addressHbox.prefWidthProperty().bind(root.prefWidthProperty())
         val scrollpane = ScrollPane(filesBox)
-        scrollpane.prefHeight = scene.height
+        scrollpane.prefWidthProperty().bind(scene.widthProperty().subtract(3))
+        scrollpane.prefHeightProperty().bind(scene.heightProperty())
         filesBox.styleClass += "files-box"
-        filesBox.prefWidth = scene.width
+        filesBox.prefWidthProperty().bind(scrollpane.prefWidthProperty())
         val mainVbox = VBox(addressHbox, scrollpane)
         root.children += mainVbox
         stage.minWidth = scene.width
         stage.minHeight = scene.height
-        stage.isResizable = false
         stage.title = title
         stage.scene = scene
         stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
@@ -152,7 +153,7 @@ class SFTPView {
         files.filter {it.filename != "."}.sortedBy {it.filename}.sortedBy {!it.attrs.isDir}.forEach {
             if(!(location == "/" && it.filename == "..")) {
                 val button = SFTPButton(it.filename, "$location${if(location.endsWith("/")) "" else "/"}${it.filename}", this, connection, it.attrs.isDir)
-                button.prefWidth = filesBox.prefWidth
+                button.prefWidthProperty().bind(filesBox.prefWidthProperty())
                 button.addEventFilter(MouseEvent.MOUSE_PRESSED) {
                     filesBox.children.filtered {it != button}.forEach {
                         it.pseudoClassStateChanged(PseudoClass.getPseudoClass("focused"), false)
