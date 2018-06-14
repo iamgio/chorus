@@ -162,7 +162,7 @@
 
 .minecraft-motd-preview-flow .label {
     -fx-font-family: "Minecraft";
-    -fx-font-size: 12.5;
+    -fx-font-size: 16;
 }
 
 .minecraft-animated-text-preview-flow .label {
