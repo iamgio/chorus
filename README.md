@@ -90,8 +90,7 @@ To see the structure of a style file, take a look at this theme:
 If you want to make it public, you can add it to the official [themes repository](https://github.com/iAmGio/chorus-themes) following [these](https://github.com/iAmGio/chorus-themes/blob/master/README.md) guidelines.
 
 ## Downloading
-**This project is currently work in progress.**  
-Once finished, Chorus will be downloadable on [chorusmc.org](http://chorusmc.org).  
+Chorus is downloadable on [chorusmc.org](http://chorusmc.org).  
 Older versions can be found [here](https://github.com/iAmGio/chorus/releases).
 
 #### Windows
