@@ -1,10 +1,10 @@
 package org.chorusmc.chorus.listeners
 
+import eu.iamgio.libfx.timing.RepeatingTimer
+import javafx.util.Duration
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.events.EditorEvent
 import org.chorusmc.chorus.util.config
-import eu.iamgio.libfx.timing.RepeatingTimer
-import javafx.util.Duration
 import org.fxmisc.richtext.model.RichTextChange
 
 /**

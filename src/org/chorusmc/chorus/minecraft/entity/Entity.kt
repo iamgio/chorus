@@ -1,6 +1,6 @@
 package org.chorusmc.chorus.minecraft.entity
 
-import org.chorusmc.chorus.connection.Connection
+import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.minecraft.Fetchable
 import org.chorusmc.chorus.minecraft.IconLoader
 import org.chorusmc.chorus.minecraft.Iconable
@@ -109,7 +109,7 @@ enum class Entity : Iconable, Fetchable {
     override val icons: List<Image>
         get() = iconLoader.images
 
-    override val connection: Connection = Connection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(name.toLowerCase())}")
+    override val connection: HttpConnection = HttpConnection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(name.toLowerCase())}")
 
     override val description: String
         get() {

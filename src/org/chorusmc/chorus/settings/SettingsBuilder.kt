@@ -35,7 +35,7 @@ class SettingsBuilder private constructor() {
 
         @JvmStatic fun buildRight(s: String): List<HBox> {
             val list = ArrayList<HBox>()
-            values.reversed().filter {!it.toString().startsWith("_") && !it.toString().contains("%style") && !it.toString().startsWith(".") && it.toString().split(".")[1].contains(s)}
+            values.reversed().filter {!it.toString().startsWith("_") && !it.toString().contains("%style") && !it.toString().startsWith(".") && it.toString().split(".")[1] == s}
                     .forEach {
                         val label = Label(it.toString().split(".")[3].replace("_", " "))
                         label.styleClass += "setting-label"

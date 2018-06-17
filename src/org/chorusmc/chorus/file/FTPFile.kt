@@ -1,8 +1,7 @@
 package org.chorusmc.chorus.file
 
-import com.jcraft.jsch.ChannelSftp
 import org.apache.commons.io.IOUtils
-import org.chorusmc.chorus.connection.SFTPRemoteConnection
+import org.chorusmc.chorus.connection.FTPRemoteConnection
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.nio.charset.Charset
@@ -10,16 +9,16 @@ import java.nio.charset.Charset
 /**
  * @author Gio
  */
-class SFTPFile(private val connection: SFTPRemoteConnection, private val path: String) : FileMethod {
+class FTPFile(private val connection: FTPRemoteConnection, private val path: String) : FileMethod {
 
-    private val channel = connection.channel as ChannelSftp
-    private val file = channel[path]
+    private val client = connection.client!!
+    private val file = client.retrieveFileStream(path)
 
     override val name: String
         get() = path.split("/").last()
 
     override val formalAbsolutePath: String
-        get() = "$path [SFTP]"
+        get() = "$path [FTP]"
 
     override val parentName: String
         get() {
@@ -31,7 +30,7 @@ class SFTPFile(private val connection: SFTPRemoteConnection, private val path: S
         get() = IOUtils.toString(file, Charset.defaultCharset()).split("\n")
 
     override val updatedFile: FileMethod?
-        get() = SFTPFile(connection, path)
+        get() = FTPFile(connection, path)
 
     override var closed: Boolean = false
 
@@ -39,8 +38,8 @@ class SFTPFile(private val connection: SFTPRemoteConnection, private val path: S
         return try {
             val stream = ByteArrayOutputStream()
             stream.write(text.toByteArray())
-            channel.put(ByteArrayInputStream(stream.toByteArray()), path, ChannelSftp.OVERWRITE)
-            true
+            client.storeFile(path, ByteArrayInputStream(stream.toByteArray()))
+            client.completePendingCommand()
         } catch(e: Exception) {
             e.printStackTrace()
             false
@@ -50,6 +49,5 @@ class SFTPFile(private val connection: SFTPRemoteConnection, private val path: S
     override fun close() {
         closed = true
         file.close()
-        connection.session.disconnect()
     }
 }

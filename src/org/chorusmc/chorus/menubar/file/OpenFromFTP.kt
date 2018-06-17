@@ -5,32 +5,32 @@ import javafx.application.Platform
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ObservableValue
 import javafx.util.Duration
-import org.chorusmc.chorus.connection.SFTPRemoteConnection
+import org.chorusmc.chorus.connection.FTPRemoteConnection
 import org.chorusmc.chorus.editor.EditorTab
-import org.chorusmc.chorus.file.SFTPFile
+import org.chorusmc.chorus.file.FTPFile
 import org.chorusmc.chorus.menubar.MenuBarAction
-import org.chorusmc.chorus.views.remoteconnection.sftp.SFTPView
+import org.chorusmc.chorus.views.remoteconnection.ftp.FTPView
 
 /**
  * @author Gio
  */
-class OpenFromSFTP : MenuBarAction {
+class OpenFromFTP : MenuBarAction {
 
     override val binding: ObservableValue<Boolean>
         get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
-        val view = SFTPView()
+        val view = FTPView()
         view.show()
-        var connection: SFTPRemoteConnection? = null
+        var connection: FTPRemoteConnection? = null
         view.onConfirm { ip, username, port, password ->
             if(connection != null && connection!!.isValid) {
                 view.title = "Disconnecting..."
-                connection!!.channel!!.disconnect()
-                connection!!.session.disconnect()
+                connection!!.client!!.logout()
+                connection!!.client!!.disconnect()
             }
             view.title = "Connecting..."
-            connection = SFTPRemoteConnection(ip, username, port, password)
+            connection = FTPRemoteConnection(ip, username, port, password)
             val button = view.connectButton
             if(connection!!.isValid) {
                 button.style = ""
@@ -39,18 +39,19 @@ class OpenFromSFTP : MenuBarAction {
                 if(loc != null) view.generateFiles(connection!!, loc) else view.generateFiles(connection!!)
             } else {
                 view.clear()
-                view.title = "Chorus - SFTP"
+                view.title = "Chorus - FTP"
                 button.style = "-fx-border-width: 1; -fx-border-color: red"
                 button.text = "  Invalid "
-                WaitingTimer().start({Platform.runLater {
-                    button.style = ""
-                    button.text = "Connect"
-                }}, Duration.seconds(1.5))
+                WaitingTimer().start({
+                    Platform.runLater {
+                        button.style = ""
+                        button.text = "Connect"
+                    }}, Duration.seconds(1.5))
             }
-            SFTPRemoteConnection.psw = password
+            FTPRemoteConnection.psw = password
         }
         view.onSelect = Runnable {
-            EditorTab(SFTPFile(connection!!, view.selectedPath)).add()
+            EditorTab(FTPFile(connection!!, view.selectedPath)).add()
         }
     }
 

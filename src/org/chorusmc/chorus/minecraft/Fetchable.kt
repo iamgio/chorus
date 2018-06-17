@@ -1,13 +1,13 @@
 package org.chorusmc.chorus.minecraft
 
-import org.chorusmc.chorus.connection.Connection
+import org.chorusmc.chorus.connection.HttpConnection
 
 /**
  * @author Gio
  */
 interface Fetchable : Descriptionable {
 
-    val connection: Connection
+    val connection: HttpConnection
     override val description: String
 }
 

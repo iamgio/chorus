@@ -5,7 +5,7 @@ import javafx.beans.value.ObservableValue
 import javafx.scene.control.Label
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
-import org.chorusmc.chorus.connection.Connection
+import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.views.HelpView
 
@@ -20,7 +20,7 @@ class DonatorsList : MenuBarAction {
     override fun onAction() {
         val helpView = HelpView("Donators")
 
-        val connection = Connection("https://iamgio.altervista.org/chorus/donators.html")
+        val connection = HttpConnection("https://iamgio.altervista.org/chorus/donators.html")
         try {
             connection.connect()
             helpView.addText("Here you can see who has supported Chorus:")

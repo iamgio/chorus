@@ -1,6 +1,6 @@
 package org.chorusmc.chorus.minecraft.item
 
-import org.chorusmc.chorus.connection.Connection
+import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.minecraft.Fetchable
 import org.chorusmc.chorus.minecraft.Iconable
 import org.chorusmc.chorus.minecraft.IdAble
@@ -485,7 +485,7 @@ enum class Item(override val id: Short) : Iconable, IdAble, Fetchable {
     override val icons: List<Image>
         get() = iconLoader.images
 
-    override val connection: Connection = Connection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(name.toLowerCase())}")
+    override val connection: HttpConnection = HttpConnection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(name.toLowerCase())}")
 
     override val description: String
         get() {

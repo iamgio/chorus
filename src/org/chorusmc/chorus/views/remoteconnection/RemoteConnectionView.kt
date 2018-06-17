@@ -1,6 +1,5 @@
-package org.chorusmc.chorus.views.sftp
+package org.chorusmc.chorus.views.remoteconnection
 
-import com.jcraft.jsch.ChannelSftp
 import javafx.css.PseudoClass
 import javafx.geometry.Pos
 import javafx.scene.Scene
@@ -11,17 +10,17 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.connection.Password
 import org.chorusmc.chorus.connection.RemoteConnection
 import org.chorusmc.chorus.nodes.control.NumericTextField
 import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.toObservableList
-import java.util.*
 
 /**
  * @author Gio
  */
-class SFTPView {
+open class RemoteConnectionView(private val name: String, defaultPort: Int, setting: String, private val psw: Password) {
 
     private var ips = emptyMap<String, Pair<String, String>>()
 
@@ -37,7 +36,7 @@ class SFTPView {
     lateinit var onSelect: Runnable
     lateinit var selectedPath: String
 
-    var title = "Chorus - SFTP"
+    var title = "Chorus - $name"
         set(value) {
             stage.title = value
         }
@@ -46,11 +45,13 @@ class SFTPView {
         unit(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text)
     }
 
+    var onBrowse: (Pair<String, String>) -> Unit = {}
+
     init {
-        config["5.SFTP.1.Servers"].split("\\n").forEach {
+        config[setting].split("\\n").forEach {
             with(it.split("|")) {
                 if(size == 2) {
-                    ips += this[0] to (this[1] to "22")
+                    ips += this[0] to (this[1] to defaultPort.toString())
                 } else if(size == 3) {
                     ips += this[0] to (this[1] to this[2])
                 }
@@ -61,7 +62,7 @@ class SFTPView {
     fun show() {
         val root = VBox()
         root.styleClass += "pane"
-        val scene = Scene(root, 730.0, 400.0)
+        val scene = Scene(root, 800.0, 400.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
         ip.selectionModel.selectedItemProperty().addListener {_ ->
             val pair = ips[ip.selectionModel.selectedItem]!!
@@ -69,13 +70,13 @@ class SFTPView {
             port.text = pair.second
             password.requestFocus()
         }
-        ip.promptText = "Add servers from Settings > SFTP"
+        ip.promptText = "Add servers from Settings > $name"
         ip.items = ips.keys.toList().toObservableList()
         if(ip.items.size > 0) ip.selectionModel.selectFirst() else ip.isDisable = true
         ip.styleClass += "ip-box"
         username.promptText = "Username"
         username.styleClass += "username-field"
-        password.text = RemoteConnection.psw
+        password.text = psw.psw
         password.promptText = "Password"
         password.styleClass += "password-field"
         port.promptText = "Port"
@@ -129,7 +130,7 @@ class SFTPView {
 
     fun clear() = filesBox.children.clear()
 
-    fun generateFiles(connection: RemoteConnection, loc: String = (connection.channel!! as ChannelSftp).home) {
+    fun generateFiles(connection: RemoteConnection, loc: String = connection.home) {
         filesBox.children.clear()
         var location = ""
         if(loc.endsWith("/..")) {
@@ -141,18 +142,16 @@ class SFTPView {
                 location = location.substring(0, location.length - 1)
             }
         } else location = loc
-        val channel = connection.channel!! as ChannelSftp
-        @Suppress("UNCHECKED_CAST")
         val files = try {
-            channel.ls(location)
+            connection.getFiles(location)
         } catch(e: Exception) {
-            location = channel.home
-            channel.ls(location)
-        } as Vector<ChannelSftp.LsEntry>
-        title = "Chorus - SFTP [$location]"
-        files.filter {it.filename != "."}.sortedBy {it.filename}.sortedBy {!it.attrs.isDir}.forEach {
+            location = connection.home
+            connection.getFiles(location)
+        }
+        title = "Chorus - $name [$location]"
+        files.filter {it.filename != "."}.sortedBy {it.filename}.sortedBy {!it.isDir}.forEach {
             if(!(location == "/" && it.filename == "..")) {
-                val button = SFTPButton(it.filename, "$location${if(location.endsWith("/")) "" else "/"}${it.filename}", this, connection, it.attrs.isDir)
+                val button = RemoteConnectionButton(it.filename, "$location${if(location.endsWith("/")) "" else "/"}${it.filename}", this, connection, it.isDir)
                 button.prefWidthProperty().bind(filesBox.prefWidthProperty())
                 button.addEventFilter(MouseEvent.MOUSE_PRESSED) {
                     filesBox.children.filtered {it != button}.forEach {

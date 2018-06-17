@@ -7,7 +7,7 @@ import java.io.IOException
 /**
  * @author Gio
  */
-class Connection(val url: String) {
+class HttpConnection(val url: String) {
 
     lateinit var document: Document
 

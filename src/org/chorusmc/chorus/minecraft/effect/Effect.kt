@@ -1,6 +1,6 @@
 package org.chorusmc.chorus.minecraft.effect
 
-import org.chorusmc.chorus.connection.Connection
+import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.minecraft.*
 import javafx.scene.image.Image
 import java.io.IOException
@@ -44,7 +44,7 @@ enum class Effect(override val id: Short) : Iconable, IdAble, Fetchable {
     override val icons: List<Image>
         get() = iconLoader.images
 
-    override val connection: Connection = Connection("https://minecraft.gamepedia.com/Status_effect")
+    override val connection: HttpConnection = HttpConnection("https://minecraft.gamepedia.com/Status_effect")
 
     override val description: String
         get() {
