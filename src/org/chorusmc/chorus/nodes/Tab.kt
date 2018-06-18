@@ -8,7 +8,6 @@ import org.chorusmc.chorus.editor.EditorController
 import org.chorusmc.chorus.file.FileMethod
 import org.chorusmc.chorus.util.tabs
 import org.fxmisc.flowless.VirtualizedScrollPane
-import kotlin.concurrent.thread
 
 /**
  * @author Gio
@@ -23,11 +22,9 @@ class Tab(text: String, content: Node, val file: FileMethod) : Tab("$text ", con
     }
 
     fun close(isList: Boolean) {
+        area.saveFile()
+        file.close()
         if(!isList) EditorController.getInstance().tabPane.tabs -= this
-        thread {
-            area.saveFile()
-            file.close()
-        }
     }
 
     @Suppress("UNCHECKED_CAST")

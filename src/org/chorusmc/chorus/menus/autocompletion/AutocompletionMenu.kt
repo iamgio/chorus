@@ -1,5 +1,8 @@
 package org.chorusmc.chorus.menus.autocompletion
 
+import javafx.geometry.Pos
+import javafx.scene.control.Label
+import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.listeners.AUTOCOMPLETION_REGEX
 import org.chorusmc.chorus.listeners.AutocompletionListener
@@ -9,9 +12,6 @@ import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.hideMenuOnInteract
-import javafx.geometry.Pos
-import javafx.scene.control.Label
-import javafx.scene.layout.VBox
 
 /**
  * @author Gio
@@ -76,7 +76,7 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, pos: In
     override fun hide() {
         Chorus.getInstance().root.children -= this
         Showables.SHOWING = null
-        area!!.requestFocus()
+        area?.requestFocus()
     }
 
     override fun getMenuWidth(): Double = prefWidth

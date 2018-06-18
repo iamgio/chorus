@@ -14,6 +14,10 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
     private val client = connection.client!!
     private val file = client.retrieveFileStream(path)
 
+    init {
+        client.completePendingCommand()
+    }
+
     override val name: String
         get() = path.split("/").last()
 
@@ -39,7 +43,7 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
             val stream = ByteArrayOutputStream()
             stream.write(text.toByteArray())
             client.storeFile(path, ByteArrayInputStream(stream.toByteArray()))
-            client.completePendingCommand()
+            true
         } catch(e: Exception) {
             e.printStackTrace()
             false
@@ -48,6 +52,8 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
 
     override fun close() {
         closed = true
+        client.logout()
+        client.disconnect()
         file.close()
     }
 }
