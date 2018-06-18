@@ -111,8 +111,9 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         addressHbox.minHeight = addressHbox.prefHeight
         addressHbox.prefWidthProperty().bind(root.prefWidthProperty())
         val scrollpane = ScrollPane(filesBox)
-        scrollpane.prefWidthProperty().bind(scene.widthProperty().subtract(3))
+        scrollpane.prefWidthProperty().bind(scene.widthProperty())
         scrollpane.prefHeightProperty().bind(scene.heightProperty())
+        scrollpane.hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
         filesBox.styleClass += "files-box"
         filesBox.prefWidthProperty().bind(scrollpane.prefWidthProperty())
         val mainVbox = VBox(addressHbox, scrollpane)
