@@ -17,6 +17,8 @@ class FTPRemoteConnection(override val ip: String, override val username: String
             val client = FTPClient()
             return try {
                 client.connect(ip, port)
+                client.sendNoOp()
+                client.controlKeepAliveTimeout = -1
                 client.enterLocalPassiveMode()
                 isValid = client.login(username, password)
                 client.changeWorkingDirectory("/")
