@@ -1,5 +1,7 @@
 package org.chorusmc.chorus.connection
 
+import eu.iamgio.libfx.timing.RepeatingTimer
+import javafx.util.Duration
 import org.apache.commons.net.ftp.FTPClient
 
 /**
@@ -17,12 +19,15 @@ class FTPRemoteConnection(override val ip: String, override val username: String
             val client = FTPClient()
             return try {
                 client.connect(ip, port)
-                client.sendNoOp()
-                client.controlKeepAliveTimeout = -1
                 client.enterLocalPassiveMode()
                 isValid = client.login(username, password)
                 client.changeWorkingDirectory("/")
                 home = client.printWorkingDirectory()
+                RepeatingTimer().start({
+                    if(client.isConnected) {
+                        client.sendCommand("")
+                    } else return@start
+                }, Duration.minutes(4.9))
                 client
             } catch(e: Exception) {
                 null
