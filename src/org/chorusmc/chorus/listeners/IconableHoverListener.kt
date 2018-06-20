@@ -3,10 +3,7 @@ package org.chorusmc.chorus.listeners
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.minecraft.Iconable
 import org.chorusmc.chorus.minecraft.IdAble
-import org.chorusmc.chorus.minecraft.effect.Effect
-import org.chorusmc.chorus.minecraft.entity.Entity
-import org.chorusmc.chorus.minecraft.item.Item
-import org.chorusmc.chorus.minecraft.particle.Particle
+import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.nodes.popup.ImagePopup
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.yaml.charToWord
@@ -28,14 +25,14 @@ class IconableHoverListener : TabOpenerListener {
             val style = styles[0]
             if(!config.getBoolean("4.Minecraft.[].Pop-up_${style.replace("id", "").replace("ty", "tie")}s")) return@addEventHandler
             val text = charToWord(index, style)
-            @Suppress("IMPLICIT_CAST_TO_ANY")
+            @Suppress("IMPLICIT_CAST_TO_ANY", "UNCHECKED_CAST")
             val iconable = try {
                 when(style) {
-                    "item" -> Item.valueOf(text.split(":")[0])
-                    "itemid" -> IdAble.byId(Item::class.java, text.split(":")[0].toShort())
-                    "particle" -> Particle.valueOf(text)
-                    "effect" -> Effect.valueOf(text)
-                    "entity" -> Entity.valueOf(text)
+                    "item" -> McClass("Item").valueOf(text.split(":")[0])
+                    "itemid" -> IdAble.byId(McClass("Item").cls as Class<out IdAble>, text.split(":")[0].toShort())
+                    "particle" -> McClass("Particle").valueOf(text)
+                    "effect" -> McClass("Effect").valueOf(text)
+                    "entity" -> McClass("Entity").valueOf(text)
                     else -> return@addEventHandler
                 } as Iconable
             } catch(e: Exception) {

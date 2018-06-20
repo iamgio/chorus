@@ -1,9 +1,8 @@
 package org.chorusmc.chorus.editor;
 
+import org.chorusmc.chorus.minecraft.McClass;
 import org.chorusmc.chorus.minecraft.effect.Effect;
 import org.chorusmc.chorus.minecraft.enchantment.Enchantment;
-import org.chorusmc.chorus.minecraft.entity.Entity;
-import org.chorusmc.chorus.minecraft.item.Item;
 import org.chorusmc.chorus.minecraft.particle.Particle;
 import org.chorusmc.chorus.minecraft.sound.Sound;
 
@@ -27,12 +26,12 @@ public enum EditorPattern {
     ITEMID("\\b((([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9]):\\d(\\d)?)|(22((5[8-9])|(6[0-7])):0))\\b"),
     NUMBER("\\d+(\\.\\d+)?"),
     BRACKET("\\[|\\]"),
-    ITEM("(\\b(" + joinEnum(Item.class) + ")\\b)(:\\d(\\d)?)?"),
+    ITEM("(\\b(" + joinEnum(new McClass("Item").getCls()) + ")\\b)(:\\d(\\d)?)?"),
     PARTICLE("\\b(" + joinEnum(Particle.class) + ")\\b"),
     EFFECT("\\b(" + joinEnum(Effect.class) + ")\\b"),
     SOUND("\\b(" + joinEnum(Sound.class) + ")\\b"),
     ENCHANTMENT("\\b(" + joinEnum(Enchantment.class) + ")\\b"),
-    ENTITY("\\b(" + joinEnum(Entity.class) + ")\\b");
+    ENTITY("\\b(" + joinEnum(new McClass("Entity").getCls()) + ")\\b");
 
     private String pattern;
     EditorPattern(String pattern) {

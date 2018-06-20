@@ -1,11 +1,11 @@
 package org.chorusmc.chorus.minecraft.entity
 
+import javafx.scene.image.Image
 import org.chorusmc.chorus.infobox.FETCHING_TEXT
 import org.chorusmc.chorus.infobox.InformationBody
 import org.chorusmc.chorus.infobox.InformationBox
 import org.chorusmc.chorus.infobox.InformationHead
 import org.chorusmc.chorus.util.makeFormal
-import javafx.scene.image.Image
 
 /**
  * @author Gio

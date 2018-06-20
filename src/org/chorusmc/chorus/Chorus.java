@@ -13,6 +13,8 @@ import org.chorusmc.chorus.minecraft.effect.EffectIconLoader;
 import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
 import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
 import org.chorusmc.chorus.minecraft.particle.ParticleIconLoader;
+import org.chorusmc.chorus.notification.Notification;
+import org.chorusmc.chorus.notification.NotificationType;
 import org.chorusmc.chorus.settings.SettingsBuilder;
 import org.chorusmc.chorus.theme.Theme;
 import org.chorusmc.chorus.theme.Themes;
@@ -83,12 +85,7 @@ public class Chorus extends FXApplication {
         Themes.loadInternalThemes();
         Themes.loadExternalThemes();
 
-        new Thread(() -> {
-            ItemIconLoader.cache();
-            ParticleIconLoader.cache();
-            EffectIconLoader.cache();
-            EntityIconLoader.cache();
-        }).start();
+        cacheIcons();
 
         root = (AnchorPane) loadRoot("/assets/views/Editor.fxml");
         boolean inherit = config.getBoolean("1.Appearance.3.Inherit_window_size");
@@ -113,6 +110,10 @@ public class Chorus extends FXApplication {
         });
 
         SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
+        SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
+            cacheIcons();
+            new Notification("Please restart Chorus to apply changes", NotificationType.MESSAGE).send();
+        });
 
         registerEvents();
 
@@ -168,6 +169,15 @@ public class Chorus extends FXApplication {
 
     private void loadFont(String name) {
         Font.loadFont(getClass().getResourceAsStream("/assets/fonts/" + name), 25);
+    }
+
+    private void cacheIcons() {
+        new Thread(() -> {
+            ItemIconLoader.cache();
+            ParticleIconLoader.cache();
+            EffectIconLoader.cache();
+            EntityIconLoader.cache();
+        }).start();
     }
 
     public static Chorus getInstance() {

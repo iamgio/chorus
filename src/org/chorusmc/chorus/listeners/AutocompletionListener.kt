@@ -3,10 +3,9 @@ package org.chorusmc.chorus.listeners
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.events.EditorEvent
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu
+import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
 import org.chorusmc.chorus.minecraft.enchantment.Enchantment
-import org.chorusmc.chorus.minecraft.entity.Entity
-import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.minecraft.particle.Particle
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.makeFormal
@@ -22,8 +21,8 @@ class AutocompletionListener : EditorEvent() {
 
     private val options = linkedMapOf(
             "true" to "true", "false" to "false",
-            *Item.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-            *Entity.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+            *McClass("Item").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
+            *McClass("Entity").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
             *Particle.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
             *Effect.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
             *Enchantment.values().map {it.name.makeFormal() to it.name}.toTypedArray()

@@ -17,8 +17,10 @@ import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewI
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.GUIPreviewImage
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.menus.insert.InsertMenu
+import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.minecraft.item.Item
+import org.chorusmc.chorus.minecraft.item.Item112
 import org.chorusmc.chorus.nodes.popup.LocalTextPopup
 import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.makeFormal
@@ -143,7 +145,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
             when(it.button) {
                 MouseButton.PRIMARY -> {
                     @Suppress("UNCHECKED_CAST")
-                    val menu = InsertMenu(Item::class.java as Class<Enum<*>>)
+                    val menu = InsertMenu(McClass("Item").cls as Class<Enum<*>>)
                     menu.target = titleField
                     if(item != null) {
                         menu.textField.text = item!!.name.makeFormal()
@@ -152,10 +154,10 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
                     menu.layoutY = layoutY
                     menu.setOnSelect {
                         removeImage()
-                        item = Item.valueOf(menu.selected.toUpperCase().replace(" ", "_"))
+                        item = McClass("Item").valueOf(menu.selected.toUpperCase().replace(" ", "_")) as Item
                         meta = if(menu.meta > 0) menu.meta else 0
                         val icons = item!!.icons
-                        children += ImageView(if(icons.size > meta) icons[meta] else Item.BEDROCK.icons[0])
+                        children += ImageView(if(icons.size > meta) icons[meta] else Item112.BEDROCK.icons[0])
                         WaitingTimer().start({Platform.runLater {
                             titleField.requestFocus()
                             titleField.positionCaret(titleField.length)

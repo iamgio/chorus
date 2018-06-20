@@ -3,6 +3,7 @@ package org.chorusmc.chorus.menus.drop
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorPattern
 import org.chorusmc.chorus.minecraft.IdAble
+import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
 import org.chorusmc.chorus.minecraft.enchantment.Enchantment
 import org.chorusmc.chorus.minecraft.item.Item
@@ -26,13 +27,14 @@ class ShowDropMenu : DropMenu() {
         val parts = selected.split(":")
         if(selected.isNotEmpty() && parts.size in 1..2) {
             if(selected.matches(Regex("(${EditorPattern.ITEMID.pattern})|(\\b(([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9])|(22((5[8-9])|(6[0-7]))))\\b)"))) {
-                if(selected.split(":")[0].toShortOrNull() != null && IdAble.byId(Item::class.java, selected.split(":")[0].toShort()) != null) {
+                @Suppress("UNCHECKED_CAST")
+                if(selected.split(":")[0].toShortOrNull() != null && IdAble.byId(McClass("Item").cls as Class<out IdAble>, selected.split(":")[0].toShort()) != null) {
                     val path = if(selected.contains(":"))
                         selected.replace(":", "_")
                     else selected + "_0"
                     if(Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$path.png") != null) {
                         val left = parts[0]
-                        val item = IdAble.byId(Item::class.java, left.toShort())
+                        val item = IdAble.byId(McClass("Item").cls as Class<out IdAble>, left.toShort())
                         if(item != null && item is Item) {
                             if(selected.contains(":")) {
                                 val right = parts[1]
@@ -47,7 +49,7 @@ class ShowDropMenu : DropMenu() {
             } else if(selected.matches(Regex(EditorPattern.ITEM.pattern))) {
                 if(selected.contains(":")) {
                     val right = parts[1]
-                    if(Item.valueOf(selected.split(":")[0]).icons.size > right.toInt()) {
+                    if((McClass("Item").valueOf(selected.split(":")[0]) as Item).icons.size > right.toInt()) {
                         list[0].isDisable = false
                     }
                 } else list[0].isDisable = false

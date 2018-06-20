@@ -1,8 +1,10 @@
 package org.chorusmc.chorus.menus.drop.actions.insert
 
-import org.chorusmc.chorus.minecraft.item.Item
+import org.chorusmc.chorus.minecraft.IdAble
+import org.chorusmc.chorus.minecraft.McClass
 
 /**
  * @author Gio
  */
-class ItemID : IdAction(Item::class.java)
+@Suppress("UNCHECKED_CAST")
+class ItemID : IdAction(McClass("Item").cls as Class<out IdAble>)

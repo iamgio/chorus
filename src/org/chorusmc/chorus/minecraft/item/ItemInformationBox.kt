@@ -1,12 +1,12 @@
 package org.chorusmc.chorus.minecraft.item
 
+import javafx.scene.image.Image
 import org.chorusmc.chorus.infobox.FETCHING_TEXT
 import org.chorusmc.chorus.infobox.InformationBody
 import org.chorusmc.chorus.infobox.InformationBox
 import org.chorusmc.chorus.infobox.InformationHead
 import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.makeFormal
-import javafx.scene.image.Image
 
 /**
  * @author Gio
