@@ -7,6 +7,7 @@ import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
 import org.chorusmc.chorus.minecraft.enchantment.Enchantment
 import org.chorusmc.chorus.minecraft.particle.Particle
+import org.chorusmc.chorus.minecraft.sound.Sound
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.variable.Variables
@@ -25,7 +26,8 @@ class AutocompletionListener : EditorEvent() {
             *McClass("Entity").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
             *Particle.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
             *Effect.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-            *Enchantment.values().map {it.name.makeFormal() to it.name}.toTypedArray()
+            *Enchantment.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+            *Sound.values().map {it.name.makeFormal() to it.name}.toTypedArray()
     )
 
     var b = false
