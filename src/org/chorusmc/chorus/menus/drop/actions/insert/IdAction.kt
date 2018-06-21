@@ -11,7 +11,7 @@ import org.chorusmc.chorus.util.valueOf
 /**
  * @author Gio
  */
-open class IdAction(private val enumClass: Class<out IdAble>) : DropMenuAction() {
+open class IdAction(protected var enumClass: Class<out IdAble>) : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         @Suppress("UNCHECKED_CAST")

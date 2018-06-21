@@ -1,34 +1,36 @@
 package org.chorusmc.chorus;
 
-import org.chorusmc.chorus.configuration.ChorusConfig;
-import org.chorusmc.chorus.configuration.ChorusFolder;
-import org.chorusmc.chorus.editor.EditorController;
-import org.chorusmc.chorus.editor.EditorTab;
-import org.chorusmc.chorus.editor.events.Events;
-import org.chorusmc.chorus.editor.events.Openable;
-import org.chorusmc.chorus.file.LocalFile;
-import org.chorusmc.chorus.listeners.*;
-import org.chorusmc.chorus.lock.Locker;
-import org.chorusmc.chorus.minecraft.effect.EffectIconLoader;
-import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
-import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
-import org.chorusmc.chorus.minecraft.particle.ParticleIconLoader;
-import org.chorusmc.chorus.notification.Notification;
-import org.chorusmc.chorus.notification.NotificationType;
-import org.chorusmc.chorus.settings.SettingsBuilder;
-import org.chorusmc.chorus.theme.Theme;
-import org.chorusmc.chorus.theme.Themes;
-import org.chorusmc.chorus.util.Utils;
 import eu.iamgio.libfx.application.FXApplication;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.chorusmc.chorus.configuration.ChorusConfig;
+import org.chorusmc.chorus.configuration.ChorusFolder;
+import org.chorusmc.chorus.editor.EditorController;
+import org.chorusmc.chorus.editor.EditorPattern;
+import org.chorusmc.chorus.editor.EditorTab;
+import org.chorusmc.chorus.editor.events.Events;
+import org.chorusmc.chorus.editor.events.Openable;
+import org.chorusmc.chorus.file.LocalFile;
+import org.chorusmc.chorus.listeners.*;
+import org.chorusmc.chorus.lock.Locker;
+import org.chorusmc.chorus.minecraft.McClass;
+import org.chorusmc.chorus.minecraft.effect.EffectIconLoader;
+import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
+import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
+import org.chorusmc.chorus.minecraft.particle.ParticleIconLoader;
+import org.chorusmc.chorus.settings.SettingsBuilder;
+import org.chorusmc.chorus.theme.Theme;
+import org.chorusmc.chorus.theme.Themes;
+import org.chorusmc.chorus.util.Utils;
 
 import java.awt.*;
 import java.io.File;
 import java.util.Arrays;
+
+import static org.chorusmc.chorus.util.Utils.joinEnum;
 
 /**
  * @author Gio
@@ -112,7 +114,13 @@ public class Chorus extends FXApplication {
         SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             cacheIcons();
-            new Notification("Please restart Chorus to apply changes", NotificationType.MESSAGE).send();
+            AutocompletionListener.loadOptions();
+            EditorPattern.ITEM.setPattern(
+                    "(\\b(" + joinEnum(new McClass("Item").getCls()) + ")\\b)(:\\d(\\d)?)?"
+            );
+            EditorPattern.ENTITY.setPattern(
+                    "\\b(" + joinEnum(new McClass("Entity").getCls()) + ")\\b"
+            );
         });
 
         registerEvents();

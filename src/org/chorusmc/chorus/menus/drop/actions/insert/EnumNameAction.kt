@@ -8,7 +8,7 @@ import org.chorusmc.chorus.util.makeFormal
 /**
  * @author Gio
  */
-open class EnumNameAction(private val enumClass: Class<out Enum<*>>) : DropMenuAction() {
+open class EnumNameAction(protected var enumClass: Class<out Enum<*>>) : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         @Suppress("UNCHECKED_CAST")

@@ -34,7 +34,7 @@ public class EditorArea extends CodeArea {
 
     private FileMethod file;
 
-    private final Pattern pattern = EditorPattern.compile();
+    private Pattern pattern = EditorPattern.compile();
 
     public EditorArea(FileMethod file, boolean highlight) {
         super(String.join("\n", file.getLines()));
@@ -50,6 +50,10 @@ public class EditorArea extends CodeArea {
         if(!getText().isEmpty() && highlight) Platform.runLater(() -> setStyleSpans(0, computeHighlighting(getText())));
         richChanges().filter(change -> !change.getInserted().equals(change.getRemoved()))
                 .subscribe(change -> {
+                    if(EditorPattern.patternEdited) {
+                        pattern = EditorPattern.compile();
+                        EditorPattern.patternEdited = false;
+                    }
                     if(highlight && !getText().isEmpty()) setStyleSpans(0, computeHighlighting(getText()));
                     Events.getEvents().forEach(e -> e.onChange(change, this));
                 });

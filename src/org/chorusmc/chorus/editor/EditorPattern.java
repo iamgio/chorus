@@ -42,9 +42,16 @@ public enum EditorPattern {
         return pattern;
     }
 
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+        patternEdited = true;
+    }
+
     public String getStyleClass() {
         return name().toLowerCase();
     }
+
+    public static boolean patternEdited = false;
 
     public static Pattern compile() {
         StringBuilder patternBuilder = new StringBuilder();

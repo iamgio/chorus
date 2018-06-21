@@ -20,17 +20,11 @@ const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}_$]"
  */
 class AutocompletionListener : EditorEvent() {
 
-    private val options = linkedMapOf(
-            "true" to "true", "false" to "false",
-            *McClass("Item").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
-            *McClass("Entity").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
-            *Particle.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-            *Effect.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-            *Enchantment.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-            *Sound.values().map {it.name.makeFormal() to it.name}.toTypedArray()
-    )
-
     var b = false
+
+    init {
+        loadOptions()
+    }
 
     override fun onChange(change: RichTextChange<Collection<String>, String, Collection<String>>, area: EditorArea) {
         val actual = AutocompletionMenu.actual
@@ -46,9 +40,8 @@ class AutocompletionListener : EditorEvent() {
                 word = word.reversed()
                 if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
                     val size = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
-                    var options = options
                     val variables = Variables.getVariables().map {it.name}.reversed()
-                    options = options.filter {it.key.toLowerCase().replace(" ", "_").contains(word.toLowerCase())} as LinkedHashMap<String, String>
+                    val options = options.filter {it.key.toLowerCase().replace(" ", "_").contains(word.toLowerCase())} as LinkedHashMap<String, String>
                     if(options.size > size) {
                         @Suppress("UNCHECKED_CAST")
                         val copy = options.clone() as LinkedHashMap<String, String>
@@ -74,6 +67,24 @@ class AutocompletionListener : EditorEvent() {
                     }
                 } else actual?.hide()
             } else actual?.hide()
+        }
+    }
+
+    companion object {
+
+        lateinit var options: LinkedHashMap<String, String>
+
+        @JvmStatic fun loadOptions() {
+            options =
+                    linkedMapOf(
+                            "true" to "true", "false" to "false",
+                            *McClass("Item").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *McClass("Entity").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *Particle.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *Effect.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *Enchantment.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *Sound.values().map {it.name.makeFormal() to it.name}.toTypedArray()
+                    )
         }
     }
 }
