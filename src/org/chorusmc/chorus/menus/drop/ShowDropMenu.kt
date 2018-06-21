@@ -5,7 +5,6 @@ import org.chorusmc.chorus.editor.EditorPattern
 import org.chorusmc.chorus.minecraft.IdAble
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
-import org.chorusmc.chorus.minecraft.enchantment.Enchantment
 import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.nodes.Tab
 
@@ -14,6 +13,7 @@ import org.chorusmc.chorus.nodes.Tab
  */
 class ShowDropMenu : DropMenu() {
 
+    @Suppress("UNCHECKED_CAST")
     override fun getButtons(): MutableList<DropMenuButton> {
         val list = arrayListOf(
                 DropMenuButton("Item Information", "show"),
@@ -27,7 +27,6 @@ class ShowDropMenu : DropMenu() {
         val parts = selected.split(":")
         if(selected.isNotEmpty() && parts.size in 1..2) {
             if(selected.matches(Regex("(${EditorPattern.ITEMID.pattern})|(\\b(([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9])|(22((5[8-9])|(6[0-7]))))\\b)"))) {
-                @Suppress("UNCHECKED_CAST")
                 if(selected.split(":")[0].toShortOrNull() != null && IdAble.byId(McClass("Item").cls as Class<out IdAble>, selected.split(":")[0].toShort()) != null) {
                     val path = if(selected.contains(":"))
                         selected.replace(":", "_")
@@ -62,7 +61,7 @@ class ShowDropMenu : DropMenu() {
                 list[2].isDisable = false
             }
             if(selected.matches(Regex(EditorPattern.ENCHANTMENT.pattern)) ||
-                    (selected.toShortOrNull() != null && IdAble.byId(Enchantment::class.java, selected.toShort()) != null)) {
+                    (selected.toShortOrNull() != null && IdAble.byId(McClass("Enchantment").cls as Class<out IdAble>, selected.toShort()) != null)) {
                 list[3].isDisable = false
             }
             if(selected.toIntOrNull() != null) {

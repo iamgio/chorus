@@ -2,7 +2,6 @@ package org.chorusmc.chorus.editor;
 
 import org.chorusmc.chorus.minecraft.McClass;
 import org.chorusmc.chorus.minecraft.effect.Effect;
-import org.chorusmc.chorus.minecraft.enchantment.Enchantment;
 import org.chorusmc.chorus.minecraft.particle.Particle;
 import org.chorusmc.chorus.minecraft.sound.Sound;
 
@@ -30,7 +29,7 @@ public enum EditorPattern {
     PARTICLE("\\b(" + joinEnum(Particle.class) + ")\\b"),
     EFFECT("\\b(" + joinEnum(Effect.class) + ")\\b"),
     SOUND("\\b(" + joinEnum(Sound.class) + ")\\b"),
-    ENCHANTMENT("\\b(" + joinEnum(Enchantment.class) + ")\\b"),
+    ENCHANTMENT("\\b(" + joinEnum(new McClass("Enchantment").getCls()) + ")\\b"),
     ENTITY("\\b(" + joinEnum(new McClass("Entity").getCls()) + ")\\b");
 
     private String pattern;

@@ -121,6 +121,9 @@ public class Chorus extends FXApplication {
             EditorPattern.ENTITY.setPattern(
                     "\\b(" + joinEnum(new McClass("Entity").getCls()) + ")\\b"
             );
+            EditorPattern.ENCHANTMENT.setPattern(
+                    "\\b(" + joinEnum(new McClass("Enchantment").getCls()) + ")\\b"
+            );
         });
 
         registerEvents();
