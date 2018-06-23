@@ -46,14 +46,17 @@ public class EditorArea extends CodeArea {
         final String fontSizeSetting = "1.Appearance.2.Font_size";
         setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting));
         SettingsBuilder.addAction(fontSizeSetting, () -> setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting)));
+        SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
+            if(EditorPattern.patternEdited) {
+                pattern = EditorPattern.compile();
+                EditorPattern.patternEdited = false;
+                if(highlight && !getText().isEmpty()) setStyleSpans(0, computeHighlighting(getText()));
+            }
+        });
 
         if(!getText().isEmpty() && highlight) Platform.runLater(() -> setStyleSpans(0, computeHighlighting(getText())));
         richChanges().filter(change -> !change.getInserted().equals(change.getRemoved()))
                 .subscribe(change -> {
-                    if(EditorPattern.patternEdited) {
-                        pattern = EditorPattern.compile();
-                        EditorPattern.patternEdited = false;
-                    }
                     if(highlight && !getText().isEmpty()) setStyleSpans(0, computeHighlighting(getText()));
                     Events.getEvents().forEach(e -> e.onChange(change, this));
                 });
