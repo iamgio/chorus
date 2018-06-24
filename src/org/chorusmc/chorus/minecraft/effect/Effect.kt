@@ -1,8 +1,8 @@
 package org.chorusmc.chorus.minecraft.effect
 
+import javafx.scene.image.Image
 import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.minecraft.*
-import javafx.scene.image.Image
 import java.io.IOException
 
 /**
@@ -48,6 +48,7 @@ enum class Effect(override val id: Short) : Iconable, IdAble, Fetchable {
 
     override val description: String
         get() {
+            val connection = this.connection
             try {
                 connection.connect()
             }

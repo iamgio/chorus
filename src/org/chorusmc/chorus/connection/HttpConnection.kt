@@ -17,6 +17,6 @@ class HttpConnection(val url: String) {
     }
 
     fun parse() {
-        document = Jsoup.parse(document.html().replace("<br>", "\n"))
+        if(this::document.isInitialized) document = Jsoup.parse(document.html().replace("<br>", "\n"))
     }
 }

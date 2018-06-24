@@ -19,17 +19,23 @@ class ItemInformation : DropMenuAction() {
         val selected = area.selectedText
         val path: String
         val item: Item
+        val mcclass = McClass("Item")
         if(selected.matches(Regex(EditorPattern.ITEM.pattern))) {
-            item = McClass("Item").valueOf(selected.split(":")[0]) as Item
-            path = if(selected.contains(":"))
-                item.id.toString() + "_" + selected.split(":")[1] else item.id.toString() + "_0"
+            item = mcclass.valueOf(selected.split(":")[0]) as Item
+            path = (if(mcclass.version == "1.12") item.id.toString() else item.name.toLowerCase()) + "-" + if(selected.contains(":")) {
+                selected.split(":")[1]
+            } else "0"
         } else {
+            item = if(mcclass.version == "1.12") {
+                @Suppress("UNCHECKED_CAST")
+                IdAble.byId(mcclass.cls as Class<out IdAble>, selected.split(":")[0].toShort())
+            } else {
+                mcclass.valueOf(selected)
+            } as Item
             path = if(selected.contains(":"))
-                selected.replace(":", "_") else selected + "_0"
-            @Suppress("UNCHECKED_CAST")
-            item = IdAble.byId(McClass("Item").cls as Class<out IdAble>, selected.split(":")[0].toShort()) as Item
+                selected.replace(":", "-") else "$selected-0"
         }
-        val input = Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$path.png")
+        val input = Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/v${McClass("").version.replace(".", "")}/$path.png")
         val box = ItemInformationBox(if(input == null) null else Image(input), item)
         box.layoutX = source!!.layoutX
         box.layoutY = source!!.layoutY

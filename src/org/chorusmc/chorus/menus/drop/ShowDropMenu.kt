@@ -26,12 +26,12 @@ class ShowDropMenu : DropMenu() {
         val selected = area.selectedText
         val parts = selected.split(":")
         if(selected.isNotEmpty() && parts.size in 1..2) {
-            if(selected.matches(Regex("(${EditorPattern.ITEMID.pattern})|(\\b(([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9])|(22((5[8-9])|(6[0-7]))))\\b)"))) {
+            if(selected.matches(Regex("(${EditorPattern.ITEMID.pattern})|(\\b([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9]))|(22((5[8-9])|(6[0-7]))\\b)"))) {
                 if(selected.split(":")[0].toShortOrNull() != null && IdAble.byId(McClass("Item").cls as Class<out IdAble>, selected.split(":")[0].toShort()) != null) {
                     val path = if(selected.contains(":"))
-                        selected.replace(":", "_")
-                    else selected + "_0"
-                    if(Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$path.png") != null) {
+                        selected.replace(":", "-")
+                    else "$selected-0"
+                    if(Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/v${McClass("").version.replace(".", "")}/$path.png") != null) {
                         val left = parts[0]
                         val item = IdAble.byId(McClass("Item").cls as Class<out IdAble>, left.toShort())
                         if(item != null && item is Item) {

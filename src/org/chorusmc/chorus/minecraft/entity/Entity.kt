@@ -27,6 +27,7 @@ interface Entity : Iconable, Fetchable {
 
     override val description: String
         get() {
+            val connection = this.connection
             try {
                 connection.connect()
                 connection.parse()
