@@ -20,7 +20,7 @@ class ItemIconLoader(private val item: Item) : IconLoader {
             val mcclass = McClass("Item")
              mcclass.enumValues.forEach {item ->
                 val list = ArrayList<Image>()
-                (0 until 20).forEach {
+                (0..(if(mcclass.version == "1.12") 19 else 1)).forEach {
                     val id = (item as Item).id
                     val filename = "v${mcclass.version.replace(".", "")}/" + when(mcclass.version) {
                         "1.12" -> "$id-$it"
