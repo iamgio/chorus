@@ -12,6 +12,7 @@ import org.chorusmc.chorus.util.tabs
 import org.fxmisc.flowless.VirtualizedScrollPane
 import java.io.File
 import java.nio.file.Files
+import kotlin.concurrent.thread
 
 /**
  * @author Gio
@@ -32,15 +33,15 @@ class EditorTab(private var file: FileMethod) {
         tabPane.selectionModel.select(tab)
         Events.getYamlComponents().forEach {it.onTabOpen(area)}
 
-        Thread {
-            if(config.getBoolean("6.Backups.1.Save_backups")) {
+        thread {
+            if(config.getBoolean("7.Backups.1.Save_backups")) {
                 val parent = File(Chorus.getInstance().backups.file, file.parentName)
                 if(!parent.exists()) parent.mkdir()
                 val backup = File(parent, "${file.name}.backup")
                 backup.createNewFile()
                 Files.write(backup.toPath(), file.lines)
             }
-        }.start()
+        }
 
         with(ArrayList<Node>()) {
             val root = Chorus.getInstance().root
