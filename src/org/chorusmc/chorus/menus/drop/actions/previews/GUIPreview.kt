@@ -20,7 +20,6 @@ import org.chorusmc.chorus.menus.insert.InsertMenu
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.minecraft.item.Item
-import org.chorusmc.chorus.minecraft.item.Item112
 import org.chorusmc.chorus.nodes.popup.LocalTextPopup
 import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.makeFormal
@@ -157,7 +156,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
                         item = McClass("Item").valueOf(menu.selected.toUpperCase().replace(" ", "_")) as Item
                         meta = if(menu.meta > 0) menu.meta else 0
                         val icons = item!!.icons
-                        children += ImageView(if(icons.size > meta) icons[meta] else Item112.BEDROCK.icons[0])
+                        children += ImageView(if(icons.size > meta) icons[meta] else (McClass("Item").valueOf("BEDROCK") as Item).icons[0])
                         WaitingTimer().start({Platform.runLater {
                             titleField.requestFocus()
                             titleField.positionCaret(titleField.length)
