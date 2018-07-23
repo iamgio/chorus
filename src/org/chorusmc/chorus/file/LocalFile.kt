@@ -2,6 +2,7 @@ package org.chorusmc.chorus.file
 
 import java.io.File
 import java.io.IOException
+import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 
 /**
@@ -19,7 +20,7 @@ class LocalFile(private val file: File) : FileMethod {
         get() = file.parentFile.name
 
     override val lines: List<String>
-        get() = Files.readAllLines(file.toPath())
+        get() = Files.readAllLines(file.toPath(), StandardCharsets.ISO_8859_1)
 
     override val updatedFile: FileMethod?
         get() = try {
