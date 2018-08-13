@@ -99,6 +99,8 @@ public class Chorus extends FXApplication {
             scene.getStylesheets().add(theme.getPath()[0]);
         }
 
+        registerEvents();
+
         if(passedFile != null) {
             new EditorTab(new LocalFile(passedFile)).add();
         }
@@ -125,8 +127,6 @@ public class Chorus extends FXApplication {
                     "\\b(" + joinEnum(new McClass("Enchantment").getCls()) + ")\\b"
             );
         });
-
-        registerEvents();
 
         loadFont("NotoSans-Regular.ttf"); // Google's Noto Sans
         loadFont("NotoSans-Bold.ttf");    // https://fonts.google.com/specimen/Noto+Sans
