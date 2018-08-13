@@ -2,6 +2,8 @@
   <img src="https://i.imgur.com/4FyinoS.png" alt="Banner" />
 </p>
 
+![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg)  ![License](https://img.shields.io/github/license/iamgio/chorus.svg)  ![Release](https://img.shields.io/github/release/iamgio/chorus.svg)
+
 ## What is Chorus?
 Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for owners of Minecraft servers based on [Spigot](https://spigotmc.org).
 Thanks to its features, Chorus is perfect to edit your configurations quicker. 
