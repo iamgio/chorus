@@ -101,10 +101,6 @@ public class Chorus extends FXApplication {
 
         registerEvents();
 
-        if(passedFile != null) {
-            new EditorTab(new LocalFile(passedFile)).add();
-        }
-
         stage.setOnCloseRequest(e -> {
             Utils.closeTabs();
             config.set("_win.width", String.valueOf((int) root.getWidth()));
@@ -138,6 +134,10 @@ public class Chorus extends FXApplication {
 
         if(inherit) stage.setMaximized(config.getBoolean("_win.max"));
         getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();
+
+        if(passedFile != null) {
+            new EditorTab(new LocalFile(passedFile)).add();
+        }
     }
 
     public static void main(String... args) {
