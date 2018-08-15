@@ -8,7 +8,7 @@
     -fx-background-color: -fx-primary;
 }
 
-.text-field, .text-area, .text-area .content {
+.text-field, .text-area, .text-area .content, .color-picker-label {
     -fx-text-fill: white;
     -fx-text-inner-fill: white;
     -fx-highlight-text-fill: derive(black, 25%);

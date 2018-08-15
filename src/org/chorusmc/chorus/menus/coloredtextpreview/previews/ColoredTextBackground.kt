@@ -1,6 +1,8 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
+import javafx.scene.Node
 import javafx.scene.image.Image
+import javafx.scene.layout.StackPane
 import javafx.scene.paint.ImagePattern
 import javafx.scene.paint.Paint
 import javafx.scene.shape.Rectangle
@@ -20,7 +22,12 @@ class ColoredTextBackground {
         this.paint = paint
     }
 
-    val rectangle: Rectangle = Rectangle(50.0, 50.0)
+    private val rectangle: Rectangle = Rectangle(50.0, 50.0)
+    val pane = StackPane()
+
+    init {
+        pane.children += rectangle
+    }
 
     var image: Image? = null
         set(value) {
@@ -47,4 +54,11 @@ class ColoredTextBackground {
         set(value) {
             rectangle.height = value
         }
+
+    fun andNode(node: Node, width: Double = 50.0, height: Double = 50.0): ColoredTextBackground {
+        pane.children += node
+        rectangle.width = width
+        rectangle.height = height
+        return this
+    }
 }

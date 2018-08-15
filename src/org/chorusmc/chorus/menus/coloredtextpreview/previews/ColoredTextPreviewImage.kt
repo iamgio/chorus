@@ -8,7 +8,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
 /**
  * @author Gio
  */
-abstract class ColoredTextPreviewImage(val background: ColoredTextBackground, flows: FlowList, private val reversed: Boolean = false) : Pane(background.rectangle) {
+abstract class ColoredTextPreviewImage(val background: ColoredTextBackground, flows: FlowList, private val reversed: Boolean = false) : Pane(background.pane) {
 
     var flows = flows
         set(value) {

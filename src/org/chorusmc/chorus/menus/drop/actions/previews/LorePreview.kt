@@ -32,7 +32,6 @@ class LorePreview : DropMenuAction() {
         val image = LorePreviewImage(title.text, area.selectedText)
         val menu = ColoredTextPreviewMenu("Lore preview", image, listOf(title, textArea))
         val background = image.background
-        background.rectangle.style = "-fx-stroke: #17031f; -fx-stroke-width: 6;"
         background.width = 450.0
         background.height = image.flows.size * 21.0 + 18
         title.textProperty().addListener {_ ->

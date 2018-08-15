@@ -15,6 +15,7 @@ class PreviewsDropMenu : DropMenu() {
             DropMenuButton("Action bar preview", "previews"),
             DropMenuButton("Boss bar preview", "previews"),
             DropMenuButton("Mob bar preview", "previews"),
+            DropMenuButton("Armor preview", "previews"),
             DropMenuButton("MOTD preview", "previews"),
             DropMenuButton("Animated text preview", "previews")
     )
