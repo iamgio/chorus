@@ -14,6 +14,7 @@ import org.chorusmc.chorus.editor.EditorTab;
 import org.chorusmc.chorus.editor.events.Events;
 import org.chorusmc.chorus.editor.events.Openable;
 import org.chorusmc.chorus.file.LocalFile;
+import org.chorusmc.chorus.lang.Lang;
 import org.chorusmc.chorus.listeners.*;
 import org.chorusmc.chorus.lock.Locker;
 import org.chorusmc.chorus.minecraft.McClass;
@@ -29,6 +30,8 @@ import org.chorusmc.chorus.util.Utils;
 import java.awt.*;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static org.chorusmc.chorus.util.Utils.joinEnum;
 
@@ -37,12 +40,14 @@ import static org.chorusmc.chorus.util.Utils.joinEnum;
  */
 public class Chorus extends FXApplication {
 
-    public static final String VERSION = "1.1.0";
+    public static final String VERSION = "1.2.0";
 
     private static File passedFile;
 
     public ChorusConfig config = new ChorusConfig();
     public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder();
+
+    public ResourceBundle resourceBundle;
 
     private static String[] args;
 
@@ -89,7 +94,10 @@ public class Chorus extends FXApplication {
 
         cacheIcons();
 
-        root = (AnchorPane) loadRoot("/assets/views/Editor.fxml");
+        resourceBundle = ResourceBundle.getBundle("assets/lang/lang",
+                Locale.forLanguageTag(Lang.valueOf(config.get("1.Appearance.4.Language").toUpperCase()).getTag()));
+
+        root = (AnchorPane) loadRoot("/assets/views/Editor.fxml", resourceBundle);
         boolean inherit = config.getBoolean("1.Appearance.3.Inherit_window_size");
         Scene scene = new Scene(root, inherit ? config.getInt("_win.width") : 950, inherit ? config.getInt("_win.height") : 600);
         Theme theme = Themes.byConfig();

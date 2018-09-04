@@ -37,7 +37,7 @@ public class EditorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-        versionLabel.setText("\nVersion: " + Chorus.VERSION);
+        versionLabel.setText("\n" + resources.getString("version") + ": " + Chorus.VERSION);
         vbox.prefWidthProperty().bind(root.widthProperty());
         vbox.prefHeightProperty().bind(root.heightProperty());
         tabPane.prefHeightProperty().bind(root.heightProperty());
@@ -64,7 +64,7 @@ public class EditorController implements Initializable {
         menuBar.getMenus().forEach(menu -> menu.getItems().forEach(item -> {
             try {
                 Class<?> clazz =
-                        Class.forName("org.chorusmc.chorus.menubar." + menu.getText().toLowerCase() + "." + StringUtils.toClassName(item.getText()));
+                        Class.forName("org.chorusmc.chorus.menubar." + menu.getId().toLowerCase() + "." + StringUtils.toClassName(item.getId()));
                 MenuBarAction action = (MenuBarAction) clazz.newInstance();
                 Events.getMenuActions().add(action);
                 item.setOnAction(e -> action.onAction());

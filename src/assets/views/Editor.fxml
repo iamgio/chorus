@@ -24,7 +24,7 @@
                         <Image url="@../images/icon_notabs.png"/>
                     </image>
                 </ImageView>
-                <Label styleClass="no-tabs-label" text="It's been rather quiet here, why don't you open a file?"/>
+                <Label styleClass="no-tabs-label" text="%no_file"/>
                 <Label fx:id="versionLabel" styleClass="version-label"/>
             </children>
         </VBox>
@@ -32,40 +32,40 @@
             <children>
                 <MenuBar fx:id="menuBar" prefHeight="10.0" prefWidth="950.0">
                     <menus>
-                        <Menu mnemonicParsing="false" text="File">
+                        <Menu mnemonicParsing="false" text="%bar.file" id="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Create file">
+                                <MenuItem mnemonicParsing="false" id="Create file" text="%bar.file.new">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Open">
+                                <MenuItem mnemonicParsing="false" id="Open" text="%bar.file.open">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Open from SFTP">
+                                <MenuItem mnemonicParsing="false" id="Open from SFTP" text="%bar.file.sftp">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="DOWN"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Open from FTP"/>
-                                <MenuItem mnemonicParsing="false" text="Refresh">
+                                <MenuItem mnemonicParsing="false" id="Open from FTP" text="%bar.file.ftp"/>
+                                <MenuItem mnemonicParsing="false" id="Refresh" text="%bar.file.refresh">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Test file">
+                                <MenuItem mnemonicParsing="false" id="Test file" text="%bar.file.test">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="DOWN"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Settings">
+                                <MenuItem mnemonicParsing="false" id="Settings" text="%bar.file.settings">
                                     <accelerator>
                                         <KeyCodeCombination alt="DOWN" code="S" control="DOWN" meta="UP" shift="UP"
                                                             shortcut="UP"/>
@@ -73,25 +73,25 @@
                                 </MenuItem>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" id="Edit" text="%bar.edit">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Undo"/>
-                                <MenuItem mnemonicParsing="false" text="Redo"/>
-                                <MenuItem mnemonicParsing="false" text="Copy"/>
-                                <MenuItem mnemonicParsing="false" text="Paste"/>
-                                <MenuItem mnemonicParsing="false" text="Search">
+                                <MenuItem mnemonicParsing="false" id="Undo" text="%bar.edit.undo"/>
+                                <MenuItem mnemonicParsing="false" id="Redo" text="%bar.edit.redo"/>
+                                <MenuItem mnemonicParsing="false" id="Copy" text="%bar.edit.copy"/>
+                                <MenuItem mnemonicParsing="false" id="Paste" text="%bar.edit.paste"/>
+                                <MenuItem mnemonicParsing="false" id="Search" text="%bar.edit.search">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Replace">
+                                <MenuItem mnemonicParsing="false" id="Replace" text="%bar.edit.replace">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" text="Variables">
+                                <MenuItem mnemonicParsing="false" id="Variables" text="%bar.edit.variables">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="DOWN"
                                                             shortcut="UP"/>
@@ -99,14 +99,14 @@
                                 </MenuItem>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
+                        <Menu mnemonicParsing="false" id="Help" text="%bar.help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Credits"/>
-                                <MenuItem mnemonicParsing="false" text="Report a bug"/>
-                                <MenuItem mnemonicParsing="false" text="Donate"/>
-                                <MenuItem mnemonicParsing="false" text="Donators list"/>
-                                <MenuItem mnemonicParsing="false" text="License"/>
-                                <MenuItem mnemonicParsing="false" text="Check for updates"/>
+                                <MenuItem mnemonicParsing="false" id="Credits" text="%bar.help.credits"/>
+                                <MenuItem mnemonicParsing="false" id="Report a bug" text="%bar.help.report_a_bug"/>
+                                <MenuItem mnemonicParsing="false" id="Donate" text="%bar.help.donate"/>
+                                <MenuItem mnemonicParsing="false" id="Donators list" text="%bar.help.donators_list"/>
+                                <MenuItem mnemonicParsing="false" id="License" text="%bar.help.license"/>
+                                <MenuItem mnemonicParsing="false" id="Check for updates" text="%bar.help.check_for_updates"/>
                             </items>
                         </Menu>
                     </menus>
