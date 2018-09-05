@@ -40,7 +40,7 @@ import static org.chorusmc.chorus.util.Utils.joinEnum;
  */
 public class Chorus extends FXApplication {
 
-    public static final String VERSION = "1.1.0";
+    public static final String VERSION = "1.2.0";
 
     private static File passedFile;
 

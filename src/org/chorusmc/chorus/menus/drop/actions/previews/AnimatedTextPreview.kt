@@ -16,6 +16,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.previews.AnimatedTextPreview
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.nodes.control.NumericTextField
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -28,9 +29,9 @@ class AnimatedTextPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val delay = NumericTextField("350")
-        delay.promptText = "Delay (ms)"
+        delay.promptText = translate("preview.animated_text.delay_prompt")
         val count = NumericTextField("1")
-        count.promptText = "Count"
+        count.promptText = translate("preview.animated_text.count_prompt")
         val textArea = TextArea(if(area.selection.length > 0) area.selectedText else last)
         last = textArea.text
         textArea.isCache = false
@@ -40,8 +41,8 @@ class AnimatedTextPreview : DropMenuAction() {
             scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
         }, Duration(500.0))
         textArea.prefHeight = 125.0
-        textArea.promptText = "Frames"
-        val menu = ColoredTextPreviewMenu("Animated text preview", AnimatedTextPreviewImage(area.selectedText), listOf(delay, count, textArea))
+        textArea.promptText = translate("preview.animated_text.frames_prompt")
+        val menu = ColoredTextPreviewMenu(translate("preview.animated_text"), AnimatedTextPreviewImage(area.selectedText), listOf(delay, count, textArea))
         textArea.caretPositionProperty().addListener {_, _, new ->
             Platform.runLater {menu.image.flows[0] = ChatParser(textArea.charToLine(new as Int), true).toTextFlow()}
         }
