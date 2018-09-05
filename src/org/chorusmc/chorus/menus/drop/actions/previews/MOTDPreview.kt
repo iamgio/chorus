@@ -6,6 +6,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.MotdPreviewImage
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.minecraft.chat.ChatParser
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -13,13 +14,13 @@ import org.chorusmc.chorus.minecraft.chat.ChatParser
 class MOTDPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val title = TextField("Minecraft Server")
+        val title = TextField(translate("preview.motd.title_default"))
         val first = TextField(area.selectedText)
         val second = TextField()
-        title.promptText = "Title"
-        first.promptText = "First"
-        second.promptText = "Second"
-        val menu = ColoredTextPreviewMenu("MOTD preview", MotdPreviewImage(title.text, first.text), listOf(title, first, second))
+        title.promptText = translate("preview.motd.title_prompt")
+        first.promptText = translate("preview.motd.first_prompt")
+        second.promptText = translate("preview.motd.second_prompt")
+        val menu = ColoredTextPreviewMenu(translate("preview.motd"), MotdPreviewImage(title.text, first.text), listOf(title, first, second))
         title.textProperty().addListener {_ ->
             menu.image.flows[0] = ChatParser(title.text, true).toTextFlow(false)
         }

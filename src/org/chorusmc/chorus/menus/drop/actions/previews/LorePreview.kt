@@ -11,6 +11,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.previews.LorePreviewImage
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.toFlowList
+import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.util.withStyleClass
 
 /**
@@ -19,7 +20,8 @@ import org.chorusmc.chorus.util.withStyleClass
 class LorePreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val title = TextField("Item")
+        val title = TextField(translate("preview.lore.title_default"))
+        title.promptText = translate("preview.lore.title_prompt")
         val textArea = TextArea(area.selectedText)
         textArea.isCache = false
         WaitingTimer().start({
@@ -28,9 +30,9 @@ class LorePreview : DropMenuAction() {
             scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
         }, Duration(500.0))
         textArea.prefHeight = 80.0
-        textArea.promptText = "Lore"
+        textArea.promptText = translate("preview.lore.lore_prompt")
         val image = LorePreviewImage(title.text, area.selectedText)
-        val menu = ColoredTextPreviewMenu("Lore preview", image, listOf(title, textArea))
+        val menu = ColoredTextPreviewMenu(translate("preview.lore"), image, listOf(title, textArea))
         val background = image.background
         background.width = 450.0
         background.height = image.flows.size * 21.0 + 18

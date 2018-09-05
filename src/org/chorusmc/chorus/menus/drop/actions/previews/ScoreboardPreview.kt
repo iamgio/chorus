@@ -1,17 +1,18 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
+import eu.iamgio.libfx.timing.WaitingTimer
+import javafx.scene.control.ScrollPane
+import javafx.scene.control.TextArea
+import javafx.scene.control.TextField
+import javafx.util.Duration
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ScoreboardPreviewImage
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.toFlowList
+import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.util.withStyleClass
-import eu.iamgio.libfx.timing.WaitingTimer
-import javafx.scene.control.ScrollPane
-import javafx.scene.control.TextArea
-import javafx.scene.control.TextField
-import javafx.util.Duration
 
 /**
  * @author Gio
@@ -19,7 +20,8 @@ import javafx.util.Duration
 class ScoreboardPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val title = TextField("Scoreboard")
+        val title = TextField(translate("preview.scoreboard.title_default"))
+        title.promptText = translate("preview.scoreboard.title_prompt")
         val textArea = TextArea(area.selectedText)
         textArea.isCache = false
         WaitingTimer().start({
@@ -28,8 +30,8 @@ class ScoreboardPreview : DropMenuAction() {
             scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
         }, Duration(500.0))
         textArea.prefHeight = 80.0
-        textArea.promptText = "Text"
-        val menu = ColoredTextPreviewMenu("Scoreboard preview", ScoreboardPreviewImage(title.text, area.selectedText), listOf(title, textArea))
+        textArea.promptText = translate("preview.scoreboard.lines_prompt")
+        val menu = ColoredTextPreviewMenu(translate("preview.scoreboard"), ScoreboardPreviewImage(title.text, area.selectedText), listOf(title, textArea))
         title.textProperty().addListener {_ ->
             menu.image.flows[0] = ChatParser(title.text, true).toTextFlow().withStyleClass("minecraft-scoreboard-title-preview-flow")
         }

@@ -7,6 +7,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.previews.SignPreviewImage
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.colorPrefix
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -23,10 +24,10 @@ class SignPreview : DropMenuAction() {
                         else -> colorPrefix + "0" + area.selectedText
                     }
             )
-            textfield.promptText = "Line ${it + 1}"
+            textfield.promptText = translate("preview.sign.line_prompt", (it + 1).toString())
             textfields += textfield
         }
-        val menu = ColoredTextPreviewMenu("Sign preview", SignPreviewImage(textfields[0].text), textfields)
+        val menu = ColoredTextPreviewMenu(translate("preview.sign"), SignPreviewImage(textfields[0].text), textfields)
         textfields.forEachIndexed { index, textfield ->
             textfield.textProperty().addListener {_ ->
                 menu.image.flows[index] = ChatParser(textfield.text, true).toTextFlow()

@@ -1,13 +1,14 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
-import org.chorusmc.chorus.editor.EditorArea
-import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
-import org.chorusmc.chorus.menus.coloredtextpreview.previews.ChatPreviewImage
-import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
 import javafx.util.Duration
+import org.chorusmc.chorus.editor.EditorArea
+import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
+import org.chorusmc.chorus.menus.coloredtextpreview.previews.ChatPreviewImage
+import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -23,8 +24,8 @@ class ChatPreview : DropMenuAction() {
             scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
         }, Duration(300.0))
         textArea.prefHeight = 80.0
-        textArea.promptText = "Text"
-        val menu = ColoredTextPreviewMenu("Chat preview", ChatPreviewImage("\n"), listOf(textArea))
+        textArea.promptText = translate("preview.chat.text_prompt")
+        val menu = ColoredTextPreviewMenu(translate("preview.chat"), ChatPreviewImage("\n"), listOf(textArea))
         menu.image.flows = generateFlowList(textArea, menu.image as ChatPreviewImage)
         textArea.textProperty().addListener {_ ->
             menu.image.flows = generateFlowList(textArea, menu.image)

@@ -24,6 +24,7 @@ import org.chorusmc.chorus.nodes.popup.LocalTextPopup
 import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.util.toFlowList
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -39,13 +40,13 @@ class GUIPreview : DropMenuAction() {
                 when {
                     area.selectedText.startsWith(colorPrefix) -> area.selectedText
                     area.selection.length > 0 -> colorPrefix + "8" + area.selectedText
-                    else -> colorPrefix + "8GUI"
+                    else -> colorPrefix + "8" + translate("preview.gui.title_default")
                 }
         )
-        textfield.promptText = "Title"
+        textfield.promptText = translate("preview.gui.title_prompt")
         val rows = Spinner<Int>(1, 6, if(grid == null) 1 else grid!!.rows)
         val image = GUIPreviewImage(textfield.text, rows.value)
-        val button = Button("Clear")
+        val button = Button(translate("preview.gui.clear"))
         button.setOnAction {
             grid!!.members.forEach {it.clear()}
             grid = Grid(textfield)
@@ -57,7 +58,7 @@ class GUIPreview : DropMenuAction() {
             grid = Grid(textfield)
         }
         updateMembers(grid!!, rows.value, image)
-        val menu = ColoredTextPreviewMenu("GUI preview", image, listOf(textfield, rows, button))
+        val menu = ColoredTextPreviewMenu(translate("preview.gui"), image, listOf(textfield, rows, button))
         textfield.textProperty().addListener {_ ->
             menu.image.flows = listOf(ChatParser(textfield.text, true, 32).toTextFlow(false)).toFlowList()
             updateMembers(grid!!, rows.value, image)
@@ -192,7 +193,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
     }
 
     private fun updatePopupText(popup: LocalTextPopup) {
-        popup.text = "Slot: $n, X: $x, Y: $y${if(item != null) ", item: ${item!!.name}:$meta" else ""}"
+        popup.text = "${translate("preview.gui.slot")}: $n, X: $x, Y: $y${if(item != null) ", ${translate("preview.gui.item")}: ${item!!.name}:$meta" else ""}"
     }
 
     val image: ImageView?
