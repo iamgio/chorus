@@ -60,7 +60,7 @@ class AnimatedTextPreview : DropMenuAction() {
     }
 }
 
-private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, menu: ColoredTextPreviewMenu) : Button("Play"), Cloneable {
+private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, menu: ColoredTextPreviewMenu) : Button(translate("preview.animated_text.play")), Cloneable {
 
     init {
         val image = menu.image
