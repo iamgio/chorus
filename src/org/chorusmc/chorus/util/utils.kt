@@ -37,6 +37,14 @@ fun closeTabs() {
     }
 }
 
+fun translate(key: String, vararg replacements: String): String {
+    var str = Chorus.getInstance().resourceBundle.getString(key)
+    if(replacements.isNotEmpty()) {
+        (0 until replacements.size).forEach {str = str.replace("\$${it + 1}", replacements[it])}
+    }
+    return str
+}
+
 @JvmOverloads
 fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray(), target: Node? = area) {
     val editorController = EditorController.getInstance()

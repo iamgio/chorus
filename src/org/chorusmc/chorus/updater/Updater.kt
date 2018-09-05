@@ -20,7 +20,10 @@ class Updater {
     private val parsed: JSONObject = parser.parse()
 
     val isUpdatePresent: Boolean
-        get() = Chorus.VERSION != latestVersion.replace("v", "")
+        get() {
+            latestVersion // doesn't work without this useless call, ffs
+            return Chorus.VERSION != latestVersion.replace("v", "")
+        }
 
     val latestVersion: String
         get() = parsed["tag_name"].toString()

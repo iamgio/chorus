@@ -11,6 +11,7 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.theme.Themes
+import org.chorusmc.chorus.util.translate
 import java.io.File
 
 /**
@@ -38,33 +39,33 @@ class UpdaterView {
         stage.minWidth = scene.width
         stage.minHeight = scene.height
         stage.isResizable = false
-        stage.title = "Checking for updates"
+        stage.title = translate("updater.title")
         stage.scene = scene
         stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
         stage.show()
     }
 
     fun setChecking() {
-        label.text = "Checking for updates..."
+        label.text = translate("updater.checking")
         hbox.children.clear()
     }
 
     fun setNoUpdate() {
-        label.text = "You already have the newest version!"
+        label.text = translate("updater.no_update")
         hbox.children += exitButton
     }
 
     fun setRequesting(version: String): Button {
-        label.text = "An update has been found ($version).\nDo you want to download it?"
-        val b1 = Button("Yes")
-        val b2 = Button("No")
+        label.text = translate("updater.found", version)
+        val b1 = Button(translate("updater.yes"))
+        val b2 = Button(translate("updater.no"))
         b2.setOnAction {stage.close()}
         hbox.children.addAll(b1, b2)
         return b1
     }
 
     fun setExeOrJar(): Pair<Button, Button> {
-        label.text = "Which runnable do you want to download?"
+        label.text = translate("updater.filetype")
         val jar = Button(".jar")
         val exe = Button(".exe")
         hbox.children.setAll(jar, exe)
@@ -72,33 +73,33 @@ class UpdaterView {
     }
 
     fun setDownloading(version: String) {
-        label.text = "Downloading $version..."
+        label.text = translate("updater.downloading", version)
         hbox.children.clear()
     }
 
     fun setSuccess(file: File) {
-        label.text = "Downloaded latest version to ${file.absolutePath}."
+        label.text = translate("updater.downloaded", file.absolutePath)
         hbox.children.setAll(exitButton)
     }
 
     fun setFail() {
-        label.text = "Could not download the latest version."
+        label.text = translate("updater.failed")
         hbox.children.setAll(exitButton)
     }
 
     fun setAlreadyExists(file: File) {
-        label.text = "The latest version (${file.name}) already exists in your folder."
+        label.text = translate("updater.already_exists", file.name)
         hbox.children.setAll(exitButton)
     }
 
     fun setError(exception: Exception) {
-        label.text = "An error occurred (${exception.message})"
+        label.text = translate("updater.error", exception.message!!)
         hbox.children.setAll(exitButton)
     }
 
     private val exitButton: Button
         get() {
-            val button = Button("OK")
+            val button = Button(translate("updater.ok"))
             button.setOnAction {stage.close()}
             return button
         }
