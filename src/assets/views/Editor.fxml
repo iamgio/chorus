@@ -34,7 +34,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="%bar.file" id="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" id="Create file" text="%bar.file.new">
+                                <MenuItem mnemonicParsing="false" id="CreateFile" text="%bar.file.new">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
                                                             shortcut="UP"/>
@@ -46,20 +46,20 @@
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" id="Open from SFTP" text="%bar.file.sftp">
+                                <MenuItem mnemonicParsing="false" id="OpenFromSFTP" text="%bar.file.sftp">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="DOWN"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" id="Open from FTP" text="%bar.file.ftp"/>
+                                <MenuItem mnemonicParsing="false" id="OpenFromFTP" text="%bar.file.ftp"/>
                                 <MenuItem mnemonicParsing="false" id="Refresh" text="%bar.file.refresh">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP"
                                                             shortcut="UP"/>
                                     </accelerator>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" id="Test file" text="%bar.file.test">
+                                <MenuItem mnemonicParsing="false" id="TestFile" text="%bar.file.test">
                                     <accelerator>
                                         <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="DOWN"
                                                             shortcut="UP"/>
@@ -102,11 +102,11 @@
                         <Menu mnemonicParsing="false" id="Help" text="%bar.help">
                             <items>
                                 <MenuItem mnemonicParsing="false" id="Credits" text="%bar.help.credits"/>
-                                <MenuItem mnemonicParsing="false" id="Report a bug" text="%bar.help.report_a_bug"/>
+                                <MenuItem mnemonicParsing="false" id="ReportABug" text="%bar.help.report_a_bug"/>
                                 <MenuItem mnemonicParsing="false" id="Donate" text="%bar.help.donate"/>
-                                <MenuItem mnemonicParsing="false" id="Donators list" text="%bar.help.donators_list"/>
+                                <MenuItem mnemonicParsing="false" id="DonatorsList" text="%bar.help.donators_list"/>
                                 <MenuItem mnemonicParsing="false" id="License" text="%bar.help.license"/>
-                                <MenuItem mnemonicParsing="false" id="Check for updates" text="%bar.help.check_for_updates"/>
+                                <MenuItem mnemonicParsing="false" id="CheckForUpdates" text="%bar.help.check_for_updates"/>
                             </items>
                         </Menu>
                     </menus>

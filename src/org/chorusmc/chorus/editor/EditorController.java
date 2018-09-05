@@ -1,11 +1,5 @@
 package org.chorusmc.chorus.editor;
 
-import org.chorusmc.chorus.Chorus;
-import org.chorusmc.chorus.editor.events.Events;
-import org.chorusmc.chorus.file.LocalFile;
-import org.chorusmc.chorus.menubar.MenuBarAction;
-import org.chorusmc.chorus.nodes.Tab;
-import org.chorusmc.chorus.util.StringUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +10,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.editor.events.Events;
+import org.chorusmc.chorus.file.LocalFile;
+import org.chorusmc.chorus.menubar.MenuBarAction;
+import org.chorusmc.chorus.nodes.Tab;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,7 +63,7 @@ public class EditorController implements Initializable {
         menuBar.getMenus().forEach(menu -> menu.getItems().forEach(item -> {
             try {
                 Class<?> clazz =
-                        Class.forName("org.chorusmc.chorus.menubar." + menu.getId().toLowerCase() + "." + StringUtils.toClassName(item.getId()));
+                        Class.forName("org.chorusmc.chorus.menubar." + menu.getId().toLowerCase() + "." + item.getId());
                 MenuBarAction action = (MenuBarAction) clazz.newInstance();
                 Events.getMenuActions().add(action);
                 item.setOnAction(e -> action.onAction());
