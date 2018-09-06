@@ -8,6 +8,7 @@ import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
 import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.nodes.Tab
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -17,11 +18,11 @@ class ShowDropMenu : DropMenu() {
     @Suppress("UNCHECKED_CAST")
     override fun getButtons(): MutableList<DropMenuButton> {
         val list = arrayListOf(
-                DropMenuButton("Item Information", ItemInformation()),
-                DropMenuButton("Effect information", EffectInformation()),
-                DropMenuButton("Entity information", EntityInformation()),
-                DropMenuButton("Enchantment information", EnchantmentInformation()),
-                DropMenuButton("Ticks calculation", TicksCalculation())
+                DropMenuButton(translate("show.item_information"), ItemInformation()),
+                DropMenuButton(translate("show.effect_information"), EffectInformation()),
+                DropMenuButton(translate("show.entity_information"), EntityInformation()),
+                DropMenuButton(translate("show.enchantment_information"), EnchantmentInformation()),
+                DropMenuButton(translate("show.ticks_calculation"), TicksCalculation())
         )
         val area = Tab.currentTab!!.area
         val selected = area.selectedText
