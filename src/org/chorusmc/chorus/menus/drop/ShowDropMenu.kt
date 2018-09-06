@@ -18,11 +18,11 @@ class ShowDropMenu : DropMenu() {
     @Suppress("UNCHECKED_CAST")
     override fun getButtons(): MutableList<DropMenuButton> {
         val list = arrayListOf(
-                DropMenuButton(translate("show.item_information"), ItemInformation()),
-                DropMenuButton(translate("show.effect_information"), EffectInformation()),
-                DropMenuButton(translate("show.entity_information"), EntityInformation()),
-                DropMenuButton(translate("show.enchantment_information"), EnchantmentInformation()),
-                DropMenuButton(translate("show.ticks_calculation"), TicksCalculation())
+                DropMenuButton(translate("show.item_information"), ItemInformation(), true),
+                DropMenuButton(translate("show.effect_information"), EffectInformation(), true),
+                DropMenuButton(translate("show.entity_information"), EntityInformation(), true),
+                DropMenuButton(translate("show.enchantment_information"), EnchantmentInformation(), true),
+                DropMenuButton(translate("show.ticks_calculation"), TicksCalculation(), true)
         )
         val area = Tab.currentTab!!.area
         val selected = area.selectedText
