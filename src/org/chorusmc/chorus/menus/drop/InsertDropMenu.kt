@@ -2,6 +2,7 @@ package org.chorusmc.chorus.menus.drop
 
 import org.chorusmc.chorus.menus.drop.actions.insert.*
 import org.chorusmc.chorus.minecraft.McClass
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -10,19 +11,19 @@ class InsertDropMenu : DropMenu() {
 
     override fun getButtons(): MutableList<DropMenuButton> {
         val array = arrayListOf(
-                DropMenuButton("Colored text", ColoredText()),
-                DropMenuButton("Item name", ItemName()),
-                DropMenuButton("Particle name", ParticleName()),
-                DropMenuButton("Effect name", EffectName()),
-                DropMenuButton("Sound name", SoundName()),
-                DropMenuButton("Entity name", EntityName()),
-                DropMenuButton("Enchantment name", EnchantmentName()),
-                DropMenuButton("Ticks", Ticks())
+                DropMenuButton(translate("insert.colored_text"), ColoredText()),
+                DropMenuButton(translate("insert.item_name"), ItemName()),
+                DropMenuButton(translate("insert.particle_name"), ParticleName()),
+                DropMenuButton(translate("insert.effect_name"), EffectName()),
+                DropMenuButton(translate("insert.sound_name"), SoundName()),
+                DropMenuButton(translate("insert.entity_name"), EntityName()),
+                DropMenuButton(translate("insert.enchantment_name"), EnchantmentName()),
+                DropMenuButton(translate("insert.ticks"), Ticks())
         )
         if(McClass("").version == "1.12") {
-            array.add(2, DropMenuButton("Item ID", ItemID()))
-            array.add(5, DropMenuButton("Effect ID", EffectID()))
-            array.add(9, DropMenuButton("Enchantment ID", EnchantmentID()))
+            array.add(2, DropMenuButton(translate("insert.item_id"), ItemID()))
+            array.add(5, DropMenuButton(translate("insert.effect_id"), EffectID()))
+            array.add(9, DropMenuButton(translate("insert.enchantment_id"), EnchantmentID()))
         }
         return array
     }
