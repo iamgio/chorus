@@ -1,22 +1,22 @@
 package org.chorusmc.chorus.menus.conversion
 
+import javafx.geometry.Pos
+import javafx.scene.control.Button
+import javafx.scene.control.ComboBox
+import javafx.scene.layout.HBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.nodes.control.NumericTextField
 import org.chorusmc.chorus.util.*
-import javafx.geometry.Pos
-import javafx.scene.control.Button
-import javafx.scene.control.ComboBox
-import javafx.scene.layout.HBox
 
 /**
  * @author Gio
  */
 abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: Int) : HBox(3.5), Showable {
 
-    private val combobox = ComboBox(enumClass.enumConstants.map {it.toString().makeFormal()}.toObservableList())
+    private val combobox = ComboBox(enumClass.enumConstants.toList().toObservableList())
     val textfield: NumericTextField
 
     init {
@@ -25,11 +25,11 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         alignment = Pos.CENTER_LEFT
         textfield = NumericTextField(area!!.selectedText)
         KotlinFix.select(combobox, defaultIndex)
-        val button = Button("OK")
+        val button = Button(translate("ticks.ok"))
         button.setOnAction {
             @Suppress("UNCHECKED_CAST")
             area!!.replaceText(area!!.substitutionRange,
-                    convert(enumClass.valueOf(combobox.selectionModel.selectedItem.toString().toUpperCase()) as T, textfield.text))
+                    convert(combobox.selectionModel.selectedItem, textfield.text))
             hide()
             area!!.requestFocus()
         }
