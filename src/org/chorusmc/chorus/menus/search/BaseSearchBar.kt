@@ -1,11 +1,5 @@
 package org.chorusmc.chorus.menus.search
 
-import org.chorusmc.chorus.editor.EditorArea
-import org.chorusmc.chorus.editor.EditorController
-import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.menus.TabBrowsable
-import org.chorusmc.chorus.util.InteractFilter
-import org.chorusmc.chorus.util.hideMenuOnInteract
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.IndexRange
@@ -14,6 +8,13 @@ import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
+import org.chorusmc.chorus.editor.EditorArea
+import org.chorusmc.chorus.editor.EditorController
+import org.chorusmc.chorus.menus.Showable
+import org.chorusmc.chorus.menus.TabBrowsable
+import org.chorusmc.chorus.util.InteractFilter
+import org.chorusmc.chorus.util.hideMenuOnInteract
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -33,7 +34,7 @@ abstract class BaseSearchBar(private val area: EditorArea) : HBox(), Showable {
         alignment = Pos.CENTER_LEFT
 
         textfield = TextField()
-        textfield.promptText = "Search"
+        textfield.promptText = translate("search.search_prompt")
         textfield.alignment = Pos.CENTER_LEFT
         textfield.setOnAction {
             search(SearchResults.Type.NEXT)

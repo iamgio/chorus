@@ -1,10 +1,11 @@
 package org.chorusmc.chorus.menus.search
 
-import org.chorusmc.chorus.editor.EditorArea
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.IndexRange
 import javafx.scene.control.TextField
+import org.chorusmc.chorus.editor.EditorArea
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -14,8 +15,8 @@ class ReplaceBar(private val area: EditorArea) : BaseSearchBar(area) {
     private val replacement: TextField = TextField()
 
     init {
-        textfield.promptText = "Replacing"
-        replacement.promptText = "Replacement"
+        textfield.promptText = translate("replace.key_prompt")
+        replacement.promptText = translate("replace.replacement_prompt")
         replacement.alignment = Pos.CENTER_LEFT
         replacement.setOnAction {
             search(SearchResults.Type.NEXT)
@@ -25,9 +26,9 @@ class ReplaceBar(private val area: EditorArea) : BaseSearchBar(area) {
 
     override val buttons: Array<Button>
         get() {
-            val next = Button("Replace next")
+            val next = Button(translate("replace.next"))
             next.setOnAction {search(SearchResults.Type.NEXT)}
-            val all = Button("Replace all")
+            val all = Button(translate("replace.all"))
             all.setOnAction {
                 var i = 0
                 search(SearchResults.Type.NEXT)
@@ -35,7 +36,7 @@ class ReplaceBar(private val area: EditorArea) : BaseSearchBar(area) {
                     search(SearchResults.Type.NEXT)
                     i++
                 }
-                label.text = "Replaced $i times"
+                label.text = translate("replace.all.result", i.toString())
             }
             next.alignment = Pos.CENTER_LEFT
             return arrayOf(next, all)
@@ -43,10 +44,10 @@ class ReplaceBar(private val area: EditorArea) : BaseSearchBar(area) {
 
     override fun action(results: SearchResults, range: IndexRange) {
         area.replace(range.start, range.end, replacement.text, emptyList())
-        label.text = "Replaced ${results.index}/${results.size()}"
+        label.text = translate("replace.next.result", results.index.toString(), results.size().toString())
     }
 
     override fun `else`() {
-        label.text = "Nothing to replace"
+        label.text = translate("replace.no_matches")
     }
 }

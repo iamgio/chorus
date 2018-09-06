@@ -1,8 +1,9 @@
 package org.chorusmc.chorus.menus.search
 
-import org.chorusmc.chorus.editor.EditorArea
 import javafx.scene.control.Button
 import javafx.scene.control.IndexRange
+import org.chorusmc.chorus.editor.EditorArea
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -26,11 +27,15 @@ class SearchBar(private val area: EditorArea) : BaseSearchBar(area) {
 
     override fun action(results: SearchResults, range: IndexRange) {
         area.selectRange(range.start, range.end)
-        label.text = "${results.size()} match${if(results.size() > 1) "es" else ""} (viewing ${results.index}/${results.size()})"
+        label.text = if(results.size() > 1) {
+            translate("search.matches_plural", results.size().toString(), results.index.toString(), results.size().toString())
+        } else {
+            translate("search.matches_singular")
+        }
     }
 
     override fun `else`() {
         area.deselect()
-        label.text = "No matches"
+        label.text = translate("search.no_matches")
     }
 }
