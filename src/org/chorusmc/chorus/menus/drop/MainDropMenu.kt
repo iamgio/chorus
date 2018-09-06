@@ -2,6 +2,10 @@ package org.chorusmc.chorus.menus.drop
 
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.Showable
+import org.chorusmc.chorus.menus.drop.actions.AddAsVariable
+import org.chorusmc.chorus.menus.drop.actions.Insert
+import org.chorusmc.chorus.menus.drop.actions.Previews
+import org.chorusmc.chorus.menus.drop.actions.Show
 import org.chorusmc.chorus.util.area
 
 /**
@@ -11,12 +15,12 @@ class MainDropMenu : DropMenu() {
 
     override fun getButtons(): MutableList<DropMenuButton> {
         val buttons = arrayListOf(
-                DropMenuButton("Insert..."),
-                DropMenuButton("Show..."),
-                DropMenuButton("Previews...")
+                DropMenuButton("Insert...", Insert()),
+                DropMenuButton("Show...", Show()),
+                DropMenuButton("Previews...", Previews())
         )
         if(area!!.selection.length > 0) {
-            buttons += DropMenuButton("Add as variable")
+            buttons += DropMenuButton("Add as variable", AddAsVariable())
         }
         return buttons
     }

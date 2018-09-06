@@ -1,14 +1,14 @@
 package org.chorusmc.chorus.menus.drop;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.AnchorPane;
 import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.menus.BrowsableVBox;
 import org.chorusmc.chorus.menus.MenuPlacer;
 import org.chorusmc.chorus.menus.Showable;
 import org.chorusmc.chorus.menus.Showables;
-import org.chorusmc.chorus.menus.BrowsableVBox;
 import org.chorusmc.chorus.nodes.Tab;
 import org.chorusmc.chorus.util.Utils;
-import javafx.geometry.Pos;
-import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
 
