@@ -110,9 +110,8 @@ public class Chorus extends FXApplication {
 
         stage.setOnCloseRequest(e -> {
             Utils.closeTabs();
-            if(stage.isMaximized()) {
-                config.set("_win.max", String.valueOf(true));
-            } else {
+            config.set("_win.max", String.valueOf(stage.isMaximized()));
+            if(!stage.isMaximized()) {
                 config.set("_win.width", String.valueOf((int) root.getWidth()));
                 config.set("_win.height", String.valueOf((int) root.getHeight()));
             }
