@@ -13,6 +13,7 @@ import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.Tab
 import org.fxmisc.flowless.VirtualizedScrollPane
+import java.util.*
 
 @Suppress("UNCHECKED_CAST")
 val scrollPane: VirtualizedScrollPane<EditorArea>?
@@ -38,7 +39,11 @@ fun closeTabs() {
 }
 
 fun translate(key: String, vararg replacements: String): String {
-    var str = Chorus.getInstance().resourceBundle.getString(key)
+    var str = try {
+        Chorus.getInstance().resourceBundle.getString(key)
+    } catch(e: MissingResourceException) {
+        return "[$key]"
+    }
     if(replacements.isNotEmpty()) {
         (0 until replacements.size).forEach {str = str.replace("\$${it + 1}", replacements[it])}
     }
