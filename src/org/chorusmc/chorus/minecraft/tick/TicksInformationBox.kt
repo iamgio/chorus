@@ -3,15 +3,15 @@ package org.chorusmc.chorus.minecraft.tick
 import org.chorusmc.chorus.infobox.InformationBody
 import org.chorusmc.chorus.infobox.InformationBox
 import org.chorusmc.chorus.infobox.InformationHead
-import org.chorusmc.chorus.util.makeFormal
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
  */
-class TicksInformationBox(ticks: Int) : InformationBox(InformationHead(null, "$ticks ticks")) {
+class TicksInformationBox(ticks: Int) : InformationBox(InformationHead(null, translate("ticks.title", ticks.toString()))) {
 
     init {
-        val title = "$ticks ticks are:"
+        val title = translate("ticks.subtitle", ticks.toString()) + ":"
         var text = ""
         TimeUnit.values().forEach {
             var s = ((ticks / it.value / 20)).toString()
@@ -25,7 +25,7 @@ class TicksInformationBox(ticks: Int) : InformationBox(InformationHead(null, "$t
                 if(s.endsWith(".0")) {
                     s = s.substring(0, s.length - 2)
                 }
-                text += "${it.name.makeFormal()}: $s\n"
+                text += "$it: $s\n"
             }
         }
         body = InformationBody(title, "", text)
