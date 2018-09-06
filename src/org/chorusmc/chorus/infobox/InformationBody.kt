@@ -4,6 +4,7 @@ import javafx.scene.control.Label
 import javafx.scene.layout.VBox
 import javafx.scene.text.TextFlow
 import org.chorusmc.chorus.nodes.control.UrlLabel
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -17,7 +18,7 @@ class InformationBody(title: String, subtitle: String, text: String, url: String
 
         label.isWrapText = true
         val titleLabel = Label(title.replace("tnt", "TNT"))
-        val subtitleLabel = Label(" " + subtitle)
+        val subtitleLabel = Label(" $subtitle")
         subtitleLabel.opacity = .3
         titleLabel.style = "-fx-font-size: 30"
         subtitleLabel.style = titleLabel.style
@@ -35,4 +36,5 @@ class InformationBody(title: String, subtitle: String, text: String, url: String
     }
 }
 
-const val FETCHING_TEXT = "Fetching information..."
+val fetchingText
+        get() = translate("fetching")
