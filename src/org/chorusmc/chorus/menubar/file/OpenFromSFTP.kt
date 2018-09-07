@@ -9,6 +9,7 @@ import org.chorusmc.chorus.connection.SFTPRemoteConnection
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.file.SFTPFile
 import org.chorusmc.chorus.menubar.MenuBarAction
+import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.remoteconnection.sftp.SFTPView
 
 /**
@@ -25,26 +26,26 @@ class OpenFromSFTP : MenuBarAction {
         var connection: SFTPRemoteConnection? = null
         view.onConfirm { ip, username, port, password ->
             if(connection != null && connection!!.isValid) {
-                view.title = "Disconnecting..."
+                view.title = "${translate("remote.disconnecting")}..."
                 connection!!.channel!!.disconnect()
                 connection!!.session.disconnect()
             }
-            view.title = "Connecting..."
+            view.title = "${translate("remote.connecting")}..."
             connection = SFTPRemoteConnection(ip, username, port, password)
             val button = view.connectButton
             if(connection!!.isValid) {
                 button.style = ""
-                button.text = "Connect"
+                button.text = translate("remote.connect")
                 val loc = lastLoc[ip]
                 if(loc != null) view.generateFiles(connection!!, loc) else view.generateFiles(connection!!)
             } else {
                 view.clear()
                 view.title = "Chorus - SFTP"
                 button.style = "-fx-border-width: 1; -fx-border-color: red"
-                button.text = "  Invalid "
+                button.text = translate("remote.invalid")
                 WaitingTimer().start({Platform.runLater {
                     button.style = ""
-                    button.text = "Connect"
+                    button.text = translate("remote.connect")
                 }}, Duration.seconds(1.5))
             }
             SFTPRemoteConnection.psw = password

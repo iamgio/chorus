@@ -16,6 +16,7 @@ import org.chorusmc.chorus.nodes.control.NumericTextField
 import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.toObservableList
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -28,7 +29,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
     private val username = TextField()
     private val password = PasswordField()
     private val port = NumericTextField()
-    val connectButton = Button("Connect")
+    val connectButton = Button()
     private val filesBox = VBox()
 
     val stage = Stage()
@@ -70,16 +71,16 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
             port.text = pair.second
             password.requestFocus()
         }
-        ip.promptText = "Add servers from Settings > $name"
+        ip.promptText = translate("${name.toLowerCase()}.no_server")
         ip.items = ips.keys.toList().toObservableList()
         if(ip.items.size > 0) ip.selectionModel.selectFirst() else ip.isDisable = true
         ip.styleClass += "ip-box"
-        username.promptText = "Username"
+        username.promptText = translate("remote.username")
         username.styleClass += "username-field"
         password.text = psw.psw
-        password.promptText = "Password"
+        password.promptText = translate("remote.password")
         password.styleClass += "password-field"
-        port.promptText = "Port"
+        port.promptText = translate("remote.port")
         port.styleClass += "username-field"
         port.prefWidth = 40.0
         port.alignment = Pos.CENTER
@@ -92,6 +93,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
             connectButton.fire()
         }
         password.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
+        connectButton.text = translate("remote.connect")
         connectButton.styleClass += "connect-button"
         connectButton.disableProperty().bind(
                 ip.selectionModel.selectedItemProperty().isNull

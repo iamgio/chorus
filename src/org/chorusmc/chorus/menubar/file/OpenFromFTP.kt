@@ -9,6 +9,7 @@ import org.chorusmc.chorus.connection.FTPRemoteConnection
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.file.FTPFile
 import org.chorusmc.chorus.menubar.MenuBarAction
+import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.remoteconnection.ftp.FTPView
 
 /**
@@ -25,27 +26,27 @@ class OpenFromFTP : MenuBarAction {
         var connection: FTPRemoteConnection? = null
         view.onConfirm { ip, username, port, password ->
             if(connection != null && connection!!.isValid) {
-                view.title = "Disconnecting..."
+                view.title = "${translate("remote.disconnecting")}..."
                 connection!!.client!!.logout()
                 connection!!.client!!.disconnect()
             }
-            view.title = "Connecting..."
+            view.title = "${translate("remote.connecting")}..."
             connection = FTPRemoteConnection(ip, username, port, password)
             val button = view.connectButton
             if(connection!!.isValid) {
                 button.style = ""
-                button.text = "Connect"
+                button.text = translate("remote.connect")
                 val loc = lastLoc[ip]
                 if(loc != null) view.generateFiles(connection!!, loc) else view.generateFiles(connection!!)
             } else {
                 view.clear()
                 view.title = "Chorus - FTP"
                 button.style = "-fx-border-width: 1; -fx-border-color: red"
-                button.text = "  Invalid "
+                button.text = translate("remote.invalid")
                 WaitingTimer().start({
                     Platform.runLater {
                         button.style = ""
-                        button.text = "Connect"
+                        button.text = translate("remote.connect")
                     }}, Duration.seconds(1.5))
             }
             FTPRemoteConnection.psw = password
