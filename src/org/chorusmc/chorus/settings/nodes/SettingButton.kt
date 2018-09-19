@@ -1,8 +1,11 @@
 package org.chorusmc.chorus.settings.nodes
 
+import javafx.scene.control.Button
+import javafx.scene.layout.VBox
 import org.chorusmc.chorus.settings.SettingsBuilder
 import org.chorusmc.chorus.settings.SettingsController
-import javafx.scene.control.Button
+import org.chorusmc.chorus.util.translateWithException
+import java.util.*
 
 /**
  * @author Gio
@@ -17,7 +20,21 @@ class SettingButton(text: String) : Button(text) {
         styleClass += "setting-button"
         setOnAction {
             rightVBox.children.clear()
-            SettingsBuilder.buildRight(text).forEach {rightVBox.children += it}
+            SettingsBuilder.buildRight(id).forEach {
+                val texts = try {
+                    translateWithException(it.id).split("\n")
+                } catch(e: MissingResourceException) {
+                    emptyList<String>()
+                }
+                val vbox = VBox(10.0, it)
+                texts.forEach {
+                    vbox.children += with(SettingText()) {
+                        this.text = it
+                        this
+                    }
+                }
+                rightVBox.children += vbox
+            }
             leftVbox.children.forEach {
                 it.styleClass -= "selected-setting-button"
             }

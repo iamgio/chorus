@@ -95,7 +95,7 @@ public class Chorus extends FXApplication {
         cacheIcons();
 
         resourceBundle = ResourceBundle.getBundle("assets/lang/lang",
-                Locale.forLanguageTag(Lang.valueOf(config.get("1.Appearance.4.Language").toUpperCase()).getTag()));
+                Locale.forLanguageTag(Lang.fromCommonName(config.get("1.Appearance.4.Language")).getTag()));
         root = (AnchorPane) loadRoot("/assets/views/Editor.fxml", resourceBundle);
         boolean inherit = config.getBoolean("1.Appearance.3.Inherit_window_size");
         Scene scene = new Scene(root, inherit ? config.getInt("_win.width") : 950, inherit ? config.getInt("_win.height") : 600);

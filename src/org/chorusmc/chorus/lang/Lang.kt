@@ -3,8 +3,12 @@ package org.chorusmc.chorus.lang
 /**
  * @author Gio
  */
-enum class Lang(val tag: String) {
+enum class Lang(val tag: String, private val commonName: String) {
 
-    ENGLISH("en"),
-    ITALIAN("it")
+    ENGLISH("en", "English"),
+    ITALIAN("it", "Italiano");
+
+    companion object {
+        @JvmStatic fun fromCommonName(name: String) = values().first {it.commonName.equals(name, true)}
+    }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.Label
 class SettingText : Label() {
 
     init {
+        styleClass += "setting-text"
         opacity = .35
     }
 }

@@ -38,16 +38,20 @@ fun closeTabs() {
     }
 }
 
-fun translate(key: String, vararg replacements: String): String {
-    var str = try {
-        Chorus.getInstance().resourceBundle.getString(key)
-    } catch(e: MissingResourceException) {
-        return "[$key]"
-    }
+@Throws(MissingResourceException::class) fun translateWithException(key: String, vararg replacements: String): String {
+    var str = Chorus.getInstance().resourceBundle.getString(key)
     if(replacements.isNotEmpty()) {
         (0 until replacements.size).forEach {str = str.replace("\$${it + 1}", replacements[it])}
     }
     return str
+}
+
+fun translate(key: String, vararg replacements: String, placeholder: String = "[$key]"): String {
+    return try {
+        translateWithException(key, *replacements)
+    } catch(e: MissingResourceException) {
+        placeholder
+    }
 }
 
 @JvmOverloads

@@ -9,6 +9,7 @@ import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.stringToList
 import org.chorusmc.chorus.util.toObservableList
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -29,7 +30,7 @@ class SettingsBuilder private constructor() {
                     stringList += s
                 }
             }
-            stringList.forEach {list += SettingButton(it)}
+            stringList.forEach {list += with(SettingButton(translate("settings.${it.toLowerCase()}"))) {id = it; this}}
             return list
         }
 
@@ -37,7 +38,8 @@ class SettingsBuilder private constructor() {
             val list = ArrayList<HBox>()
             values.reversed().filter {!it.toString().startsWith("_") && !it.toString().contains("%style") && !it.toString().startsWith(".") && it.toString().split(".")[1] == s}
                     .forEach {
-                        val label = Label(it.toString().split(".")[3].replace("_", " "))
+                        val parts = it.toString().split(".")
+                        val label = Label(translate("settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase()))
                         label.styleClass += "setting-label"
 
                         val inputSettingString = config.getInternalString("$it%style")
@@ -76,11 +78,9 @@ class SettingsBuilder private constructor() {
                                 input.isSelected = config.getBoolean(it.toString())
                                 input.selectedProperty().addListener {_ -> actions[it]?.forEach {it.run()}}
                             }
-                            is SettingText -> {
-                                input.text = config.getInternalString(it.toString())
-                            }
                         }
                         val hbox = HBox(25.0, input)
+                        hbox.id = "settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase() + ".text"
                         if(input !is SettingText) hbox.children.add(0, label)
                         hbox.alignment = Pos.CENTER_LEFT
                         list += hbox
