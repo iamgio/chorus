@@ -1,7 +1,7 @@
+@file:JvmName("Version")
 package org.chorusmc.chorus.updater
 
 import org.apache.commons.io.FileUtils
-import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.configuration.ChorusFolder
 import org.chorusmc.chorus.json.JSONParser
 import org.json.simple.JSONArray
@@ -9,24 +9,21 @@ import org.json.simple.JSONObject
 import java.io.File
 import java.io.IOException
 
-const val URL = "https://api.github.com/repos/iAmGio/chorus/releases/latest"
+        const val VERSION = "1.2"
+private const val URL     = "https://api.github.com/repos/iAmGio/chorus/releases/latest"
 
 /**
  * @author Gio
  */
 class Updater {
 
-    private val parser = JSONParser(java.net.URL(URL))
-    private val parsed: JSONObject = parser.parse()
+    private val parsed: JSONObject = JSONParser(java.net.URL(URL)).parse()
+
+    val latestVersion = parsed["tag_name"].toString()
 
     val isUpdatePresent: Boolean
-        get() {
-            latestVersion // doesn't work without this useless call, ffs
-            return Chorus.VERSION != latestVersion.replace("v", "")
-        }
+        get() = "v$VERSION" != latestVersion
 
-    val latestVersion: String
-        get() = parsed["tag_name"].toString()
 
     fun downloadLatest(type: Int): Pair<Status, File?> {
         val folder = ChorusFolder.RELATIVE
