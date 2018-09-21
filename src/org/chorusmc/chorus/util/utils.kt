@@ -38,17 +38,22 @@ fun closeTabs() {
     }
 }
 
-@Throws(MissingResourceException::class) fun translateWithException(key: String, vararg replacements: String): String {
-    var str = Chorus.getInstance().resourceBundle.getString(key)
+@Throws(MissingResourceException::class) fun translateWithException(key: String, vararg replacements: String, bundle: ResourceBundle = Chorus.getInstance().resourceBundle): String {
+    var str = bundle.getString(key)
     if(replacements.isNotEmpty()) {
         (0 until replacements.size).forEach {str = str.replace("\$${it + 1}", replacements[it])}
     }
     return str
 }
 
-@JvmOverloads fun translate(key: String, vararg replacements: String, placeholder: String = "[$key]"): String {
+@JvmOverloads fun translate(key: String, vararg replacements: String, placeholder: String = "[$key]", locale: Locale = Locale.getDefault()): String {
     return try {
-        translateWithException(key, *replacements)
+        val bundle = if(locale == Locale.getDefault()) {
+            Chorus.getInstance().resourceBundle
+        } else {
+            ResourceBundle.getBundle("assets/lang/lang", locale)
+        }
+        translateWithException(key, *replacements, bundle = bundle)
     } catch(e: MissingResourceException) {
         placeholder
     }

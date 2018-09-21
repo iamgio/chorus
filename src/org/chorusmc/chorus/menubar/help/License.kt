@@ -6,7 +6,9 @@ import javafx.scene.control.Label
 import javafx.scene.control.ScrollPane
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.nodes.control.UrlLabel
+import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.HelpView
+import java.util.*
 
 /**
  * @author Gio
@@ -17,14 +19,15 @@ class License : MenuBarAction {
         get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
-        val helpView = HelpView("License")
+        val locale = if(Locale.getDefault() == Locale.ITALY) Locale.getDefault() else Locale.ENGLISH
+        val helpView = HelpView(translate("help.license.title"))
         val scrollPane = ScrollPane()
         scrollPane.prefHeight = 400.0
         val label = Label(text)
         label.styleClass += "help-text"
         scrollPane.content = label
         helpView.addNode(scrollPane)
-        helpView.addNode(UrlLabel("License on GitHub", "https://github.com/iAmGio/chorus/blob/master/LICENSE"))
+        helpView.addNode(UrlLabel(translate("help.license.url_text", locale = locale), "https://github.com/iAmGio/chorus/blob/master/LICENSE"))
         helpView.show()
     }
 
