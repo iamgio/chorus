@@ -8,7 +8,7 @@ import java.nio.file.Files
 /**
  * @author Gio
  */
-class LocalFile(private val file: File) : FileMethod {
+class LocalFile(val file: File) : FileMethod {
 
     override val name: String
         get() = file.name
