@@ -20,6 +20,7 @@ class Credits : MenuBarAction {
         val helpView = HelpView(translate("help.credits.title"))
         helpView.addText(translate("help.credits.subtitle", "♥", locale = locale), true)
         translate("help.credits.text", locale = locale).split("\n").forEach {helpView.addText(it)}
+        helpView.addText(translate(".credits"))
         helpView.show()
     }
 }
