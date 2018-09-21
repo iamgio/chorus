@@ -12,6 +12,7 @@ import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.settings.SettingsBuilder
 import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.config
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -39,7 +40,7 @@ class Settings : MenuBarAction {
         stage.minWidth = scene.width
         stage.minHeight = scene.height
         stage.isResizable = false
-        stage.title = "Chorus - Settings"
+        stage.title = "Chorus - ${translate("settings.title")}"
         stage.scene = scene
         stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
         stage.show()

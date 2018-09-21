@@ -46,7 +46,7 @@ fun closeTabs() {
     return str
 }
 
-fun translate(key: String, vararg replacements: String, placeholder: String = "[$key]"): String {
+@JvmOverloads fun translate(key: String, vararg replacements: String, placeholder: String = "[$key]"): String {
     return try {
         translateWithException(key, *replacements)
     } catch(e: MissingResourceException) {

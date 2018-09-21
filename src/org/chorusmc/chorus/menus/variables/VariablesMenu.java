@@ -2,6 +2,7 @@ package org.chorusmc.chorus.menus.variables;
 
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.theme.Themes;
+import org.chorusmc.chorus.util.Utils;
 import org.chorusmc.chorus.variable.Variable;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -36,15 +37,15 @@ public class VariablesMenu {
         scrollPane.getStyleClass().add("variables-menu");
         stage.setMinWidth(scene.getWidth());
         stage.setMinHeight(scene.getHeight());
-        stage.setTitle("Variables");
+        stage.setTitle(Utils.translate("variables.title"));
         stage.setScene(scene);
         stage.getIcons().add(new Image(Chorus.class.getResourceAsStream("/assets/images/icon.png")));
 
         VariablesControlBar controlBar = new VariablesControlBar(this);
         controlBar.prefWidthProperty().bind(scrollPane.widthProperty());
 
-        TableColumn<Variable, String> nameColumn = new TableColumn<>("Name");
-        TableColumn<Variable, String> valueColumn = new TableColumn<>("Value");
+        TableColumn<Variable, String> nameColumn = new TableColumn<>(Utils.translate("variables.name"));
+        TableColumn<Variable, String> valueColumn = new TableColumn<>(Utils.translate("variables.value"));
         nameColumn.prefWidthProperty().bind(table.prefWidthProperty().divide(2).subtract(1));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

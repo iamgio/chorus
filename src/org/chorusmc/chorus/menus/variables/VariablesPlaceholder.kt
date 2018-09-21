@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Label
 import javafx.scene.layout.FlowPane
 import javafx.scene.layout.StackPane
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -13,7 +14,7 @@ class VariablesPlaceholder : FlowPane() {
     init {
         opacity = .5
 
-        val label1 = Label("Press ")
+        val label1 = Label(translate("variables.placeholder.first") + " ")
         label1.styleClass += "placeholder"
         label1.style = "-fx-font-size: 18"
 
@@ -26,7 +27,7 @@ class VariablesPlaceholder : FlowPane() {
         add.maxHeight = 18.0
         add.alignment = Pos.CENTER
 
-        val label2 = Label(" to add a variable")
+        val label2 = Label(" " + translate("variables.placeholder.second"))
         label2.styleClass += "placeholder"
         label2.style = "-fx-font-size: 18"
 
