@@ -6,6 +6,7 @@ import org.chorusmc.chorus.nodes.Tab
 import org.chorusmc.chorus.notification.Notification
 import org.chorusmc.chorus.notification.NotificationType
 import org.chorusmc.chorus.util.area
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -18,7 +19,7 @@ class Refresh : MenuBarAction {
     override fun onAction() {
         if(area != null) {
             if(area!!.refresh()) {
-                Notification("Refreshed " + Tab.currentTab!!.file.formalAbsolutePath, NotificationType.MESSAGE).send()
+                Notification(translate("refreshed", Tab.currentTab!!.file.formalAbsolutePath), NotificationType.MESSAGE).send()
             }
         }
     }

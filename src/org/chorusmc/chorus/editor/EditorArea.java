@@ -11,6 +11,7 @@ import org.chorusmc.chorus.notification.Notification;
 import org.chorusmc.chorus.notification.NotificationType;
 import org.chorusmc.chorus.settings.SettingsBuilder;
 import org.chorusmc.chorus.theme.Themes;
+import org.chorusmc.chorus.util.Utils;
 import org.chorusmc.chorus.yaml.Key;
 import javafx.application.Platform;
 import javafx.scene.control.IndexRange;
@@ -118,7 +119,7 @@ public class EditorArea extends CodeArea {
 
     public void saveFile() {
         if(!file.save(getText())) {
-            new Notification("Failed to save " + file.getName(), NotificationType.ERROR).send();
+            new Notification(Utils.translate("errors.save", file.getName()), NotificationType.ERROR).send();
         }
     }
 
@@ -132,7 +133,7 @@ public class EditorArea extends CodeArea {
             replaceText(String.join("\n", file.getLines()));
             return true;
         } else  {
-            new Notification("Failed to refresh " + file.getName(), NotificationType.ERROR).send();
+            new Notification(Utils.translate("error.refresh", file.getName()), NotificationType.ERROR).send();
             return false;
         }
     }
