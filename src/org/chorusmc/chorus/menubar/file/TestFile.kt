@@ -7,6 +7,7 @@ import org.chorusmc.chorus.nodes.Tab
 import org.chorusmc.chorus.notification.Notification
 import org.chorusmc.chorus.notification.NotificationType
 import org.chorusmc.chorus.util.area
+import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.TestFileView
 import org.yaml.snakeyaml.Yaml
 
@@ -21,7 +22,7 @@ class TestFile : MenuBarAction {
     override fun onAction() {
         val area = area ?: return
         if(!area.file.name.endsWith(".yml")) {
-            Notification("Cannot test this file.", NotificationType.ERROR).send()
+            Notification(translate("testfile.notyaml"), NotificationType.ERROR).send()
             return
         }
         val view = TestFileView()
@@ -34,7 +35,7 @@ class TestFile : MenuBarAction {
             } catch(e: Exception) {
                 Platform.runLater {
                     view.text = if(e is ClassCastException) {
-                        "The file structure represents a String instead of a Map"
+                        translate("testfile.notmap")
                     } else {
                         e.message!!
                     } + "\n"
@@ -43,7 +44,7 @@ class TestFile : MenuBarAction {
             }
             Platform.runLater {
                 if(i == 0) view.text = ""
-                view.text += "$i error${if(i == 1) "" else "s"}"
+                view.text += "$i ${if(i == 1) translate("testfile.error_singular") else translate("testfile.error_plural")}"
             }
         }.start()
     }

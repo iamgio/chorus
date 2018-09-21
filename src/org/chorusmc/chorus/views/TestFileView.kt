@@ -6,13 +6,14 @@ import javafx.scene.image.Image
 import javafx.stage.Stage
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.theme.Themes
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
  */
 class TestFileView {
 
-    private val area = TextArea("Loading results...")
+    private val area = TextArea(translate("testfile.loading"))
 
     var text: String
         get() = area.text
@@ -30,7 +31,7 @@ class TestFileView {
         stage.minWidth = scene.width
         stage.minHeight = scene.height
         stage.isResizable = false
-        stage.title = "Test results"
+        stage.title = translate("testfile.title")
         stage.scene = scene
         stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
         stage.show()
