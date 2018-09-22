@@ -1,0 +1,58 @@
+@import "black_&_white.css";
+
+.pane {
+    -fx-background-color: -fx-primary;
+}
+
+.split-pane > .split-pane-divider, .left-pane, .context-menu, .menu-item {
+    -fx-background-color: -fx-secondary;
+}
+
+.menu-item:focused, .setting-combobox .list-cell:hover {
+    -fx-background-color: -fx-tertiary;
+}
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.setting-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+}
+
+.setting-button:hover {
+    -fx-background-color: rgba(255, 255, 255, .05);
+}
+
+.selected-setting-button {
+    -fx-background-color: rgba(255, 255, 255, .1);
+    -fx-font-weight: bold;
+}
+
+.setting-label, .setting-text {
+    -fx-text-fill: #232323;
+}
+
+.setting-text {
+    -fx-opacity: .7;
+}
+
+.setting-label {
+    -fx-font-weight: bold;
+}
+
+.setting-field, .setting-field .content, .setting-combobox, .setting-combobox .list-cell, .setting-checkbox .box, .setting-combobox .list-view {
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: white;
+    -fx-highlight-fill: derive(-fx-secondary, -10%);
+}
+
+.setting-combobox > .arrow-button > .arrow {
+    -fx-background-color: white;
+}
+
+.setting-checkbox:selected .mark {
+    -fx-background-color: white;
+}

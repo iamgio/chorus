@@ -1,0 +1,69 @@
+@import "black_&_white.css";
+
+.key {
+    -fx-font-weight: bold;
+}
+
+.comma, .bracket, .dash {
+    -fx-fill: #3d3d3d;
+}
+
+.true {
+    -fx-font-style: italic;
+}
+
+.false {
+    -fx-font-style: italic;
+}
+
+.colon {
+    -fx-fill: derive(-fx-secondary, -20%);
+    -fx-opacity: .5;
+}
+
+.string {
+    -fx-fill: -fx-secondary;
+}
+
+.number {
+    -fx-fill: derive(-fx-secondary, 10%);
+}
+
+.comment {
+    -fx-opacity: .6;
+}
+
+.item {
+    -fx-underline: true;
+    -fx-font-style: italic;
+}
+
+.itemid {
+    -fx-underline: true;
+    -fx-font-style: italic;
+}
+
+.particle {
+    -fx-underline: true;
+    -fx-font-style: italic;
+}
+
+.effect {
+    -fx-underline: true;
+    -fx-font-style: italic;
+}
+
+.sound {
+    -fx-underline: true;
+    -fx-font-style: italic;
+}
+
+.entity {
+    -fx-underline: true;
+    -fx-font-style: italic;
+}
+
+.enchantment {
+    -fx-underline: true;
+    -fx-font-style: italic;
+}

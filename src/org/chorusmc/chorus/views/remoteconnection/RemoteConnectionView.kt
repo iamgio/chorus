@@ -62,7 +62,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
 
     fun show() {
         val root = VBox()
-        root.styleClass += "pane"
+        root.styleClass.addAll("pane", "sftp-pane")
         val scene = Scene(root, 800.0, 400.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
         ip.selectionModel.selectedItemProperty().addListener {_ ->
