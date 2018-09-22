@@ -66,7 +66,7 @@
     -fx-opacity: .5;
 }
 
-.area, .colored-text-editor {
+.area {
     -fx-background-color: -fx-primary;
 }
 
@@ -78,7 +78,7 @@
     -fx-focus-color: transparent;
 }
 
-.area, .colored-text-area {
+.area {
     -fx-highlight-fill: derive(-fx-primary, -20%)
 }
 
@@ -92,12 +92,17 @@
 }
 
 .colored-text-editor {
-    -fx-background-color: derive(-fx-primary, -20%);
+    -fx-background-color: -fx-secondary;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .62), 35, 0, 0, 5);
 }
 
+.colored-text-area {
+    -fx-background-color: -fx-secondary;
+    -fx-highlight-fill: rgba(255, 255, 255, .2);
+}
+
 .colored-text-area .caret {
-    -fx-stroke: #363636;
+    -fx-stroke: white;
     -fx-stroke-width: 1.8;
 }
 
@@ -150,12 +155,16 @@
     -fx-background-color: derive(-fx-secondary, 10%);
 }
 
-.hint, .insert-menu {
-    -fx-background-color: derive(-fx-primary, -15%);
+.insert-menu {
+    -fx-background-color: -fx-secondary;
+}
+
+.hint {
+    -fx-background-color: derive(-fx-secondary, 5%);
 }
 
 .hint:bvhover {
-    -fx-background-color: derive(-fx-primary, -22.5%);
+    -fx-background-color: derive(-fx-secondary, 10%);
 }
 
 .insert-menu > .text-field {
@@ -164,7 +173,7 @@
 }
 
 .hint > .label {
-    -fx-text-fill: derive(-fx-primary, -65%);
+    -fx-text-fill: -fx-primary;
 }
 
 .information-head, .colored-text-control-bar {
