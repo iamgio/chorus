@@ -16,7 +16,7 @@ import org.chorusmc.chorus.util.hideMenuOnInteract
 /**
  * @author Gio
  */
-class AutocompletionMenu(options: HashMap<String, String>, word: String, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
+class AutocompletionMenu(options: HashMap<String, String>, word: String, size: Int, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
 
     private val vbox = BrowsableVBox()
 
@@ -47,7 +47,7 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, pos: In
             val max = (vbox.children.sortedBy {(it as AutocompletionButton).prefWidth}.last() as AutocompletionButton)
             prefWidth = max.prefWidth
             vbox.children.forEach {(it as AutocompletionButton).prefWidth = max.prefWidth}
-            val label = Label("${list.size} result${if(list.size > 1) "s" else ""}")
+            val label = Label("$size result${if(list.size > 1) "s" else ""}")
             label.prefWidth = max.prefWidth
             label.styleClass += "colored-text-preview-title-bar"
             label.style = "-fx-font-size: 10; -fx-padding: 5; -fx-opacity: .7"

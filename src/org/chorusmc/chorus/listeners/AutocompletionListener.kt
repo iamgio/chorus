@@ -38,10 +38,11 @@ class AutocompletionListener : EditorEvent() {
                 }
                 word = word.reversed()
                 if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
-                    val size = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
+                    val maxSize = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
                     val variables = Variables.getVariables().map {it.name}.reversed()
                     val options = options.filter {it.key.toLowerCase().replace(" ", "_").contains(word.toLowerCase())} as LinkedHashMap<String, String>
-                    if(options.size > size) {
+                    val optionsSize = options.size
+                    if(options.size > maxSize) {
                         @Suppress("UNCHECKED_CAST")
                         val copy = options.clone() as LinkedHashMap<String, String>
                         options.clear()
@@ -51,12 +52,12 @@ class AutocompletionListener : EditorEvent() {
                             i++
                         }
                         for((k, v) in copy) {
-                            if(i == size) break
+                            if(i == maxSize) break
                             options[k] = v
                             i++
                         }
                     }
-                    val menu = AutocompletionMenu(options, word, area.caretPosition, this)
+                    val menu = AutocompletionMenu(options, word, optionsSize, area.caretPosition, this)
                     actual?.hide()
                     if(menu.children.size > 0) {
                         val bounds = area.screenToLocal(area.caretBounds.get())
