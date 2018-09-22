@@ -12,6 +12,7 @@ import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.hideMenuOnInteract
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Gio
@@ -47,7 +48,7 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
             val max = (vbox.children.sortedBy {(it as AutocompletionButton).prefWidth}.last() as AutocompletionButton)
             prefWidth = max.prefWidth
             vbox.children.forEach {(it as AutocompletionButton).prefWidth = max.prefWidth}
-            val label = Label("$size result${if(list.size > 1) "s" else ""}")
+            val label = Label(size.toString() + " " + translate("autocompletion.results." + if(list.size > 1) "plural" else "singular"))
             label.prefWidth = max.prefWidth
             label.styleClass += "colored-text-preview-title-bar"
             label.style = "-fx-font-size: 10; -fx-padding: 5; -fx-opacity: .7"
