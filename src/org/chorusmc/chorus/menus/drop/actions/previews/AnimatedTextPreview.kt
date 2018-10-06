@@ -63,6 +63,7 @@ class AnimatedTextPreview : DropMenuAction() {
 private class PlayButton(delayField: NumericTextField, countField: NumericTextField, area: TextArea, menu: ColoredTextPreviewMenu) : Button(translate("preview.animated_text.play")), Cloneable {
 
     init {
+        styleClass += "colored-text-preview-button"
         val image = menu.image
         prefWidth = image.prefWidth
         setOnAction {
