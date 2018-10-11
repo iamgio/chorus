@@ -24,14 +24,14 @@ class OpenFromSFTP : MenuBarAction {
         val view = SFTPView()
         view.show()
         var connection: SFTPRemoteConnection? = null
-        view.onConfirm { ip, username, port, password ->
+        view.onConfirm { ip, username, port, password, useRsa ->
             if(connection != null && connection!!.isValid) {
                 view.title = "${translate("remote.disconnecting")}..."
                 connection!!.channel!!.disconnect()
                 connection!!.session.disconnect()
             }
             view.title = "${translate("remote.connecting")}..."
-            connection = SFTPRemoteConnection(ip, username, port, password)
+            connection = SFTPRemoteConnection(ip, username, port, password, useRsa)
             val button = view.connectButton
             if(connection!!.isValid) {
                 button.style = ""

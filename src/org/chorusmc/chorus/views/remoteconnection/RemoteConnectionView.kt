@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.views.remoteconnection
 
+import javafx.beans.property.SimpleBooleanProperty
 import javafx.css.PseudoClass
 import javafx.geometry.Pos
 import javafx.scene.Scene
@@ -23,7 +24,7 @@ import org.chorusmc.chorus.util.translate
  */
 open class RemoteConnectionView(private val name: String, defaultPort: Int, setting: String, private val psw: Password) {
 
-    private var ips = emptyMap<String, Pair<String, String>>()
+    private var ips = emptyMap<String, Triple<String, String, String?>>()
 
     private val ip = ComboBox<String>()
     private val username = TextField()
@@ -42,8 +43,8 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
             stage.title = value
         }
 
-    fun onConfirm(unit: (String, String, Int, String) -> Unit) = connectButton.setOnAction {
-        unit(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text)
+    fun onConfirm(unit: (String, String, Int, String, Boolean) -> Unit) = connectButton.setOnAction {
+        unit(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text, ips[ip.selectionModel.selectedItem]!!.third != null)
     }
 
     var onBrowse: (Pair<String, String>) -> Unit = {}
@@ -51,10 +52,11 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
     init {
         config[setting].split("\\n").forEach {
             with(it.split("|")) {
-                if(size == 2) {
-                    ips += this[0] to (this[1] to defaultPort.toString())
-                } else if(size == 3) {
-                    ips += this[0] to (this[1] to this[2])
+                ips += this[0] to when(size) {
+                    2 -> Triple(this[1], defaultPort.toString(), null)
+                    3 -> Triple(this[1], this[2], null)
+                    4 -> if(name == "SFTP") Triple(this[1], this[2], this[3]) else return@with
+                    else -> return@with
                 }
             }
         }
@@ -65,10 +67,16 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         root.styleClass.addAll("pane", "sftp-pane")
         val scene = Scene(root, 800.0, 400.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
+        val addressHbox = HBox(ip)
         ip.selectionModel.selectedItemProperty().addListener {_ ->
-            val pair = ips[ip.selectionModel.selectedItem]!!
-            username.text = pair.first
-            port.text = pair.second
+            val triple = ips[ip.selectionModel.selectedItem]!!
+            username.text = triple.first
+            port.text = triple.second
+            if(triple.third == null && addressHbox.children.size > 2 && !addressHbox.children.contains(password)) {
+                addressHbox.children.add(2, password)
+            } else if(triple.third != null && addressHbox.children.contains(password)) {
+                addressHbox.children -= password
+            }
             password.requestFocus()
         }
         ip.promptText = translate("${name.toLowerCase()}.no_server")
@@ -98,14 +106,16 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         connectButton.disableProperty().bind(
                 ip.selectionModel.selectedItemProperty().isNull
                         .or(username.textProperty().isEmpty)
-                        .or(password.textProperty().isEmpty)
+                        .or((password.textProperty().isEmpty).and(SimpleBooleanProperty(ips[ip.selectionModel.selectedItem]!!.third == null)))
                         .or(port.textProperty().isEmpty)
         )
         port.setOnAction {
             connectButton.fire()
         }
-        val addressHbox = HBox(ip)
-        if(ip.selectionModel.selectedItem != null) addressHbox.children.addAll(username, password, port, connectButton)
+        if(ip.selectionModel.selectedItem != null) {
+            addressHbox.children.addAll(username, port, connectButton)
+            if(ips[ip.selectionModel.selectedItem]!!.third == null) addressHbox.children.add(2, password)
+        }
         addressHbox.styleClass += "sftp-address-box"
         addressHbox.alignment = Pos.CENTER
         addressHbox.spacing = 15.0

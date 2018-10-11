@@ -9,7 +9,7 @@ import java.util.*
 /**
  * @author Gio
  */
-class SFTPRemoteConnection(override val ip: String, override val username: String, override val port: Int, override val password: String) : RemoteConnection {
+class SFTPRemoteConnection(override val ip: String, override val username: String, override val port: Int, override val password: String, val useRsa: Boolean = false) : RemoteConnection {
 
     lateinit var session: Session
     override var isValid = false
@@ -20,9 +20,10 @@ class SFTPRemoteConnection(override val ip: String, override val username: Strin
         get() {
             val jsch = JSch()
             return try {
+                if(useRsa) jsch.addIdentity(password)
                 session = jsch.getSession(username, ip, port)
                 session.setConfig("StrictHostKeyChecking", "no")
-                session.setPassword(password)
+                if(!useRsa) session.setPassword(password)
                 session.connect()
                 val channel = session.openChannel("sftp")
                 channel.connect()

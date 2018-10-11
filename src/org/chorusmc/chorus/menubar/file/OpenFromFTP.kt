@@ -24,7 +24,7 @@ class OpenFromFTP : MenuBarAction {
         val view = FTPView()
         view.show()
         var connection: FTPRemoteConnection? = null
-        view.onConfirm { ip, username, port, password ->
+        view.onConfirm { ip, username, port, password, _ ->
             if(connection != null && connection!!.isValid) {
                 view.title = "${translate("remote.disconnecting")}..."
                 connection!!.client!!.logout()
