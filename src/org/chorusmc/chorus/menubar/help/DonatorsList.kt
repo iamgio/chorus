@@ -9,7 +9,6 @@ import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.HelpView
-import java.util.*
 
 /**
  * @author Gio
@@ -20,13 +19,11 @@ class DonatorsList : MenuBarAction {
         get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
-        val locale = if(Locale.getDefault() == Locale.ITALY) Locale.getDefault() else Locale.ENGLISH
         val helpView = HelpView(translate("help.donators.title"))
-
         val connection = HttpConnection("https://iamgio.altervista.org/chorus/donators.html")
         try {
             connection.connect()
-            helpView.addText(translate("help.donators.text", locale = locale))
+            helpView.addText(translate("help.donators.text"))
 
             val vbox = VBox()
             val scrollPane = ScrollPane(vbox)
@@ -39,7 +36,7 @@ class DonatorsList : MenuBarAction {
             scrollPane.prefHeight = 300.0
             helpView.addNode(scrollPane)
         } catch(e: Exception) {
-            helpView.addText(translate("help.donators.error", locale = locale))
+            helpView.addText(translate("help.donators.error"))
         }
         helpView.show()
     }

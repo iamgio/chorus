@@ -22,7 +22,7 @@ class HelpView(private val title: String) {
     fun show() {
         val stage = Stage()
         val root = FXMLLoader.load<AnchorPane>(Chorus::class.java.getResource("/assets/views/Help.fxml"))
-        val scene = Scene(root, 570.0, 650.0)
+        val scene = Scene(root, 670.0, 650.0)
         scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
         stage.minWidth = scene.width
         stage.minHeight = scene.height
