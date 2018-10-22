@@ -22,7 +22,7 @@ class Updater {
     val latestVersion = parsed["tag_name"].toString()
 
     val isUpdatePresent: Boolean
-        get() = "v$VERSION" != latestVersion
+        get() = "v$VERSION" < latestVersion
 
 
     fun downloadLatest(type: Int): Pair<Status, File?> {
