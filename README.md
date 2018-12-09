@@ -2,7 +2,7 @@
   <img src="https://i.imgur.com/4FyinoS.png" alt="Banner" />
 </p>
 
-![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg)  [![License](https://img.shields.io/github/license/iamgio/chorus.svg)](https://github.com/iAmGio/chorus/blob/master/LICENSE)  [![Release](https://img.shields.io/github/release/iamgio/chorus.svg)](https://chorusmc.org)
+[![Code Quality](https://www.codefactor.io/repository/github/iamgio/chorus/badge)](https://www.codefactor.io/repository/github/iamgio/chorus) ![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg)  [![License](https://img.shields.io/github/license/iamgio/chorus.svg)](https://github.com/iAmGio/chorus/blob/master/LICENSE)  [![Release](https://img.shields.io/github/release/iamgio/chorus.svg)](https://chorusmc.org)
 
 ## What is Chorus?
 Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for owners of Minecraft servers based on [Spigot](https://spigotmc.org).
