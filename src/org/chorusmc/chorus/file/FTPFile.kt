@@ -31,7 +31,7 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
         }
 
     override val lines: List<String>
-        get() = IOUtils.toString(file, Charset.defaultCharset()).split("\n")
+        get() = IOUtils.toString(file, Charset.forName("UTF-8")).split("\n")
 
     override val updatedFile: FileMethod?
         get() = FTPFile(connection, path)

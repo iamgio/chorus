@@ -28,7 +28,7 @@ class SFTPFile(private val connection: SFTPRemoteConnection, private val path: S
         }
 
     override val lines: List<String>
-        get() = IOUtils.toString(file, Charset.defaultCharset()).split("\n")
+        get() = IOUtils.toString(file, Charset.forName("UTF-8")).split("\n")
 
     override val updatedFile: FileMethod?
         get() = SFTPFile(connection, path)

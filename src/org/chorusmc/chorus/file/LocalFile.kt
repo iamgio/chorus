@@ -20,7 +20,7 @@ class LocalFile(val file: File) : FileMethod {
         get() = file.parentFile.name
 
     override val lines: List<String>
-        get() = Files.readAllLines(file.toPath(), StandardCharsets.ISO_8859_1)
+        get() = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8)
 
     override val updatedFile: FileMethod?
         get() = try {
