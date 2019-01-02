@@ -166,6 +166,11 @@
     -fx-font-size: 16;
 }
 
+.minecraft-ban-preview-flow .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 20;
+}
+
 .minecraft-animated-text-preview-flow .label {
     -fx-font-family: "Minecraft";
     -fx-font-size: 22.5;

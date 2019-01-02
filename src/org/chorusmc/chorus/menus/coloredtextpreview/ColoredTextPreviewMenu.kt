@@ -5,6 +5,7 @@ import javafx.scene.control.Button
 import javafx.scene.control.Control
 import javafx.scene.control.Spinner
 import javafx.scene.control.TextInputControl
+import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.*
@@ -30,6 +31,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         titlebar.prefWidth = image.prefWidth
         Draggable(titlebar, this).initDrag()
         titlebar.close.setOnAction {hide()}
+        VBox.setVgrow(image, Priority.NEVER)
         image.prefWidthProperty().addListener {_ ->
             maxWidth = image.prefWidth
             titlebar.prefWidth = image.prefWidth

@@ -20,6 +20,7 @@ class PreviewsDropMenu : DropMenu() {
             DropMenuButton(translate("preview.mobbar"), MobBarPreview()),
             DropMenuButton(translate("preview.armor"), ArmorPreview()),
             DropMenuButton(translate("preview.motd"), MOTDPreview()),
+            DropMenuButton(translate("preview.ban"), BanPreview()),
             DropMenuButton(translate("preview.animated_text"), AnimatedTextPreview())
     )
 }
