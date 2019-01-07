@@ -11,9 +11,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.chorusmc.chorus.Chorus;
-import org.chorusmc.chorus.editor.events.Events;
 import org.chorusmc.chorus.file.LocalFile;
-import org.chorusmc.chorus.menubar.MenuBarAction;
 import org.chorusmc.chorus.nodes.Tab;
 
 import java.net.URL;
@@ -60,18 +58,7 @@ public class EditorController implements Initializable {
             }
         });
 
-        menuBar.getMenus().forEach(menu -> menu.getItems().forEach(item -> {
-            try {
-                Class<?> clazz =
-                        Class.forName("org.chorusmc.chorus.menubar." + menu.getId().toLowerCase() + "." + item.getId());
-                MenuBarAction action = (MenuBarAction) clazz.newInstance();
-                Events.getMenuActions().add(action);
-                item.setOnAction(e -> action.onAction());
-                item.disableProperty().bind(action.getBinding());
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }));
+        menuBar.getMenus().addAll(org.chorusmc.chorus.menubar.MenuBar.INSTANCE.getMenuBarButtons());
 
         tabPane.setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT) {
