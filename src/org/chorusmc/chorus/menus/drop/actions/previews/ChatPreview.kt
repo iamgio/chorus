@@ -16,7 +16,7 @@ import org.chorusmc.chorus.util.translate
 class ChatPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val textArea = TextArea(area.selectedText)
+        val textArea = TextArea(selectedText)
         textArea.isCache = false
         WaitingTimer().start({
             val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane

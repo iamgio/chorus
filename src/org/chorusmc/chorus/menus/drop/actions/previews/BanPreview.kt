@@ -19,7 +19,7 @@ import org.chorusmc.chorus.util.withStyleClass
 class BanPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val textArea = TextArea(area.selectedText)
+        val textArea = TextArea(selectedText)
         WaitingTimer().start({
             val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
             scrollpane.isCache = false

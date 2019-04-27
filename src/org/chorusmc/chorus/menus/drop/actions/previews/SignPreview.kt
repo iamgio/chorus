@@ -17,11 +17,12 @@ class SignPreview : DropMenuAction() {
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         var textfields = emptyList<TextField>()
         (0 until 4).forEach {
+            val selectedText = selectedText
             val textfield = TextField(
                     when {
                         it != 0 -> colorPrefix + "0"
-                        area.selectedText.startsWith(colorPrefix) -> area.selectedText
-                        else -> colorPrefix + "0" + area.selectedText
+                        selectedText.startsWith(colorPrefix) -> selectedText
+                        else -> colorPrefix + "0" + selectedText
                     }
             )
             textfield.promptText = translate("preview.sign.line_prompt", (it + 1).toString())

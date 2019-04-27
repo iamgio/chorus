@@ -14,11 +14,11 @@ import org.chorusmc.chorus.util.translate
 class TitlePreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val title = TextField(area.selectedText)
+        val title = TextField(selectedText)
         val subtitle = TextField()
         title.promptText = translate("preview.title.title_prompt")
         subtitle.promptText = translate("preview.title.subtitle_prompt")
-        val menu = ColoredTextPreviewMenu(translate("preview.title"), TitlePreviewImage(area.selectedText), listOf(title, subtitle))
+        val menu = ColoredTextPreviewMenu(translate("preview.title"), TitlePreviewImage(selectedText), listOf(title, subtitle))
         title.textProperty().addListener {_ ->
             menu.image.flows[0] = ChatParser(title.text, true).toTextFlow()
         }

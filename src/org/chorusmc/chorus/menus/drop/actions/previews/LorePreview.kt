@@ -22,7 +22,7 @@ class LorePreview : DropMenuAction() {
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val title = TextField(translate("preview.lore.title_default"))
         title.promptText = translate("preview.lore.title_prompt")
-        val textArea = TextArea(area.selectedText)
+        val textArea = TextArea(selectedText)
         textArea.isCache = false
         WaitingTimer().start({
             val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
@@ -31,7 +31,7 @@ class LorePreview : DropMenuAction() {
         }, Duration(500.0))
         textArea.prefHeight = 80.0
         textArea.promptText = translate("preview.lore.lore_prompt")
-        val image = LorePreviewImage(title.text, area.selectedText)
+        val image = LorePreviewImage(title.text, selectedText)
         val menu = ColoredTextPreviewMenu(translate("preview.lore"), image, listOf(title, textArea))
         val background = image.background
         background.width = 450.0

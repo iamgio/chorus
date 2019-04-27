@@ -18,7 +18,7 @@ class ArmorPreview : DropMenuAction() {
         val textfield = TextField()
         textfield.isEditable = false
         val picker = ColorPicker(if(area.selection.length == 0) Color.RED else try {
-            Color.valueOf(toHex(area.selectedText.toInt()))
+            Color.valueOf(toHex(selectedText.toInt()))
         } catch(e: Exception) {
             Color.RED
         })

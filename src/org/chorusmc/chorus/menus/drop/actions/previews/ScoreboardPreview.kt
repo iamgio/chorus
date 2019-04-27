@@ -22,7 +22,7 @@ class ScoreboardPreview : DropMenuAction() {
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val title = TextField(translate("preview.scoreboard.title_default"))
         title.promptText = translate("preview.scoreboard.title_prompt")
-        val textArea = TextArea(area.selectedText)
+        val textArea = TextArea(selectedText)
         textArea.isCache = false
         WaitingTimer().start({
             val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
@@ -31,7 +31,7 @@ class ScoreboardPreview : DropMenuAction() {
         }, Duration(500.0))
         textArea.prefHeight = 80.0
         textArea.promptText = translate("preview.scoreboard.lines_prompt")
-        val menu = ColoredTextPreviewMenu(translate("preview.scoreboard"), ScoreboardPreviewImage(title.text, area.selectedText), listOf(title, textArea))
+        val menu = ColoredTextPreviewMenu(translate("preview.scoreboard"), ScoreboardPreviewImage(title.text, selectedText), listOf(title, textArea))
         title.textProperty().addListener {_ ->
             menu.image.flows[0] = ChatParser(title.text, true).toTextFlow().withStyleClass("minecraft-scoreboard-title-preview-flow")
         }

@@ -36,10 +36,11 @@ class GUIPreview : DropMenuAction() {
     }
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
+        val selectedText = selectedText
         val textfield = TextField(
                 when {
-                    area.selectedText.startsWith(colorPrefix) -> area.selectedText
-                    area.selection.length > 0 -> colorPrefix + "8" + area.selectedText
+                    selectedText.startsWith(colorPrefix) -> selectedText
+                    selectedText.isNotEmpty() -> colorPrefix + "8" + selectedText
                     else -> colorPrefix + "8" + translate("preview.gui.title_default")
                 }
         )

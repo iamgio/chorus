@@ -15,7 +15,7 @@ class MOTDPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val title = TextField(translate("preview.motd.title_default"))
-        val first = TextField(area.selectedText)
+        val first = TextField(selectedText)
         val second = TextField()
         title.promptText = translate("preview.motd.title_prompt")
         first.promptText = translate("preview.motd.first_prompt")
