@@ -26,6 +26,8 @@ class InsertMenuHint(val text: String, images: List<Image>?) : HBox(), Actionabl
         alignment = Pos.CENTER_LEFT
 
         imageViews?.forEachIndexed {index, view ->
+            view.isPreserveRatio = true
+            view.fitHeight = 24.0
             view.setOnMouseMoved {
                 selected = if(it.isControlDown) index else -1
                 setOpacity()

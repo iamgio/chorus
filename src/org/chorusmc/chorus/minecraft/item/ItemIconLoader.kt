@@ -20,11 +20,12 @@ class ItemIconLoader(private val item: Item) : IconLoader {
             val mcclass = McClass("Item")
              mcclass.enumValues.forEach {item ->
                 val list = ArrayList<Image>()
-                (0..(if(mcclass.version == "1.12") 19 else 1)).forEach {
+                repeat(if(mcclass.version == "1.12") 19 else 1) {
                     val id = (item as Item).id
                     val filename = "v${mcclass.version.replace(".", "")}/" + when(mcclass.version) {
                         "1.12" -> "$id-$it"
                         "1.13" -> "${item.name.toLowerCase()}-$it"
+                        "1.14" -> item.name.toLowerCase()
                         else -> ""
                     }
                     val inputStream =
