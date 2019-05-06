@@ -18,5 +18,5 @@ fun <T> generateFlowList(area: TextArea, image: T): FlowList where T : ColoredTe
 val selectedText: String
     get() = with(area!!.selectedText) {
         val text = if(isEmpty()) charToWord(area!!.caretPosition, "string", false) else this
-        text.substring(1, text.length - 1)
+        if(text.isEmpty()) text else text.substring(1, text.length - 1)
     }
