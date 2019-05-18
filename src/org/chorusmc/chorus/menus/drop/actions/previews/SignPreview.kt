@@ -16,8 +16,8 @@ class SignPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         var textfields = emptyList<TextField>()
+        val selectedText = selectedText
         (0 until 4).forEach {
-            val selectedText = selectedText
             val textfield = TextField(
                     when {
                         it != 0 -> colorPrefix + "0"
