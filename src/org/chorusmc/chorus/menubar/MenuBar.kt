@@ -35,6 +35,7 @@ object MenuBar {
                                 MenuBarButton("edit.paste", Paste()),
                                 MenuBarButton("edit.search", Search(), KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN)),
                                 MenuBarButton("edit.replace", Replace(), KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN)),
+                                MenuBarButton("edit.make_string", MakeString(), KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)),
                                 MenuBarButton("edit.variables", Variables(), KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN))
                         )
                 ),

@@ -32,6 +32,7 @@ class AutocompletionListener : EditorEvent() {
                 var word = ""
                 val pos = area.caretPosition
                 for(i in pos downTo 0) {
+                    if(area.text.length <= i) return
                     val char = area.text[i]
                     if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
                     word += char

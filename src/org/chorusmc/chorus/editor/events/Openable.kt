@@ -3,16 +3,17 @@ package org.chorusmc.chorus.editor.events
 import org.chorusmc.chorus.editor.EditorArea
 import org.fxmisc.richtext.model.RichTextChange
 
+var bypassOpenable = false
+var bypassOpenableLock = false
+
 /**
  * @author Gio
  */
 class Openable @JvmOverloads constructor(private val c1: Char, private val c2: Char, private val onString: Boolean = false, private val nullChar: Boolean = false) : EditorEvent() {
 
-    private var b = false
-
     override fun onChange(change: RichTextChange<Collection<String>, String, Collection<String>>, area: EditorArea) {
-        if(b) {
-            b = false
+        if(bypassOpenable) {
+            if(!bypassOpenableLock) bypassOpenable = false
             return
         }
         try {
@@ -22,7 +23,7 @@ class Openable @JvmOverloads constructor(private val c1: Char, private val c2: C
                     if(change.removed.text.isEmpty() && change.inserted.text == c1.toString() &&
                             (area.text.length - 1 == change.position ||
                                     area.text[change.position + 1] != c2)) {
-                        if(c1 == c2) b = true
+                        if(c1 == c2 && !bypassOpenableLock) bypassOpenable = true
                         area.insertText(change.position + 1, c2.toString() + if(nullChar) 0.toChar() else "") //Writes C2 if C1 is typed
                         if(nullChar) area.deleteText(change.position + 2, change.position + 3)
                         return
