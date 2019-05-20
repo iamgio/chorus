@@ -2,6 +2,7 @@ package org.chorusmc.chorus.file
 
 import java.io.File
 import java.io.IOException
+import java.nio.charset.MalformedInputException
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 
@@ -19,8 +20,12 @@ class LocalFile(val file: File) : FileMethod {
     override val parentName: String
         get() = file.parentFile.name
 
-    override val lines: List<String>
-        get() = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8)
+    override val text: String
+        get() = try {
+            Files.readAllLines(file.toPath(), StandardCharsets.UTF_8).joinToString("\n")
+        } catch(e: MalformedInputException) {
+            Files.readAllLines(file.toPath(), StandardCharsets.ISO_8859_1).joinToString("\n")
+        }
 
     override val updatedFile: FileMethod?
         get() = try {
@@ -33,7 +38,7 @@ class LocalFile(val file: File) : FileMethod {
 
     override fun save(text: String): Boolean {
         return try {
-            Files.write(file.toPath(), text.split("\n").toMutableList())
+            Files.write(file.toPath(), text.lines())
             true
         } catch(e: IOException) {
             false

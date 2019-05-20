@@ -1,11 +1,10 @@
 package org.chorusmc.chorus.file
 
 import com.jcraft.jsch.ChannelSftp
-import org.apache.commons.io.IOUtils
 import org.chorusmc.chorus.connection.SFTPRemoteConnection
+import org.chorusmc.chorus.util.getText
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
-import java.nio.charset.Charset
 
 /**
  * @author Gio
@@ -27,8 +26,8 @@ class SFTPFile(private val connection: SFTPRemoteConnection, private val path: S
             return if(parts.size >= 2) parts[parts.size - 2] else ""
         }
 
-    override val lines: List<String>
-        get() = IOUtils.toString(file, Charset.forName("UTF-8")).split("\n")
+    override val text: String
+        get() = getText(file)
 
     override val updatedFile: FileMethod?
         get() = SFTPFile(connection, path)

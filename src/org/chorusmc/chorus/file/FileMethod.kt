@@ -8,7 +8,7 @@ interface FileMethod {
     val name: String
     val formalAbsolutePath: String
     val parentName: String
-    val lines: List<String>
+    val text: String
     val updatedFile: FileMethod?
     var closed: Boolean
 

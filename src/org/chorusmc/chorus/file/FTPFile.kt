@@ -1,10 +1,9 @@
 package org.chorusmc.chorus.file
 
-import org.apache.commons.io.IOUtils
 import org.chorusmc.chorus.connection.FTPRemoteConnection
+import org.chorusmc.chorus.util.getText
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
-import java.nio.charset.Charset
 
 /**
  * @author Gio
@@ -30,8 +29,8 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
             return if(parts.size >= 2) parts[parts.size - 2] else ""
         }
 
-    override val lines: List<String>
-        get() = IOUtils.toString(file, Charset.forName("UTF-8")).split("\n")
+    override val text: String
+        get() = getText(file)
 
     override val updatedFile: FileMethod?
         get() = FTPFile(connection, path)

@@ -6,6 +6,7 @@ import javafx.scene.Node
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseEvent
+import org.apache.commons.io.IOUtils
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.EditorController
@@ -13,6 +14,9 @@ import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.Tab
 import org.fxmisc.flowless.VirtualizedScrollPane
+import java.io.InputStream
+import java.nio.charset.MalformedInputException
+import java.nio.charset.StandardCharsets
 import java.util.*
 
 @Suppress("UNCHECKED_CAST")
@@ -99,3 +103,10 @@ enum class InteractFilter {
 
 
 fun joinEnum(enumClass: Class<out Enum<*>>): String = enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")
+
+fun getText(input: InputStream): String =
+        try {
+            IOUtils.toString(input, StandardCharsets.UTF_8)
+        } catch(e: MalformedInputException) {
+            IOUtils.toString(input, StandardCharsets.ISO_8859_1)
+        }

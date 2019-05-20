@@ -39,7 +39,7 @@ class EditorTab(private var file: FileMethod) {
                 if(!parent.exists()) parent.mkdir()
                 val backup = File(parent, "${file.name}.backup")
                 backup.createNewFile()
-                Files.write(backup.toPath(), file.lines)
+                Files.write(backup.toPath(), file.text.lines())
             }
         }
 

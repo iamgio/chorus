@@ -1,5 +1,7 @@
 package org.chorusmc.chorus.editor;
 
+import javafx.application.Platform;
+import javafx.scene.control.IndexRange;
 import javafx.scene.input.*;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.editor.events.Events;
@@ -13,18 +15,14 @@ import org.chorusmc.chorus.settings.SettingsBuilder;
 import org.chorusmc.chorus.theme.Themes;
 import org.chorusmc.chorus.util.Utils;
 import org.chorusmc.chorus.yaml.Key;
-import javafx.application.Platform;
-import javafx.scene.control.IndexRange;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,7 +36,7 @@ public class EditorArea extends CodeArea {
     private Pattern pattern = EditorPattern.compile();
 
     public EditorArea(FileMethod file, boolean highlight) {
-        super(String.join("\n", file.getLines()));
+        super(file.getText());
         this.file = file;
         getStylesheets().add(Themes.byConfig().getPath()[1]);
         getStyleClass().add("area");
@@ -130,7 +128,7 @@ public class EditorArea extends CodeArea {
     public boolean refresh() {
         FileMethod file = Tab.getCurrentTab().getFile().getUpdatedFile();
         if(file != null) {
-            replaceText(String.join("\n", file.getLines()));
+            replaceText(file.getText());
             return true;
         } else  {
             new Notification(Utils.translate("error.refresh", file.getName()), NotificationType.ERROR).send();
@@ -168,23 +166,6 @@ public class EditorArea extends CodeArea {
             }
         }
         return null;
-    }
-
-    public List<Integer> getSelectionParagraphs() {
-        IndexRange selection = getSelection();
-        List<Integer> paragraphs = new ArrayList<>();
-        Integer paragraph = null;
-        for(int x = selection.getStart(); x < selection.getEnd(); x++) {
-            int p = getParagraphIndex(x);
-            if(paragraph == null || p != paragraph) {
-                paragraph = p;
-                paragraphs.add(p);
-            }
-        }
-        if(paragraphs.isEmpty()) {
-            paragraphs.add(getParagraphIndex(getCaretPosition()));
-        }
-        return paragraphs;
     }
 
     public IndexRange getSubstitutionRange() {
