@@ -106,7 +106,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         connectButton.disableProperty().bind(
                 ip.selectionModel.selectedItemProperty().isNull
                         .or(username.textProperty().isEmpty)
-                        .or((password.textProperty().isEmpty).and(SimpleBooleanProperty(ips[ip.selectionModel.selectedItem]!!.third == null)))
+                        .or((password.textProperty().isEmpty).and(SimpleBooleanProperty(ips[ip.selectionModel.selectedItem]?.third == null)))
                         .or(port.textProperty().isEmpty)
         )
         port.setOnAction {
