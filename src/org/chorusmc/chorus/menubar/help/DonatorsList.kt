@@ -36,7 +36,7 @@ class DonatorsList : MenuBarAction {
             scrollPane.prefHeight = 300.0
             helpView.addNode(scrollPane)
         } catch(e: Exception) {
-            helpView.addText(translate("help.donators.error"))
+            helpView.addText(translate("help.error"))
         }
         helpView.show()
     }
