@@ -9,6 +9,7 @@ import org.chorusmc.chorus.connection.FTPRemoteConnection
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.file.FTPFile
 import org.chorusmc.chorus.menubar.MenuBarAction
+import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.remoteconnection.ftp.FTPView
 
@@ -49,7 +50,7 @@ class OpenFromFTP : MenuBarAction {
                         button.text = translate("remote.connect")
                     }}, Duration.seconds(1.5))
             }
-            FTPRemoteConnection.psw = password
+            if(config.getBoolean("6.FTP.2.Save_password")) FTPRemoteConnection.psw = password.toCharArray()
         }
         view.onSelect = Runnable {
             EditorTab(FTPFile(connection!!, view.selectedPath)).add()

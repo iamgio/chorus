@@ -43,6 +43,6 @@ class SFTPRemoteConnection(override val ip: String, override val username: Strin
                     .map {RemoteFile(it.filename, it.attrs.isDir)}
 
     companion object : Password {
-        override var psw = ""
+        override var psw = CharArray(0)
     }
 }

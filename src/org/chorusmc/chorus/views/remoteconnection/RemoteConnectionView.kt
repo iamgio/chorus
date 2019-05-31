@@ -85,7 +85,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         ip.styleClass += "ip-box"
         username.promptText = translate("remote.username")
         username.styleClass += "username-field"
-        password.text = psw.psw
+        password.text = String(psw.psw)
         password.promptText = translate("remote.password")
         password.styleClass += "password-field"
         port.promptText = translate("remote.port")

@@ -43,6 +43,6 @@ class FTPRemoteConnection(override val ip: String, override val username: String
     }
 
     companion object : Password {
-        override var psw: String = ""
+        override var psw = CharArray(0)
     }
 }

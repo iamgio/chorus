@@ -9,6 +9,7 @@ import org.chorusmc.chorus.connection.SFTPRemoteConnection
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.file.SFTPFile
 import org.chorusmc.chorus.menubar.MenuBarAction
+import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.remoteconnection.sftp.SFTPView
 
@@ -48,7 +49,7 @@ class OpenFromSFTP : MenuBarAction {
                     button.text = translate("remote.connect")
                 }}, Duration.seconds(1.5))
             }
-            SFTPRemoteConnection.psw = password
+            if(config.getBoolean("5.SFTP.2.Save_password")) SFTPRemoteConnection.psw = password.toCharArray()
         }
         view.onSelect = Runnable {
             EditorTab(SFTPFile(connection!!, view.selectedPath)).add()

@@ -5,5 +5,5 @@ package org.chorusmc.chorus.connection
  */
 interface Password {
 
-    val psw: String
+    val psw: CharArray
 }
