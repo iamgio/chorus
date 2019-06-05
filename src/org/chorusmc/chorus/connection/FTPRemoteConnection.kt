@@ -28,7 +28,7 @@ class FTPRemoteConnection(override val ip: String, override val username: String
         }
 
     override fun getFiles(loc: String): List<RemoteFile> {
-        var list = client!!.listFiles(loc).map {RemoteFile(it.name, it.isDirectory)}
+        var list = client?.listFiles(loc)?.map {RemoteFile(it.name, it.isDirectory)} ?: emptyList()
         if(!list.map {it.filename}.contains("..")) {
             list += RemoteFile("..", true)
         }
