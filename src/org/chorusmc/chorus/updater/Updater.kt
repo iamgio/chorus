@@ -9,7 +9,7 @@ import org.json.simple.JSONObject
 import java.io.File
 import java.io.IOException
 
-        const val VERSION = "1.2"
+        const val VERSION = "1.2.1"
 private const val URL     = "https://api.github.com/repos/iAmGio/chorus/releases/latest"
 
 /**

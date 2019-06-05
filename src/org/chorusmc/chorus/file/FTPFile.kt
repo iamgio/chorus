@@ -42,7 +42,6 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
             val stream = ByteArrayOutputStream()
             stream.write(text.toByteArray())
             client.storeFile(path, ByteArrayInputStream(stream.toByteArray()))
-            true
         } catch(e: Exception) {
             e.printStackTrace()
             false
