@@ -117,7 +117,7 @@ public class EditorArea extends CodeArea {
 
     public void saveFile() {
         if(!file.save(getText())) {
-            new Notification(Utils.translate("errors.save", file.getName()), NotificationType.ERROR).send();
+            new Notification(Utils.translate("error.save", file.getName()), NotificationType.ERROR).send();
         }
     }
 
