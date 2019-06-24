@@ -12,7 +12,7 @@ import javax.script.ScriptEngineManager
  */
 object Addons {
 
-    private var scriptEngine: ScriptEngine? = null
+    var scriptEngine: ScriptEngine? = null
 
     fun initEngine() {
         scriptEngine = ScriptEngineManager(Chorus::class.java.classLoader).getEngineByExtension("js")
@@ -30,7 +30,7 @@ object Addons {
 
     val addons = mutableListOf<Addon>()
 
-    fun invoke(func: String, vararg args: String): Any? = (scriptEngine as? Invocable)?.invokeFunction(func, args)
+    fun invoke(func: String, vararg args: Any): Any? = (scriptEngine as? Invocable)?.invokeFunction(func, *args)
 
     fun set(key: String, value: Any) = scriptEngine?.put(key, value)
 }

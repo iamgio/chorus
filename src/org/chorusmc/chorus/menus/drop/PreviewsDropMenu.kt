@@ -6,7 +6,7 @@ import org.chorusmc.chorus.util.translate
 /**
  * @author Gio
  */
-class PreviewsDropMenu : DropMenu() {
+class PreviewsDropMenu : DropMenu("previews") {
 
     override fun getButtons(): MutableList<DropMenuButton> = arrayListOf(
             DropMenuButton(translate("preview.chat"), ChatPreview()),

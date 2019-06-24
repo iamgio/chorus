@@ -12,7 +12,7 @@ import org.chorusmc.chorus.util.translate
 /**
  * @author Gio
  */
-class MainDropMenu : DropMenu() {
+class MainDropMenu : DropMenu("main") {
 
     override fun getButtons(): MutableList<DropMenuButton> {
         val buttons = arrayListOf(

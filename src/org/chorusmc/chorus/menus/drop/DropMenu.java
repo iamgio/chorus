@@ -3,10 +3,12 @@ package org.chorusmc.chorus.menus.drop;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
 import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.menus.BrowsableVBox;
 import org.chorusmc.chorus.menus.MenuPlacer;
 import org.chorusmc.chorus.menus.Showable;
 import org.chorusmc.chorus.menus.Showables;
+import org.chorusmc.chorus.menus.drop.actions.DropMenuAction;
 import org.chorusmc.chorus.nodes.Tab;
 import org.chorusmc.chorus.util.Utils;
 
@@ -17,19 +19,28 @@ import java.util.List;
  */
 public abstract class DropMenu extends BrowsableVBox implements Showable {
 
-    DropMenu() {
+    DropMenu(String type) {
+        Addons.INSTANCE.invoke("onDropMenuOpen", type, this);
         getStyleClass().add("drop-menu");
         setAlignment(Pos.BASELINE_LEFT);
-        getButtons().forEach(b -> {
-            getChildren().add(b);
-            b.getAction().setSource(this);
-            b.setOnAction(e -> {
-                Tab tab = Tab.getCurrentTab();
-                if(tab == null) return;
-                hide();
-                b.getAction().onAction(tab.getArea(), getLayoutX(), getLayoutY());
-            });
+        getButtons().forEach(this::initButton);
+    }
+
+    private void initButton(DropMenuButton button) {
+        getChildren().add(button);
+        button.getAction().setSource(this);
+        button.setOnAction(e -> {
+            Tab tab = Tab.getCurrentTab();
+            if(tab == null) return;
+            hide();
+            button.getAction().onAction(tab.getArea(), getLayoutX(), getLayoutY());
         });
+    }
+
+    // For JS API
+    @SuppressWarnings("unused")
+    public void addButton(String text, DropMenuAction action) {
+        initButton(new DropMenuButton(text, action, false));
     }
 
     public abstract List<DropMenuButton> getButtons();

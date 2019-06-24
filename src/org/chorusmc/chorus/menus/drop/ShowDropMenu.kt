@@ -13,7 +13,7 @@ import org.chorusmc.chorus.util.translate
 /**
  * @author Gio
  */
-class ShowDropMenu : DropMenu() {
+class ShowDropMenu : DropMenu("show") {
 
     @Suppress("UNCHECKED_CAST")
     override fun getButtons(): MutableList<DropMenuButton> {
