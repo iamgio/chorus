@@ -6,6 +6,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.chorusmc.chorus.addon.Addon;
+import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.configuration.ChorusConfig;
 import org.chorusmc.chorus.configuration.ChorusFolder;
 import org.chorusmc.chorus.editor.EditorController;
@@ -47,7 +49,7 @@ public class Chorus extends FXApplication {
     private static File passedFile;
 
     public ChorusConfig config = new ChorusConfig();
-    public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder();
+    public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder(), addons = new ChorusFolder();
 
     public ResourceBundle resourceBundle;
 
@@ -89,7 +91,16 @@ public class Chorus extends FXApplication {
         folder.createIfAbsent(ChorusFolder.RELATIVE);
         backups.createIfAbsent(new File(ChorusFolder.RELATIVE, "backups"));
         themes.createIfAbsent(new File(ChorusFolder.RELATIVE, "themes"));
+        addons.createIfAbsent(new File(ChorusFolder.RELATIVE, "addons"));
         config.createIfAbsent(folder);
+
+        File[] addonsFiles = addons.getFile().listFiles();
+        if(addonsFiles.length > 0) {
+            for(File file : addonsFiles) {
+                Addons.INSTANCE.getAddons().add(new Addon(file));
+            }
+            Addons.INSTANCE.initEngine();
+        }
 
         Themes.loadInternalThemes();
         Themes.loadExternalThemes();
@@ -149,6 +160,8 @@ public class Chorus extends FXApplication {
         if(passedFile != null) {
             new EditorTab(new LocalFile(passedFile)).add();
         }
+
+        Addons.INSTANCE.invoke("onInit");
     }
 
     public static void main(String... args) {
