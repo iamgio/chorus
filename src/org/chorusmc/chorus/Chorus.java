@@ -129,6 +129,7 @@ public class Chorus extends FXApplication {
                 config.set("_win.width", String.valueOf((int) root.getWidth()));
                 config.set("_win.height", String.valueOf((int) root.getHeight()));
             }
+            Addons.INSTANCE.invoke("onClose");
             System.exit(0);
         });
 
@@ -194,7 +195,7 @@ public class Chorus extends FXApplication {
         ));
     }
 
-    private void setTheme(Theme theme) {
+    public void setTheme(Theme theme) {
         Scene scene = getStage().toStage().getScene();
         scene.getStylesheets().setAll(theme.getPath()[0]);
         for(Tab tab : EditorController.getInstance().tabPane.getTabs()) {

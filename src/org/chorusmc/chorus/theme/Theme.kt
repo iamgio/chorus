@@ -24,4 +24,6 @@ class Theme(_name: String, val internal: Boolean = false) {
                     }
                 }.toTypedArray()
     }
+
+    override fun toString(): String = "[Theme: $name, ${if(internal) "" else " not"}internal]"
 }
