@@ -17,6 +17,11 @@ object Addons {
 
     fun initEngine() {
         scriptEngine = ScriptEngineManager(Chorus::class.java.classLoader).getEngineByExtension("js")
+        with(scriptEngine) {
+            put("chorus", Chorus.getInstance())
+            put("version", Chorus.VERSION)
+            put("chorus-js-api", "https://github.com/iAmGio/chorus/tree/master/src/assets/js/lib.js")
+        }
         addons.forEach {
             scriptEngine.eval(InputStreamReader(FileInputStream(it.file)))
             println("Loaded add-on '${it.name}'")

@@ -94,6 +94,7 @@ public class Chorus extends FXApplication {
         addons.createIfAbsent(new File(ChorusFolder.RELATIVE, "addons"));
         config.createIfAbsent(folder);
 
+        // Load add-ons
         File[] addonsFiles = addons.getFile().listFiles();
         if(addonsFiles.length > 0) {
             for(File file : addonsFiles) {
