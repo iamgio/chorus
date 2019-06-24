@@ -31,7 +31,6 @@ function getAddons() {
  */
 function getThisAddon() {
     if(thisAddon) return thisAddon;
-    if(!name) return null;
     thisAddon = getAddons()
         .stream()
         .filter(function(addon) {
