@@ -98,10 +98,10 @@ public class Chorus extends FXApplication {
         File[] addonsFiles = addons.getFile().listFiles();
         if(addonsFiles.length > 0) {
             for(File file : addonsFiles) {
-                Addons.INSTANCE.getAddons().add(new Addon(file));
+                if(file.getName().endsWith(".js")) Addons.INSTANCE.getAddons().add(new Addon(file));
             }
-            Addons.INSTANCE.initEngine();
         }
+        if(!Addons.INSTANCE.getAddons().isEmpty()) Addons.INSTANCE.initEngine();
 
         Themes.loadInternalThemes();
         Themes.loadExternalThemes();
