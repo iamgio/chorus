@@ -18,8 +18,6 @@ object Addons {
         scriptEngine = ScriptEngineManager(Chorus::class.java.classLoader).getEngineByExtension("js")
         with(scriptEngine!!) {
             put("chorus_js_api", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/lib.js")
-            put("chorus", Chorus.getInstance())
-            put("version", Chorus.VERSION)
         }
         addons.forEach {
             scriptEngine!!.put("name", it.name)

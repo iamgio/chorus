@@ -18,6 +18,18 @@ function chorus_type(name) {
 }
 
 /**
+ * Chorus' main class instance
+ * @type org.chorusmc.Chorus
+ */
+var chorus = chorus_type('Chorus').getInstance();
+
+/**
+ * Chorus' version
+ * @type java.lang.String
+ */
+var version = chorus_type('Chorus').VERSION
+
+/**
  * Returns a list of loaded add-ons
  * @return java.util.List<org.chorusmc.addon.Addon>
  */
