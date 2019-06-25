@@ -79,12 +79,12 @@ function getConfig() {
 
 /**
  * Opens a new menu
- * @param type menu type
+ * @param type menu type (string) or menu instance
  * @param x optional x value
  * @param y optional y value
  */
 function openMenu(type, x, y) {
-    var menu = chorus_type('menus.Showables').newMenu(type);
+    var menu = typeof type == 'string' ? chorus_type('menus.Showables').newMenu(type) : type;
     if (!menu) {
         print('Error: no menu ' + type);
         return;
@@ -99,6 +99,40 @@ function openMenu(type, x, y) {
 function newMenuAction(type) {
     var NewMenuActionClass = chorus_type('menus.drop.actions.NewMenuAction');
     return new NewMenuActionClass(type);
+}
+
+/**
+ * Utility function to create drop-menu buttons. Should not be accessed to
+ * @param text button text
+ * @param action button action
+ */
+function dm_button(text, action) {
+    var ButtonClass = chorus_type('menus.drop.DropMenuButton');
+    return new ButtonClass(text, action, false);
+}
+
+/**
+ * Creates a new custom drop-menu
+ * @param type string identifier
+ * @param buttons text-action map to generate buttons
+ */
+function DropMenu(type, buttons) {
+    var DropMenuClass = chorus_type('menus.drop.DropMenu');
+    var DropMenuExtender = Java.extend(DropMenuClass, {
+        getButtons: function() {
+            var ArrayList = Java.type('java.util.ArrayList');
+            var updatedButtons = new ArrayList();
+            for(i = 0; i < buttons.length; i++) {
+                for(text in buttons[i]) {
+                    updatedButtons.add(dm_button(text, buttons[i][text]));
+                }
+            }
+            return updatedButtons;
+        }
+    });
+    var dropMenu = new DropMenuExtender()
+    dropMenu.type = type;
+    return dropMenu;
 }
 
 /**

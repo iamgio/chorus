@@ -19,15 +19,33 @@ import java.util.List;
  */
 public abstract class DropMenu extends BrowsableVBox implements Showable {
 
-    DropMenu(String type) {
-        Addons.INSTANCE.invoke("onDropMenuOpen", type, this);
+    private String type;
+
+    public DropMenu(String type) {
+        if(!type.isEmpty()) {
+            this.type = type;
+            Showables.DROP_MENU_TYPES.putIfAbsent(type, getClass());
+        }
         getStyleClass().add("drop-menu");
         setAlignment(Pos.BASELINE_LEFT);
         getButtons().forEach(this::initButton);
     }
 
-    private void initButton(DropMenuButton button) {
-        getChildren().add(button);
+    public DropMenu() {
+        this("");
+    }
+
+    public void setType(String type) {
+        this.type = type;
+        Showables.DROP_MENU_TYPES.putIfAbsent(type, getClass());
+    }
+
+    private void initButton(DropMenuButton button, int index) {
+        if(index == -1) {
+            getChildren().add(button);
+        } else {
+            getChildren().add(index, button);
+        }
         button.getAction().setSource(this);
         button.setOnAction(e -> {
             Tab tab = Tab.getCurrentTab();
@@ -37,7 +55,16 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
         });
     }
 
+    private void initButton(DropMenuButton button) {
+        this.initButton(button, -1);
+    }
+
     // For JS API
+    @SuppressWarnings("unused")
+    public void addButton(int index, String text, DropMenuAction action) {
+        initButton(new DropMenuButton(text, action, false), index);
+    }
+
     @SuppressWarnings("unused")
     public void addButton(String text, DropMenuAction action) {
         initButton(new DropMenuButton(text, action, false));
@@ -47,6 +74,7 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
 
     @Override
     public void show() {
+        Addons.INSTANCE.invoke("onDropMenuOpen", type, this);
         hide();
         MenuPlacer placer = new MenuPlacer(this);
         setLayoutX(placer.getX());
@@ -72,7 +100,7 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
 
     @Override
     public double getMenuHeight() {
-        return 37.5 * getButtons().size();
+        return 37.5 * getChildren().size();
     }
 
     @Override
