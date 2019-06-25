@@ -6,6 +6,7 @@ import java.io.InputStreamReader
 import javax.script.Invocable
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
+import javax.script.ScriptException
 
 /**
  * @author Gio
@@ -21,7 +22,11 @@ object Addons {
         }
         addons.forEach {
             scriptEngine!!.put("name", it.name)
-            scriptEngine!!.eval(InputStreamReader(FileInputStream(it.file)))
+            try {
+                scriptEngine!!.eval(InputStreamReader(FileInputStream(it.file)))
+            } catch(e: ScriptException) {
+                System.err.println(e.message!!)
+            }
             val credits = scriptEngine!!["credits"]
             println("Loaded add-on '${it.name}'${if(credits != null) " by $credits" else ""}")
         }
@@ -30,7 +35,12 @@ object Addons {
 
     val addons = mutableListOf<Addon>()
 
-    fun invoke(func: String, vararg args: Any): Any? = (scriptEngine as? Invocable)?.invokeFunction(func, *args)
+    fun invoke(func: String, vararg args: Any): Any? = try {
+        (scriptEngine as? Invocable)?.invokeFunction(func, *args)
+    } catch(e: ScriptException) {
+        System.err.println(e.message!!)
+        null
+    }
 
     fun set(key: String, value: Any) = scriptEngine?.put(key, value)
 }

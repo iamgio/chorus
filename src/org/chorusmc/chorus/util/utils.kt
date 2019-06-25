@@ -2,6 +2,7 @@
 
 package org.chorusmc.chorus.util
 
+import javafx.geometry.BoundingBox
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
@@ -110,3 +111,5 @@ fun getText(input: InputStream): String =
         } catch(e: MalformedInputException) {
             IOUtils.toString(input, StandardCharsets.ISO_8859_1)
         }
+
+fun bounds(x: Double, y: Double) = BoundingBox(x, y, .0, .0)

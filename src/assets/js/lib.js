@@ -42,10 +42,10 @@ function getAddons() {
  * @return org.chorusmc.addon.Addon
  */
 function getThisAddon() {
-    if(thisAddon) return thisAddon;
+    if (thisAddon) return thisAddon;
     thisAddon = getAddons()
         .stream()
-        .filter(function(addon) {
+        .filter(function (addon) {
             return addon.name == name
         })
         .findAny()
@@ -78,6 +78,30 @@ function getConfig() {
 }
 
 /**
+ * Opens a new menu
+ * @param type menu type
+ * @param x optional x value
+ * @param y optional y value
+ */
+function openMenu(type, x, y) {
+    var menu = chorus_type('menus.Showables').newMenu(type);
+    if (!menu) {
+        print('Error: no menu ' + type);
+        return;
+    }
+    chorus_type('menus.drop.MainDropMenu').quickOpen(menu, x == undefined ? null : x, y == undefined ? null : y);
+}
+
+/**
+ * Used by drop-menu buttons to create sub-menus
+ * @param type new menu type
+ */
+function newMenuAction(type) {
+    var NewMenuActionClass = chorus_type('menus.drop.actions.NewMenuAction');
+    return new NewMenuActionClass(type);
+}
+
+/**
  * Returns current theme
  * @return org.chorusmc.theme.Theme
  */
@@ -91,6 +115,6 @@ function getTheme() {
  * @param internal whether or not the theme is internal (included in source) or external (from themes folder)
  */
 function setTheme(name, internal) {
-    var themeClass = chorus_type('theme.Theme');
-    chorus.setTheme(new themeClass(name, internal));
+    var ThemeClass = chorus_type('theme.Theme');
+    chorus.setTheme(new ThemeClass(name, internal));
 }

@@ -4,10 +4,12 @@ import org.chorusmc.chorus.menus.drop.actions.insert.*
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.util.translate
 
+const val INSERT_DROP_MENU_TYPE = "insert"
+
 /**
  * @author Gio
  */
-class InsertDropMenu : DropMenu("insert") {
+class InsertDropMenu : DropMenu(INSERT_DROP_MENU_TYPE) {
 
     override fun getButtons(): MutableList<DropMenuButton> {
         val array = arrayListOf(

@@ -3,10 +3,12 @@ package org.chorusmc.chorus.menus.drop
 import org.chorusmc.chorus.menus.drop.actions.previews.*
 import org.chorusmc.chorus.util.translate
 
+const val PREVIEWS_DROP_MENU_TYPE = "previews"
+
 /**
  * @author Gio
  */
-class PreviewsDropMenu : DropMenu("previews") {
+class PreviewsDropMenu : DropMenu(PREVIEWS_DROP_MENU_TYPE) {
 
     override fun getButtons(): MutableList<DropMenuButton> = arrayListOf(
             DropMenuButton(translate("preview.chat"), ChatPreview()),

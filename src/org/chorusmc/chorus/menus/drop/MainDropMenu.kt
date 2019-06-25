@@ -9,10 +9,12 @@ import org.chorusmc.chorus.menus.drop.actions.Show
 import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.translate
 
+const val MAIN_DROP_MENU_TYPE = "main"
+
 /**
  * @author Gio
  */
-class MainDropMenu : DropMenu("main") {
+class MainDropMenu : DropMenu(MAIN_DROP_MENU_TYPE) {
 
     override fun getButtons(): MutableList<DropMenuButton> {
         val buttons = arrayListOf(
@@ -27,11 +29,10 @@ class MainDropMenu : DropMenu("main") {
     }
 
     companion object {
-        @JvmStatic fun quickOpen() {
-            val menu = MainDropMenu()
-            val bounds = area?.screenToLocal(area?.caretBounds?.get()) ?: return
-            menu.layoutX = bounds.minX
-            menu.layoutY = bounds.minY + 85
+        @JvmStatic @JvmOverloads fun quickOpen(menu: DropMenu = MainDropMenu(), x: Double? = null, y: Double? = null) {
+            val bounds = if(x == null || y == null) (area?.screenToLocal(area?.caretBounds?.get()) ?: return) else null
+            menu.layoutX = x ?: bounds!!.minX
+            menu.layoutY = y ?: bounds!!.minY + 85
             var showables = emptyList<Showable>()
             Chorus.getInstance().root.children.forEach {
                 if(it is Showable) showables += it

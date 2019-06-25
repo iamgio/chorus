@@ -9,6 +9,10 @@ import org.chorusmc.chorus.menus.drop.DropMenu
  */
 open class NewMenuAction(private val newMenu: Class<out DropMenu>) : DropMenuAction() {
 
+    // For JS Api
+    @Suppress("unused")
+    constructor(type: String) : this(Showables.DROP_MENU_TYPES[type]!!)
+
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val menu = newMenu.newInstance()
         source!!.hide()

@@ -10,10 +10,12 @@ import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.nodes.Tab
 import org.chorusmc.chorus.util.translate
 
+const val SHOW_DROP_MENU_TYPE = "show"
+
 /**
  * @author Gio
  */
-class ShowDropMenu : DropMenu("show") {
+class ShowDropMenu : DropMenu(SHOW_DROP_MENU_TYPE) {
 
     @Suppress("UNCHECKED_CAST")
     override fun getButtons(): MutableList<DropMenuButton> {
