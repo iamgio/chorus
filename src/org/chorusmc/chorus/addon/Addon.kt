@@ -28,7 +28,9 @@ data class Addon(val file: File) {
         with(config!!) {
             createIfAbsent(folder)
             values.forEach { k, v ->
-                if(!keys.contains(k)) config!!.setWithoutSaving(k, v.toString())
+                if(!keys.contains(k)) {
+                    config!!.setWithoutSaving(k, v)
+                }
             }
             store()
         }

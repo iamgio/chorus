@@ -62,14 +62,14 @@ public class ChorusConfig extends ChorusConfiguration {
     }
 
     @Override
-    public void set(String key, String value) {
+    public void set(String key, Object value) {
         setWithoutSaving(key, value);
         store();
     }
 
     @Override
-    public void setWithoutSaving(String key, String value) {
-        properties.setProperty(key, value);
+    public void setWithoutSaving(String key, Object value) {
+        properties.setProperty(key, value.toString());
     }
 
     @Override

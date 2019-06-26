@@ -38,9 +38,9 @@ public abstract class ChorusConfiguration {
         return T.valueOf(enumClass, getString(key));
     }*/
 
-    public abstract void set(String key, String value);
+    public abstract void set(String key, Object value);
 
-    public abstract void setWithoutSaving(String key, String value);
+    public abstract void setWithoutSaving(String key, Object value);
 
     public abstract void store();
 }

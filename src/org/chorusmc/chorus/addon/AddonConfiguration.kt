@@ -15,7 +15,7 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
 
     private lateinit var config: Yaml
 
-    private lateinit var map: HashMap<String, Any>
+    private lateinit var map: HashMap<Any, Any>
 
     override fun createIfAbsent(folder: File?) {
         target = File(folder, name)
@@ -31,12 +31,17 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
 
     override fun get(key: String) = map[key]
 
-    override fun set(key: String, value: String) {
+    fun getList(key: String) = map[key] as List<Any?>
+
+    @Suppress("UNCHECKED_CAST")
+    fun getMap(key: String) = map[key] as Map<String, Any?>
+
+    override fun set(key: String, value: Any) {
         setWithoutSaving(key, value)
         store()
     }
 
-    override fun setWithoutSaving(key: String, value: String) {
+    override fun setWithoutSaving(key: String, value: Any) {
         map[key] = value
     }
 
