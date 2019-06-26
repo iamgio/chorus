@@ -40,7 +40,7 @@ object Addons {
     } catch(e: ScriptException) {
         System.err.println(e.message!!)
         null
-    }
+    } catch(ignored: NoSuchMethodException) {}
 
     fun set(key: String, value: Any) = scriptEngine?.put(key, value)
 }
