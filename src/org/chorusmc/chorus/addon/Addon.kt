@@ -1,6 +1,5 @@
 package org.chorusmc.chorus.addon
 
-import org.chorusmc.chorus.configuration.ChorusConfiguration
 import java.io.File
 
 /**
@@ -26,19 +25,13 @@ data class Addon(val file: File) {
     fun createConfig(values: Map<String, Any>) {
         createFolder()
         config = AddonConfiguration()
+        println(values["test"])
         with(config!!) {
             createIfAbsent(folder)
             values.forEach { k, v ->
-                if(!keys.contains(k)) setWithoutSaving(k, v.toString())
+                if(!keys.contains(k)) config!!.setWithoutSaving(k, v.toString())
             }
             store()
-        }
-    }
-
-    inner class AddonConfiguration : ChorusConfiguration("config.properties", "Configuration file for $name add on") {
-
-        fun setWithoutSaving(key: String, value: String) {
-            properties.setProperty(key, value)
         }
     }
 }

@@ -2,8 +2,7 @@ package org.chorusmc.chorus.configuration;
 
 import org.chorusmc.chorus.Chorus;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 import java.util.Set;
 
@@ -12,19 +11,29 @@ import java.util.Set;
  */
 public class ChorusConfig extends ChorusConfiguration {
 
+    private File target;
+    private Properties properties = new Properties();
+
     private Properties internalProperties = new Properties();
 
     public ChorusConfig() {
-        super("application.properties", "Chorus' configuration file. \nPlease edit properties in settings. Manual editing is not recommended.");
+        super("application.properties");
     }
 
     @Override
-    public boolean createIfAbsent(ChorusFolder folder) throws IOException {
+    public void createIfAbsent(ChorusFolder folder) throws IOException {
         super.createIfAbsent(folder);
+        target = new File(folder.getFile(), name);
+        properties = new Properties();
+        if(!target.exists()) {
+            if(!target.createNewFile()) return;
+        } else {
+            properties.load(new InputStreamReader(new FileInputStream(target)));
+        }
         internalProperties = new Properties();
         internalProperties.load(Chorus.class.getResourceAsStream("/assets/configuration/" + name));
         if(!target.exists()) {
-            if(!target.createNewFile()) return false;
+            if(!target.createNewFile()) return;
         }
         properties.load(new FileInputStream(target));
         for(Object key : internalProperties.keySet()) {
@@ -32,7 +41,6 @@ public class ChorusConfig extends ChorusConfiguration {
                 set(key.toString(), internalProperties.getProperty(key.toString()));
             }
         }
-        return false;
     }
 
     public Set<Object> getInternalKeys() {
@@ -41,5 +49,35 @@ public class ChorusConfig extends ChorusConfiguration {
 
     public String getInternalString(String key) {
         return internalProperties.getProperty(key);
+    }
+
+    @Override
+    public Set<Object> getKeys() {
+        return properties.keySet();
+    }
+
+    @Override
+    public String get(String key) {
+        return properties.getProperty(key);
+    }
+
+    @Override
+    public void set(String key, String value) {
+        setWithoutSaving(key, value);
+        store();
+    }
+
+    @Override
+    public void setWithoutSaving(String key, String value) {
+        properties.setProperty(key, value);
+    }
+
+    @Override
+    public void store() {
+        try {
+            properties.store(new FileOutputStream(target), "Chorus' configuration file. \nPlease edit properties in settings. Manual editing is not recommended.");
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }
