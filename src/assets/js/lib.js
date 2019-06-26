@@ -1,3 +1,5 @@
+load('classpath:assets/js/java_types_util.js')
+
 // Cached variable, should not be accessed to
 var thisAddon = undefined
 
@@ -120,7 +122,6 @@ function DropMenu(type, buttons) {
     var DropMenuClass = chorus_type('menus.drop.DropMenu');
     var DropMenuExtender = Java.extend(DropMenuClass, {
         getButtons: function() {
-            var ArrayList = Java.type('java.util.ArrayList');
             var updatedButtons = new ArrayList();
             for(i = 0; i < buttons.length; i++) {
                 for(text in buttons[i]) {
