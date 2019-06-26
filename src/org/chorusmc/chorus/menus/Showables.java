@@ -32,6 +32,17 @@ public final class Showables {
     public static <T extends DropMenu> T newMenu(String type) throws ReflectiveOperationException {
         Class<? extends DropMenu> clazz = DROP_MENU_TYPES.get(type);
         if(clazz == null) return null;
-        return (T) clazz.newInstance();
+        DropMenu menu = clazz.newInstance();
+        menu.setType(type);
+        return (T) menu;
+    }
+
+    public static String getType(Class<? extends DropMenu> menuClass) {
+        for(String type : DROP_MENU_TYPES.keySet()) {
+            if(DROP_MENU_TYPES.get(type).equals(menuClass)) {
+                return type;
+            }
+        }
+        return null;
     }
 }
