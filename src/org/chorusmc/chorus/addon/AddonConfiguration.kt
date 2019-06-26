@@ -24,6 +24,10 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
             defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
             this
         })
+        reload()
+    }
+
+    fun reload() {
         map = config.load(FileInputStream(target)) ?: HashMap()
     }
 
@@ -48,4 +52,6 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
     override fun store() {
         config.dump(map, FileWriter(target))
     }
+
+    override fun toString() = map.toString()
 }
