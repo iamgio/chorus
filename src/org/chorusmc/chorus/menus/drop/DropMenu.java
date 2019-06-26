@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.menus.drop;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
 import org.chorusmc.chorus.Chorus;
@@ -68,6 +69,7 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
     @SuppressWarnings("unused")
     public void addButton(String text, DropMenuAction action) {
         initButton(new DropMenuButton(text, action, false));
+        Platform.runLater(this::requestFocus);
     }
 
     public abstract List<DropMenuButton> getButtons();

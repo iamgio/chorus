@@ -25,7 +25,6 @@ data class Addon(val file: File) {
     fun createConfig(values: Map<String, Any>) {
         createFolder()
         config = AddonConfiguration()
-        println(values["test"])
         with(config!!) {
             createIfAbsent(folder)
             values.forEach { k, v ->
