@@ -8,7 +8,10 @@ import javafx.scene.control.TextInputControl
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.menus.*
+import org.chorusmc.chorus.menus.Draggable
+import org.chorusmc.chorus.menus.MenuPlacer
+import org.chorusmc.chorus.menus.Showable
+import org.chorusmc.chorus.menus.TabBrowsable
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import org.chorusmc.chorus.util.InteractFilter
 import org.chorusmc.chorus.util.area
@@ -58,7 +61,6 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
             root.children.add(this)
         }
         hideMenuOnInteract(this, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
-        Showables.SHOWING = this
         with(inputs.filterIsInstance<TextInputControl>()[toFocus]) {
             requestFocus()
             positionCaret(text.length)
@@ -68,7 +70,6 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
 
     override fun hide() {
         Chorus.getInstance().root.children -= this
-        Showables.SHOWING = null
         area!!.requestFocus()
     }
 

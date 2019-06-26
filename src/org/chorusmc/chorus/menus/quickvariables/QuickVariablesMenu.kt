@@ -6,7 +6,10 @@ import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.menus.*
+import org.chorusmc.chorus.menus.Draggable
+import org.chorusmc.chorus.menus.MenuPlacer
+import org.chorusmc.chorus.menus.Showable
+import org.chorusmc.chorus.menus.TabBrowsable
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewTitleBar
 import org.chorusmc.chorus.util.InteractFilter
 import org.chorusmc.chorus.util.area
@@ -60,7 +63,6 @@ class QuickVariablesMenu(varName: String) : VBox(), Showable {
             root.children.add(this)
         }
         hideMenuOnInteract(this, InteractFilter.AREA, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
-        Showables.SHOWING = this
         TabBrowsable.initBrowsing(listOf(name, value))
         value.positionCaret(value.length)
         value.selectAll()
@@ -69,7 +71,6 @@ class QuickVariablesMenu(varName: String) : VBox(), Showable {
 
     override fun hide() {
         Chorus.getInstance().root.children -= this
-        Showables.SHOWING = null
         area!!.requestFocus()
     }
 

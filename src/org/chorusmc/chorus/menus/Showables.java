@@ -1,6 +1,5 @@
 package org.chorusmc.chorus.menus;
 
-import javafx.scene.layout.VBox;
 import org.chorusmc.chorus.menus.drop.*;
 
 import java.util.HashMap;
@@ -12,8 +11,6 @@ import java.util.Map;
 public final class Showables {
 
     private Showables() {}
-
-    public static VBox SHOWING;
 
     public static Map<String, Class<? extends DropMenu>> DROP_MENU_TYPES;
 

@@ -1,6 +1,5 @@
 package org.chorusmc.chorus.menus.drop;
 
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
 import org.chorusmc.chorus.Chorus;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public abstract class DropMenu extends BrowsableVBox implements Showable {
 
-    private String type;
+    public String type;
 
     public DropMenu(String type) {
         if(!type.isEmpty()) {
@@ -69,13 +68,13 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
     @SuppressWarnings("unused")
     public void addButton(String text, DropMenuAction action) {
         initButton(new DropMenuButton(text, action, false));
-        Platform.runLater(this::requestFocus);
     }
 
     public abstract List<DropMenuButton> getButtons();
 
     @Override
     public void show() {
+        System.out.println(type);
         Addons.INSTANCE.invoke("onDropMenuOpen", type, this);
         hide();
         MenuPlacer placer = new MenuPlacer(this);
@@ -86,13 +85,11 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
             root.getChildren().add(this);
         }
         Utils.hideMenuOnInteract(this);
-        Showables.SHOWING = this;
     }
 
     @Override
     public void hide() {
         Chorus.getInstance().root.getChildren().remove(this);
-        Showables.SHOWING = null;
     }
 
     @Override

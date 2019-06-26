@@ -7,7 +7,6 @@ import javafx.scene.layout.HBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.nodes.control.NumericTextField
 import org.chorusmc.chorus.util.*
 
@@ -59,12 +58,10 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         textfield.requestFocus()
         textfield.positionCaret(textfield.text.length)
         textfield.selectAll()
-        Showables.SHOWING = null
     }
 
     override fun hide() {
         Chorus.getInstance().root.children -= this
-        Showables.SHOWING = null
     }
 
     override fun getMenuWidth() = 400.0

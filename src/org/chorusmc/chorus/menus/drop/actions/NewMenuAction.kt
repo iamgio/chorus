@@ -24,6 +24,5 @@ open class NewMenuAction(private val newMenu: Class<out DropMenu>) : DropMenuAct
         menu.layoutY = source!!.layoutY
         menu.setType(type ?: Showables.getType(newMenu))
         menu.show()
-        Showables.SHOWING = menu
     }
 }

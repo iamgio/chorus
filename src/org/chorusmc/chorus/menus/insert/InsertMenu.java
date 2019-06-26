@@ -103,13 +103,11 @@ public class InsertMenu extends VBox implements Showable {
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
         }
-        Showables.SHOWING = vbox;
     }
 
     @Override
     public void hide() {
         Chorus.getInstance().root.getChildren().remove(this);
-        Showables.SHOWING = null;
     }
 
     public void setOnSelect(Runnable runnable) {

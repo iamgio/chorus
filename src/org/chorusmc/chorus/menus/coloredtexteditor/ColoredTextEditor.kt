@@ -5,7 +5,6 @@ import javafx.scene.input.KeyCode
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.menus.coloredtexteditor.controlbar.ColoredTextControlBar
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.hideMenuOnInteract
@@ -51,14 +50,12 @@ class ColoredTextEditor : VBox(), Showable {
             root.children += this
         }
         hideMenuOnInteract(this)
-        Showables.SHOWING = null
         area.requestFocus()
         area.moveTo(area.text.length)
     }
 
     override fun hide() {
         Chorus.getInstance().root.children -= this
-        Showables.SHOWING = null
         coloredTextArea = null
     }
 }

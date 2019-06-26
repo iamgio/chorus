@@ -9,7 +9,6 @@ import org.chorusmc.chorus.listeners.AutocompletionListener
 import org.chorusmc.chorus.menus.BrowsableVBox
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.hideMenuOnInteract
 import org.chorusmc.chorus.util.translate
@@ -56,7 +55,7 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
             children.addAll(vbox, label)
         }
 
-        vbox.onSelectUpdate = Runnable {
+        vbox.onSelectUpdate = {
             (if(vbox.hasSelectedNode) vbox else area).requestFocus()
         }
     }
@@ -71,12 +70,10 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
             root.children.add(this)
         }
         hideMenuOnInteract(this)
-        Showables.SHOWING = vbox
     }
 
     override fun hide() {
         Chorus.getInstance().root.children -= this
-        Showables.SHOWING = null
         area?.requestFocus()
     }
 

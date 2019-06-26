@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.menus
 
+import javafx.application.Platform
 import javafx.collections.ListChangeListener
 import javafx.css.PseudoClass
 import javafx.scene.Node
@@ -9,7 +10,6 @@ import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.VBox
-import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.insert.InsertMenuHint
 
 
@@ -18,7 +18,7 @@ const val HOVER_STYLE_CLASS = "bvhover"
 /**
  * @author Gio
  */
-open class BrowsableVBox(textfield: TextField? = null) : VBox() {
+open class BrowsableVBox(textField: TextField? = null) : VBox() {
 
     var scrollPane: ScrollPane? = null
 
@@ -26,63 +26,52 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
 
     var hasSelectedNode = false
 
-    var onSelectUpdate: Runnable = Runnable {}
+    var onSelectUpdate: (() -> Unit)? = null
 
     init {
-        textfield?.setOnKeyPressed {
-            val showing = Showables.SHOWING
-            if(showing == this) {
-                when(it.code) {
-                    KeyCode.UP, KeyCode.DOWN -> browse(it, showing)
-                    else -> {}
-                }
-            }
-        }
+        isFocusTraversable = true
         children.addListener {_: ListChangeListener.Change<out Node> ->
             children.forEach {node ->
                 node.setOnMouseMoved {
-                    if(Showables.SHOWING == this) {
-                        children.forEach {
-                            it.setBVHover(false)
-                        }
-                        node.setBVHover()
-                        onSelectUpdate.run()
+                    children.forEach {
+                        it.setBVHover(false)
                     }
+                    node.setBVHover()
+                    onSelectUpdate?.invoke()
                 }
                 node.setOnMouseExited {
-                    if(Showables.SHOWING == this) {
-                        node.setBVHover(false)
-                        (node as? InsertMenuHint)?.selectNone()
-                        onSelectUpdate.run()
-                    }
+                    node.setBVHover(false)
+                    (node as? InsertMenuHint)?.selectNone()
+                    onSelectUpdate?.invoke()
                 }
             }
         }
-        Chorus.getInstance().root.scene.setOnKeyReleased {
-            val showing = Showables.SHOWING
-            if(showing == this) {
-                if(textfield == null) {
-                    browse(it, showing)
+
+        (textField ?: this).setOnKeyPressed {
+            browse(it)
+        }
+
+        (textField ?: this).setOnKeyReleased {
+            if(it.code == KeyCode.ENTER) {
+                val node = if(children.size == 1) {
+                    children[0]
+                } else {
+                    children.firstOrNull {it.isBVHover()} ?: return@setOnKeyReleased
                 }
-                if(it.code == KeyCode.ENTER) {
-                    val node: Node = if(children.size == 1) {
-                        children[0]
-                    } else {
-                        children.firstOrNull {it.isBVHover()} ?: return@setOnKeyReleased
-                    }
-                    if(node is Button) {
-                        node.fire()
-                    } else if(node is Actionable) {
-                        node.action.run()
-                    }
+                if(node is Button) {
+                    node.fire()
+                } else if(node is Actionable) {
+                    node.action.run()
                 }
             }
         }
+
+        Platform.runLater {requestFocus()}
     }
 
-    private fun browse(event: KeyEvent, showing: VBox) {
+    private fun browse(event: KeyEvent) {
         if(event.code == KeyCode.UP || event.code == KeyCode.DOWN) {
-            val selected: Node? = showing.children.filtered {it.isBVHover()}.firstOrNull() ?: last
+            val selected: Node? = children.filtered {it.isBVHover()}.firstOrNull() ?: last
             (selected as? InsertMenuHint)?.selectNone()
             var index: Int
             if(selected == null) {
@@ -96,7 +85,7 @@ open class BrowsableVBox(textfield: TextField? = null) : VBox() {
                 children.forEach {it.setBVHover(false)}
                 setBVHover(index)
             }
-            onSelectUpdate.run()
+            onSelectUpdate?.invoke()
             if(scrollPane != null) {
                 scrollPane!!.vvalue = index / (children.size.toDouble() - 1)
             }
