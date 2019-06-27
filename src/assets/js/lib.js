@@ -1,7 +1,12 @@
 load('classpath:assets/js/java_types_util.js')
 
 // Cached variable, should not be accessed to
-var thisAddon = undefined
+var thisAddon;
+
+/**
+ * Used to allow string translation. See wiki for further information
+ */
+var translationMap;
 
 /**
  * Returns the corresponding Java class
@@ -30,6 +35,16 @@ var chorus = chorus_type('Chorus').getInstance();
  * @type java.lang.String
  */
 var version = chorus_type('Chorus').VERSION
+
+/**
+ * Translates a string based on translationMap
+ * @param key translation key present in translationMap
+ * @return java.lang.String
+ */
+function translate(key) {
+    var locale = chorus.getResourceBundle().getLocale().toLanguageTag();
+    return translationMap[key][locale];
+}
 
 /**
  * Returns a list of loaded add-ons

@@ -51,7 +51,7 @@ public class Chorus extends FXApplication {
     public ChorusConfig config = new ChorusConfig();
     public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder(), addons = new ChorusFolder();
 
-    public ResourceBundle resourceBundle;
+    private ResourceBundle resourceBundle;
 
     private static String[] args;
 
@@ -219,5 +219,9 @@ public class Chorus extends FXApplication {
 
     public static Chorus getInstance() {
         return instance;
+    }
+
+    public ResourceBundle getResourceBundle() {
+        return resourceBundle;
     }
 }
