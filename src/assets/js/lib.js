@@ -37,13 +37,19 @@ var chorus = chorus_type('Chorus').getInstance();
 var version = chorus_type('Chorus').VERSION
 
 /**
- * Translates a string based on translationMap
+ * Translates a string based on translationMap. English value is returned if there is not any translation for current locale
  * @param key translation key present in translationMap
  * @return java.lang.String
  */
 function translate(key) {
     var locale = chorus.getResourceBundle().getLocale().toLanguageTag();
-    return translationMap[key][locale];
+    var subTranslationMap = translationMap[key];
+    if(!subTranslationMap) {
+        print('Error: there is no translation key ' + key);
+        return;
+    }
+    var translation = subTranslationMap[locale];
+    return translation ? translation : subTranslationMap['en']
 }
 
 /**
