@@ -14,9 +14,6 @@ import org.chorusmc.chorus.views.UpdaterView
  */
 class CheckForUpdates : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val view = UpdaterView()
         view.show()

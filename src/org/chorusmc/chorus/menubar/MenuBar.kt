@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.menubar
 
+import javafx.scene.control.Menu
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
@@ -51,4 +52,6 @@ object MenuBar {
                         )
                 )
         )
+
+    val ids = hashMapOf<String, Menu>()
 }

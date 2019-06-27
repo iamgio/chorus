@@ -18,9 +18,6 @@ import org.chorusmc.chorus.views.remoteconnection.ftp.FTPView
  */
 class OpenFromFTP : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val view = FTPView()
         view.show()

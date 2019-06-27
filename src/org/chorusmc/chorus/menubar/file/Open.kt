@@ -14,9 +14,6 @@ import org.chorusmc.chorus.util.translate
  */
 class Open : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val chooser = with(Tab.currentTab) {
             if(this == null || file !is LocalFile) FileChooser() else FileChooser(file.file.parentFile)

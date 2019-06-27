@@ -18,9 +18,6 @@ import org.chorusmc.chorus.views.remoteconnection.sftp.SFTPView
  */
 class OpenFromSFTP : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val view = SFTPView()
         view.show()

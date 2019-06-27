@@ -1,5 +1,3 @@
-load('classpath:assets/js/java_types_util.js')
-
 // Cached variable, should not be accessed to
 var thisAddon;
 
@@ -101,12 +99,36 @@ function getConfig() {
 }
 
 /**
+ * Creates a menu-bar button
+ * @param id identifier
+ * @param name visible name of the button
+ * @return org.chorusmc.chorus.menubar.MenuBarMainButton
+ */
+function createMenuBarButton(id, name) {
+    var MenuBarMainButtonClass = chorus_type('menubar.MenuBarMainButton');
+    var button = new MenuBarMainButtonClass();
+    button.setText(name);
+    chorus_type('menubar.MenuBar').INSTANCE.getIds().put(id, button);
+    chorus_type('editor.EditorController').getInstance().menuBar.getMenus().add(button);
+    return button;
+}
+
+/**
+ * Gets a menu-bar button by ID
+ * @param id identifier
+ * @return org.chorusmc.chorus.menubar.MenuBarMainButton
+ */
+function getMenuBarButton(id) {
+    return chorus_type('menubar.MenuBar').INSTANCE.getIds().get(id);
+}
+
+/**
  * Opens a new menu
  * @param type menu type (string) or menu instance
  * @param x optional x value
  * @param y optional y value
  */
-function openMenu(type, x, y) {
+function openDropMenu(type, x, y) {
     var menu = typeof type == 'string' ? chorus_type('menus.Showables').newMenu(type) : type;
     if (!menu) {
         print('Error: no menu ' + type);
@@ -173,4 +195,41 @@ function getTheme() {
 function setTheme(name, internal) {
     var ThemeClass = chorus_type('theme.Theme');
     chorus.setTheme(new ThemeClass(name, internal));
+}
+
+// --- JAVA TYPES UTILITIES --- //
+
+function ArrayList() {
+    return new java.util.ArrayList();
+}
+
+function HashMap() {
+    return new java.util.HashMap();
+}
+
+function File(name, parent) {
+    if(!parent) return new java.io.File(name);
+    return new java.io.File(parent, name);
+}
+
+/**
+ * @param key main key
+ * @param modifiers array of modifiers (shift, control, alt)
+ * @return javafx.scene.input.KeyCodeCombination
+ */
+function KeyCombination(key, modifiers) {
+    var KeyCodeCombination = javafx.scene.input.KeyCodeCombination;
+    var KeyCombination = javafx.scene.input.KeyCombination;
+    var keyCode = javafx.scene.input.KeyCode.valueOf(key.toUpperCase());
+    var keyModifiers = [];
+
+    for(i = 0; i < modifiers.length; i++) {
+        var modifier = modifiers[i].toLowerCase();
+        keyModifiers.push(
+            modifier == 'shift' ? KeyCombination.SHIFT_DOWN :
+                modifier == 'control' ? KeyCombination.CONTROL_DOWN :
+                    modifier == 'alt' ? KeyCombination.ALT_DOWN : null
+        );
+    }
+    return new KeyCodeCombination(keyCode, keyModifiers)
 }

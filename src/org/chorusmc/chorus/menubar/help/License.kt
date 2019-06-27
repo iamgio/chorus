@@ -15,9 +15,6 @@ import org.jsoup.Jsoup
  */
 class License : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val helpView = HelpView(translate("help.license.title"))
         try {

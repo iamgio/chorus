@@ -12,9 +12,6 @@ import org.chorusmc.chorus.views.HelpView
  */
 class ReportABug : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val helpView = HelpView(translate("help.report_a_bug.title"))
         helpView.addText(translate("help.report_a_bug.text"))

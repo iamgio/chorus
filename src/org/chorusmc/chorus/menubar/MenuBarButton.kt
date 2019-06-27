@@ -8,10 +8,11 @@ import org.chorusmc.chorus.util.translate
 /**
  * @author Gio
  */
-class MenuBarButton(translateKey: String, action: MenuBarAction, combination: KeyCodeCombination? = null) : MenuItem(translate("bar.$translateKey")) {
+class MenuBarButton @JvmOverloads constructor(translateKey: String? = null, action: MenuBarAction, combination: KeyCodeCombination? = null) : MenuItem() {
 
     init {
-        if(combination != null) super.setAccelerator(combination)
+        if(translateKey != null) text = translate("bar.$translateKey")
+        if(combination != null) accelerator = combination
         Events.getMenuActions().add(action)
         setOnAction {action.onAction()}
         disableProperty().bind(action.binding)

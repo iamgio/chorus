@@ -1,8 +1,6 @@
 package org.chorusmc.chorus.menubar.file
 
 import eu.iamgio.libfx.files.FileCreator
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.beans.value.ObservableValue
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.file.LocalFile
 import org.chorusmc.chorus.menubar.MenuBarAction
@@ -13,9 +11,6 @@ import org.chorusmc.chorus.util.translate
  * @author Gio
  */
 class CreateFile : MenuBarAction {
-
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
 
     override fun onAction() {
         val chooser = with(Tab.currentTab) {

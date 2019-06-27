@@ -11,9 +11,6 @@ import org.chorusmc.chorus.views.HelpView
  */
 class Credits : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val helpView = HelpView(translate("help.credits.title"))
         helpView.addText(translate("help.credits.subtitle", "♥"), true)

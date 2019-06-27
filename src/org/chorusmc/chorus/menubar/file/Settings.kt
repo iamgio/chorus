@@ -19,9 +19,6 @@ import org.chorusmc.chorus.util.translate
  */
 class Settings : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     companion object {
         private val stage = Stage()
     }

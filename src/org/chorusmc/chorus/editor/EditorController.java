@@ -12,9 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.file.LocalFile;
+import org.chorusmc.chorus.menubar.MenuBarMainButton;
 import org.chorusmc.chorus.nodes.Tab;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -58,8 +60,11 @@ public class EditorController implements Initializable {
             }
         });
 
-        menuBar.getMenus().addAll(org.chorusmc.chorus.menubar.MenuBar.INSTANCE.getMenuBarButtons());
-
+        List<MenuBarMainButton> menuBarButtons = org.chorusmc.chorus.menubar.MenuBar.INSTANCE.getMenuBarButtons();
+        menuBarButtons.forEach(button -> {
+            menuBar.getMenus().add(button);
+            org.chorusmc.chorus.menubar.MenuBar.INSTANCE.getIds().put(button.getTranslateKey(), button);
+        });
         tabPane.setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT) {
                 e.consume();

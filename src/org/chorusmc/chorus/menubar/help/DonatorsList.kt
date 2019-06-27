@@ -15,9 +15,6 @@ import org.chorusmc.chorus.views.HelpView
  */
 class DonatorsList : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
         val helpView = HelpView(translate("help.donators.title"))
         val connection = HttpConnection("https://iamgio.altervista.org/chorus/donators.html")

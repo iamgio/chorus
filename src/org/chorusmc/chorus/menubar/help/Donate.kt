@@ -12,9 +12,6 @@ import org.chorusmc.chorus.views.HelpView
  */
 class Donate : MenuBarAction {
 
-    override val binding: ObservableValue<Boolean>
-        get() = SimpleBooleanProperty(false)
-
     override fun onAction() {
 
         val helpView = HelpView(translate("help.donate.title"))
