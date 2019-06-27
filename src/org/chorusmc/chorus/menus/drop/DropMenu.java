@@ -74,7 +74,6 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
 
     @Override
     public void show() {
-        System.out.println(type);
         Addons.INSTANCE.invoke("onDropMenuOpen", type, this);
         hide();
         MenuPlacer placer = new MenuPlacer(this);
