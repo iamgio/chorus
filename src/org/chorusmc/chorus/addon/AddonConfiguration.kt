@@ -51,6 +51,7 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
 
     override fun store() {
         config.dump(map, FileWriter(target))
+        reload()
     }
 
     override fun toString() = map.toString()

@@ -33,7 +33,6 @@ data class Addon(val file: File) {
                 }
             }
             store()
-            reload()
         }
     }
 }
