@@ -17,7 +17,7 @@ class MenuBarMainButton @JvmOverloads constructor(val translateKey: String? = nu
 
     // For JS API
     @Suppress("unused")
-    fun addButton(text: String, action: Runnable, combination: KeyCodeCombination? = null) =
+    @JvmOverloads fun addButton(text: String, action: Runnable, combination: KeyCodeCombination? = null) =
             with(MenuBarButton(action = object : MenuBarAction {
                 override fun onAction() = action.run()
             }, combination = combination)) {
