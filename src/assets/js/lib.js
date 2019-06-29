@@ -161,7 +161,7 @@ function dm_button(text, action) {
  * @param type string identifier
  * @param buttons text-action map to generate buttons
  */
-function DropMenu(type, buttons) {
+function createDropMenu(type, buttons) {
     var DropMenuClass = chorus_type('menus.drop.DropMenu');
     var DropMenuExtender = Java.extend(DropMenuClass, {
         getButtons: function() {
