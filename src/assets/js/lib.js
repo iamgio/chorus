@@ -221,15 +221,21 @@ function KeyCombination(key, modifiers) {
     var KeyCodeCombination = javafx.scene.input.KeyCodeCombination;
     var KeyCombination = javafx.scene.input.KeyCombination;
     var keyCode = javafx.scene.input.KeyCode.valueOf(key.toUpperCase());
+
+    if(modifiers && !Array.isArray(modifiers)) modifiers = [modifiers]
+
     var keyModifiers = [];
 
-    for(i = 0; i < modifiers.length; i++) {
-        var modifier = modifiers[i].toLowerCase();
-        keyModifiers.push(
-            modifier == 'shift' ? KeyCombination.SHIFT_DOWN :
-                modifier == 'control' ? KeyCombination.CONTROL_DOWN :
-                    modifier == 'alt' ? KeyCombination.ALT_DOWN : null
-        );
+    if(modifiers) {
+        for (i = 0; i < modifiers.length; i++) {
+            var modifier = modifiers[i].toLowerCase();
+            keyModifiers.push(
+                modifier == 'shift' ? KeyCombination.SHIFT_DOWN :
+                    modifier == 'control' || modifier == 'ctrl' ? KeyCombination.CONTROL_DOWN :
+                        modifier == 'alt' ? KeyCombination.ALT_DOWN : null
+            );
+        }
     }
+
     return new KeyCodeCombination(keyCode, keyModifiers)
 }
