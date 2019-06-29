@@ -100,15 +100,15 @@ function getConfig() {
 
 /**
  * Creates a menu-bar button
- * @param id identifier
  * @param name visible name of the button
+ * @param id identifier (name if null)
  * @return org.chorusmc.chorus.menubar.MenuBarMainButton
  */
-function createMenuBarButton(id, name) {
+function createMenuBarButton(name, id) {
     var MenuBarMainButtonClass = chorus_type('menubar.MenuBarMainButton');
     var button = new MenuBarMainButtonClass();
     button.setText(name);
-    chorus_type('menubar.MenuBar').INSTANCE.getIds().put(id, button);
+    chorus_type('menubar.MenuBar').INSTANCE.getIds().put(id ? id : name, button);
     chorus_type('editor.EditorController').getInstance().menuBar.getMenus().add(button);
     return button;
 }
@@ -134,7 +134,7 @@ function openDropMenu(type, x, y) {
         print('Error: no menu ' + type);
         return;
     }
-    chorus_type('menus.drop.MainDropMenu').quickOpen(menu, x == undefined ? null : x, y == undefined ? null : y);
+    chorus_type('menus.drop.MainDropMenu').quickOpen(menu, x ? x : null, y ? y : null);
 }
 
 /**
