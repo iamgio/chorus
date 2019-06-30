@@ -6,6 +6,11 @@ var thisAddon;
  */
 var translationMap;
 
+// Supported languages
+var en = 'en';
+var it = 'it';
+var de = 'de';
+
 /**
  * Returns the corresponding Java class
  * @param name Java class (with package)
