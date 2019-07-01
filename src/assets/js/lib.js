@@ -104,6 +104,30 @@ function getConfig() {
 }
 
 /**
+ * Current editor area
+ * @return org.chorusmc.chorus.editor.EditorArea
+ */
+function getArea() {
+    return chorus_type('util.Utils').getArea();
+}
+
+/**
+ * Returns list of open tabs
+ * @return java.util.List<org.chorusmc.chorus.nodes.Tab>
+ */
+function getTabs() {
+    return chorus_type('util.Utils').getTabsList();
+}
+
+/**
+ * Returns current active tab
+ * @return org.chorusmc.chorus.nodes.Tab
+ */
+function getActiveTab() {
+    return chorus_type('nodes.Tab').Companion.getCurrentTab();
+}
+
+/**
  * Creates a menu-bar button
  * @param name visible name of the button
  * @param id identifier (name if null)

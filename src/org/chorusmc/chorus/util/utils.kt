@@ -13,32 +13,24 @@ import org.chorusmc.chorus.editor.EditorController
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.Tab
-import org.fxmisc.flowless.VirtualizedScrollPane
 import java.io.InputStream
 import java.nio.charset.MalformedInputException
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-@Suppress("UNCHECKED_CAST")
-val scrollPane: VirtualizedScrollPane<EditorArea>?
-    get() {
-        val currentTab = Tab.currentTab
-        if(currentTab != null) {
-            return currentTab.content as VirtualizedScrollPane<EditorArea>
-        }
-        return null
-    }
-
 val area: EditorArea?
-    get() = if(scrollPane == null) null else scrollPane!!.content
+    get() = Tab.currentTab?.area
 
 fun stringToList(s: String): List<String> {
     return s.split("{")[1].replace("}", "").split("|")
 }
 
+val tabsList
+    get() = EditorController.getInstance().tabPane.tabs.filterIsInstance<Tab>()
+
 fun closeTabs() {
-    EditorController.getInstance().tabPane.tabs.forEach {
-        (it as Tab).close(true)
+    tabsList.forEach {
+        it.close(true)
     }
 }
 

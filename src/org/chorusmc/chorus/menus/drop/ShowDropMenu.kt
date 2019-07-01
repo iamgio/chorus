@@ -7,7 +7,7 @@ import org.chorusmc.chorus.minecraft.IdAble
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
 import org.chorusmc.chorus.minecraft.item.Item
-import org.chorusmc.chorus.nodes.Tab
+import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.translate
 
 const val SHOW_DROP_MENU_TYPE = "show"
@@ -26,8 +26,7 @@ class ShowDropMenu : DropMenu(SHOW_DROP_MENU_TYPE) {
                 DropMenuButton(translate("show.enchantment_information"), EnchantmentInformation(), true),
                 DropMenuButton(translate("show.ticks_calculation"), TicksCalculation(), true)
         )
-        val area = Tab.currentTab!!.area
-        val selected = area.selectedText
+        val selected = area!!.selectedText
         val parts = selected.split(":")
         if(selected.isNotEmpty() && parts.size in 1..2) {
             if(selected.matches(Regex("(${EditorPattern.ITEMID.pattern})|(\\b([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9]))|(22((5[8-9])|(6[0-7]))\\b)"))) {

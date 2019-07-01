@@ -22,14 +22,14 @@ class Tab(text: String, content: Node, val file: FileMethod) : Tab("$text ", con
     }
 
     fun close(isList: Boolean) {
-        area.saveFile()
+        area?.saveFile()
         file.close()
         if(!isList) EditorController.getInstance().tabPane.tabs -= this
     }
 
     @Suppress("UNCHECKED_CAST")
-    val area: EditorArea
-        get() = (this.content as VirtualizedScrollPane<EditorArea>).content
+    val area: EditorArea?
+        get() = (this.content as VirtualizedScrollPane<EditorArea>?)?.content
 
     companion object {
         @JvmStatic val currentTab: org.chorusmc.chorus.nodes.Tab?
