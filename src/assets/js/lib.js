@@ -185,6 +185,29 @@ function createDropMenu(type, buttons) {
 }
 
 /**
+ * Gets variables
+ * @return java.util.List<org.chorusmc.chorus.variable.Variable>
+ */
+function getVariables() {
+    return chorus_type('variable.Variables').getVariables();
+}
+
+/**
+ * Gets a variable by name
+ * @param name variable name
+ * @return org.chorusmc.chorus.variable.Variable
+ */
+function getVariable(name) {
+    return getVariables()
+        .stream()
+        .filter(function (variable) {
+            return variable.name == name;
+        })
+        .findAny()
+        .orElse(null);
+}
+
+/**
  * Returns current theme
  * @return org.chorusmc.theme.Theme
  */
@@ -202,7 +225,7 @@ function setTheme(name, internal) {
     chorus.setTheme(new ThemeClass(name, internal));
 }
 
-// --- JAVA TYPES UTILITIES --- //
+// --- TYPE UTILITIES --- //
 
 function ArrayList() {
     return new java.util.ArrayList();
@@ -243,4 +266,15 @@ function KeyCombination(key, modifiers) {
     }
 
     return new KeyCodeCombination(keyCode, keyModifiers)
+}
+
+/**
+ * Instantiates a Chorus' variable
+ * @param name variable name
+ * @param value variable value
+ * @return org.chorusmc.chorus.variable.Variable
+ */
+function Variable(name, value) {
+    var VariableClass = chorus_type('variable.Variable');
+    return new VariableClass(name, value);
 }
