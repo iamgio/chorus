@@ -17,13 +17,15 @@ class IconableHoverListener : TabOpenerListener {
     override fun onTabOpen(area: EditorArea) {
         var popup: ImagePopup
         area.addEventHandler(MouseOverTextEvent.MOUSE_OVER_TEXT_BEGIN) {e ->
-            popup = ImagePopup()
             val index = e.characterIndex
             val position = e.screenPosition
             val styles = area.getStyleOfChar(index).toTypedArray()
             if(styles.isEmpty()) return@addEventHandler
             val style = styles[0]
-            if(!config.getBoolean("4.Minecraft.[].Pop-up_${style.replace("id", "").replace("ty", "tie")}s")) return@addEventHandler
+            with(config["4.Minecraft.[].Pop-up_${style.replace("id", "").replace("ty", "tie")}s"]) {
+                if(this == null || !toBoolean()) return@addEventHandler
+            }
+            popup = ImagePopup()
             val text = charToWord(index, style)
             @Suppress("IMPLICIT_CAST_TO_ANY", "UNCHECKED_CAST")
             val iconable = try {
