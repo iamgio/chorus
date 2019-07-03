@@ -104,6 +104,14 @@ function getConfig() {
 }
 
 /**
+ * Loads a CSS file
+ * @param path either string path to file or file itself
+ */
+function loadStylesheet(path) {
+    chorus.addStylesheet(path);
+}
+
+/**
  * Current editor area
  * @return org.chorusmc.chorus.editor.EditorArea
  */
