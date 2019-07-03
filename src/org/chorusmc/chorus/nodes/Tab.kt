@@ -21,7 +21,7 @@ class Tab(text: String, content: Node, val file: FileMethod) : Tab("$text ", con
         }
     }
 
-    fun close(isList: Boolean) {
+    @JvmOverloads fun close(isList: Boolean = false) {
         area?.saveFile()
         file.close()
         if(!isList) EditorController.getInstance().tabPane.tabs -= this
