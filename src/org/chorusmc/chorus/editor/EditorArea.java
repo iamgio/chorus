@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.IndexRange;
 import javafx.scene.input.*;
 import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.addon.AddonRegex;
 import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.editor.events.Events;
 import org.chorusmc.chorus.file.FileMethod;
@@ -121,6 +122,14 @@ public class EditorArea extends CodeArea {
         }
         spansBuilder.add(Collections.emptyList(), text.length() - i);
         return spansBuilder.create();
+    }
+
+    public void highlight(String pattern, String styleClass) {
+        String text = getText();
+        if(text.isEmpty()) return;
+        AddonRegex regex = new AddonRegex(pattern);
+        regex.findAll(text).iterator().forEachRemaining(match ->
+                setStyleClass(match.getRange().getStart(), match.getRange().getEndInclusive() + 1, styleClass));
     }
 
     public FileMethod getFile() {
