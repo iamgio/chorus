@@ -2,6 +2,7 @@ package org.chorusmc.chorus.editor
 
 import javafx.scene.Node
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.addon.Addons
 import org.chorusmc.chorus.editor.events.Events
 import org.chorusmc.chorus.file.FileMethod
 import org.chorusmc.chorus.listeners.TabOpenerListener
@@ -48,6 +49,8 @@ class EditorTab(private var file: FileMethod) {
             addAll(root.children)
             filterIsInstance<Showable>().forEach {root.children -= it as Node}
         }
+
+        Addons.invoke("onTabOpen", tab)
 
         area.requestFocus()
     }
