@@ -204,14 +204,6 @@ public class Chorus extends FXApplication {
         }
     }
 
-    public void addStylesheet(String path) {
-        getStage().toStage().getScene().getStylesheets().add("file:///" + path.replace("\\", "/").replace(" ", "%20"));
-    }
-
-    public void addStylesheet(File file) {
-        addStylesheet(file.getAbsolutePath());
-    }
-
     private void loadFont(String name) {
         Font.loadFont(getClass().getResourceAsStream("/assets/fonts/" + name), 25);
     }
