@@ -3,6 +3,7 @@ package org.chorusmc.chorus.editor;
 import javafx.application.Platform;
 import javafx.scene.control.IndexRange;
 import javafx.scene.input.*;
+import kotlin.ranges.IntRange;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.addon.AddonRegex;
 import org.chorusmc.chorus.addon.Addons;
@@ -23,8 +24,10 @@ import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +52,8 @@ public class EditorArea extends CodeArea {
 
         final String fontSizeSetting = "1.Appearance.2.Font_size";
         setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting));
-        SettingsBuilder.addAction(fontSizeSetting, () -> setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting)));
+        SettingsBuilder.addAction(fontSizeSetting,
+                () -> setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting)));
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             if(EditorPattern.patternEdited) {
                 pattern = EditorPattern.compile();
@@ -59,11 +63,10 @@ public class EditorArea extends CodeArea {
         });
 
         Platform.runLater(this::updateHighlighting);
-        plainTextChanges().filter(change -> !change.getInserted().equals(change.getRemoved()))
-                .subscribe(change -> {
-                    updateHighlighting();
-                    Events.getEvents().forEach(e -> e.onChange(change, this));
-                });
+        plainTextChanges().filter(change -> !change.getInserted().equals(change.getRemoved())).subscribe(change -> {
+            updateHighlighting();
+            Events.getEvents().forEach(e -> e.onChange(change, this));
+        });
 
         addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             if(new KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN).match(e)) {
@@ -124,12 +127,22 @@ public class EditorArea extends CodeArea {
         return spansBuilder.create();
     }
 
+    public void addStyleClass(int start, int end, String styleClass) {
+        for(int i = start; i <= end; i++) {
+            List<String> styles = new ArrayList<>(getStyleOfChar(i));
+            styles.add(styleClass);
+            setStyle(i, i + 1, styles);
+        }
+    }
+
     public void highlight(String pattern, String styleClass) {
         String text = getText();
         if(text.isEmpty()) return;
         AddonRegex regex = new AddonRegex(pattern);
-        regex.findAll(text).iterator().forEachRemaining(match ->
-                setStyleClass(match.getRange().getStart(), match.getRange().getEndInclusive() + 1, styleClass));
+        regex.findAll(text).iterator().forEachRemaining(match -> {
+            IntRange range = match.getRange();
+            addStyleClass(range.getStart(), range.getEndInclusive(), styleClass);
+        });
     }
 
     public FileMethod getFile() {
@@ -151,7 +164,7 @@ public class EditorArea extends CodeArea {
         if(file != null) {
             replaceText(file.getText());
             return true;
-        } else  {
+        } else {
             new Notification(Utils.translate("error.refresh", file.getName()), NotificationType.ERROR).send();
             return false;
         }
