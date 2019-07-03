@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.IndexRange;
 import javafx.scene.input.*;
 import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.editor.events.Events;
 import org.chorusmc.chorus.file.FileMethod;
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu;
@@ -35,9 +36,12 @@ public class EditorArea extends CodeArea {
 
     private Pattern pattern = EditorPattern.compile();
 
+    private boolean highlight;
+
     public EditorArea(FileMethod file, boolean highlight) {
         super(file.getText());
         this.file = file;
+        this.highlight = highlight;
         getStylesheets().add(Themes.byConfig().getPath()[1]);
         getStyleClass().add("area");
         setParagraphGraphicFactory(LineNumberFactory.get(this));
@@ -49,14 +53,14 @@ public class EditorArea extends CodeArea {
             if(EditorPattern.patternEdited) {
                 pattern = EditorPattern.compile();
                 EditorPattern.patternEdited = false;
-                if(highlight && !getText().isEmpty()) setStyleSpans(0, computeHighlighting(getText()));
+                updateHighlighting();
             }
         });
 
-        if(!getText().isEmpty() && highlight) Platform.runLater(() -> setStyleSpans(0, computeHighlighting(getText())));
-        richChanges().filter(change -> !change.getInserted().equals(change.getRemoved()))
+        Platform.runLater(this::updateHighlighting);
+        plainTextChanges().filter(change -> !change.getInserted().equals(change.getRemoved()))
                 .subscribe(change -> {
-                    if(highlight && !getText().isEmpty()) setStyleSpans(0, computeHighlighting(getText()));
+                    updateHighlighting();
                     Events.getEvents().forEach(e -> e.onChange(change, this));
                 });
 
@@ -94,7 +98,15 @@ public class EditorArea extends CodeArea {
         requestFollowCaret();
     }
 
-    private StyleSpans<Collection<String>> computeHighlighting(String text) {
+    private void updateHighlighting() {
+        if(supportsHighlighting() && !getText().isEmpty()) {
+            setStyleSpans(0, computeHighlighting());
+            Addons.INSTANCE.invoke("onHighlightingUpdate", this);
+        }
+    }
+
+    private StyleSpans<Collection<String>> computeHighlighting() {
+        String text = getText();
         Matcher matcher = pattern.matcher(text);
         int i = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();

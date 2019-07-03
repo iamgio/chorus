@@ -10,7 +10,7 @@ import org.chorusmc.chorus.minecraft.sound.Sound
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.variable.Variables
-import org.fxmisc.richtext.model.RichTextChange
+import org.fxmisc.richtext.model.PlainTextChange
 
 const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}_$]"
 
@@ -25,10 +25,10 @@ class AutocompletionListener : EditorEvent() {
         loadOptions()
     }
 
-    override fun onChange(change: RichTextChange<Collection<String>, String, Collection<String>>, area: EditorArea) {
+    override fun onChange(change: PlainTextChange, area: EditorArea) {
         val actual = AutocompletionMenu.actual
         if(!b && config.getBoolean("3.YAML.4.Autocompletion")) {
-            if(change.inserted.length() > change.removed.length()) {
+            if(change.inserted.length > change.removed.length) {
                 var word = ""
                 val pos = area.caretPosition
                 for(i in pos downTo 0) {

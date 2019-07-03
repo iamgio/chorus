@@ -5,7 +5,7 @@ import javafx.util.Duration
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.events.EditorEvent
 import org.chorusmc.chorus.util.config
-import org.fxmisc.richtext.model.RichTextChange
+import org.fxmisc.richtext.model.PlainTextChange
 
 /**
  * @author Gio
@@ -16,7 +16,7 @@ class AutoSavingListener : EditorEvent() {
     private val areas = ArrayList<EditorArea>()
     private val editedAreas = ArrayList<EditorArea>()
 
-    override fun onChange(change: RichTextChange<Collection<String>, String, Collection<String>>, area: EditorArea) {
+    override fun onChange(change: PlainTextChange, area: EditorArea) {
         if((area.supportsHighlighting() && config.getBoolean("2.Autosaving.1.Enabled_(YAML)")) ||
                 !area.supportsHighlighting() && config.getBoolean("2.Autosaving.2.Enabled_(other_formats)")) {
             editedAreas.add(area)
