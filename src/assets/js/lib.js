@@ -120,6 +120,13 @@ function getArea() {
     return chorus_type('util.Utils').getArea();
 }
 
+function addAreaEvent(action) {
+    var Event = chorus_type('editor.events.EditorEvent');
+    chorus_type('editor.events.Events').getEvents().add(new Event() {
+        onChange: action
+    });
+}
+
 /**
  * Returns list of open tabs
  * @return java.util.List<org.chorusmc.chorus.nodes.Tab>
