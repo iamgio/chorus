@@ -22,6 +22,8 @@ class SettingTextField : TextField(), SettingNode {
                     if(super.getText().length > 9) {
                         super.setText(super.getText().substring(0, 9))
                     }
+                    config.set(id, text.toInt())
+                    return@addListener
                 }
                 config.set(id, text)
             }

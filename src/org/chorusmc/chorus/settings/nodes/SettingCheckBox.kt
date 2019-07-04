@@ -12,7 +12,7 @@ class SettingCheckBox : CheckBox(), SettingNode {
 
     init {
         selectedProperty().addListener {_ ->
-            config.set(id, isSelected.toString())
+            config.set(id, isSelected)
         }
     }
 }
