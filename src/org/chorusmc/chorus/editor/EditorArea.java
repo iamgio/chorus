@@ -66,6 +66,7 @@ public class EditorArea extends CodeArea {
         plainTextChanges().filter(change -> !change.getInserted().equals(change.getRemoved())).subscribe(change -> {
             updateHighlighting();
             Events.getEvents().forEach(e -> e.onChange(change, this));
+            Addons.INSTANCE.invoke("onAreaTextChange", change, this);
         });
 
         addEventFilter(KeyEvent.KEY_PRESSED, e -> {
