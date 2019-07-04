@@ -15,7 +15,6 @@ data class Addon(val file: File) {
         get() = File(file.parentFile, name)
 
     var config: AddonConfiguration? = null
-        private set
 
     var allowSettings = false
 

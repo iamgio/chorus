@@ -20,15 +20,17 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
     override fun createIfAbsent(folder: File?) {
         target = File(folder, name)
         if(!target.exists()) target.createNewFile()
-        config = Yaml(with(DumperOptions()) {
-            defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
-            this
-        })
         reload()
     }
 
     fun reload() {
-        map = config.load(FileInputStream(target)) ?: HashMap()
+        if(!this::config.isInitialized) {
+            config = Yaml(with(DumperOptions()) {
+                defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
+                this
+            })
+        }
+        map = config.load(FileInputStream(target)) ?: hashMapOf()
     }
 
     override fun getKeys() = map.keys

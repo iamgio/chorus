@@ -10,7 +10,7 @@ import java.util.Set;
 public abstract class ChorusConfiguration {
 
     protected String name;
-    protected File target;
+    public File target;
 
     public ChorusConfiguration(String name) {
         this.name = name;

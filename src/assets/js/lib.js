@@ -104,7 +104,19 @@ function createConfig(values) {
 }
 
 /**
- * Returns add-on's config (if exists). MUST be preceded by createConfig
+ * Loads an external configuration
+ * @param file either string relative path to file or file itself
+ */
+function loadConfig(file) {
+    var ConfigClass = chorus_type('addon.AddonConfiguration');
+    var config = new ConfigClass();
+    config.target = typeof file == 'string' ? new File(file, getFolder()) : file;
+    getThisAddon().config = config;
+    config.reload();
+}
+
+/**
+ * Returns add-on's config (if exists). MUST be loaded or created first
  * @return org.chorusmc.addon.Addon$AddonConfiguration
  */
 function getConfig() {
