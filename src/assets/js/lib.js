@@ -105,11 +105,13 @@ function getConfig() {
 
 /**
  * Loads a CSS file
- * @param path either string path to file or file itself
+ * @param file either string relative path to file or file itself
  * @param target stylesheet target. If null, the stylesheet will be global
  */
-function loadStylesheet(path, target) {
-    new ExternalStylesheet(path).add(target ? target : chorus.getStage().toStage().getScene());
+function loadStylesheet(file, target) {
+    var Stylesheet = chorus_type('nodes.ExternalStylesheet');
+    new Stylesheet(typeof file == 'string' ? new File(file, getFolder()) : file)
+        .add(target ? target : chorus.getStage().toStage().getScene());
 }
 
 /**
@@ -321,13 +323,4 @@ function KeyCombination(key, modifiers) {
 function Variable(name, value) {
     var VariableClass = chorus_type('variable.Variable');
     return new VariableClass(name, value);
-}
-
-/**
- * @param path either string path to file or file itself
- * @return org.chorusmc.chorus.nodes.ExternalStylesheet
- */
-function ExternalStylesheet(path) {
-    var Stylesheet = chorus_type('nodes.ExternalStylesheet');
-    return new Stylesheet(path);
 }
