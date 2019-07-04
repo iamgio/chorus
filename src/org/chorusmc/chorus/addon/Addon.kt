@@ -41,4 +41,9 @@ data class Addon(val file: File) {
             store()
         }
     }
+
+    fun disable() {
+        Addons.invoke("onDisable")
+        Addons.addons -= this
+    }
 }
