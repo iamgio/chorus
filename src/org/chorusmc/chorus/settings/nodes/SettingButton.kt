@@ -16,16 +16,16 @@ class SettingButton(text: String) : Button(text) {
     private val rightVBox = SettingsController.getInstance().rightVbox
 
     init {
-        id = "setting-button"
+        id = "external:$text"
         styleClass += "setting-button"
         setOnAction {
             rightVBox.children.clear()
             SettingsBuilder.buildRight(id).forEach {
-                val texts = try {
+                val texts = if(it.id != null) try {
                     translateWithException(it.id).split("\n")
                 } catch(e: MissingResourceException) {
                     emptyList<String>()
-                }
+                } else emptyList()
                 val vbox = VBox(10.0, it)
                 texts.forEach {
                     vbox.children += with(SettingText()) {

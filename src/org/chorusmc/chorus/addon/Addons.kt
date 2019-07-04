@@ -27,8 +27,9 @@ object Addons {
             } catch(e: ScriptException) {
                 System.err.println(e.message!!)
             }
-            val credits = scriptEngine!!["credits"]
-            println("Loaded add-on '${it.name}'${if(credits != null) " by $credits" else ""}")
+            with(scriptEngine!!["credits"]) {
+                println("Loaded add-on '${it.name}'${if(this != null) " by $this" else ""}")
+            }
         }
         invoke("onLoad")
     }

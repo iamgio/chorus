@@ -16,6 +16,8 @@ data class Addon(val file: File) {
     var config: AddonConfiguration? = null
         private set
 
+    var allowSettings = false
+
     private fun createFolder() {
         with(folder) {
             if(!exists()) mkdir()

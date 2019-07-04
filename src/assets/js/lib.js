@@ -80,6 +80,14 @@ function getThisAddon() {
 }
 
 /**
+ * Allows to interact with the config via settings
+ * @param allowSettings
+ */
+function allowSettings(allowSettings) {
+    getThisAddon().allowSettings = allowSettings;
+}
+
+/**
  * Returns the add-on's folder where data can be saved
  * @return java.util.File
  */

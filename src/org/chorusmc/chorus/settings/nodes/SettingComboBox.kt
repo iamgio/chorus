@@ -1,12 +1,14 @@
 package org.chorusmc.chorus.settings.nodes
 
-import org.chorusmc.chorus.util.config
 import javafx.scene.control.ComboBox
+import org.chorusmc.chorus.configuration.ChorusConfiguration
 
 /**
  * @author Gio
  */
-class SettingComboBox : ComboBox<Any>() {
+class SettingComboBox : ComboBox<Any>(), SettingNode {
+
+    override lateinit var config: ChorusConfiguration
 
     init {
         prefWidth = 200.0
