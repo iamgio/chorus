@@ -104,7 +104,7 @@ public class EditorArea extends CodeArea {
     }
 
     private void updateHighlighting() {
-        if(supportsHighlighting() && !getText().isEmpty()) {
+        if((highlight || supportsHighlighting()) && !getText().isEmpty()) {
             setStyleSpans(0, computeHighlighting());
             Addons.INSTANCE.invoke("onHighlightingUpdate", this);
         }
@@ -128,6 +128,7 @@ public class EditorArea extends CodeArea {
         return spansBuilder.create();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void addStyleClass(int start, int end, String styleClass) {
         for(int i = start; i <= end; i++) {
             List<String> styles = new ArrayList<>(getStyleOfChar(i));
