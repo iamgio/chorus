@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.addon
 
+import jdk.nashorn.api.scripting.ScriptUtils
 import java.io.File
 
 /**
@@ -30,8 +31,12 @@ data class Addon(val file: File) {
         with(config!!) {
             createIfAbsent(folder)
             values.forEach { k, v ->
+                var value = v
+                if(v.toString() == "[object Array]") {
+                    value = ScriptUtils.convert(v, Array<Any>::class.java)
+                }
                 if(!keys.contains(k)) {
-                    config!!.setWithoutSaving(k, v)
+                    config!!.setWithoutSaving(k, value)
                 }
             }
             store()
