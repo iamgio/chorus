@@ -10,9 +10,15 @@ class SettingTextArea : TextArea(), SettingNode {
 
     override lateinit var config: ChorusConfiguration
 
+    var isList = false
+
     init {
         textProperty().addListener {_ ->
-            config.set(id, text.replace("\n", "\\n"))
+            config.set(id, if(isList) {
+                text.lines().filter {it.isNotEmpty()}
+            } else {
+                text.replace("\n", "\\n")
+            })
         }
     }
 }

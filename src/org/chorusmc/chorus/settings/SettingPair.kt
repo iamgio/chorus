@@ -23,6 +23,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, _input
             val value = config[key]
             when(value) {
                 is String -> if(value.contains("\n")) "TEXTAREA" else "TEXTFIELD"
+                is List<*> -> "TEXTAREA"
                 is Number -> "TEXTFIELD [^0-9]"
                 is Boolean -> "CHECKBOX"
                 else -> null
@@ -55,7 +56,14 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, _input
             }
             is SettingTextArea -> {
                 input.prefWidth = 400.0
-                input.text = config[key].toString().replace("\\n", "\n")
+                input.text = with(config[key]) {
+                    if(this is List<*>) {
+                        input.isList = true
+                        this.joinToString("\n")
+                    } else {
+                        this.toString().replace("\\n", "\n")
+                    }
+                }
                 input.textProperty().addListener {_ -> SettingsBuilder.actions[key]?.forEach {it.run()}}
             }
             is SettingComboBox -> {
