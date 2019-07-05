@@ -1,6 +1,6 @@
-var javafx = javafx.scene;
+var fx = javafx.scene;
 
-var fxcontrols = javafx.control;
+var fxcontrols = fx.control;
 
 // Cached variable, should not be accessed to
 var thisAddon;
@@ -42,6 +42,10 @@ var chorus = chorus_type('Chorus').getInstance();
  * @type java.lang.String
  */
 var version = chorus_type('Chorus').VERSION
+
+function runLater(action) {
+    javafx.application.Platform.runLater(action);
+}
 
 /**
  * Translates a string based on translationMap. English value is returned if there is not any translation for current locale
@@ -248,8 +252,8 @@ function createDropMenu(type, buttons) {
  * @return java.lang.String
  */
 function getSelectedText() {
-    var UtilsClass = chorus_type('menus.drop.actions.previews.previewutilsKt');
-    return new UtilsClass().selectedText;
+    var UtilsClass = chorus_type('menus.drop.actions.previews.PreviewutilsKt');
+    return UtilsClass.selectedText;
 }
 
 /**
@@ -259,7 +263,7 @@ function getSelectedText() {
  * @return org.chorusmc.chorus.menus.coloredtextpreview.FlowList
  */
 function generateFlowList(textArea, menu) {
-    var UtilsClass = chorus_type('menus.drop.actions.previews.previewutilsKt');
+    var UtilsClass = chorus_type('menus.drop.actions.previews.PreviewutilsKt');
     return new UtilsClass().generateFlowList(textArea, menu.image);
 }
 
@@ -290,7 +294,7 @@ function PreviewMenu(title, image, controls, initFlow, flowsAmount) {
  */
 function PreviewBackground(image) {
     var BackgroundClass = chorus_type('menus.coloredtextpreview.previews.ColoredTextBackground');
-    return new BackgroundClass(new javafx.image.Image(new java.io.FileInputStream(toFile(image))));
+    return new BackgroundClass(new fx.image.Image(new java.io.FileInputStream(toFile(image))));
 }
 
 /**
@@ -361,12 +365,12 @@ function File(name, parent) {
 /**
  * @param key main key
  * @param modifiers array of modifiers (shift, control, alt)
- * @return javafx.scene.input.KeyCodeCombination
+ * @return fx.scene.input.KeyCodeCombination
  */
 function KeyCombination(key, modifiers) {
-    var KeyCodeCombination = javafx.scene.input.KeyCodeCombination;
-    var KeyCombination = javafx.scene.input.KeyCombination;
-    var keyCode = javafx.scene.input.KeyCode.valueOf(key.toUpperCase());
+    var KeyCodeCombination = fx.scene.input.KeyCodeCombination;
+    var KeyCombination = fx.scene.input.KeyCombination;
+    var keyCode = fx.scene.input.KeyCode.valueOf(key.toUpperCase());
 
     if(modifiers && !Array.isArray(modifiers)) modifiers = [modifiers]
 
@@ -422,4 +426,4 @@ function TextArea(text) {
     return text ? new fxcontrols.TextArea(text) : new fxcontrols.TextArea();
 }
 
-var TextAlignment = javafx.text.TextAlignment;
+var TextAlignment = fx.text.TextAlignment;
