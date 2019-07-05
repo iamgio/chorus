@@ -1,18 +1,15 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
-import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.minecraft.chat.ChatParser
-import org.chorusmc.chorus.util.toFlowList
 import javafx.scene.image.Image
 import javafx.scene.text.TextFlow
+import org.chorusmc.chorus.Chorus
 
 /**
  * @author Gio
  */
-class ChatPreviewImage(text: String) : ColoredTextPreviewImage(
+class ChatPreviewImage : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/chat-background.png"))),
-        listOf(ChatParser(text, true).toTextFlow()).toFlowList(),
-        true
+        reversed = true
 ), IDefinedStyleClass {
 
     override val styleClass = "minecraft-chat-preview-flow"

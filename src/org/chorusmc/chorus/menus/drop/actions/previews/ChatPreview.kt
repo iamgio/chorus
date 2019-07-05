@@ -16,7 +16,7 @@ class ChatPreview : DropMenuAction() {
         val textArea = TextArea(selectedText)
         textArea.prefHeight = 80.0
         textArea.promptText = translate("preview.chat.text_prompt")
-        val menu = ColoredTextPreviewMenu(translate("preview.chat"), ChatPreviewImage("\n"), listOf(textArea))
+        val menu = ColoredTextPreviewMenu(translate("preview.chat"), ChatPreviewImage(), listOf(textArea))
         menu.image.flows = generateFlowList(textArea, menu.image as ChatPreviewImage)
         textArea.textProperty().addListener {_ ->
             menu.image.flows = generateFlowList(textArea, menu.image)

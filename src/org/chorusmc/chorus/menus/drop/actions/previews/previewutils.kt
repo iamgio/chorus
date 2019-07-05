@@ -10,9 +10,12 @@ import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.withStyleClass
 import org.chorusmc.chorus.yaml.charToWord
 
-fun <T> generateFlowList(area: TextArea, image: T): FlowList where T : ColoredTextPreviewImage, T: IDefinedStyleClass {
+fun <T> generateFlowList(area: TextArea, image: T): FlowList where T : ColoredTextPreviewImage {
     val lines = area.text.split("\n")
-    return lines.map {ChatParser(it, true).toTextFlow().withStyleClass(image.styleClass)}.toFlowList()
+    return lines.map {
+        val flow = ChatParser(it, true).toTextFlow()
+        if(image is IDefinedStyleClass) flow.withStyleClass(image.styleClass) else flow
+    }.toFlowList()
 }
 
 val selectedText: String

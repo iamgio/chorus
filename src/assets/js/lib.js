@@ -1,6 +1,6 @@
 var javafx = javafx.scene;
 
-var fxcontrols = new JavaImporter(javafx.control);
+var fxcontrols = javafx.control;
 
 // Cached variable, should not be accessed to
 var thisAddon;
@@ -244,12 +244,53 @@ function createDropMenu(type, buttons) {
 }
 
 /**
+ * Utility function: returns canonical selected text of active area
+ * @return java.lang.String
+ */
+function getSelectedText() {
+    var UtilsClass = chorus_type('menus.drop.actions.previews.previewutilsKt');
+    return new UtilsClass().selectedText;
+}
+
+/**
+ * Utility function: generates list of text flows from a TextArea
+ * @param textArea text area input
+ * @param menu preview menu
+ * @return org.chorusmc.chorus.menus.coloredtextpreview.FlowList
+ */
+function generateFlowList(textArea, menu) {
+    var UtilsClass = chorus_type('menus.drop.actions.previews.previewutilsKt');
+    return new UtilsClass().generateFlowList(textArea, menu.image);
+}
+
+/**
+ * Creates a preview menu
+ * @param title menu title
+ * @param image background image. Can be a path to the image file or file itself
+ * @param controls array of controls, such as text fields or text areas
+ * @param initFlow function(flow, index) called every time the flows are updated
+ * @param flowsAmount initial amount of text flows
+ */
+function PreviewMenu(title, image, controls, initFlow, flowsAmount) {
+    var MenuClass = chorus_type('menus.coloredtextpreview.ColoredTextPreviewMenu');
+    var ImageClass = chorus_type('menus.coloredtextpreview.previews.ColoredTextPreviewImage')
+    var img = typeof image == 'string' ? new PreviewBackground(image) : image;
+    var menu = new MenuClass(title, new ImageClass(img, flowsAmount ? flowsAmount : 1) {
+        initFlow: function (flow, index) {
+            flow.minWidth = img.width
+            initFlow(flow, index);
+        }
+    }, controls);
+    return menu;
+}
+
+/**
  * Creates a background for previews
  * @param image path or image file
  */
 function PreviewBackground(image) {
     var BackgroundClass = chorus_type('menus.coloredtextpreview.previews.ColoredTextBackground');
-    var img = new javafx.image.Image(new java.io.FileInputStream(toFile(image)))
+    return new BackgroundClass(new javafx.image.Image(new java.io.FileInputStream(toFile(image))));
 }
 
 /**
@@ -370,13 +411,15 @@ function Variable(name, value) {
 // --- JAVAFX --- //
 
 function Button(text) {
-    with (fxcontrols) return new Button(text);
+    return text ? new fxcontrols.Button(text) : new fxcontrols.Button();
 }
 
 function TextField(text) {
-    with (fxcontrols) return new TextField(text);
+    return text ? new fxcontrols.TextField(text) : new fxcontrols.TextField();
 }
 
 function TextArea(text) {
-    with (fxcontrols) return new TextArea(text);
+    return text ? new fxcontrols.TextArea(text) : new fxcontrols.TextArea();
 }
+
+var TextAlignment = javafx.text.TextAlignment;

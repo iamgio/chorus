@@ -4,11 +4,23 @@ import javafx.application.Platform
 import javafx.scene.layout.Pane
 import javafx.scene.text.TextFlow
 import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
+import org.chorusmc.chorus.minecraft.chat.ChatParser
 
 /**
  * @author Gio
  */
-abstract class ColoredTextPreviewImage(val background: ColoredTextBackground, flows: FlowList, private val reversed: Boolean = false) : Pane(background.pane) {
+abstract class ColoredTextPreviewImage @JvmOverloads constructor(
+        val background: ColoredTextBackground,
+        flowsAmount: Int = 1,
+        flows: FlowList = with(ChatParser("", true)) {
+            val list = FlowList()
+            repeat(flowsAmount) {
+                list += toTextFlow()
+            }
+            list
+        },
+        private val reversed: Boolean = false
+) : Pane(background.pane) {
 
     var flows = flows
         set(value) {

@@ -12,7 +12,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
  */
 class ArmorPreviewImage(color: Color) : ColoredTextPreviewImage(
         ColoredTextBackground(color).andNode(ImageView(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/armor.png"))), 250.0, 144.0),
-        FlowList()
+        flows = FlowList()
 ) {
 
     override fun initFlow(flow: TextFlow, index: Int) {}

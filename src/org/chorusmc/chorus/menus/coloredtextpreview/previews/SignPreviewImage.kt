@@ -13,7 +13,7 @@ import org.chorusmc.chorus.util.withStyleClass
  */
 class SignPreviewImage(text: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/sign-background.png"))),
-        listOf(
+        flows = listOf(
                 ChatParser(text, true).toTextFlow().withStyleClass("minecraft-sign-preview-flow"),
                 TextFlow().withStyleClass("minecraft-sign-preview-flow"),
                 TextFlow().withStyleClass("minecraft-sign-preview-flow"),

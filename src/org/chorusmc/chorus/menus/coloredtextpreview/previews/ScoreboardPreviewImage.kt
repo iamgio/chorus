@@ -1,19 +1,19 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
+import javafx.scene.image.Image
+import javafx.scene.text.TextAlignment
+import javafx.scene.text.TextFlow
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.withStyleClass
-import javafx.scene.image.Image
-import javafx.scene.text.TextAlignment
-import javafx.scene.text.TextFlow
 
 /**
  * @author Gio
  */
 class ScoreboardPreviewImage(title: String, text: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/scoreboard-background.png"))),
-        listOf(
+        flows = listOf(
                 ChatParser(title, true).toTextFlow().withStyleClass("minecraft-scoreboard-title-preview-flow"),
                 *text.split("\n").map {ChatParser(it, true).toTextFlow().withStyleClass("minecraft-scoreboard-preview-flow")}.toTypedArray()
         ).toFlowList()

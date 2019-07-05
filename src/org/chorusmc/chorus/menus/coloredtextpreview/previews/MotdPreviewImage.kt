@@ -12,7 +12,7 @@ import org.chorusmc.chorus.util.withStyleClass
  */
 class MotdPreviewImage(title: String, first: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/motd-background.png"))),
-        listOf(
+        flows = listOf(
                 ChatParser(title, true).toTextFlow(false).withStyleClass("minecraft-motd-preview-flow"),
                 ChatParser(first, true).toTextFlow(false).withStyleClass("minecraft-motd-preview-flow"),
                 TextFlow().withStyleClass("minecraft-motd-preview-flow")

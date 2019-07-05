@@ -12,7 +12,7 @@ import org.chorusmc.chorus.util.withStyleClass
  */
 class GUIPreviewImage(title: String, rows: Int) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-$rows.png"))),
-        listOf(
+        flows = listOf(
                 ChatParser(title, true, 32).toTextFlow(false).withStyleClass("minecraft-gui-preview-flow")
         ).toFlowList()
 ) {

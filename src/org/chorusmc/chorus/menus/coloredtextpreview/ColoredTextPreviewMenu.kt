@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.menus.coloredtextpreview
 
 import eu.iamgio.libfx.timing.WaitingTimer
+import javafx.beans.property.Property
 import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.layout.Priority
@@ -12,6 +13,7 @@ import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.TabBrowsable
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
+import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.InteractFilter
 import org.chorusmc.chorus.util.SkinFix
 import org.chorusmc.chorus.util.area
@@ -58,6 +60,14 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
             it.prefWidth = image.prefWidth
         }
         children += vbox
+    }
+
+    @JvmOverloads fun bind(property: Property<*>, index: Int = 0) {
+        property.addListener { _ -> image.flows[index] = ChatParser(property.value.toString(), true).toTextFlow()}
+    }
+
+    fun listener(property: Property<*>, action: () -> Unit) {
+        property.addListener { _ -> action()}
     }
 
     override fun show() {

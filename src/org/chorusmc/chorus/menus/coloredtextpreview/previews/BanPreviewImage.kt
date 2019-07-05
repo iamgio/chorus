@@ -14,7 +14,7 @@ import org.chorusmc.chorus.util.withStyleClass
  */
 class BanPreviewImage(text: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/ban-background.png"))),
-        listOf(
+        flows = listOf(
                 ChatParser("&7" + translate("preview.ban.title")).toTextFlow().withStyleClass("minecraft-ban-preview-flow"),
                 *text.split("\n").map {ChatParser(it, true).toTextFlow()}.toTypedArray()
         ).toFlowList()
