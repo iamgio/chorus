@@ -66,7 +66,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         property.addListener { _ -> image.flows[index] = ChatParser(property.value.toString(), true).toTextFlow()}
     }
 
-    fun listener(property: Property<*>, action: () -> Unit) {
+    fun listen(property: Property<*>, action: () -> Unit) {
         property.addListener { _ -> action()}
     }
 
