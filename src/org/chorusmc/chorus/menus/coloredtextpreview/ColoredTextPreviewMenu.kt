@@ -62,9 +62,11 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         children += vbox
     }
 
-    @JvmOverloads fun bind(property: Property<*>, index: Int = 0) {
+    fun bind(property: Property<*>, index: Int) {
         property.addListener { _ -> image.flows[index] = ChatParser(property.value.toString(), true).toTextFlow()}
     }
+
+    fun bind(control: TextInputControl, index: Int) = bind(control.textProperty(), index)
 
     fun listen(property: Property<*>, action: () -> Unit) {
         property.addListener { _ -> action()}
