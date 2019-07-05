@@ -1,3 +1,7 @@
+var javafx = javafx.scene;
+
+var fxcontrols = new JavaImporter(javafx.control);
+
 // Cached variable, should not be accessed to
 var thisAddon;
 
@@ -110,7 +114,7 @@ function createConfig(values) {
 function loadConfig(file) {
     var ConfigClass = chorus_type('addon.AddonConfiguration');
     var config = new ConfigClass();
-    config.target = typeof file == 'string' ? new File(file, getFolder()) : file;
+    config.target = toFile(file);
     getThisAddon().config = config;
     config.reload();
 }
@@ -130,7 +134,7 @@ function getConfig() {
  */
 function loadStylesheet(file, target) {
     var Stylesheet = chorus_type('nodes.ExternalStylesheet');
-    new Stylesheet(typeof file == 'string' ? new File(file, getFolder()) : file)
+    new Stylesheet(toFile(file))
         .add(target ? target : chorus.getStage().toStage().getScene());
 }
 
@@ -240,6 +244,15 @@ function createDropMenu(type, buttons) {
 }
 
 /**
+ * Creates a background for previews
+ * @param image path or image file
+ */
+function PreviewBackground(image) {
+    var BackgroundClass = chorus_type('menus.coloredtextpreview.previews.ColoredTextBackground');
+    var img = new javafx.image.Image(new java.io.FileInputStream(toFile(image)))
+}
+
+/**
  * Gets variables
  * @return java.util.List<org.chorusmc.chorus.variable.Variable>
  */
@@ -278,6 +291,15 @@ function getTheme() {
 function setTheme(name, internal) {
     var ThemeClass = chorus_type('theme.Theme');
     chorus.setTheme(new ThemeClass(name, internal));
+}
+
+/**
+ * Returns File instance
+ * @param file relative path to file or file itself
+ * @return java.io.File
+ */
+function toFile(file) {
+    return typeof file == 'string' ? new File(file, getFolder()) : file
 }
 
 // --- TYPE UTILITIES --- //
@@ -324,6 +346,17 @@ function KeyCombination(key, modifiers) {
 }
 
 /**
+ * Instantiates a Chorus' colored-text parser
+ * @param string text to parse
+ * @param useVariables optional boolean which defines to replace variables or not
+ * @constructor
+ */
+function TextParser(string, useVariables) {
+    var ParserClass = chorus_type('org.chorusmc.chorus.minecraft.chat.ChatParser');
+    return new ParserClass(string, useVariables ? useVariables : true);
+}
+
+/**
  * Instantiates a Chorus' variable
  * @param name variable name
  * @param value variable value
@@ -332,4 +365,18 @@ function KeyCombination(key, modifiers) {
 function Variable(name, value) {
     var VariableClass = chorus_type('variable.Variable');
     return new VariableClass(name, value);
+}
+
+// --- JAVAFX --- //
+
+function Button(text) {
+    with (fxcontrols) return new Button(text);
+}
+
+function TextField(text) {
+    with (fxcontrols) return new TextField(text);
+}
+
+function TextArea(text) {
+    with (fxcontrols) return new TextArea(text);
 }

@@ -14,7 +14,7 @@ import org.fxmisc.richtext.CodeArea
 /**
  * @author Gio
  */
-class ChatParser(string: String, private val useVariables: Boolean = false, maxLength: Int = -1) {
+class ChatParser @JvmOverloads constructor(string: String, private val useVariables: Boolean = false, maxLength: Int = -1) {
 
     private var string = string.replace("''", "'")
 
