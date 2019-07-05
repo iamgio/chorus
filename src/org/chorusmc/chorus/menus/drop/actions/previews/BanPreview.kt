@@ -1,9 +1,6 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
-import eu.iamgio.libfx.timing.WaitingTimer
-import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
-import javafx.util.Duration
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.BanPreviewImage
@@ -20,11 +17,6 @@ class BanPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val textArea = TextArea(selectedText)
-        WaitingTimer().start({
-            val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
-            scrollpane.isCache = false
-            scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
-        }, Duration(300.0))
         textArea.promptText = translate("preview.ban.lines_prompt")
         val menu = ColoredTextPreviewMenu(translate("preview.ban"), BanPreviewImage(textArea.text), listOf(textArea))
         textArea.textProperty().addListener {_ ->

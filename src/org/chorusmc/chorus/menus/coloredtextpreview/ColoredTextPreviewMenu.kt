@@ -1,12 +1,11 @@
 package org.chorusmc.chorus.menus.coloredtextpreview
 
+import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.geometry.Pos
-import javafx.scene.control.Button
-import javafx.scene.control.Control
-import javafx.scene.control.Spinner
-import javafx.scene.control.TextInputControl
+import javafx.scene.control.*
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
+import javafx.util.Duration
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.Draggable
 import org.chorusmc.chorus.menus.MenuPlacer
@@ -14,6 +13,7 @@ import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.TabBrowsable
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import org.chorusmc.chorus.util.InteractFilter
+import org.chorusmc.chorus.util.SkinFix
 import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.hideMenuOnInteract
 
@@ -44,6 +44,15 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
             if(it is Button) {
                 it.alignment = Pos.CENTER
                 it.styleClass += "colored-text-preview-button"
+            }
+            if(it is TextArea && SkinFix.JAVA_VERSION <= 1.8) {
+                it.isCache = false
+                WaitingTimer().start({
+                    if(it.childrenUnmodifiable.isEmpty()) return@start
+                    val scrollpane = it.childrenUnmodifiable[0] as ScrollPane
+                    scrollpane.isCache = false
+                    scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
+                }, Duration(500.0))
             }
             textfieldsVbox.children += it
             it.prefWidth = image.prefWidth

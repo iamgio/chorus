@@ -6,7 +6,7 @@ package org.chorusmc.chorus.util;
 public final class SkinFix {
 
     private final static String[] RAW_JAVA_VERSION = System.getProperty("java.version").split("\\.");
-    private final static float JAVA_VERSION = Float.parseFloat(RAW_JAVA_VERSION[0] + "." + RAW_JAVA_VERSION[1]);
+    public final static float JAVA_VERSION = Float.parseFloat(RAW_JAVA_VERSION[0] + "." + RAW_JAVA_VERSION[1]);
 
     private SkinFix() {}
 

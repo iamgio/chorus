@@ -1,10 +1,7 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
-import eu.iamgio.libfx.timing.WaitingTimer
-import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
-import javafx.util.Duration
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewMenu
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ScoreboardPreviewImage
@@ -23,12 +20,6 @@ class ScoreboardPreview : DropMenuAction() {
         val title = TextField(translate("preview.scoreboard.title_default"))
         title.promptText = translate("preview.scoreboard.title_prompt")
         val textArea = TextArea(selectedText)
-        textArea.isCache = false
-        WaitingTimer().start({
-            val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
-            scrollpane.isCache = false
-            scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
-        }, Duration(500.0))
         textArea.prefHeight = 80.0
         textArea.promptText = translate("preview.scoreboard.lines_prompt")
         val menu = ColoredTextPreviewMenu(translate("preview.scoreboard"), ScoreboardPreviewImage(title.text, selectedText), listOf(title, textArea))

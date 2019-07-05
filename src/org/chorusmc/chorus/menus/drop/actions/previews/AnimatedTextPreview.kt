@@ -1,13 +1,11 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
-import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Button
-import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
 import javafx.util.Duration
 import org.chorusmc.chorus.editor.EditorArea
@@ -34,12 +32,6 @@ class AnimatedTextPreview : DropMenuAction() {
         count.promptText = translate("preview.animated_text.count_prompt")
         val textArea = TextArea(if(area.selection.length > 0) area.selectedText else last)
         last = textArea.text
-        textArea.isCache = false
-        WaitingTimer().start({
-            val scrollpane = textArea.childrenUnmodifiable[0] as ScrollPane
-            scrollpane.isCache = false
-            scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
-        }, Duration(500.0))
         textArea.prefHeight = 125.0
         textArea.promptText = translate("preview.animated_text.frames_prompt")
         val menu = ColoredTextPreviewMenu(translate("preview.animated_text"), AnimatedTextPreviewImage(area.selectedText), listOf(delay, count, textArea))
