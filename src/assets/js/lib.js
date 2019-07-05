@@ -279,7 +279,7 @@ function PreviewMenu(title, image, controls, initFlow, flowsAmount) {
     var MenuClass = chorus_type('menus.coloredtextpreview.ColoredTextPreviewMenu');
     var ImageClass = chorus_type('menus.coloredtextpreview.previews.ColoredTextPreviewImage')
     var img = typeof image == 'string' ? new PreviewBackground(image) : image;
-    var menu = new MenuClass(title, new ImageClass(img, flowsAmount ? flowsAmount : 1) {
+    var menu = new MenuClass(title, new ImageClass(img, flowsAmount ? flowsAmount : controls.length) {
         initFlow: function (flow, index) {
             flow.minWidth = img.width
             initFlow(flow, index);
