@@ -1,6 +1,5 @@
 package org.chorusmc.chorus.menus.custom
 
-import javafx.beans.property.Property
 import javafx.scene.control.TextInputControl
 import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
@@ -28,10 +27,6 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
             Draggable(titlebar, this).initDrag()
             titlebar.close.setOnAction {hide()}
         }
-    }
-
-    fun listen(property: Property<*>, action: () -> Unit) {
-        property.addListener { _ -> action()}
     }
 
     override fun show() {

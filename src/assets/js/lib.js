@@ -143,6 +143,15 @@ function loadStylesheet(file, target) {
 }
 
 /**
+ * Creates a listener for a property
+ * @param property target property
+ * @param action action to be run when the value changes
+ */
+function listen(property, action) {
+    chorus_type('util.Utils').listen(property, action);
+}
+
+/**
  * Current editor area
  * @return org.chorusmc.chorus.editor.EditorArea
  */

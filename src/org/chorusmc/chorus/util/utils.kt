@@ -2,6 +2,7 @@
 
 package org.chorusmc.chorus.util
 
+import javafx.beans.property.Property
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
@@ -102,3 +103,8 @@ fun getText(input: InputStream): String =
         } catch(e: MalformedInputException) {
             IOUtils.toString(input, StandardCharsets.ISO_8859_1)
         }
+
+// For JS API
+fun listen(property: Property<*>, action: () -> Unit) {
+    property.addListener { _ -> action()}
+}
