@@ -257,6 +257,16 @@ function createDropMenu(type, buttons) {
 }
 
 /**
+ * Instantiates a new custom menu
+ * @param title menu title
+ * @param isDraggable whenever the menu is draggable or not
+ */
+function Menu(title, isDraggable) {
+    var Menu = chorus_type('menus.custom.CustomMenu');
+    return new Menu(title, isDraggable ? isDraggable : false);
+}
+
+/**
  * Utility function: returns canonical selected text of active area
  * @return java.lang.String
  */
@@ -435,4 +445,13 @@ function TextArea(text) {
     return text ? new fxcontrols.TextArea(text) : new fxcontrols.TextArea();
 }
 
+function VBox(spacing) {
+    return spacing ? new fx.layout.VBox(spacing) : new fx.layout.VBox();
+}
+
+function HBox(spacing) {
+    return spacing ? new fx.layout.HBox(spacing) : new fx.layout.HBox();
+}
+
+var Alignment = fx.geometry.Alignment;
 var TextAlignment = fx.text.TextAlignment;

@@ -67,4 +67,9 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
         Chorus.getInstance().root.children -= this
         area!!.requestFocus()
     }
+
+    override fun getMenuWidth() = prefWidth
+    override fun getMenuHeight() = prefHeight + 130
+    override fun getMenuX() = layoutX
+    override fun getMenuY() = layoutY
 }
