@@ -7,22 +7,16 @@ import javafx.scene.control.*
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import javafx.util.Duration
-import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.menus.Draggable
-import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.menus.TabBrowsable
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
+import org.chorusmc.chorus.menus.custom.CustomMenu
 import org.chorusmc.chorus.minecraft.chat.ChatParser
-import org.chorusmc.chorus.util.InteractFilter
 import org.chorusmc.chorus.util.SkinFix
-import org.chorusmc.chorus.util.area
-import org.chorusmc.chorus.util.hideMenuOnInteract
 
 /**
  * @author Gio
  */
-class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, private val inputs: List<Control>) : VBox(ColoredTextPreviewTitleBar(title, true), image), Showable {
+class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, inputs: List<Control>) : CustomMenu(title), Showable {
 
     private val textfieldsVbox = VBox(.7)
     val vbox = VBox(1.2, textfieldsVbox)
@@ -32,14 +26,12 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
     init {
         styleClass += "colored-text-preview-menu"
         maxWidth = image.prefWidth
-        val titlebar = children[0] as ColoredTextPreviewTitleBar
-        titlebar.prefWidth = image.prefWidth
-        Draggable(titlebar, this).initDrag()
-        titlebar.close.setOnAction {hide()}
+        prefWidth = image.prefWidth
+        children += image
         VBox.setVgrow(image, Priority.NEVER)
         image.prefWidthProperty().addListener {_ ->
             maxWidth = image.prefWidth
-            titlebar.prefWidth = image.prefWidth
+            prefWidth = image.prefWidth
         }
         inputs.forEach {
             (if(it is Spinner<*>) it.editor else it).styleClass += "colored-text-preview-textfield"
@@ -67,32 +59,6 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
     }
 
     fun bind(control: TextInputControl, index: Int) = bind(control.textProperty(), index)
-
-    fun listen(property: Property<*>, action: () -> Unit) {
-        property.addListener { _ -> action()}
-    }
-
-    override fun show() {
-        hide()
-        val placer = MenuPlacer(this)
-        layoutX = placer.x
-        layoutY = placer.y
-        val root = Chorus.getInstance().root
-        if(!root.children.contains(this)) {
-            root.children.add(this)
-        }
-        hideMenuOnInteract(this, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
-        with(inputs.filterIsInstance<TextInputControl>()[toFocus]) {
-            requestFocus()
-            positionCaret(text.length)
-        }
-        TabBrowsable.initBrowsing(inputs)
-    }
-
-    override fun hide() {
-        Chorus.getInstance().root.children -= this
-        area!!.requestFocus()
-    }
 
     override fun getMenuWidth() = image.background.width
 
