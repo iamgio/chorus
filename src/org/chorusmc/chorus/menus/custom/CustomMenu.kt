@@ -52,8 +52,8 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
                 requestFocus()
                 positionCaret(text.length)
             }
-        }
-        TabBrowsable.initBrowsing(inputs)
+            TabBrowsable.initBrowsing(inputs)
+        } else requestFocus()
     }
 
     private fun searchInputs(pane: Pane = this, inputs: List<TextInputControl> = emptyList()): List<TextInputControl> {
