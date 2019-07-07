@@ -36,7 +36,7 @@ abstract class ColoredTextPreviewImage @JvmOverloads constructor(
         @Suppress("LEAKINGTHIS")
         flows.image = this
         prefWidth = background.width
-        prefHeight = background.height
+        minHeight = background.height
         background.onWidthChange = Runnable {
             prefWidth = background.width
         }
