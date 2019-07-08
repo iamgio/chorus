@@ -20,6 +20,7 @@ import org.chorusmc.chorus.util.hideMenuOnInteract
 open class CustomMenu @JvmOverloads constructor(title: String, private val draggable: Boolean = true) : VBox(), Showable {
 
     init {
+        styleClass += "custom-menu"
         val titlebar = ColoredTextPreviewTitleBar(title, draggable)
         titlebar.prefWidthProperty().bind(prefWidthProperty())
         children += titlebar

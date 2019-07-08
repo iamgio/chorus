@@ -284,11 +284,12 @@
     -fx-background-color: derive(-fx-primary, -30%);
 }
 
-.colored-text-preview-menu {
+.custom-menu {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .7), 30, 0, 0, 10);
+    -fx-background-color: -fx-secondary;
 }
 
-.colored-text-preview-title-bar, .colored-text-preview-button, .colored-text-preview-textfield, .colored-text-preview-textfield .content {
+.colored-text-preview-title-bar, .custom-menu .button, .custom-menu .text-field, .custom-menu .text-area, .custom-menu .text-area .content, .test-file-area, .custom-menu .text-field, .custom-menu .text-area, .custom-menu .text-area .content, .test-file-area .content {
     -fx-background-color: derive(-fx-secondary, -20%);
     -fx-highlight-fill: rgba(0, 0, 0, .15);
     -fx-text-fill: white;
@@ -303,7 +304,7 @@
     -fx-text-fill: white;
 }
 
-.connect-button:hover, .colored-text-preview-button:hover {
+.connect-button:hover, .custom-menu .button:hover {
     -fx-background-color: derive(-fx-primary, -15%);
 }
 

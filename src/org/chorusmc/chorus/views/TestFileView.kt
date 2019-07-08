@@ -23,7 +23,7 @@ class TestFileView {
 
     fun show() {
         val stage = Stage()
-        area.styleClass += "colored-text-preview-textfield"
+        area.styleClass += "test-file-area"
         area.style = "-fx-font-family: monospace"
         area.isEditable = false
         val scene = Scene(area, 550.0, 400.0)

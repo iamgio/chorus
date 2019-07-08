@@ -34,10 +34,8 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
             prefWidth = image.prefWidth
         }
         inputs.forEach {
-            (if(it is Spinner<*>) it.editor else it).styleClass += "colored-text-preview-textfield"
             if(it is Button) {
                 it.alignment = Pos.CENTER
-                it.styleClass += "colored-text-preview-button"
             }
             if(it is TextArea && SkinFix.JAVA_VERSION <= 1.8) {
                 it.isCache = false
