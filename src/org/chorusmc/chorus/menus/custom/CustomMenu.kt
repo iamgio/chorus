@@ -21,6 +21,7 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
 
     init {
         styleClass += "custom-menu"
+        style = "-fx-background-radius: 6.5 6.5 0 0"
         val titlebar = ColoredTextPreviewTitleBar(title, draggable)
         titlebar.prefWidthProperty().bind(prefWidthProperty())
         children += titlebar
