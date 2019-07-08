@@ -453,5 +453,5 @@ function HBox(spacing) {
     return spacing ? new fx.layout.HBox(spacing) : new fx.layout.HBox();
 }
 
-var Alignment = fx.geometry.Alignment;
+var Alignment = javafx.geometry.Pos;
 var TextAlignment = fx.text.TextAlignment;
