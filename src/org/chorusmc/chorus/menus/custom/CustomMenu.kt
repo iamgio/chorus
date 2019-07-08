@@ -19,6 +19,8 @@ import org.chorusmc.chorus.util.hideMenuOnInteract
  */
 open class CustomMenu @JvmOverloads constructor(title: String, private val draggable: Boolean = true) : VBox(), Showable {
 
+    lateinit var onClose: () -> Unit
+
     init {
         styleClass += "custom-menu"
         style = "-fx-background-radius: 6.5 6.5 0 0"
@@ -32,14 +34,12 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
     }
 
     override fun show() {
-        hide()
         val placer = MenuPlacer(this)
         layoutX = placer.x
         layoutY = placer.y
         val root = Chorus.getInstance().root
-        if(!root.children.contains(this)) {
-            root.children += this
-        }
+        if(root.children.contains(this)) hide()
+        root.children += this
         var filters = arrayOf(InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
         if(!draggable) filters += InteractFilter.AREA
         hideMenuOnInteract(this, *filters)
@@ -67,6 +67,7 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
 
     override fun hide() {
         Chorus.getInstance().root.children -= this
+        if(this::onClose.isInitialized) onClose()
         area!!.requestFocus()
     }
 
