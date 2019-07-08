@@ -68,7 +68,7 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
     override fun hide() {
         Chorus.getInstance().root.children -= this
         if(this::onClose.isInitialized) onClose()
-        area!!.requestFocus()
+        area?.requestFocus()
     }
 
     override fun getMenuWidth() = prefWidth
