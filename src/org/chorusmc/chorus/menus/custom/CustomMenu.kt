@@ -42,7 +42,6 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
         val root = Chorus.getInstance().root
         if(root.children.contains(this)) hide()
         root.children += this
-        println(filters.size)
         if(!draggable) filters += InteractFilter.AREA
         hideMenuOnInteract(this, *filters)
         val inputs = searchInputs(this)
