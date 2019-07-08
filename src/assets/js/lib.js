@@ -416,7 +416,7 @@ function KeyCombination(key, modifiers) {
  * @constructor
  */
 function TextParser(string, useVariables) {
-    var ParserClass = chorus_type('org.chorusmc.chorus.minecraft.chat.ChatParser');
+    var ParserClass = chorus_type('minecraft.chat.ChatParser');
     return new ParserClass(string, useVariables ? useVariables : true);
 }
 
@@ -430,6 +430,8 @@ function Variable(name, value) {
     var VariableClass = chorus_type('variable.Variable');
     return new VariableClass(name, value);
 }
+
+var InteractFilter = chorus_type('util.Utils').InteractFilter;
 
 // --- JAVAFX --- //
 

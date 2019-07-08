@@ -21,6 +21,8 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
 
     lateinit var onClose: () -> Unit
 
+    var filters = arrayOf(InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
+
     init {
         styleClass += "custom-menu"
         style = "-fx-background-radius: 6.5 6.5 0 0"
@@ -40,7 +42,7 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
         val root = Chorus.getInstance().root
         if(root.children.contains(this)) hide()
         root.children += this
-        var filters = arrayOf(InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
+        println(filters.size)
         if(!draggable) filters += InteractFilter.AREA
         hideMenuOnInteract(this, *filters)
         val inputs = searchInputs(this)

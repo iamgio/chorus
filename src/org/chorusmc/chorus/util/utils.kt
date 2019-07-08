@@ -57,35 +57,35 @@ fun closeTabs() {
 }
 
 @JvmOverloads
-fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = emptyArray(), target: Node? = area) {
+fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = InteractFilter.values(), target: Node? = area) {
     val editorController = EditorController.getInstance()
-    if(filters.contains(InteractFilter.AREA) || filters.isEmpty()) {
+    if(filters.contains(InteractFilter.AREA)) {
         area!!.addEventHandler(MouseEvent.MOUSE_PRESSED) {
             showable.hide()
         }
     }
-    if(filters.contains(InteractFilter.TABPANE) || filters.isEmpty()) {
+    if(filters.contains(InteractFilter.TABPANE)) {
         editorController.tabPane.addEventHandler(MouseEvent.MOUSE_PRESSED) {
             showable.hide()
         }
     }
-    if(filters.contains(InteractFilter.MENUS) || filters.isEmpty()) {
+    if(filters.contains(InteractFilter.MENUS)) {
         editorController.menuBar.menus.forEach {
             it.setOnAction {
                 showable.hide()
             }
         }
     }
-    if(filters.contains(InteractFilter.ESC) || filters.contains(InteractFilter.TAB) || filters.isEmpty()) {
+    if(filters.contains(InteractFilter.ESC) || filters.contains(InteractFilter.TAB)) {
         Chorus.getInstance().root.scene.addEventFilter(KeyEvent.KEY_PRESSED) {
-            if(((filters.contains(InteractFilter.ESC) || filters.isEmpty()) && it.code == KeyCode.ESCAPE) ||
-                    ((filters.contains(InteractFilter.TAB) || filters.isEmpty()) && it.code == KeyCode.TAB)) {
+            if(((filters.contains(InteractFilter.ESC)) && it.code == KeyCode.ESCAPE) ||
+                    ((filters.contains(InteractFilter.TAB)) && it.code == KeyCode.TAB)) {
                 showable.hide()
                 target?.requestFocus()
             }
         }
     }
-    if(filters.contains(InteractFilter.TABOPEN) || filters.isEmpty()) {
+    if(filters.contains(InteractFilter.TABOPEN)) {
         EditorTab.showables.add(showable)
     }
 }
