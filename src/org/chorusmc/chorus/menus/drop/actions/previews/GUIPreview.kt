@@ -36,16 +36,18 @@ class GUIPreview : DropMenuAction() {
     }
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
+        val useFormatData = Format.format != null && area.selection.length > 0
         val selectedText = selectedText
         val textfield = TextField(
                 when {
+                    useFormatData -> Format.format!!.name
                     selectedText.startsWith(colorPrefix) -> selectedText
                     selectedText.isNotEmpty() -> colorPrefix + "8" + selectedText
                     else -> colorPrefix + "8" + translate("preview.gui.title_default")
                 }
         )
         textfield.promptText = translate("preview.gui.title_prompt")
-        val rows = Spinner<Int>(1, 6, if(grid == null) 1 else grid!!.rows)
+        val rows = Spinner<Int>(1, 6, if(useFormatData) Format.format!!.rows else if(grid == null) 1 else grid!!.rows)
         val image = GUIPreviewImage(textfield.text, rows.value)
         val button = Button(translate("preview.gui.clear"))
         button.setOnAction {
@@ -67,6 +69,11 @@ class GUIPreview : DropMenuAction() {
         rows.valueProperty().addListener {_ ->
             updateMembers(grid!!, rows.value, image)
             menu.image.background.image = Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-${rows.value}.png"))
+        }
+        if(useFormatData) {
+            Format.format!!.items.forEach {
+                grid!!.members[it.position.slot].setItem(it.item, it.meta)
+            }
         }
         menu.layoutX = x
         menu.layoutY = y
@@ -115,7 +122,7 @@ private class Grid(private val titleField: TextField) {
     }
 }
 
-private class GridMember(private val n: Int, private val x: Int, private val y: Int, titleField: TextField) : Region() {
+private class GridMember(private val n: Int, private val x: Int, private val y: Int, private val titleField: TextField) : Region() {
 
     private val centerX: Double
         get() = layoutX + prefWidth / 2
@@ -154,15 +161,9 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
                     menu.layoutX = layoutX + 40
                     menu.layoutY = layoutY
                     menu.setOnSelect {
-                        removeImage()
                         item = McClass("Item").valueOf(menu.selected.toUpperCase().replace(" ", "_")) as Item
                         meta = if(menu.meta > 0) menu.meta else 0
-                        val icons = item!!.icons
-                        children += ImageView(if(icons.size > meta) icons[meta] else (McClass("Item").valueOf("BEDROCK") as Item).icons[0])
-                        WaitingTimer().start({Platform.runLater {
-                            titleField.requestFocus()
-                            titleField.positionCaret(titleField.length)
-                        }}, Duration(2.0))
+                        setItem(item!!, meta)
                     }
                     menu.show()
                     showingMenu = menu
@@ -193,6 +194,17 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
         }
     }
 
+    fun setItem(item: Item, meta: Int) {
+        removeImage()
+        val icons = item.icons
+        children += ImageView(if(icons.size > meta) icons[meta] else (McClass("Item").valueOf("BEDROCK") as Item).icons[0])
+        WaitingTimer().start({
+            Platform.runLater {
+                titleField.requestFocus()
+                titleField.positionCaret(titleField.length)
+            }}, Duration(2.0))
+    }
+
     private fun updatePopupText(popup: LocalTextPopup) {
         popup.text = "${translate("preview.gui.slot")}: $n, X: $x, Y: $y${if(item != null) ", ${translate("preview.gui.item")}: ${item!!.name}:$meta" else ""}"
     }
@@ -215,4 +227,8 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
 
 private object Clipboard {
     var copied: GridMember? = null
+}
+
+object Format {
+    var format: GUIFormat? = null
 }
