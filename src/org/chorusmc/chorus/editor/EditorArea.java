@@ -73,6 +73,9 @@ public class EditorArea extends CodeArea {
             if(new KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN).match(e)) {
                 MainDropMenu.quickOpen();
             } else if(e.getCode() == KeyCode.DOWN && AutocompletionMenu.getActual() != null) {
+                AutocompletionMenu autocompletionMenu = AutocompletionMenu.getActual();
+                autocompletionMenu.requestFocus();
+                autocompletionMenu.getVbox().setBVHover(0, true);
                 e.consume();
             }
         });

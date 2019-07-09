@@ -18,10 +18,12 @@ import org.chorusmc.chorus.util.translate
  */
 class AutocompletionMenu(options: HashMap<String, String>, word: String, size: Int, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
 
-    private val vbox = BrowsableVBox(autoFocus = false)
+    val vbox = BrowsableVBox(autoFocus = false)
 
     init {
         styleClass += "drop-menu"
+        isFocusTraversable = true
+        focusedProperty().addListener {_, _, new -> if(new) vbox.requestFocus()}
         val area = area!!
         var list = emptyList<String>()
         options.forEach {option ->
