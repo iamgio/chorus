@@ -18,7 +18,7 @@ const val HOVER_STYLE_CLASS = "bvhover"
 /**
  * @author Gio
  */
-open class BrowsableVBox(textField: TextField? = null) : VBox() {
+open class BrowsableVBox @JvmOverloads constructor(textField: TextField? = null, autoFocus: Boolean = true) : VBox() {
 
     var scrollPane: ScrollPane? = null
 
@@ -66,7 +66,7 @@ open class BrowsableVBox(textField: TextField? = null) : VBox() {
             }
         }
 
-        Platform.runLater {requestFocus()}
+        if(autoFocus) Platform.runLater {requestFocus()}
     }
 
     private fun browse(event: KeyEvent) {
