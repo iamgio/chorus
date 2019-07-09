@@ -206,6 +206,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
     }
 
     fun setItem(item: Item, meta: Int) {
+        this.item = item
         removeImage()
         val icons = item.icons
         children += ImageView(if(icons.size > meta) icons[meta] else (McClass("Item").valueOf("BEDROCK") as Item).icons[0])
