@@ -68,7 +68,7 @@ class GUIPreview : DropMenuAction() {
             textfield.requestFocus()
             textfield.positionCaret(textfield.length)
         }
-        if(grid == null) {
+        if(grid == null || useFormatData) {
             grid = Grid(textfield)
         }
         updateMembers(grid!!, rows.value, image)
