@@ -154,7 +154,6 @@ function loadStylesheet(file, target) {
  * Loads a map from YAML string
  * @param yaml YAML as string
  * @return java.util.Map<String, Object>
- * @constructor
  */
 function Yaml(yaml) {
     return type('org.yaml.snakeyaml').load(yaml);
@@ -355,6 +354,43 @@ function getVariable(name) {
         })
         .findAny()
         .orElse(null);
+}
+
+/**
+ * Creates a GUI-format
+ * @param getProperties function that returns a list of: getName(), getRows() and getItems()
+ */
+function GUIFormat(getProperties) {
+    var FormatClass = chorus_type('menus.drop.actions.previews.GUIFormat');
+    var properties = getProperties();
+    var FormatExtender = Java.extend(FormatClass, {
+        getName: properties[0],
+        getRows: properties[1],
+        getItems: properties[2]
+    })
+    return new FormatExtender();
+}
+
+/**
+ * Creates a GUI-format position instance
+ * @param x either slot number (y must be undefined) or x-slot
+ * @param y optional y-slot
+ * @return menus.drop.actions.previews.GUIFormatPosition
+ */
+function GUIFormatPosition(x, y) {
+    var PositionClass = chorus_type('menus.drop.actions.previews.GUIFormatPosition');
+    return y ? new PositionClass(x, y) : new PositionClass(x);
+}
+
+/**
+ * Creates a GUI-format item instance
+ * @param position item position
+ * @param item item string name
+ * @param meta optional item meta (< 1.12)
+ */
+function GUIFormatItem(position, item, meta) {
+    var ItemClass = chorus_type('menus.drop.actions.previews.GUIFormatItem');
+    return new ItemClass(position, item, meta ? meta : 0);
 }
 
 /**

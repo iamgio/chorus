@@ -11,6 +11,10 @@ abstract class GUIFormat {
     abstract val name: String
     abstract val rows: Int
     abstract val items: List<GUIFormatItem>
+
+    fun setActive() {
+        Format.format = this
+    }
 }
 
 class GUIFormatPosition(val slot: Int) {
@@ -23,6 +27,6 @@ class GUIFormatPosition(val slot: Int) {
 
 data class GUIFormatItem(val position: GUIFormatPosition, val item: Item, val meta: Int = 0) {
 
-    constructor(position: GUIFormatPosition, item: String, meta: Int = 0) :
+    constructor(position: GUIFormatPosition, item: String, meta: Int) :
             this(position, McClass("Item").valueOf(item.toUpperCase().replace(" ", "_")) as Item, meta)
 }

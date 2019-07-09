@@ -37,7 +37,7 @@ class GUIPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val useFormatData = Format.format != null && area.selection.length > 0
-        val selectedText = selectedText
+        val selectedText = if(useFormatData) area.selectedText else selectedText
         val textfield = TextField(
                 when {
                     useFormatData -> Format.format!!.name
