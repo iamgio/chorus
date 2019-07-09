@@ -103,7 +103,7 @@ open class BrowsableVBox @JvmOverloads constructor(textField: TextField? = null,
         last = this
     }
 
-     fun setBVHover(i: Int, state: Boolean = true) {
+    fun setBVHover(i: Int, state: Boolean = true) {
         if(i >= 0) {
             children[i].setBVHover(state)
         }
