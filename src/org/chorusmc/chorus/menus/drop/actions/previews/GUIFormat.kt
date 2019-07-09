@@ -8,9 +8,9 @@ import org.chorusmc.chorus.minecraft.item.Item
  */
 abstract class GUIFormat {
 
-    abstract val name: String
-    abstract val rows: Int
-    abstract val items: List<GUIFormatItem>
+    abstract fun getName(map: Map<String, Any>): String
+    abstract fun getRows(map: Map<String, Any>): Int
+    abstract fun getItems(map: Map<String, Any>): List<GUIFormatItem>
 
     fun setActive() {
         Format.format = this

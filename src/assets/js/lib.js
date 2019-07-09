@@ -156,7 +156,7 @@ function loadStylesheet(file, target) {
  * @return java.util.Map<String, Object>
  */
 function Yaml(yaml) {
-    return type('org.yaml.snakeyaml').load(yaml);
+    return type('org.yaml.snakeyaml.Yaml').load(yaml);
 }
 
 /**
@@ -360,13 +360,12 @@ function getVariable(name) {
  * Creates a GUI-format
  * @param getProperties function that returns a list of: getName(), getRows() and getItems()
  */
-function GUIFormat(getProperties) {
+function GUIFormat(getName, getRows, getItems) {
     var FormatClass = chorus_type('menus.drop.actions.previews.GUIFormat');
-    var properties = getProperties();
     var FormatExtender = Java.extend(FormatClass, {
-        getName: properties[0],
-        getRows: properties[1],
-        getItems: properties[2]
+        getName: getName,
+        getRows: getRows,
+        getItems: getItems
     })
     return new FormatExtender();
 }

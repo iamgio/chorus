@@ -25,6 +25,7 @@ import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.translate
+import org.yaml.snakeyaml.Yaml
 
 /**
  * @author Gio
@@ -38,16 +39,26 @@ class GUIPreview : DropMenuAction() {
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val useFormatData = Format.format != null && area.selection.length > 0
         val selectedText = if(useFormatData) area.selectedText else selectedText
+        val map = if(useFormatData) {
+            try {
+                Yaml().load<Map<String, Any>>(selectedText)
+            } catch(e: Exception) {
+                null
+            }
+        } else null
         val textfield = TextField(
                 when {
-                    useFormatData -> Format.format!!.name
+                    useFormatData && map != null -> with(Format.format!!.getName(map)) {
+                        if(startsWith(colorPrefix)) this else colorPrefix + "8" + this
+                    }
                     selectedText.startsWith(colorPrefix) -> selectedText
                     selectedText.isNotEmpty() -> colorPrefix + "8" + selectedText
                     else -> colorPrefix + "8" + translate("preview.gui.title_default")
                 }
         )
         textfield.promptText = translate("preview.gui.title_prompt")
-        val rows = Spinner<Int>(1, 6, if(useFormatData) Format.format!!.rows else if(grid == null) 1 else grid!!.rows)
+        val rows = Spinner<Int>(1, 6,
+                if(useFormatData && map != null) Format.format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
         val image = GUIPreviewImage(textfield.text, rows.value)
         val button = Button(translate("preview.gui.clear"))
         button.setOnAction {
@@ -70,8 +81,8 @@ class GUIPreview : DropMenuAction() {
             updateMembers(grid!!, rows.value, image)
             menu.image.background.image = Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-${rows.value}.png"))
         }
-        if(useFormatData) {
-            Format.format!!.items.forEach {
+        if(useFormatData && map != null) {
+            Format.format!!.getItems(map).forEach {
                 grid!!.members[it.position.slot].setItem(it.item, it.meta)
             }
         }
