@@ -15,7 +15,7 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
 
     private lateinit var config: Yaml
 
-    private lateinit var map: HashMap<Any, Any>
+    private lateinit var map: HashMap<String, Any>
 
     override fun createIfAbsent(folder: File?) {
         target = File(folder, name)
