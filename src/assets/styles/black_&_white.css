@@ -2,6 +2,7 @@
     -fx-primary: white;
     -fx-secondary: #1a1a1a;
     -fx-tertiary: derive(-fx-secondary, 30%);
+    -fx-text-color: black;
 }
 
 .pane {
