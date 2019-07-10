@@ -1,5 +1,12 @@
 @import "solarized-constants.css";
 
+* {
+    -fx-primary: -fx-base02;
+    -fx-secondary: -fx-base03;
+    -fx-tertiary: derive(-fx-base03, 10%);
+    -fx-text-color: -fx-base3;
+}
+
 .pane {
     -fx-background-color: -fx-base02;
 }

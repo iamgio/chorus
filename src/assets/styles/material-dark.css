@@ -2,6 +2,7 @@
     -fx-primary: #222c35;
     -fx-secondary: #263138;
     -fx-tertiary: derive(-fx-secondary, 27%);
+    -fx-text-color: white;
     -fx-area-highlight-color: #002a36;
 }
 

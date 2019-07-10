@@ -1,7 +1,8 @@
 * {
     -fx-primary: #c6802c;
     -fx-secondary: #592f17;
-    -fx-tertiary: derive(-fx-secondary, 27%)
+    -fx-tertiary: derive(-fx-secondary, 27%);
+    -fx-text-color: white;
 }
 
 .pane {
