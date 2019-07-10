@@ -24,11 +24,7 @@ object Addons {
 
     fun invoke(func: String, vararg args: Any) {
         addons.forEach {
-            try {
-                scriptEngine?.invoke(it, func, args)
-            } catch(e: ScriptException) {
-                System.err.println(e.message!!)
-            } catch(ignored: NoSuchMethodException) {}
+            scriptEngine?.invoke(it, func, args)
         }
     }
 
@@ -37,5 +33,9 @@ object Addons {
 
 fun ScriptEngine.invoke(addon: Addon, func: String, vararg args: Any) {
     context = addon.context
-    (this as? Invocable)?.invokeFunction(func, *args)
+    try {
+        (this as? Invocable)?.invokeFunction(func, *args)
+    } catch(e: ScriptException) {
+        System.err.println(e.message!!)
+    } catch(ignored: NoSuchMethodException) {}
 }
