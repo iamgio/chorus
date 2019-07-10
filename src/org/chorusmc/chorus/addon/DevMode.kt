@@ -9,7 +9,7 @@ class DevMode {
         val input = readLine() ?: return
         if(input.startsWith("reload ")) {
             val name = input.removePrefix("reload ")
-            val addon = Addons.addons.firstOrNull()
+            val addon = Addons.addons.firstOrNull {it.name.equals(name, true)}
             if(addon == null) {
                 println("No add-on $name")
                 listen()
