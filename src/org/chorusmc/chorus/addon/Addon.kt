@@ -4,7 +4,6 @@ import jdk.nashorn.api.scripting.ScriptUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
-import javax.script.Invocable
 import javax.script.ScriptContext
 import javax.script.ScriptException
 import javax.script.SimpleScriptContext
@@ -70,7 +69,7 @@ data class Addon(val file: File) {
             with(this["credits"]) {
                 println("Loaded add-on '$name'${if(this != null) " by $this" else ""}")
             }
-            (this as? Invocable)?.invokeFunction("onLoad")
+            invoke(this@Addon, "onLoad")
         }
     }
 }

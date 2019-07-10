@@ -15,6 +15,7 @@ class DevMode {
                 listen()
                 return
             }
+            Addons.scriptEngine?.invoke(addon, "onDisable")
             addon.eval()
         }
     }
