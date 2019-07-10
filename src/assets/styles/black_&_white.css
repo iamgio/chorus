@@ -290,7 +290,7 @@
     -fx-text-fill: white;
 }
 
-.custom-menu .label {
+.custom-menu .menu-label, .custom-menu > .label {
     -fx-text-fill: -fx-secondary;
 }
 

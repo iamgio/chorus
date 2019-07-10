@@ -282,7 +282,7 @@
     -fx-text-fill: -fx-base3;
 }
 
-.custom-menu .label {
+.custom-menu .menu-label, .custom-menu > .label {
     -fx-text-fill: -fx-base3;
 }
 
