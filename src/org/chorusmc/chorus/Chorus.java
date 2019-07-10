@@ -164,6 +164,7 @@ public class Chorus extends FXApplication {
         }
 
         Addons.INSTANCE.invoke("onInit");
+        Addons.INSTANCE.invoke("loadStylesheets");
     }
 
     public static void main(String... args) {
@@ -202,6 +203,7 @@ public class Chorus extends FXApplication {
             ((org.chorusmc.chorus.nodes.Tab) tab).getArea().getStylesheets()
                     .set(2, theme.getPath()[1]);
         }
+        Addons.INSTANCE.invoke("loadStylesheets");
     }
 
     private void loadFont(String name) {
