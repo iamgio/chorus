@@ -488,6 +488,10 @@ var InteractFilter = chorus_type('util.Utils').InteractFilter;
 
 // --- JAVAFX --- //
 
+function Label(text) {
+    return text ? new fxcontrols.Label(text) : new fxcontrols.Label();
+}
+
 function Button(text) {
     return text ? new fxcontrols.Button(text) : new fxcontrols.Button();
 }
