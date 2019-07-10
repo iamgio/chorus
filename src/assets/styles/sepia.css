@@ -293,6 +293,10 @@
     -fx-text-fill: white;
 }
 
+.custom-menu .label {
+    -fx-text-fill: white;
+}
+
 .sftp-address-box {
     -fx-background-color: -fx-secondary;
 }

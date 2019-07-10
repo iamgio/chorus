@@ -290,6 +290,10 @@
     -fx-text-fill: white;
 }
 
+.custom-menu .label {
+    -fx-text-fill: -fx-secondary;
+}
+
 .sftp-pane {
     -fx-background-color: derive(-fx-secondary, 20%);
 }

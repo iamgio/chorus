@@ -290,6 +290,10 @@
     -fx-text-fill: white;
 }
 
+.custom-menu .label {
+    -fx-text-fill: white;
+}
+
 .connect-button:hover, .custom-menu .button:hover {
     -fx-background-color: #323840;
 }

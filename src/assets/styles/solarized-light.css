@@ -275,6 +275,10 @@
     -fx-text-fill: -fx-base3;
 }
 
+.custom-menu .label {
+    -fx-text-fill: -fx-base3;
+}
+
 .custom-menu .button:hover {
     -fx-background-color: derive(-fx-base00, -2%);
 }
