@@ -2,6 +2,9 @@ package org.chorusmc.chorus.addon
 
 import jdk.nashorn.api.scripting.ScriptUtils
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStreamReader
+import javax.script.ScriptException
 
 /**
  * @author Gio
@@ -45,5 +48,17 @@ data class Addon(val file: File) {
     fun disable() {
         Addons.invoke("onDisable")
         Addons.addons -= this
+    }
+
+    fun eval() {
+        Addons.scriptEngine!!.put("name", name)
+        try {
+            Addons.scriptEngine!!.eval(InputStreamReader(FileInputStream(file)))
+        } catch(e: ScriptException) {
+            System.err.println(e.message!!)
+        }
+        with(Addons.scriptEngine!!["credits"]) {
+            println("Loaded add-on '$name'${if(this != null) " by $this" else ""}")
+        }
     }
 }

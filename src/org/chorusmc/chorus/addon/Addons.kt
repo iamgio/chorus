@@ -1,8 +1,6 @@
 package org.chorusmc.chorus.addon
 
 import org.chorusmc.chorus.Chorus
-import java.io.FileInputStream
-import java.io.InputStreamReader
 import javax.script.Invocable
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
@@ -21,15 +19,7 @@ object Addons {
             put("chorus_js_api", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/lib.js")
         }
         addons.forEach {
-            scriptEngine!!.put("name", it.name)
-            try {
-                scriptEngine!!.eval(InputStreamReader(FileInputStream(it.file)))
-            } catch(e: ScriptException) {
-                System.err.println(e.message!!)
-            }
-            with(scriptEngine!!["credits"]) {
-                println("Loaded add-on '${it.name}'${if(this != null) " by $this" else ""}")
-            }
+            it.eval()
         }
         invoke("onLoad")
     }

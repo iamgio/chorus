@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.chorusmc.chorus.addon.Addon;
 import org.chorusmc.chorus.addon.Addons;
+import org.chorusmc.chorus.addon.DevMode;
 import org.chorusmc.chorus.configuration.ChorusConfig;
 import org.chorusmc.chorus.configuration.ChorusFolder;
 import org.chorusmc.chorus.editor.EditorController;
@@ -54,6 +55,7 @@ public class Chorus extends FXApplication {
     private ResourceBundle resourceBundle;
 
     private static String[] args;
+    private static boolean dev;
 
     private static Chorus instance;
 
@@ -164,12 +166,22 @@ public class Chorus extends FXApplication {
         }
 
         Addons.INSTANCE.invoke("onInit");
+
+        if(dev) {
+            System.out.println("Entered development mode");
+            new Thread(() -> new DevMode().listen()).start();
+        }
     }
 
     public static void main(String... args) {
         Chorus.args = args;
         if(args.length > 0) {
-            passedFile = new File(args[0]);
+            if(args[0].equals("-dev=true")) {
+                dev = true;
+                if(args.length > 1) passedFile = new File(args[1]);
+            } else {
+                passedFile = new File(args[0]);
+            }
         }
         launch(args);
     }
