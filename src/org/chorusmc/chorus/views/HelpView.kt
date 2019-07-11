@@ -2,26 +2,28 @@ package org.chorusmc.chorus.views
 
 import eu.iamgio.libfx.util.Roots
 import javafx.scene.Node
-import javafx.scene.Scene
 import javafx.scene.control.Label
 import javafx.scene.image.Image
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.Region
 import javafx.scene.layout.VBox
 import javafx.scene.shape.Rectangle
-import javafx.stage.Stage
 import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.theme.Themes
 
 /**
  * @author Gio
  */
-class HelpView(private val title: String) {
+class HelpView(private val title: String) : View(
+        "Chorus - $title",
+        Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png")),
+        670.0,
+        650.0,
+        false
+) {
 
     private val nodes = ArrayList<Node>()
 
-    fun show() {
-        val stage = Stage()
+    override fun show() {
         val root = AnchorPane()
         root.styleClass.addAll("pane", "help-pane")
         val rectangle = Rectangle()
@@ -38,14 +40,7 @@ class HelpView(private val title: String) {
         vbox.style = "-fx-padding: 0 25 0 25"
         vbox.layoutY = 200.0
         root.children.addAll(rectangle, titleLabel, vbox)
-        val scene = Scene(root, 670.0, 650.0)
-        scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
-        stage.minWidth = scene.width
-        stage.minHeight = scene.height
-        stage.title = "Chorus - $title"
-        stage.scene = scene
-        stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
-        stage.show()
+        setScene(root)
         (Roots.getById(root, "title") as Label).text = title
         (Roots.getById(root, "vbox") as VBox).children.addAll(nodes.map {
             if(it is Region) {

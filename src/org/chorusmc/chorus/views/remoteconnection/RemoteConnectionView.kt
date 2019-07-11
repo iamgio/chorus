@@ -3,26 +3,29 @@ package org.chorusmc.chorus.views.remoteconnection
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.css.PseudoClass
 import javafx.geometry.Pos
-import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
-import javafx.stage.Stage
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.connection.Password
 import org.chorusmc.chorus.connection.RemoteConnection
 import org.chorusmc.chorus.nodes.control.NumericTextField
-import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.toObservableList
 import org.chorusmc.chorus.util.translate
+import org.chorusmc.chorus.views.View
 
 /**
  * @author Gio
  */
-open class RemoteConnectionView(private val name: String, defaultPort: Int, setting: String, private val psw: Password) {
+open class RemoteConnectionView(private val name: String, defaultPort: Int, setting: String, private val psw: Password) : View(
+        "",
+        Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png")),
+        800.0,
+        400.0
+) {
 
     private var ips = emptyMap<String, Triple<String, String, String?>>()
 
@@ -32,8 +35,6 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
     private val port = NumericTextField()
     val connectButton = Button()
     private val filesBox = VBox()
-
-    val stage = Stage()
 
     lateinit var onSelect: Runnable
     lateinit var selectedPath: String
@@ -62,11 +63,9 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         }
     }
 
-    fun show() {
+    override fun show() {
         val root = VBox()
         root.styleClass.addAll("pane", "sftp-pane")
-        val scene = Scene(root, 800.0, 400.0)
-        scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
         val addressHbox = HBox(ip)
         ip.selectionModel.selectedItemProperty().addListener {_ ->
             val triple = ips[ip.selectionModel.selectedItem]!!
@@ -123,6 +122,8 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         addressHbox.minHeight = addressHbox.prefHeight
         addressHbox.prefWidthProperty().bind(root.prefWidthProperty())
         val scrollpane = ScrollPane(filesBox)
+        stage.title = title
+        val scene = setScene(root)
         scrollpane.prefWidthProperty().bind(scene.widthProperty())
         scrollpane.prefHeightProperty().bind(scene.heightProperty())
         scrollpane.hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
@@ -130,12 +131,6 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         filesBox.prefWidthProperty().bind(scrollpane.prefWidthProperty())
         val mainVbox = VBox(addressHbox, scrollpane)
         root.children += mainVbox
-        stage.minWidth = scene.width
-        stage.minHeight = scene.height
-        stage.title = title
-        stage.scene = scene
-        stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
-        stage.show()
         password.requestFocus()
     }
 

@@ -1,30 +1,32 @@
 package org.chorusmc.chorus.views
 
 import javafx.geometry.Pos
-import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.image.Image
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
-import javafx.stage.Stage
 import javafx.stage.StageStyle
 import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.translate
 import java.io.File
 
 /**
  * @author Gio
  */
-class UpdaterView {
+class UpdaterView : View(
+        translate("updater.title"),
+        Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png")),
+        450.0,
+        350.0,
+        false
+) {
 
-    private val stage = Stage()
     private val root = VBox(15.0)
     private val label = Label()
     private val hbox = HBox(3.0)
 
-    fun show() {
+    override fun show() {
         stage.initStyle(StageStyle.UNDECORATED)
         root.alignment = Pos.CENTER
         root.styleClass += "updater"
@@ -34,15 +36,7 @@ class UpdaterView {
         label.isWrapText = true
         hbox.alignment = Pos.CENTER
         root.children.addAll(label, hbox)
-        val scene = Scene(root, 450.0, 350.0)
-        scene.stylesheets.addAll(Themes.byConfig().path[0], "/assets/styles/global.css")
-        stage.minWidth = scene.width
-        stage.minHeight = scene.height
-        stage.isResizable = false
-        stage.title = translate("updater.title")
-        stage.scene = scene
-        stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
-        stage.show()
+        setScene(root)
     }
 
     fun setChecking() {
