@@ -55,9 +55,10 @@ data class Addon(val file: File) {
         with(Addons.scriptEngine!!) {
             context = this@Addon.context
             put("chorus_js_api", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/lib.js")
+            put("thisAddon", this@Addon)
             put("name", name)
             try {
-                eval(InputStreamReader(FileInputStream(file)), this@Addon.context)
+                eval(InputStreamReader(FileInputStream(file)), context)
             } catch(e: ScriptException) {
                 System.err.println(e.message!!)
             }

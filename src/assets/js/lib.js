@@ -2,9 +2,6 @@ var fx = javafx.scene;
 
 var fxcontrols = fx.control;
 
-// Cached variable, should not be accessed to
-var thisAddon;
-
 /**
  * Used to allow string translation. See wiki for further information
  */
@@ -68,7 +65,7 @@ function translate(key) {
  * @return java.util.List<org.chorusmc.addon.Addon>
  */
 function getAddons() {
-    return chorus_type('addon.Addons').INSTANCE.getAddons()
+    return chorus_type('addon.Addons').INSTANCE.getAddons();
 }
 
 /**
@@ -76,14 +73,7 @@ function getAddons() {
  * @return org.chorusmc.addon.Addon
  */
 function getThisAddon() {
-    if (thisAddon) return thisAddon;
-    thisAddon = getAddons()
-        .stream()
-        .filter(function (addon) {
-            return addon.name == name
-        })
-        .findAny()
-        .orElse(null);
+    // Injected
     return thisAddon;
 }
 
