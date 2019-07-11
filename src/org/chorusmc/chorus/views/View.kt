@@ -12,8 +12,8 @@ import org.chorusmc.chorus.theme.Themes
 open class View(
         title: String,
         icon: Image,
-        private val width: Double,
-        private val height: Double,
+        val width: Double,
+        val height: Double,
         resizable: Boolean = true
 ) {
 
