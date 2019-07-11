@@ -8,7 +8,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.chorusmc.chorus.addon.Addon;
 import org.chorusmc.chorus.addon.Addons;
-import org.chorusmc.chorus.addon.DevMode;
 import org.chorusmc.chorus.configuration.ChorusConfig;
 import org.chorusmc.chorus.configuration.ChorusFolder;
 import org.chorusmc.chorus.editor.EditorController;
@@ -50,12 +49,11 @@ public class Chorus extends FXApplication {
     private static File passedFile;
 
     public ChorusConfig config = new ChorusConfig();
-    public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder(), addons = new ChorusFolder();
+    public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder();
 
     private ResourceBundle resourceBundle;
 
     private static String[] args;
-    private static boolean dev;
 
     private static Chorus instance;
 
@@ -93,6 +91,7 @@ public class Chorus extends FXApplication {
         folder.createIfAbsent(ChorusFolder.RELATIVE);
         backups.createIfAbsent(new File(ChorusFolder.RELATIVE, "backups"));
         themes.createIfAbsent(new File(ChorusFolder.RELATIVE, "themes"));
+        ChorusFolder addons = new ChorusFolder();
         addons.createIfAbsent(new File(ChorusFolder.RELATIVE, "addons"));
         config.createIfAbsent(folder);
 
@@ -166,22 +165,12 @@ public class Chorus extends FXApplication {
         }
 
         Addons.INSTANCE.invoke("onInit");
-
-        if(dev) {
-            System.out.println("Entered development mode");
-            new Thread(() -> new DevMode().listen()).start();
-        }
     }
 
     public static void main(String... args) {
         Chorus.args = args;
         if(args.length > 0) {
-            if(args[0].equals("-dev=true")) {
-                dev = true;
-                if(args.length > 1) passedFile = new File(args[1]);
-            } else {
-                passedFile = new File(args[0]);
-            }
+            passedFile = new File(args[0]);
         }
         launch(args);
     }

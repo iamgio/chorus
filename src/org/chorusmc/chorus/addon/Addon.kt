@@ -50,19 +50,14 @@ data class Addon(val file: File) {
         }
     }
 
-    fun disable() {
-        Addons.invoke("onDisable")
-        Addons.addons -= this
-    }
-
     fun eval() {
-        if(!this::context.isInitialized) context = SimpleScriptContext()
+        context = SimpleScriptContext()
         with(Addons.scriptEngine!!) {
             context = this@Addon.context
             put("chorus_js_api", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/lib.js")
             put("name", name)
             try {
-                eval(InputStreamReader(FileInputStream(file)), context)
+                eval(InputStreamReader(FileInputStream(file)), this@Addon.context)
             } catch(e: ScriptException) {
                 System.err.println(e.message!!)
             }
