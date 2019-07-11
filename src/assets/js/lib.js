@@ -439,34 +439,6 @@ function File(name, parent) {
 }
 
 /**
- * @param key main key
- * @param modifiers array of modifiers (shift, control, alt)
- * @return fx.scene.input.KeyCodeCombination
- */
-function KeyCombination(key, modifiers) {
-    var KeyCodeCombination = fx.scene.input.KeyCodeCombination;
-    var KeyCombination = fx.scene.input.KeyCombination;
-    var keyCode = fx.scene.input.KeyCode.valueOf(key.toUpperCase());
-
-    if(modifiers && !Array.isArray(modifiers)) modifiers = [modifiers]
-
-    var keyModifiers = [];
-
-    if(modifiers) {
-        for (i = 0; i < modifiers.length; i++) {
-            var modifier = modifiers[i].toLowerCase();
-            keyModifiers.push(
-                modifier == 'shift' ? KeyCombination.SHIFT_DOWN :
-                    modifier == 'control' || modifier == 'ctrl' ? KeyCombination.CONTROL_DOWN :
-                        modifier == 'alt' ? KeyCombination.ALT_DOWN : null
-            );
-        }
-    }
-
-    return new KeyCodeCombination(keyCode, keyModifiers)
-}
-
-/**
  * Instantiates a Chorus' colored-text parser
  * @param string text to parse
  * @param useVariables optional boolean which defines to replace variables or not
@@ -528,3 +500,32 @@ function ImageView(image) {
 
 var Alignment = javafx.geometry.Pos;
 var TextAlignment = fx.text.TextAlignment;
+
+
+/**
+ * @param key main key
+ * @param modifiers array of modifiers (shift, control, alt)
+ * @return fx.scene.input.KeyCodeCombination
+ */
+function KeyCombination(key, modifiers) {
+    var KeyCodeCombination = fx.input.KeyCodeCombination;
+    var KeyCombination = fx.input.KeyCombination;
+    var keyCode = fx.input.KeyCode.valueOf(key.toUpperCase());
+
+    if(modifiers && !Array.isArray(modifiers)) modifiers = [modifiers]
+
+    var keyModifiers = [];
+
+    if(modifiers) {
+        for (i = 0; i < modifiers.length; i++) {
+            var modifier = modifiers[i].toLowerCase();
+            keyModifiers.push(
+                modifier == 'shift' ? KeyCombination.SHIFT_DOWN :
+                    modifier == 'control' || modifier == 'ctrl' ? KeyCombination.CONTROL_DOWN :
+                        modifier == 'alt' ? KeyCombination.ALT_DOWN : null
+            );
+        }
+    }
+
+    return new KeyCodeCombination(keyCode, keyModifiers)
+}

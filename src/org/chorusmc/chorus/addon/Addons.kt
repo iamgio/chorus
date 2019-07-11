@@ -24,7 +24,7 @@ object Addons {
 
     fun invoke(func: String, vararg args: Any) {
         addons.forEach {
-            scriptEngine?.invoke(it, func, args)
+            scriptEngine?.invoke(it, func, *args)
         }
     }
 
