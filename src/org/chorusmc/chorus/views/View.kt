@@ -11,7 +11,7 @@ import org.chorusmc.chorus.theme.Themes
  */
 open class View(
         title: String,
-        icon: Image,
+        icon: Image?,
         val width: Double,
         val height: Double,
         resizable: Boolean = true
@@ -26,7 +26,7 @@ open class View(
 
     init {
         stage.title = title
-        stage.icons += icon
+        if(icon != null) stage.icons += icon
         stage.isResizable = resizable
     }
 
