@@ -40,7 +40,7 @@ class HelpView(private val title: String) : View(
         vbox.style = "-fx-padding: 0 25 0 25"
         vbox.layoutY = 200.0
         root.children.addAll(rectangle, titleLabel, vbox)
-        setScene(root)
+        setRoot(root)
         (Roots.getById(root, "title") as Label).text = title
         (Roots.getById(root, "vbox") as VBox).children.addAll(nodes.map {
             if(it is Region) {

@@ -324,6 +324,20 @@ function PreviewBackground(image) {
 }
 
 /**
+ * Instantiates a View
+ * @param title view title
+ * @param image view icon
+ * @param width view width
+ * @param height view height
+ * @param isResizable (optional) whether the view is resizable or not
+ * @return org.chorusmc.chorus.views.View
+ */
+function View(title, image, width, height, isResizable) {
+    var ViewClass = chorus_type('views.View');
+    return new ViewClass(title, image, width, height, isResizable ? isResizable : false);
+}
+
+/**
  * Gets variables
  * @return java.util.List<org.chorusmc.chorus.variable.Variable>
  */
@@ -500,6 +514,16 @@ function VBox(spacing) {
 
 function HBox(spacing) {
     return spacing ? new fx.layout.HBox(spacing) : new fx.layout.HBox();
+}
+
+function Image(path) {
+    var file = toFile(path);
+    return new fx.image.Image(new java.io.FileInputStream(file));
+}
+
+function ImageView(image) {
+    var image = typeof image == 'string' ? new Image(image) : image
+    return new fx.image.ImageView(image);
 }
 
 var Alignment = javafx.geometry.Pos;

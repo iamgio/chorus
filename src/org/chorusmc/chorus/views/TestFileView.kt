@@ -24,6 +24,6 @@ class TestFileView : View(
         area.styleClass += "test-file-area"
         area.style = "-fx-font-family: monospace"
         area.isEditable = false
-        setScene(area)
+        setRoot(area)
     }
 }

@@ -36,7 +36,7 @@ class UpdaterView : View(
         label.isWrapText = true
         hbox.alignment = Pos.CENTER
         root.children.addAll(label, hbox)
-        setScene(root)
+        setRoot(root)
     }
 
     fun setChecking() {

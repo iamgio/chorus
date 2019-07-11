@@ -9,7 +9,7 @@ import org.chorusmc.chorus.theme.Themes
 /**
  * @author Gio
  */
-abstract class View(
+open class View(
         title: String,
         icon: Image,
         private val width: Double,
@@ -17,11 +17,12 @@ abstract class View(
         resizable: Boolean = true
 ) {
 
-    abstract fun show()
+    open fun show() {}
 
     protected val stage: Stage = Stage()
 
-    private lateinit var scene: Scene
+    val scene: Scene
+        get() = stage.scene
 
     init {
         stage.title = title
@@ -29,7 +30,7 @@ abstract class View(
         stage.isResizable = resizable
     }
 
-    protected fun setScene(root: Parent): Scene {
+    fun setRoot(root: Parent): Scene {
         stage.minWidth = width
         stage.minHeight = height
         val scene = Scene(root, width, height)
