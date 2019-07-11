@@ -3,6 +3,7 @@ package org.chorusmc.chorus;
 import eu.iamgio.libfx.application.FXApplication;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -176,6 +177,9 @@ public class Chorus extends FXApplication {
     }
 
     private void registerEvents() {
+        root.addEventFilter(KeyEvent.KEY_PRESSED, e ->
+            Addons.INSTANCE.invoke("onKeyPress", e)
+        );
         Events.getEvents().addAll(Arrays.asList(
                 new AutoSavingListener(),
                 new AutocompletionListener(),
