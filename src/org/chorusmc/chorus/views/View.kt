@@ -4,6 +4,7 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Stage
+import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.theme.Themes
 
 /**
@@ -26,7 +27,7 @@ open class View(
 
     init {
         stage.title = title
-        if(icon != null) stage.icons += icon
+        stage.icons += icon ?: Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
         stage.isResizable = resizable
     }
 

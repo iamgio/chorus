@@ -48,6 +48,7 @@ object MenuBar {
                                 MenuBarButton("help.donate", Donate()),
                                 MenuBarButton("help.donators_list", DonatorsList()),
                                 MenuBarButton("help.license", License()),
+                                MenuBarButton("help.addons", Addons()),
                                 MenuBarButton("help.check_for_updates", CheckForUpdates())
                         )
                 )

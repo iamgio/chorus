@@ -4,6 +4,7 @@ import jdk.nashorn.api.scripting.ScriptUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
+import javax.script.Bindings
 import javax.script.ScriptContext
 import javax.script.ScriptException
 import javax.script.SimpleScriptContext
@@ -25,6 +26,15 @@ data class Addon(val file: File) {
     var config: AddonConfiguration? = null
 
     var allowSettings = false
+
+    var version: String = "1.0.0"
+        private set
+    var credits: String? = null
+        private set
+    var imageUrl: String? = null
+        private set
+    var description: String? = null
+        private set
 
     private fun createFolder() {
         with(folder) {
@@ -58,13 +68,20 @@ data class Addon(val file: File) {
             put("thisAddon", this@Addon)
             put("name", name)
             try {
-                eval(InputStreamReader(FileInputStream(file)), context)
+                eval(InputStreamReader(FileInputStream(file)))
             } catch(e: ScriptException) {
                 System.err.println(e.message!!)
             }
-            with(this["credits"]) {
-                println("Loaded add-on '$name'${if(this != null) " by $this" else ""}")
+            val global = context.getAttribute("nashorn.global") as Bindings
+            with(global["version"]) {
+                if(this != null) version = this.toString()
             }
+            with(global["credits"]) {
+                credits = this?.toString()
+                println("Loaded add-on '$name' v$version${if(this != null) " by $this" else ""}")
+            }
+            imageUrl = global["image"]?.toString()
+            description = global["description"]?.toString()
             invoke(this@Addon, "onLoad")
         }
     }

@@ -448,3 +448,27 @@
 .updater .button:hover {
     -fx-background-color: derive(-fx-base00, -20%);
 }
+
+.addons-view, .addons-view-scrollpane, .addons-view-scrollpane .scroll-bar {
+    -fx-background-color: -fx-tertiary;
+}
+
+.addons-view-scrollpane .thumb {
+    -fx-background-color: white;
+}
+
+.addon-title-bar {
+    -fx-background-color: derive(-fx-secondary, -30%);
+}
+
+.addon-node:even {
+    -fx-background-color: derive(-fx-secondary, -5%);
+}
+
+.addon-node:odd {
+    -fx-background-color: derive(-fx-secondary, 5%);
+}
+
+.addon-node .label, .addon-title-bar {
+    -fx-text-fill: -fx-text-color;
+}

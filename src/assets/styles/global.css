@@ -35,7 +35,7 @@
 }
 
 .scroll-pane > .scroll-bar {
-    -fx-pref-width: 10;
+    -fx-pref-width: 20;
 }
 
 .drop-menu .drop-menu-button:disabled {
@@ -174,4 +174,27 @@
 .minecraft-animated-text-preview-flow .label {
     -fx-font-family: "Minecraft";
     -fx-font-size: 22.5;
+}
+
+.addon-title-bar {
+    -fx-font-size: 30;
+}
+
+.addon-node .name {
+    -fx-font-size: 25;
+}
+
+.addon-node .version {
+    -fx-font-size: 25;
+    -fx-opacity: .8;
+}
+
+.addon-node .credits {
+    -fx-font-size: 12;
+    -fx-opacity: .5;
+}
+
+.addon-node .description {
+    -fx-font-size: 15;
+    -fx-opacity: .7;
 }

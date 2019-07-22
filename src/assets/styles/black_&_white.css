@@ -453,3 +453,28 @@
 .updater .button:hover {
     -fx-background-color: rgba(255, 255, 255, .35);
 }
+
+.addons-view, .addons-view-scrollpane, .addons-view-scrollpane .scroll-bar {
+    -fx-background-color: -fx-primary;
+}
+
+.addons-view-scrollpane .thumb {
+    -fx-background-color: -fx-secondary;
+}
+
+.addon-title-bar {
+    -fx-background-color: derive(-fx-secondary, -30%);
+    -fx-text-fill: white;
+}
+
+.addon-node:even {
+    -fx-background-color: derive(-fx-primary, -5%);
+}
+
+.addon-node:odd {
+    -fx-background-color: derive(-fx-primary, 5%);
+}
+
+.addon-node .label {
+    -fx-text-fill: -fx-text-color;
+}
