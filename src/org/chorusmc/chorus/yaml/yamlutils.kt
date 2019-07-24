@@ -2,34 +2,24 @@ package org.chorusmc.chorus.yaml
 
 import org.chorusmc.chorus.util.area
 
-fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true): String {
+fun charToWordBounds(index: Int, styleClass: String, stopOnLineBreak: Boolean = true): Pair<Int, Int> {
     val area = area!!
 
-    var word = ""
-    var min = index
-    var plus = index
-    val toReverse = ArrayList<Char>()
+    var start = index
+    var end = index
 
-    while(min > 0 && (!stopOnLineBreak || area.text[min] != '\n') && area.getStyleOfChar(if(stopOnLineBreak) min else min - 1).contains(styleClass)) {
-        min--
-        toReverse += area.text[min]
+    while(start > 0 && (!stopOnLineBreak || area.text[start - 1] != '\n') &&
+            area.getStyleOfChar(if(stopOnLineBreak) start else start - 1).contains(styleClass)) {
+        start--
     }
-    toReverse.reversed().forEach {word += it}
-    while(plus < area.text.length && (!stopOnLineBreak || area.text[plus] != '\n') && area.getStyleOfChar(plus).contains(styleClass)) {
-        word += area.text[plus]
-        plus++
+    while(end < area.text.length - 1 && (!stopOnLineBreak || area.text[end + 1] != '\n') &&
+            area.getStyleOfChar(end + 1).contains(styleClass)) {
+        end++
     }
-    return removeInit(word)
+    return start to end + 1
 }
 
-fun removeInit(string: String): String {
-    var s = ""
-    var b = !(string.startsWith(" ") || string.startsWith("\t") || string.startsWith("\n"))
-    string.toCharArray().forEach {
-        if(b || !(it == ' ' || it == '\t' || it == '\n')) {
-            b = true
-            s += it
-        }
-    }
-    return s
+fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true): String {
+    val bounds = charToWordBounds(index, styleClass, stopOnLineBreak)
+    return area!!.getText(bounds.first, bounds.second).trimStart()
 }
