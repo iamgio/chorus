@@ -140,6 +140,15 @@ public class EditorArea extends CodeArea {
         }
     }
 
+    @SuppressWarnings({"WeakerAccess", "unused"})
+    public void removeStyleClass(int start, int end, String styleClass) {
+        for(int i = start; i < end; i++) {
+            List<String> styles = new ArrayList<>(getStyleOfChar(i));
+            styles.remove(styleClass);
+            setStyle(i, i + 1, styles);
+        }
+    }
+
     public void highlight(String pattern, String styleClass) {
         String text = getText();
         if(text.isEmpty()) return;
