@@ -57,6 +57,6 @@ public enum EditorPattern {
         for(EditorPattern editorPattern : EditorPattern.values()) {
             patternBuilder.append("(?<").append(editorPattern.name()).append(">").append(editorPattern.pattern).append(")|");
         }
-        return Pattern.compile(patternBuilder.toString().substring(0, patternBuilder.toString().length() - 1), Pattern.MULTILINE | Pattern.DOTALL);
+        return Pattern.compile(patternBuilder.toString().substring(0, patternBuilder.toString().length() - 1), Pattern.MULTILINE | Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
     }
 }
