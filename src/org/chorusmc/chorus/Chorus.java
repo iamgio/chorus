@@ -195,6 +195,7 @@ public class Chorus extends FXApplication {
                 new EditorTab.Companion.ShowableRemover(),
                 new KeyHoverListener(),
                 new IconableHoverListener(),
+                new InfoHoverListener(),
                 new ColoredChatTextHoverListener(),
                 new RightClickListener()
         ));
