@@ -13,18 +13,24 @@ import java.net.URL;
  */
 public class JSONParser {
 
-    private URL url;
-
-    public JSONParser(URL url) {
-        this.url = url;
-    }
-
     @SuppressWarnings("deprecation")
-    public JSONObject parse() {
+    public JSONObject parse(URL url) {
         try {
-            return (JSONObject) JSONValue.parseWithException(IOUtils.toString(url));
+            return parseWithException(IOUtils.toString(url));
         } catch(IOException | ParseException e) {
             return null;
         }
+    }
+
+    public JSONObject parse(String json) {
+        try {
+            return parseWithException(json);
+        } catch(ParseException e) {
+            return null;
+        }
+    }
+
+    private JSONObject parseWithException(String json) throws ParseException {
+        return (JSONObject) JSONValue.parseWithException(json);
     }
 }

@@ -423,7 +423,7 @@ function toFile(file) {
     return typeof file == 'string' ? new File(file, getFolder()) : file;
 }
 
-// --- HTTP --- //
+// --- HTTP & JSON --- //
 
 /**
  * Override this to set a user-agent for connections
@@ -444,6 +444,20 @@ function connect(url, data) {
         }
     }
     return userAgent ? connection.userAgent(userAgent) : connection;
+}
+
+/**
+ * Parses JSON
+ * @param json either JSON string or URL to JSON
+ * @return org.json.simple.JSONObject
+ */
+function json(json) {
+    var Parser = chorus_type('json.JSONParser');
+    var parser = new Parser();
+    if(json.startsWith('http://') || json.startsWith('https://')) {
+        return parser.parse(new java.net.URL(json));
+    }
+    return parser.parse(json);
 }
 
 // --- TYPE UTILITIES --- //

@@ -17,7 +17,7 @@ private const val URL     = "https://api.github.com/repos/iAmGio/chorus/releases
  */
 class Updater {
 
-    private val parsed: JSONObject = JSONParser(java.net.URL(URL)).parse()
+    private val parsed: JSONObject = JSONParser().parse(java.net.URL(URL))
 
     val latestVersion = parsed["tag_name"].toString()
 
