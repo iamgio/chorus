@@ -1,11 +1,11 @@
 package org.chorusmc.chorus.minecraft.effect
 
-import org.chorusmc.chorus.infobox.fetchingText
+import javafx.scene.image.Image
 import org.chorusmc.chorus.infobox.InformationBody
 import org.chorusmc.chorus.infobox.InformationBox
 import org.chorusmc.chorus.infobox.InformationHead
+import org.chorusmc.chorus.infobox.fetchingText
 import org.chorusmc.chorus.util.makeFormal
-import javafx.scene.image.Image
 
 /**
  * @author Gio
@@ -19,6 +19,6 @@ class EffectInformationBox(val image: Image, private val effect: Effect) : Infor
     }
 
     override fun after() {
-        body.label.text = effect.description
+        body.text = effect.description
     }
 }

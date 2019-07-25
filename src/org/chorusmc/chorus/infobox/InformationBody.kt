@@ -11,14 +11,40 @@ import org.chorusmc.chorus.util.translate
  */
 class InformationBody(title: String, subtitle: String, text: String, url: String? = null) : VBox() {
 
-    val label = Label(text)
+    private val label = Label(text)
+    private val titleLabel = Label(title.replace("tnt", "TNT"))
+    private val subtitleLabel = Label(" $subtitle")
+    private var urlLabel: UrlLabel? = null
+
+    var text: String
+        get() = label.text
+        set(value) {
+            label.text = value
+        }
+
+    var title: String
+        get() = titleLabel.text
+        set(value) {
+            titleLabel.text = value
+        }
+
+    var subtitle: String
+        get() = subtitleLabel.text
+        set(value) {
+            subtitleLabel.text = value
+        }
+
+    var url: String?
+        get() = urlLabel?.text
+        set(value) {
+            urlLabel?.text = value
+            urlLabel?.url = value!!
+        }
 
     init {
         style = "-fx-padding: 15"
 
         label.isWrapText = true
-        val titleLabel = Label(title.replace("tnt", "TNT"))
-        val subtitleLabel = Label(" $subtitle")
         subtitleLabel.opacity = .3
         titleLabel.style = "-fx-font-size: 30"
         subtitleLabel.style = titleLabel.style
@@ -31,7 +57,8 @@ class InformationBody(title: String, subtitle: String, text: String, url: String
         style = "-fx-padding: 10"
         spacing = 20.0
         if(url != null) {
-            children += UrlLabel(url, url)
+            urlLabel = UrlLabel(url, url)
+            children += urlLabel
         }
     }
 }

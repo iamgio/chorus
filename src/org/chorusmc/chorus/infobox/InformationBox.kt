@@ -1,19 +1,27 @@
 package org.chorusmc.chorus.infobox
 
+import javafx.application.Platform
+import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.addon.Addons
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.util.hideMenuOnInteract
-import javafx.application.Platform
-import javafx.scene.layout.VBox
 
 /**
  * @author Gio
  */
 open class InformationBox() : VBox(), Showable {
 
-    private lateinit var head: InformationHead
+    @Suppress("WeakerAccess")
+    lateinit var head: InformationHead
+        private set
     lateinit var body: InformationBody
+        protected set
+
+    // For JS API: prevents calling after()
+    @Suppress("unused")
+    var callUpdate = true
 
     constructor(head: InformationHead) : this() {
         this.head = head
@@ -36,7 +44,13 @@ open class InformationBox() : VBox(), Showable {
         if(!root.children.contains(this)) {
             root.children.add(this)
         }
-        Platform.runLater {after()}
+        Addons.invoke("onInfoBoxOpen", this)
+        if(callUpdate) {
+            Platform.runLater {
+                after()
+                Addons.invoke("onInfoBoxContentUpdate", this)
+            }
+        }
     }
 
     override fun hide() {

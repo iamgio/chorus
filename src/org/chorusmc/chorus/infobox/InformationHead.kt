@@ -12,11 +12,16 @@ import javafx.scene.text.Text
  */
 class InformationHead(image: Image?, text: String? = null) : StackPane() {
 
+    @Suppress("WeakerAccess")
+    val imageView = ImageView()
+
     init {
         if(image != null) {
-            val imageView = ImageView(image)
-            imageView.fitWidth = image.width * 1.5
-            imageView.fitHeight = image.height * 1.5
+            imageView.isPreserveRatio = true
+            imageView.imageProperty().addListener {_, _, new ->
+                imageView.fitWidth = new.width * 1.5
+            }
+            imageView.image = image
             children += imageView
         } else if(text != null) {
             val label = Label(text)
