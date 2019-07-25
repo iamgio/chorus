@@ -16,7 +16,7 @@ fun charToWordBounds(index: Int, styleClass: String, stopOnLineBreak: Boolean = 
             area.getStyleOfChar(end + 1).contains(styleClass)) {
         end++
     }
-    return start to end + 1
+    return start to if(end >= area.length - 1) area.length else end + 1
 }
 
 fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true): String {
