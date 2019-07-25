@@ -65,6 +65,7 @@ data class Addon(val file: File) {
         with(Addons.scriptEngine!!) {
             context = this@Addon.context
             put("chorus_js_api", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/lib.js")
+            put("chorus_translate", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/translator.js")
             put("thisAddon", this@Addon)
             put("name", name)
             try {
