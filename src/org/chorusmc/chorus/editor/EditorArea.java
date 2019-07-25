@@ -133,7 +133,8 @@ public class EditorArea extends CodeArea {
 
     @SuppressWarnings("WeakerAccess")
     public void addStyleClass(int start, int end, String styleClass) {
-        for(int i = start; i < end; i++) {
+        for(int i = start; i <= end; i++) {
+            if(i == getLength()) return;
             List<String> styles = new ArrayList<>(getStyleOfChar(i));
             styles.add(styleClass);
             setStyle(i, i + 1, styles);
@@ -142,7 +143,8 @@ public class EditorArea extends CodeArea {
 
     @SuppressWarnings({"WeakerAccess", "unused"})
     public void removeStyleClass(int start, int end, String styleClass) {
-        for(int i = start; i < end; i++) {
+        for(int i = start; i <= end; i++) {
+            if(i == getLength()) return;
             List<String> styles = new ArrayList<>(getStyleOfChar(i));
             styles.remove(styleClass);
             setStyle(i, i + 1, styles);
