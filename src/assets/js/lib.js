@@ -40,8 +40,20 @@ var chorus = chorus_type('Chorus').getInstance();
  */
 var version = chorus_type('Chorus').VERSION
 
+/**
+ * Runs an action later on JavaFX thread
+ * @param action action to be ran
+ */
 function runLater(action) {
     javafx.application.Platform.runLater(action);
+}
+
+/**
+ * Runs an action on another thread
+ * @param action action to be ran
+ */
+function runAsync(action) {
+    new java.lang.Thread(action).start();
 }
 
 /**
