@@ -48,18 +48,15 @@ class GUIPreview : DropMenuAction() {
         } else null
         val textfield = TextField(
                 when {
-                    useFormatData && map != null -> with(Format.format!!.getName(map)) {
-                        if(startsWith(colorPrefix)) this else colorPrefix + "8" + this
-                    }
-                    selectedText.startsWith(colorPrefix) -> selectedText
-                    selectedText.isNotEmpty() -> colorPrefix + "8" + selectedText
-                    else -> colorPrefix + "8" + translate("preview.gui.title_default")
+                    useFormatData && map != null -> Format.format!!.getName(map)
+                    selectedText.isNotEmpty() -> selectedText
+                    else -> translate("preview.gui.title_default")
                 }
         )
         textfield.promptText = translate("preview.gui.title_prompt")
         val rows = Spinner<Int>(1, 6,
                 if(useFormatData && map != null) Format.format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
-        val image = GUIPreviewImage(textfield.text, rows.value)
+        val image = GUIPreviewImage(colorPrefix + "8" + textfield.text, rows.value)
         val button = Button(translate("preview.gui.clear"))
         button.setOnAction {
             grid!!.members.forEach {it.clear()}
@@ -74,7 +71,7 @@ class GUIPreview : DropMenuAction() {
         updateMembers(grid!!, rows.value, image)
         val menu = ColoredTextPreviewMenu(translate("preview.gui"), image, listOf(textfield, rows, button))
         textfield.textProperty().addListener {_ ->
-            menu.image.flows = listOf(ChatParser(textfield.text, true, 32).toTextFlow(false)).toFlowList()
+            menu.image.flows = listOf(ChatParser(colorPrefix + "8" + textfield.text, true, 32).toTextFlow(false)).toFlowList()
             updateMembers(grid!!, rows.value, image)
         }
         rows.valueProperty().addListener {_ ->
