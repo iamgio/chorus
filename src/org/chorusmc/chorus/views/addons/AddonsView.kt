@@ -36,7 +36,10 @@ class AddonsView(private val addons: List<Addon>) : View(translate("bar.help.add
                     node
                 }
         )
-        setRoot(VBox(titlebar, scrollpane))
+        setRoot(with(VBox(titlebar, scrollpane)) {
+            styleClass += root.styleClass
+            this
+        })
         stage.minHeight = 100.0
     }
 }
