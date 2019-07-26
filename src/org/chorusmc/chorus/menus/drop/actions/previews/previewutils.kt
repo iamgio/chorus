@@ -24,6 +24,7 @@ val selectedText: String
             this
         } else {
             val text = charToWord(area!!.caretPosition, "string", false)
+            if(text.length < 3) return ""
             if(text.isEmpty()) text else text.substring(1, text.length - 1)
         }
     }
