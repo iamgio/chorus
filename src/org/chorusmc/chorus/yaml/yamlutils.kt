@@ -21,5 +21,7 @@ fun charToWordBounds(index: Int, styleClass: String, stopOnLineBreak: Boolean = 
 
 fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true): String {
     val bounds = charToWordBounds(index, styleClass, stopOnLineBreak)
-    return area!!.getText(bounds.first, bounds.second).trimStart()
+    val area = area!!
+    if(bounds.first < 0 || bounds.second >= area.length) return ""
+    return area.getText(bounds.first, bounds.second).trimStart()
 }
