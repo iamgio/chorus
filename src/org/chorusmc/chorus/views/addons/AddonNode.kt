@@ -19,10 +19,9 @@ class AddonNode(imageUrl: String?, name: String, version: String, description: S
         pseudoClassStateChanged(PseudoClass.getPseudoClass(if(odd) "odd" else "even"), true)
         alignment = Pos.CENTER_LEFT
         style = "-fx-padding: 30"
-        prefHeight = 64.0
         val imageView = ImageView()
         if(imageUrl != null) imageView.image = Image(imageUrl)
-        imageView.fitWidth = prefHeight
+        imageView.fitWidth = 64.0
         imageView.fitHeight = imageView.fitWidth
         val nameHbox = HBox(10.0,
                 with(Label(name)) {
@@ -44,6 +43,7 @@ class AddonNode(imageUrl: String?, name: String, version: String, description: S
         if(description != null) {
             infoVbox.children += with(Label(description)) {
                 styleClass += "description"
+                isWrapText = true
                 this
             }
         }
