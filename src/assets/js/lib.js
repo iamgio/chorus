@@ -195,6 +195,126 @@ function getActiveTab() {
 }
 
 /**
+ * Returns active Minecraft version (from settings > Minecraft > Server version)
+ * @return java.lang.String
+ */
+function getMinecraftVersion() {
+    return chorus.config.get('4.Minecraft.0.Server_version');
+}
+
+/**
+ * Utility function. Gets a McClass of given element
+ * @param element game element class name
+ * @return org.chorusmc.chorus.minecraft.McClass
+ */
+function getMcClass(element) {
+    var McClass = chorus_type('minecraft.McClass');
+    return new McClass(element);
+}
+
+/**
+ * Gets all items
+ * @return org.chorusmc.chorus.minecraft.item.Item[]
+ */
+function getItems() {
+    return getMcClass('Item').enumValues;
+}
+
+/**
+ * Gets an item by name
+ * @param name item name
+ * @return org.chorusmc.chorus.minecraft.item.Item
+ */
+function getItem(name) {
+    return getMcClass('Item').valueOf(name);
+}
+
+/**
+ * Gets all entities
+ * @return org.chorusmc.chorus.minecraft.entity.Entity[]
+ */
+function getEntities() {
+    return getMcClass('Entity').enumValues;
+}
+
+/**
+ * Gets an entity by name
+ * @param name entity name
+ * @return org.chorusmc.chorus.minecraft.entity.Entity
+ */
+function getEntity(name) {
+    return getMcClass('Entity').valueOf(name);
+}
+
+/**
+ * Gets all enchantments
+ * @return org.chorusmc.chorus.minecraft.enchantment.Enchantment[]
+ */
+function getEnchantments() {
+    return getMcClass('Enchantment').enumValues;
+}
+
+/**
+ * Gets an enchantment by name
+ * @param name enchantment name
+ * @return org.chorusmc.chorus.minecraft.enchantment.Enchantment
+ */
+function getEnchantment(name) {
+    return getMcClass('Enchantment').valueOf(name);
+}
+
+/**
+ * Gets all effects
+ * @return org.chorusmc.chorus.minecraft.effect.Effect[]
+ */
+function getEffects() {
+    return chorus_type('minecraft.effect.Effect').values();
+}
+
+/**
+ * Gets an effect by name
+ * @param name effect name
+ * @return org.chorusmc.chorus.minecraft.effect.Effect
+ */
+function getEffect(name) {
+    return chorus_type('minecraft.effect.Effect').valueOf(name);
+}
+
+/**
+ * Gets all particles
+ * @return org.chorusmc.chorus.minecraft.particle.Particle[]
+ */
+function getParticles() {
+    return chorus_type('minecraft.particle.Particle').values();
+}
+
+/**
+ * Gets a particle by name
+ * @param name particle name
+ * @return org.chorusmc.chorus.minecraft.particle.Particle
+ */
+function getParticle(name) {
+    return chorus_type('minecraft.particle.Particle').valueOf(name);
+}
+
+/**
+ * Gets all sounds
+ * @return org.chorusmc.chorus.minecraft.sound.Sound[]
+ */
+function getSounds() {
+    return chorus_type('minecraft.sound.Sound').values();
+}
+
+/**
+ * Gets a sound by name
+ * @param name sound name
+ * @return org.chorusmc.chorus.minecraft.sound.Sound
+ */
+function getSound(name) {
+    return chorus_type('minecraft.sound.Sound').valueOf(name);
+}
+
+/**
  * Creates a menu-bar button
  * @param name visible name of the button
  * @param id identifier (name if null)
