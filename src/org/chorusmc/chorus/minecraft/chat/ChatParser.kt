@@ -7,20 +7,15 @@ import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.TextFlow
 import org.chorusmc.chorus.util.colorPrefix
-import org.chorusmc.chorus.util.maxTo
 import org.chorusmc.chorus.variable.Variables
 import org.fxmisc.richtext.CodeArea
 
 /**
  * @author Gio
  */
-class ChatParser @JvmOverloads constructor(string: String, private val useVariables: Boolean = false, maxLength: Int = -1) {
+class ChatParser @JvmOverloads constructor(string: String, private val useVariables: Boolean = false) {
 
     private var string = string.replace("''", "'")
-
-    init {
-        if(maxLength != -1) this.string = string.maxTo(maxLength + getUnshownCharactersSize(maxLength))
-    }
 
     private val prefix = colorPrefix
 
@@ -89,26 +84,6 @@ class ChatParser @JvmOverloads constructor(string: String, private val useVariab
             }
             return list
         }
-
-    private fun getUnshownCharactersSize(to: Int = string.length): Int {
-        var size = 0
-        var i = 0
-        val max = if(to > string.length) string.length else to
-        while(i < max) {
-            val char = string[i]
-            if(char.toString() == colorPrefix && i + 1 < string.length) {
-                try {
-                    val colorChar = string[i + 1]
-                    ChatFormat.byChar(colorChar)
-                    ChatColor.byChar(colorChar)
-                    size += colorPrefix.length + 1
-                    i++
-                } catch(e: IllegalArgumentException) {}
-            }
-            i++
-        }
-        return size
-    }
 
     fun toPlainText(): String {
         var text = ""
