@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.addon
 
 import jdk.nashorn.api.scripting.ScriptUtils
+import org.chorusmc.chorus.Chorus
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
@@ -64,11 +65,11 @@ data class Addon(val file: File) {
         context = SimpleScriptContext()
         with(Addons.scriptEngine!!) {
             context = this@Addon.context
-            put("chorus_js_api", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/lib.js")
             put("chorus_translate", "https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/translator.js")
             put("thisAddon", this@Addon)
             put("name", name)
             try {
+                eval(InputStreamReader(FileInputStream(File(Chorus.getInstance().folder.file, "lib.js")))) // Eval lib.js first
                 eval(InputStreamReader(FileInputStream(file)))
             } catch(e: ScriptException) {
                 System.err.println(e.message!!)

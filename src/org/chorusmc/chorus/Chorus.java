@@ -55,7 +55,7 @@ public class Chorus extends FXApplication {
     private static File passedFile;
 
     public ChorusConfig config = new ChorusConfig();
-    public ChorusFolder backups = new ChorusFolder(), themes = new ChorusFolder();
+    public ChorusFolder folder = new ChorusFolder(), backups = new ChorusFolder(), themes = new ChorusFolder();
 
     private ResourceBundle resourceBundle;
 
@@ -112,7 +112,7 @@ public class Chorus extends FXApplication {
 
         instance = this;
 
-        ChorusFolder folder = new ChorusFolder();
+        folder = new ChorusFolder();
         folder.createIfAbsent(ChorusFolder.RELATIVE);
         backups.createIfAbsent(new File(ChorusFolder.RELATIVE, "backups"));
         themes.createIfAbsent(new File(ChorusFolder.RELATIVE, "themes"));

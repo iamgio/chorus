@@ -1,6 +1,9 @@
 package org.chorusmc.chorus.addon
 
+import org.apache.commons.io.FileUtils
 import org.chorusmc.chorus.Chorus
+import java.io.File
+import java.net.URL
 import javax.script.Invocable
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
@@ -14,6 +17,8 @@ object Addons {
     var scriptEngine: ScriptEngine? = null
 
     fun initEngine() {
+        FileUtils.copyURLToFile(URL("https://raw.githubusercontent.com/iAmGio/chorus/master/src/assets/js/lib.js"),
+                File(Chorus.getInstance().folder.file, "lib.js"))
         scriptEngine = ScriptEngineManager(Chorus::class.java.classLoader).getEngineByExtension("js")
         addons.forEach {
             it.eval()
