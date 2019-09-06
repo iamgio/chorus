@@ -456,6 +456,15 @@ function PreviewBackground(image) {
 }
 
 /**
+ * Creates an insert menu
+ * @param values enum values
+ */
+function InsertMenu(values) {
+    var InsertMenuClass = chorus_type('menus.insert.InsertMenu');
+    return new InsertMenuClass(values);
+}
+
+/**
  * Instantiates a View
  * @param title view title
  * @param image view icon

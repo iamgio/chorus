@@ -27,7 +27,7 @@ public class InsertMenu extends VBox implements Showable {
     private TextField textfield;
     private BrowsableVBox vbox;
     private FixedScrollPane pane;
-    private Class<Enum<?>> enumClass;
+    private Enum[] enumValues;
 
     private Node target;
 
@@ -36,9 +36,9 @@ public class InsertMenu extends VBox implements Showable {
     private String selected;
     private int meta;
 
-    public InsertMenu(Class<Enum<?>> enumClass) {
+    public InsertMenu(Enum[] enumValues) {
         getStyleClass().add("insert-menu");
-        this.enumClass = enumClass;
+        this.enumValues = enumValues;
 
         textfield = new TextField();
         textfield.setMinWidth(300);
@@ -61,10 +61,13 @@ public class InsertMenu extends VBox implements Showable {
         Platform.runLater(textfield::requestFocus);
     }
 
+    public InsertMenu(Class<Enum> enumClass) {
+        this(enumClass.getEnumConstants());
+    }
+
     private void update() {
         vbox.getChildren().clear();
-        Enum[] values = enumClass.getEnumConstants();
-        for(Enum value : values) {
+        for(Enum value : enumValues) {
             String name = value.name().toLowerCase().replace("_", " ");
             if(name.replace("_", " ").contains(textfield.getText().toLowerCase())) {
                 List<Image> images = new ArrayList<>();
@@ -98,7 +101,7 @@ public class InsertMenu extends VBox implements Showable {
         MenuPlacer placer = new MenuPlacer(this);
         setLayoutX(placer.getX());
         setLayoutY(placer.getY());
-        Utils.hideMenuOnInteract(this, new InteractFilter[0], target);
+        Utils.hideMenuOnInteract(this, InteractFilter.values(), target);
         AnchorPane root = Chorus.getInstance().root;
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
