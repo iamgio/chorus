@@ -1,12 +1,17 @@
 package org.chorusmc.chorus;
 
 import eu.iamgio.libfx.application.FXApplication;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.chorusmc.chorus.addon.Addon;
 import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.configuration.ChorusConfig;
@@ -61,7 +66,26 @@ public class Chorus extends FXApplication {
     public AnchorPane root;
 
     @Override
-    public void start() throws Exception {
+    public void start() {
+        Stage splash = new Stage(StageStyle.UNDECORATED);
+        splash.getIcons().add(new Image(getClass().getResourceAsStream("/assets/images/icon.png")));
+        splash.setTitle("Chorus " + VERSION);
+        ImageView splashImage = new ImageView(new Image(getClass().getResourceAsStream("/assets/images/splash.png")));
+        Pane splashRoot = new Pane(splashImage);
+        splashRoot.setPrefSize(splashImage.getImage().getWidth(), splashImage.getImage().getHeight());
+        splash.setScene(new Scene(splashRoot));
+        splash.show();
+        Platform.runLater(() -> {
+            try {
+                initApp();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            splash.close();
+        });
+    }
+
+    private void initApp() throws Exception {
         Stage stage = getStage().toStage();
         Locker locker = new Locker();
         locker.setOnSecondInstance(message -> {
