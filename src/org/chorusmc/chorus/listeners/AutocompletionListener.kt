@@ -61,7 +61,7 @@ class AutocompletionListener : EditorEvent() {
                     val menu = AutocompletionMenu(options, word, optionsSize, area.caretPosition, this)
                     actual?.hide()
                     if(menu.children.size > 0) {
-                        val bounds = area.screenToLocal(area.caretBounds.get())
+                        val bounds = area.localCaretBounds
                         menu.layoutX = bounds.minX
                         menu.layoutY = bounds.minY + 90
                         menu.show()

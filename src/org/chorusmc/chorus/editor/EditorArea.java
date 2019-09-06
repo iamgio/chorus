@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.editor;
 
 import javafx.application.Platform;
+import javafx.geometry.Bounds;
 import javafx.scene.control.IndexRange;
 import javafx.scene.input.*;
 import kotlin.ranges.IntRange;
@@ -184,6 +185,10 @@ public class EditorArea extends CodeArea {
             new Notification(Utils.translate("error.refresh", file.getName()), NotificationType.ERROR).send();
             return false;
         }
+    }
+
+    public Bounds getLocalCaretBounds() {
+        return getCaretBounds().isPresent() ? screenToLocal(getCaretBounds().get()) : null;
     }
 
     public String getInit(int paragraphIndex) {
