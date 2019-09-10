@@ -1,22 +1,24 @@
 package org.chorusmc.chorus.menus.insert;
 
-import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import org.chorusmc.chorus.Chorus;
-import org.chorusmc.chorus.menus.*;
-import org.chorusmc.chorus.minecraft.Iconable;
-import org.chorusmc.chorus.nodes.Tab;
-import org.chorusmc.chorus.util.InteractFilter;
-import org.chorusmc.chorus.util.Utils;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.menus.BrowsableVBox;
+import org.chorusmc.chorus.menus.FixedScrollPane;
+import org.chorusmc.chorus.menus.MenuPlacer;
+import org.chorusmc.chorus.menus.Showable;
+import org.chorusmc.chorus.nodes.Tab;
+import org.chorusmc.chorus.util.InteractFilter;
+import org.chorusmc.chorus.util.Utils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public class InsertMenu extends VBox implements Showable {
     private TextField textfield;
     private BrowsableVBox vbox;
     private FixedScrollPane pane;
-    private Enum[] enumValues;
+    private InsertMenuMember[] members;
 
     private Node target;
 
@@ -36,9 +38,9 @@ public class InsertMenu extends VBox implements Showable {
     private String selected;
     private int meta;
 
-    public InsertMenu(Enum[] enumValues) {
+    public InsertMenu(InsertMenuMember[] members) {
         getStyleClass().add("insert-menu");
-        this.enumValues = enumValues;
+        this.members = members;
 
         textfield = new TextField();
         textfield.setMinWidth(300);
@@ -62,20 +64,21 @@ public class InsertMenu extends VBox implements Showable {
     }
 
     public InsertMenu(Class<Enum> enumClass) {
-        this(enumClass.getEnumConstants());
+        this(
+                Arrays.stream(enumClass.getEnumConstants())
+                .map(InsertMenuMember::new)
+                .toArray(InsertMenuMember[]::new)
+        );
     }
 
     private void update() {
         vbox.getChildren().clear();
-        for(Enum value : enumValues) {
-            String name = value.name().toLowerCase().replace("_", " ");
+        for(InsertMenuMember member : members) {
+            String name = member.getName().toLowerCase().replace("_", " ");
             if(name.replace("_", " ").contains(textfield.getText().toLowerCase())) {
-                List<Image> images = new ArrayList<>();
-                if(value instanceof Iconable) {
-                    images = ((Iconable) value).getIcons();
-                }
+                List<Image> images = member.getIcons();
                 InsertMenuHint hint = new InsertMenuHint(name, images);
-                if(images != null && images.size() > 0) {
+                if(!images.isEmpty()) {
                     textfield.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
                         if(e.getCode() == KeyCode.RIGHT) {
                             hint.selectNext();

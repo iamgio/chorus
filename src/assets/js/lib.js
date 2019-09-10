@@ -35,10 +35,10 @@ function chorus_type(name) {
 var chorus = chorus_type('Chorus').getInstance();
 
 /**
- * Chorus' version
+ * Chorus version
  * @type java.lang.String
  */
-var version = chorus_type('Chorus').VERSION
+var chorusVersion = chorus_type('Chorus').VERSION
 
 /**
  * Runs an action later on JavaFX thread
@@ -462,6 +462,16 @@ function PreviewBackground(image) {
 function InsertMenu(values) {
     var InsertMenuClass = chorus_type('menus.insert.InsertMenu');
     return new InsertMenuClass(values);
+}
+
+/**
+ * Instantiates a member of insert menus
+ * @param name member name
+ * @param icons optional array of images
+ */
+function InsertMenuMember(name, icons) {
+    var MemberClass = chorus_type('menus.insert.InsertMenuMember');
+    return new MemberClass(name, icons ? icons : []);
 }
 
 /**
