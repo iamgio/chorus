@@ -7,7 +7,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -63,7 +62,7 @@ public class Chorus extends FXApplication {
 
     private static Chorus instance;
 
-    public AnchorPane root;
+    public Pane root;
 
     @Override
     public void start() {
@@ -136,7 +135,7 @@ public class Chorus extends FXApplication {
 
         resourceBundle = ResourceBundle.getBundle("assets/lang/lang",
                 Locale.forLanguageTag(Lang.fromCommonName(config.get("1.Appearance.4.Language")).getTag()));
-        root = (AnchorPane) loadRoot("/assets/views/Editor.fxml", resourceBundle);
+        root = loadRoot("/assets/views/Editor.fxml", resourceBundle);
         boolean inherit = config.getBoolean("1.Appearance.3.Inherit_window_size");
         Scene scene = new Scene(root, inherit ? config.getInt("_win.width") : 950, inherit ? config.getInt("_win.height") : 600);
         Theme theme = Themes.byConfig();

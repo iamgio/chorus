@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.menus.drop;
 
 import javafx.geometry.Pos;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.menus.BrowsableVBox;
@@ -79,7 +79,7 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
         MenuPlacer placer = new MenuPlacer(this);
         setLayoutX(placer.getX());
         setLayoutY(placer.getY());
-        AnchorPane root = Chorus.getInstance().root;
+        Pane root = Chorus.getInstance().root;
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
         }

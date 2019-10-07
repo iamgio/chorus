@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.menus.BrowsableVBox;
@@ -105,7 +105,7 @@ public class InsertMenu extends VBox implements Showable {
         setLayoutX(placer.getX());
         setLayoutY(placer.getY());
         Utils.hideMenuOnInteract(this, InteractFilter.values(), target);
-        AnchorPane root = Chorus.getInstance().root;
+        Pane root = Chorus.getInstance().root;
         if(!root.getChildren().contains(this)) {
             root.getChildren().add(this);
         }
