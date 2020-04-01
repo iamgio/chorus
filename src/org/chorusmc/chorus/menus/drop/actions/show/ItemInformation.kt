@@ -23,7 +23,6 @@ class ItemInformation : InformationMenuAction() {
             else -> return
         } as Item
         val icons = item.icons
-        println(icons)
         val box = ItemInformationBox(if(icons.size > data) icons[data] else null, item)
         box.layoutX = x
         box.layoutY = y
