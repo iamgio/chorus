@@ -16,12 +16,12 @@ fun charToWordBounds(index: Int, styleClass: String, stopOnLineBreak: Boolean = 
             area.getStyleOfChar(end + 1).contains(styleClass)) {
         end++
     }
-    return start to if(end >= area.length - 1) area.length else end + 1
+    return start to if(end >= area.length) area.length else end
 }
 
 fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true): String {
     val bounds = charToWordBounds(index, styleClass, stopOnLineBreak)
     val area = area!!
     if(bounds.first < 0 || bounds.second >= area.length) return ""
-    return area.getText(bounds.first, bounds.second).trimStart()
+    return area.getText(bounds.first, bounds.second + 1).trimStart()
 }
