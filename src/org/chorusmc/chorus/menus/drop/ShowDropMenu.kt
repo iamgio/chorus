@@ -1,6 +1,5 @@
 package org.chorusmc.chorus.menus.drop
 
-import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorPattern
 import org.chorusmc.chorus.menus.drop.actions.show.*
 import org.chorusmc.chorus.minecraft.IdAble
@@ -28,33 +27,12 @@ class ShowDropMenu : DropMenu(SHOW_DROP_MENU_TYPE) {
         )
         val selected = area!!.selectedText
         val parts = selected.split(":")
-        if(selected.isNotEmpty() && parts.size in 1..2) {
-            if(selected.matches(Regex("(${EditorPattern.ITEMID.pattern})|(\\b([1-3][0-9][0-9]|4[0-4][0-9]|45[0-3]|[0-9]|[0-9][0-9]))|(22((5[8-9])|(6[0-7]))\\b)"))) {
-                if(selected.split(":")[0].toShortOrNull() != null && IdAble.byId(McClass("Item").cls as Class<out IdAble>, selected.split(":")[0].toShort()) != null) {
-                    val path = if(selected.contains(":"))
-                        selected.replace(":", "-")
-                    else "$selected-0"
-                    if(Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/v${McClass("").version.replace(".", "")}/$path.png") != null) {
-                        val left = parts[0]
-                        val item = IdAble.byId(McClass("Item").cls as Class<out IdAble>, left.toShort())
-                        if(item != null && item is Item) {
-                            if(selected.contains(":")) {
-                                val right = parts[1]
-                                if(item.icons.size >= right.toInt()) {
-                                    list[0].isDisable = false
-                                }
-                            }
-                            else list[0].isDisable = false
-                        }
-                    }
-                }
+        if(selected.isNotEmpty() && parts.isNotEmpty()) {
+            if(selected.toIntOrNull() != null || selected.matches(Regex(EditorPattern.ITEMID.pattern))) {
+                val item = IdAble.byId(McClass("Item").cls as Class<out IdAble>, parts[0].toShort()) as Item?
+                list[0].isDisable = item == null
             } else if(selected.matches(Regex(EditorPattern.ITEM.pattern))) {
-                if(selected.contains(":")) {
-                    val right = parts[1]
-                    if((McClass("Item").valueOf(selected.split(":")[0]) as Item).icons.size > right.toInt()) {
-                        list[0].isDisable = false
-                    }
-                } else list[0].isDisable = false
+                list[0].isDisable = McClass("Item").valueOf(parts[0]) == null
             }
             if(selected.matches(Regex(EditorPattern.EFFECT.pattern)) ||
                     (selected.toShortOrNull() != null && IdAble.byId(Effect::class.java, selected.toShort()) != null)) {
