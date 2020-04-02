@@ -22,10 +22,11 @@ class ItemIconLoader(private val item: Item) : IconLoader {
                 val list = ArrayList<Image>()
                 repeat(if(mcclass.version == "1.12") 19 else 1) {
                     val id = (item as Item).id
-                    val filename = "v${mcclass.version.replace(".", "")}/" + when(mcclass.version) {
-                        "1.12" -> "$id-$it"
-                        "1.13" -> "${item.name.toLowerCase()}-$it"
-                        else -> item.name.toLowerCase()
+                    val filename = when(mcclass.version) {
+                        "1.12" -> "v112/$id-$it"
+                        "1.13" -> "v113/${item.name.toLowerCase()}-$it"
+                        "1.14" -> "v115/${item.name.toLowerCase()}"
+                        else -> "v${mcclass.version.replace(".", "")}/${item.name.toLowerCase()}"
                     }
                     val inputStream =
                             Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$filename.png")
