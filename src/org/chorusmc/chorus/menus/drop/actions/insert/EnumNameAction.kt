@@ -3,12 +3,13 @@ package org.chorusmc.chorus.menus.drop.actions.insert
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.menus.insert.InsertMenu
+import org.chorusmc.chorus.minecraft.McComponent
 import org.chorusmc.chorus.util.makeFormal
 
 /**
  * @author Gio
  */
-open class EnumNameAction(protected var enumClass: Class<out Enum<*>>) : DropMenuAction() {
+open class EnumNameAction(protected var enumClass: Class<out McComponent>) : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         @Suppress("UNCHECKED_CAST")

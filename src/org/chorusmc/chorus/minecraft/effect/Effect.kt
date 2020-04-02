@@ -8,7 +8,7 @@ import java.io.IOException
 /**
  * @author Gio
  */
-enum class Effect(override val id: Short) : Iconable, IdAble, Fetchable {
+enum class Effect(override val id: Short) : McComponent, Iconable, IdAble, Fetchable {
 
     SPEED(1),
     SLOW(2),

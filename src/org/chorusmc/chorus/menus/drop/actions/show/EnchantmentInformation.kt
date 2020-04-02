@@ -13,11 +13,10 @@ class EnchantmentInformation : InformationMenuAction() {
 
     override fun onAction(text: String, x: Double, y: Double) {
         val enchantment = if(text.matches(Regex(EditorPattern.ENCHANTMENT.pattern))) {
-            McClass("Enchantment").valueOf(text)
+            McClass(Enchantment::class.java).valueOf<Enchantment>(text) ?: return
         } else {
-            @Suppress("UNCHECKED_CAST")
-            IdAble.byId(McClass("Enchantment").cls as Class<out IdAble>, text.toShort())
-        } as Enchantment
+            IdAble.byId(McClass(Enchantment::class.java).cls, text.toShort()) ?: return
+        }
         val box = EnchantmentInformationBox(enchantment)
         box.layoutX = x
         box.layoutY = y

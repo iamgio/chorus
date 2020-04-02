@@ -26,7 +26,10 @@ import org.chorusmc.chorus.listeners.*;
 import org.chorusmc.chorus.lock.Locker;
 import org.chorusmc.chorus.minecraft.McClass;
 import org.chorusmc.chorus.minecraft.effect.EffectIconLoader;
+import org.chorusmc.chorus.minecraft.enchantment.Enchantment;
+import org.chorusmc.chorus.minecraft.entity.Entity;
 import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
+import org.chorusmc.chorus.minecraft.item.Item;
 import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
 import org.chorusmc.chorus.minecraft.particle.ParticleIconLoader;
 import org.chorusmc.chorus.settings.SettingsBuilder;
@@ -163,13 +166,13 @@ public class Chorus extends FXApplication {
             cacheIcons();
             AutocompletionListener.loadOptions();
             EditorPattern.ITEM.setPattern(
-                    "(\\b(" + joinEnum(new McClass("Item").getCls()) + ")\\b)(:\\d(\\d)?)?"
+                    "(\\b(" + joinEnum(new McClass(Item.class).getCls()) + ")\\b)(:\\d(\\d)?)?"
             );
             EditorPattern.ENTITY.setPattern(
-                    "\\b(" + joinEnum(new McClass("Entity").getCls()) + ")\\b"
+                    "\\b(" + joinEnum(new McClass(Entity.class).getCls()) + ")\\b"
             );
             EditorPattern.ENCHANTMENT.setPattern(
-                    "\\b(" + joinEnum(new McClass("Enchantment").getCls()) + ")\\b"
+                    "\\b(" + joinEnum(new McClass(Enchantment.class).getCls()) + ")\\b"
             );
         });
 

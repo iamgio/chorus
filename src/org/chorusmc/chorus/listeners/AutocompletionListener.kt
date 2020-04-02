@@ -5,6 +5,9 @@ import org.chorusmc.chorus.editor.events.EditorEvent
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
+import org.chorusmc.chorus.minecraft.enchantment.Enchantment
+import org.chorusmc.chorus.minecraft.entity.Entity
+import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.minecraft.particle.Particle
 import org.chorusmc.chorus.minecraft.sound.Sound
 import org.chorusmc.chorus.util.config
@@ -79,11 +82,11 @@ class AutocompletionListener : EditorEvent() {
             options =
                     linkedMapOf(
                             "true" to "true", "false" to "false",
-                            *McClass("Item").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
-                            *McClass("Entity").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *McClass(Item::class.java).enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *McClass(Entity::class.java).enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
                             *Particle.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
                             *Effect.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-                            *McClass("Enchantment").enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
+                            *McClass(Enchantment::class.java).enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
                             *Sound.values().map {it.name.makeFormal() to it.name}.toTypedArray()
                     )
         }

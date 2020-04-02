@@ -5,13 +5,14 @@ import org.chorusmc.chorus.editor.EditorPattern
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.menus.insert.InsertMenu
 import org.chorusmc.chorus.minecraft.IdAble
+import org.chorusmc.chorus.minecraft.McComponent
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.util.valueOf
 
 /**
  * @author Gio
  */
-open class IdAction(protected var enumClass: Class<out IdAble>) : DropMenuAction() {
+open class IdAction(protected var enumClass: Class<out McComponent>) : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         @Suppress("UNCHECKED_CAST")
@@ -22,7 +23,7 @@ open class IdAction(protected var enumClass: Class<out IdAble>) : DropMenuAction
                         if(area.selectedText.matches(Regex(EditorPattern.ITEM.pattern))) {
                             area.selectedText.makeFormal()
                         } else {
-                            IdAble.byId(enumClass, area.selectedText.split(":")[0].toShort())
+                            (IdAble.byId<IdAble>(enumClass, area.selectedText.split(":")[0].toShort()) as? McComponent)
                                     ?.name?.makeFormal()
                                     ?: area.selectedText
                         }

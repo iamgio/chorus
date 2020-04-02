@@ -22,7 +22,7 @@ class InsertDropMenu : DropMenu(INSERT_DROP_MENU_TYPE) {
                 DropMenuButton(translate("insert.enchantment_name"), EnchantmentName()),
                 DropMenuButton(translate("insert.ticks"), Ticks())
         )
-        if(McClass("").version == "1.12") {
+        if(McClass(null).version == "1.12") {
             array.add(2, DropMenuButton(translate("insert.item_id"), ItemID()))
             array.add(5, DropMenuButton(translate("insert.effect_id"), EffectID()))
             array.add(9, DropMenuButton(translate("insert.enchantment_id"), EnchantmentID()))

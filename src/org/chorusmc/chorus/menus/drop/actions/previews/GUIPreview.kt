@@ -161,7 +161,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
             when(it.button) {
                 MouseButton.PRIMARY -> {
                     @Suppress("UNCHECKED_CAST")
-                    val menu = InsertMenu(McClass("Item").cls as Class<Enum<*>>)
+                    val menu = InsertMenu(McClass(Item::class.java).cls as Class<Enum<*>>)
                     menu.target = titleField
                     if(item != null) {
                         menu.textField.text = item!!.name.makeFormal()
@@ -169,7 +169,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
                     menu.layoutX = layoutX + 40
                     menu.layoutY = layoutY
                     menu.setOnSelect {
-                        item = McClass("Item").valueOf(menu.selected.toUpperCase().replace(" ", "_")) as Item
+                        item = McClass(Item::class.java).valueOf(menu.selected.toUpperCase().replace(" ", "_"))
                         meta = if(menu.meta > 0) menu.meta else 0
                         setItem(item!!, meta)
                     }
@@ -206,7 +206,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
         this.item = item
         removeImage()
         val icons = item.icons
-        children += ImageView(if(icons.size > meta) icons[meta] else (McClass("Item").valueOf("BEDROCK") as Item).icons[0])
+        children += ImageView(if(icons.size > meta) icons[meta] else (McClass(Item::class.java).valueOf<Item>("BEDROCK"))!!.icons[0])
         WaitingTimer().start({
             Platform.runLater {
                 titleField.requestFocus()

@@ -1,9 +1,11 @@
 package org.chorusmc.chorus.minecraft.sound
 
+import org.chorusmc.chorus.minecraft.McComponent
+
 /**
  * @author Gio
  */
-enum class Sound {
+enum class Sound : McComponent {
 
     AMBIENT_CAVE,
     BLOCK_ANVIL_BREAK,

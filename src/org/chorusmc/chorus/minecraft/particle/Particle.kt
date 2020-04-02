@@ -1,12 +1,13 @@
 package org.chorusmc.chorus.minecraft.particle
 
-import org.chorusmc.chorus.minecraft.Iconable
 import javafx.scene.image.Image
+import org.chorusmc.chorus.minecraft.Iconable
+import org.chorusmc.chorus.minecraft.McComponent
 
 /**
  * @author Gio
  */
-enum class Particle : Iconable {
+enum class Particle : McComponent, Iconable {
 
     EXPLOSION_NORMAL,
     EXPLOSION_LARGE,

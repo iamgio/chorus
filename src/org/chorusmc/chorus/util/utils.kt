@@ -13,6 +13,7 @@ import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.EditorController
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.menus.Showable
+import org.chorusmc.chorus.minecraft.McComponent
 import org.chorusmc.chorus.nodes.Tab
 import java.io.InputStream
 import java.nio.charset.MalformedInputException
@@ -95,7 +96,7 @@ enum class InteractFilter {
 }
 
 
-fun joinEnum(enumClass: Class<out Enum<*>>): String = enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")
+fun joinEnum(enumClass: Class<out McComponent>): String = enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")
 
 fun getText(input: InputStream): String =
         try {

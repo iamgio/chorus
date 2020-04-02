@@ -5,14 +5,16 @@ import org.chorusmc.chorus.util.config
 /**
  * @author Gio
  */
-class McClass @JvmOverloads constructor(private val element: String, val version: String = config["4.Minecraft.0.Server_version"]) {
+@Suppress("UNCHECKED_CAST")
+class McClass @JvmOverloads constructor(private val component: Class<out McComponent>?, val version: String = config["4.Minecraft.0.Server_version"]) {
 
-    @Suppress("UNCHECKED_CAST")
-    val cls: Class<out Enum<*>>
-        get() = Class.forName("org.chorusmc.chorus.minecraft.${element.toLowerCase()}.$element${version.replace(".", "")}") as Class<out Enum<*>>
+    val cls: Class<out McComponent>
+        get() = Class.forName("${component!!.name}${version.replace(".", "")}") as Class<out McComponent>
 
-    val enumValues: Array<out Enum<*>>
+    val enumValues: Array<out McComponent>
         get() = cls.enumConstants
 
-    fun valueOf(e: String) = enumValues.firstOrNull {it.name == e}
+    fun <T> valueOf(e: String) where T: McComponent = enumValues.firstOrNull {it.name == e} as T?
+
+    fun <T> listValues() where T: McComponent = enumValues.map {it as T}
 }

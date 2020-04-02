@@ -7,10 +7,11 @@ interface IdAble {
 
     val id: Short
 
+    @Suppress("UNCHECKED_CAST")
     companion object {
-        fun byId(idAble: Class<out IdAble>, id: Short): Enum<*>? {
-            @Suppress("UNCHECKED_CAST")
-            return (idAble as Class<out Enum<*>>).enumConstants.firstOrNull {(it as IdAble).id == id}
-        }
+        fun <T> byId(idAble: Class<out McComponent>, id: Short): T? where T: IdAble =
+                idAble.enumConstants.firstOrNull {(it as IdAble).id == id} as T?
+
+        inline fun <reified T> byId(id: Short): T? where T: IdAble = byId(T::class.java as Class<out McComponent>, id)
     }
 }

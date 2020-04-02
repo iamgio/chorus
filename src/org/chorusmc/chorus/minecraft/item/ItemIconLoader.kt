@@ -12,12 +12,10 @@ import org.chorusmc.chorus.util.itemIcons
  */
 class ItemIconLoader(private val item: Item) : IconLoader {
 
-    // Thanks to https://minecraftitemids.com/ for icons.
-
     companion object {
         @JvmStatic fun cache() {
             itemIcons.clear()
-            val mcclass = McClass("Item")
+            val mcclass = McClass(Item::class.java)
              mcclass.enumValues.forEach {item ->
                 val list = ArrayList<Image>()
                 repeat(if(mcclass.version == "1.12") 19 else 1) {

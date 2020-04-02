@@ -16,8 +16,8 @@ class EffectInformation : InformationMenuAction() {
         val effect = if(text.matches(Regex(EditorPattern.EFFECT.pattern))) {
             Effect.valueOf(text)
         } else {
-            IdAble.byId(Effect::class.java, text.toShort())
-        } as Effect
+            IdAble.byId(text.toShort()) ?: return
+        }
         val image = Image(Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/effects/${effect.id}.png"))
         val box = EffectInformationBox(image, effect)
         box.layoutX = x
