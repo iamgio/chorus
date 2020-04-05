@@ -34,11 +34,5 @@
                 <TabPane fx:id="tabPane" prefHeight="654.0" prefWidth="950.0" tabClosingPolicy="ALL_TABS"/>
             </children>
         </VBox>
-        <Rectangle id="notification-rectangle" arcHeight="5.0" arcWidth="5.0" fill="#7a28ff" height="66.0"
-                   strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 10, 0, 0, 5)"
-                   translateY="-75.0" width="950.0"/>
-        <Label id="notification-label" layoutX="38.0"
-               style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold; -fx-opacity: .85;" text=" "
-               translateY="-57.5"/>
     </children>
 </AnchorPane>
