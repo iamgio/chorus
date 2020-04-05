@@ -147,8 +147,19 @@ function getConfig() {
  * @param target stylesheet target. If null, the stylesheet will be global
  */
 function loadStylesheet(file, target) {
-    var Stylesheet = chorus_type('nodes.ExternalStylesheet');
+    var Stylesheet = chorus_type('nodes.stylesheets.ExternalStylesheet');
     new Stylesheet(toFile(file))
+        .add(target ? target : chorus.getStage().toStage().getScene());
+}
+
+/**
+ * Loads an internal CSS file
+ * @param path path to internal CSS resource
+ * @param target stylesheet target. If null, the stylesheet will be global
+ */
+function loadInternalStylesheet(path, target) {
+    var Stylesheet = chorus_type('nodes.stylesheets.InternalStylesheet');
+    new Stylesheet(path)
         .add(target ? target : chorus.getStage().toStage().getScene());
 }
 
