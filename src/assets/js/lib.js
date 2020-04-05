@@ -529,6 +529,14 @@ function View(title, image, width, height, isResizable) {
 }
 
 /**
+ * Color prefix from settings
+ * @return java.lang.String
+ */
+function getColorPrefix() {
+    return chorus_type('util.VarsKt').colorPrefix;
+}
+
+/**
  * Gets variables
  * @return java.util.List<org.chorusmc.chorus.variable.Variable>
  */
