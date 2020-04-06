@@ -102,3 +102,7 @@
     -fx-text-fill: white;
     -fx-fill: white;
 }
+
+.color-prefix {
+    -fx-opacity: .2;
+}

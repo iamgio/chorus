@@ -12,6 +12,7 @@ import org.chorusmc.chorus.editor.events.Events;
 import org.chorusmc.chorus.file.FileMethod;
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu;
 import org.chorusmc.chorus.menus.drop.MainDropMenu;
+import org.chorusmc.chorus.minecraft.chat.ChatComponent;
 import org.chorusmc.chorus.nodes.Tab;
 import org.chorusmc.chorus.notification.Notification;
 import org.chorusmc.chorus.notification.NotificationType;
@@ -48,6 +49,7 @@ public class EditorArea extends CodeArea {
         this.file = file;
         this.highlight = highlight;
         getStylesheets().add(Themes.byConfig().getPath()[1]);
+        getStylesheets().add("/assets/styles/chat-styles.css");
         getStyleClass().add("area");
         setParagraphGraphicFactory(LineNumberFactory.get(this));
 
@@ -110,6 +112,7 @@ public class EditorArea extends CodeArea {
     private void updateHighlighting() {
         if((highlight || supportsHighlighting()) && !getText().isEmpty()) {
             setStyleSpans(0, computeHighlighting());
+            ChatComponent.Companion.highlightCodes(this);
             Addons.INSTANCE.invoke("onHighlightingUpdate", this);
         }
     }
