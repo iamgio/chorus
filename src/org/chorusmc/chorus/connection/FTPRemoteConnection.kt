@@ -1,6 +1,6 @@
 package org.chorusmc.chorus.connection
 
-import org.apache.commons.net.ftp.FTPClient
+import org.apache.commons.net.ftp.FTPSClient
 
 /**
  * @author Gio
@@ -12,9 +12,9 @@ class FTPRemoteConnection(override val ip: String, override val username: String
 
     val client = cl
 
-    private val cl: FTPClient?
+    private val cl: FTPSClient?
         get() {
-            val client = FTPClient()
+            val client = FTPSClient()
             return try {
                 client.connect(ip, port)
                 client.enterLocalPassiveMode()
