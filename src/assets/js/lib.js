@@ -537,6 +537,36 @@ function getColorPrefix() {
 }
 
 /**
+ * Instantiates a chat parser
+ * @param text text to be parsed
+ * @param useVariables whether or not variables should be replaced
+ * @return org.chorusmc.chorus.minecraft.chat.ChatParser
+ */
+function ChatParser(text, useVariables) {
+    var ChatParser = chorus_type('minecraft.chat.ChatParser');
+    return new ChatParser(text, useVariables);
+}
+
+/**
+ * Removes color/formats codes from given text
+ * @param text text with codes
+ * @return java.lang.String
+ */
+function removeColorCodes(text) {
+    return ChatParser(text, false).toPlainText();
+}
+
+/**
+ * Parses a colored text into a JavaFX node (TextFlow)
+ * @param text text to be parsed
+ * @param useVariables whether or not variables should be replaced. True if omitted
+ * @return javafx.scene.text.TextFlow
+ */
+function coloredTextToNode(text, useVariables) {
+    return new ChatParser(text, useVariables).toTextFlow(true);
+}
+
+/**
  * Gets variables
  * @return java.util.List<org.chorusmc.chorus.variable.Variable>
  */

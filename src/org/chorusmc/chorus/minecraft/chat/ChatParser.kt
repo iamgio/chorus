@@ -13,9 +13,7 @@ import org.fxmisc.richtext.CodeArea
 /**
  * @author Gio
  */
-class ChatParser @JvmOverloads constructor(string: String, private val useVariables: Boolean = false) {
-
-    private var string = string.replace("''", "'")
+class ChatParser @JvmOverloads constructor(private val string: String, private val useVariables: Boolean = false) {
 
     private val prefix = colorPrefix
 
@@ -23,7 +21,7 @@ class ChatParser @JvmOverloads constructor(string: String, private val useVariab
         get() {
             var list = emptyList<Any>()
             var i = 0
-            string.split(prefix).forEach {
+            string.replace("''", "'").split(prefix).forEach {
                 if(i == 0) {
                     list += it
                 } else if(it.isNotEmpty()) {
