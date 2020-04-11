@@ -41,6 +41,14 @@ var chorus = chorus_type('Chorus').getInstance();
 var chorusVersion = chorus_type('Chorus').VERSION
 
 /**
+ * The logo of Chorus!
+ * @return javafx.scene.image.Image
+ */
+function getChorusIcon() {
+    return new fx.image.Image(chorusClass.getResourceAsStream('/assets/images/icon.png'));
+}
+
+/**
  * Runs an action later on JavaFX thread
  * @param action action to be ran
  */

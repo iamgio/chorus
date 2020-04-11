@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.addon
 
 import jdk.nashorn.api.scripting.ScriptUtils
+import org.chorusmc.chorus.Chorus
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
@@ -67,6 +68,7 @@ data class Addon(val file: File) {
             put("chorus_js_api", "classpath:assets/js/lib.js")
             put("chorus_translate", "classpath:assets/js/translator.js")
             put("thisAddon", this@Addon)
+            put("chorusClass", Chorus::class.java)
             put("name", name)
             try {
                 eval(InputStreamReader(FileInputStream(file)))
