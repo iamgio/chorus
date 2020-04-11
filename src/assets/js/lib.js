@@ -57,6 +57,22 @@ function runAsync(action) {
 }
 
 /**
+ * X coordinate of the main window
+ * @return Double
+ */
+function getWindowX() {
+    return chorus.stage.toStage().getX();
+}
+
+/**
+ * Y coordinate of the main window
+ * @return Double
+ */
+function getWindowY() {
+    return chorus.stage.toStage().getY();
+}
+
+/**
  * Translates a string based on translationMap. English value is returned if there is not any translation for current locale
  * @param key translation key present in translationMap
  * @return java.lang.String
@@ -526,6 +542,48 @@ function InsertMenuMember(name, icons) {
 function View(title, image, width, height, isResizable) {
     var ViewClass = chorus_type('views.View');
     return new ViewClass(title, image, width, height, isResizable ? isResizable : false);
+}
+
+/**
+ * Displays a simple text pop-up
+ * @param text text to be shown
+ * @param x screen X coordinate
+ * @param y screen Y coordinate
+ */
+function showTextPopup(text, x, y) {
+    var TextPopup = chorus_type('nodes.popup.TextPopup');
+    var popup = new TextPopup();
+    popup.text = text;
+    popup.show(chorus.root, x, y);
+    return popup;
+}
+
+/**
+ * Displays a text-flow-based text pop-up
+ * @param textFlow JavaFX TextFlow to be shown
+ * @param x screen X coordinate
+ * @param y screen Y coordinate
+ */
+function showTextFlowPopup(textFlow, x, y) {
+    var TextFlowPopup = chorus_type('nodes.popup.TextFlowPopup');
+    var popup = new TextFlowPopup();
+    popup.flow = textFlow;
+    popup.show(chorus.root, x, y);
+    return popup;
+}
+
+/**
+ * Displays an image pop-up
+ * @param text text to be shown
+ * @param x screen X coordinate
+ * @param y screen Y coordinate
+ */
+function showImagePopup(image, x, y) {
+    var ImagePopup = chorus_type('nodes.popup.ImagePopup');
+    var popup = new ImagePopup();
+    popup.image = image;
+    popup.show(chorus.root, x, y);
+    return popup;
 }
 
 /**
