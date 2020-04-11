@@ -585,11 +585,16 @@ function showTextFlowPopup(textFlow, x, y) {
  * @param text text to be shown
  * @param x screen X coordinate
  * @param y screen Y coordinate
+ * @param width (optional) image width
+ * @param height (optional) image height
  */
-function showImagePopup(image, x, y) {
+function showImagePopup(image, x, y, width, height) {
     var ImagePopup = chorus_type('nodes.popup.ImagePopup');
     var popup = new ImagePopup();
     popup.image = image;
+    popup.hideOnMove = false
+    if(width) popup.imageWidth = width;
+    if(height) popup.imageHeight = height
     popup.show(chorus.root, x, y);
     return popup;
 }
