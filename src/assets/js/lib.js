@@ -608,6 +608,16 @@ function getColorPrefix() {
 }
 
 /**
+ * Replaces a standard color prefix with the current color prefix in a text
+ * @param text text
+ * @param prefix (optional) prefix to be translated. '&' if not specified
+ * @return java.lang.String
+ */
+function translateColorPrefixes(text, prefix) {
+    return text.replace(prefix ? prefix : '&', getColorPrefix());
+}
+
+/**
  * Instantiates a chat parser
  * @param text text to be parsed
  * @param useVariables whether or not variables should be replaced
