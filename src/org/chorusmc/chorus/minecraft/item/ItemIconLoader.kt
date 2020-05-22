@@ -32,7 +32,7 @@ class ItemIconLoader(private val item: Item) : IconLoader {
                         val image = Image(inputStream, 32.0, 32.0, false, true)
                         list += image
                     }
-                    itemIcons += item as Item to list
+                    itemIcons += item to list
                 }
             }
         }
