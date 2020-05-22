@@ -634,7 +634,7 @@ function ChatParser(text, useVariables) {
  * @return java.lang.String
  */
 function removeColorCodes(text) {
-    return ChatParser(text, false).toPlainText();
+    return ChatParser(translateColorPrefixes(text), false).toPlainText();
 }
 
 /**
@@ -644,7 +644,7 @@ function removeColorCodes(text) {
  * @return javafx.scene.text.TextFlow
  */
 function coloredTextToNode(text, useVariables) {
-    return new ChatParser(text, useVariables).toTextFlow(true);
+    return new ChatParser(translateColorPrefixes(text), useVariables).toTextFlow(true);
 }
 
 /**
