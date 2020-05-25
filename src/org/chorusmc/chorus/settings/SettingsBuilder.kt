@@ -76,7 +76,7 @@ class SettingsBuilder private constructor() {
             return list
         }
 
-        @JvmStatic fun addAction(setting: String, runnable: Runnable) {
+        @JvmStatic @JvmOverloads fun addAction(setting: String, runnable: Runnable, runNow: Boolean = false) {
             if(!actions.containsKey(setting)) {
                 actions += setting to listOf(runnable)
             } else {
@@ -84,6 +84,7 @@ class SettingsBuilder private constructor() {
                 actions += runnable
                 this.actions += setting to actions
             }
+            if(runNow) callAction(setting)
         }
 
         @JvmStatic fun callAction(setting: String) {

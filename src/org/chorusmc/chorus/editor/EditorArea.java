@@ -54,9 +54,23 @@ public class EditorArea extends CodeArea {
         setParagraphGraphicFactory(LineNumberFactory.get(this));
 
         final String fontSizeSetting = "1.Appearance.2.Font_size";
-        setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting));
-        SettingsBuilder.addAction(fontSizeSetting,
-                () -> setStyle("-fx-font-size: " + Chorus.getInstance().config.getInt(fontSizeSetting)));
+        final String fontSetting = "1.Appearance.5.Font";
+
+        Runnable updateFont = () -> {
+            int fontSize = Chorus.getInstance().config.getInt(fontSizeSetting);
+            setStyle("-fx-font-size: " + fontSize + ";");
+
+            String fontName = Chorus.getInstance().config.get(fontSetting);
+            EditorFont font = EditorFont.valueOf(fontName.toUpperCase());
+            if(font != EditorFont.DEFAULT) {
+                font.load();
+                setStyle(getStyle() + "-fx-font-family: " + font.getFontName() + ";");
+            }
+        };
+
+        SettingsBuilder.addAction(fontSizeSetting, updateFont, true);
+        SettingsBuilder.addAction(fontSetting, updateFont, true);
+
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             if(EditorPattern.patternEdited) {
                 pattern = EditorPattern.compile();

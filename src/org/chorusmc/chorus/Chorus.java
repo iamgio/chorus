@@ -236,7 +236,7 @@ public class Chorus extends FXApplication {
         }
     }
 
-    private void loadFont(String name) {
+    public void loadFont(String name) {
         Font.loadFont(getClass().getResourceAsStream("/assets/fonts/" + name), 25);
     }
 
