@@ -17,7 +17,7 @@ class EnchantmentInformationBox(enchantment: Enchantment) : InformationBox(Infor
     init {
         prefWidth = 400.0
         val title = enchantment.name.makeFormal()
-        val subtitle = enchantment.id.toString()
-        body = InformationBody(title, subtitle, enchantment.description, "https://minecraft.gamepedia.com/Enchanting")
+        val subtitle = if(enchantment.id >= 0) enchantment.id.toString() else ""
+        body = InformationBody(title, subtitle, enchantment.description, if(enchantment.realName.isNotEmpty()) enchantment.connection.url else "https://minecraft.gamepedia.com/Enchanting")
     }
 }
