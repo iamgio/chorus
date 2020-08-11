@@ -31,10 +31,6 @@ interface Item : McComponent, Iconable, IdAble, Fetchable {
             catch(e: IOException) {
                 return NO_PAGE
             }
-            val paragraphs = connection.document.getElementById("mw-content-text")
-                    .getElementsByTag("p")
-                    .filter {!it.parents().contains(connection.document.getElementsByClass("infobox-rows")[0])}
-            return ("${paragraphs[0].text().replace(".", ".\n")}\n${paragraphs[1].text().replace(".", ".\n")}")
-                    .replace(Regex("\\[.]"), "")
+            return getFirstWikiParagraph(connection.document)
         }
 }
