@@ -16,8 +16,8 @@ class ItemIconLoader(private val item: Item) : IconLoader {
         @JvmStatic fun cache() {
             itemIcons.clear()
             val mcclass = McClass(Item::class.java)
-             mcclass.enumValues.forEach {item ->
-                val list = ArrayList<Image>()
+             mcclass.enumValues.forEach { item ->
+                val list = mutableListOf<Image>()
                 repeat(if(mcclass.version == "1.12") 19 else 1) {
                     val id = (item as Item).id
                     val filename = when(mcclass.version) {
@@ -26,8 +26,10 @@ class ItemIconLoader(private val item: Item) : IconLoader {
                         "1.14" -> "v115/${item.name.toLowerCase()}"
                         else -> "v${mcclass.version.replace(".", "")}/${item.name.toLowerCase()}"
                     }
-                    val inputStream =
-                            Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$filename.png")
+                    val inputStream = Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$filename.png")
+
+                    println("$filename $inputStream")
+
                     if(inputStream != null) {
                         val image = Image(inputStream, 32.0, 32.0, false, true)
                         list += image
