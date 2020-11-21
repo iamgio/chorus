@@ -96,7 +96,7 @@ public class Chorus extends FXApplication {
             stage.setIconified(false);
             stage.requestFocus();
             if(message.startsWith(Locker.ARG_PREFIX)) {
-                String name = message.substring(Locker.ARG_PREFIX.length(), message.length());
+                String name = message.substring(Locker.ARG_PREFIX.length());
                 new EditorTab(new LocalFile(new File(name))).add();
             }
             try {

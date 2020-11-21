@@ -28,8 +28,6 @@ class ItemIconLoader(private val item: Item) : IconLoader {
                     }
                     val inputStream = Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$filename.png")
 
-                    println("$filename $inputStream")
-
                     if(inputStream != null) {
                         val image = Image(inputStream, 32.0, 32.0, false, true)
                         list += image

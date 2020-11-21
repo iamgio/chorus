@@ -28,7 +28,7 @@ interface ChatComponent {
 
         fun highlightCodes(area: EditorArea) {
             val prefix = colorPrefix
-            val values: List<ChatComponent> = ChatColor.values().map {it as ChatComponent} + ChatFormat.values()
+            val values: List<ChatComponent> = ChatColor.values().map {it} + ChatFormat.values()
             values.forEach {
                 area.highlight(prefix + it.char, it.styleClass)
                 area.highlight("$prefix(?=${it.char})", "color-prefix")
