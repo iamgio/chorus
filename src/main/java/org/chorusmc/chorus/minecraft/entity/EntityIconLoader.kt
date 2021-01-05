@@ -15,8 +15,8 @@ class EntityIconLoader(private val entity: Entity) : IconLoader {
         @JvmStatic fun cache() {
             entityIcons.clear()
             McClass(Entity::class.java).enumValues.forEach {
-                val inputStream =
-                        Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/entities/${it.name.toLowerCase()}.png")
+                val inputStream = Chorus::class.java.classLoader
+                        .getResourceAsStream("assets/minecraft/entities/${it.name.toLowerCase()}.png")
                 if(inputStream != null) {
                     entityIcons += it as Entity to Image(inputStream)
                 }
