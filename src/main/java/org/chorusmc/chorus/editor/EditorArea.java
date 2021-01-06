@@ -38,11 +38,10 @@ import java.util.regex.Pattern;
  */
 public class EditorArea extends CodeArea {
 
-    private FileMethod file;
+    private final FileMethod file;
+    private final boolean highlight;
 
     private Pattern pattern = EditorPattern.compile();
-
-    private boolean highlight;
 
     public EditorArea(FileMethod file, boolean highlight) {
         super(file.getText());
@@ -61,7 +60,7 @@ public class EditorArea extends CodeArea {
             setStyle("-fx-font-size: " + fontSize + ";");
 
             String fontName = Chorus.getInstance().config.get(fontSetting);
-            EditorFont font = EditorFont.valueOf(fontName.toUpperCase());
+            EditorFont font = EditorFont.valueOf(fontName.toUpperCase().replace(" ", "_"));
             if(font != EditorFont.DEFAULT) {
                 font.load();
                 setStyle(getStyle() + "-fx-font-family: " + font.getFontName() + ";");
@@ -159,7 +158,7 @@ public class EditorArea extends CodeArea {
         }
     }
 
-    @SuppressWarnings({"WeakerAccess", "unused"})
+    @SuppressWarnings({"WeakerAccess"})
     public void removeStyleClass(int start, int end, String styleClass) {
         for(int i = start; i <= end; i++) {
             if(i == getLength()) return;
