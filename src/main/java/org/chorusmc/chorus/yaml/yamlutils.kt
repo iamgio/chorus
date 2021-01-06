@@ -23,5 +23,5 @@ fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true):
     val bounds = charToWordBounds(index, styleClass, stopOnLineBreak)
     val area = area!!
     if(bounds.first < 0 || bounds.second >= area.length) return ""
-    return area.getText(bounds.first, bounds.second + 1).trimStart()
+    return area.getText(bounds.first, bounds.second + 1).trim()
 }
