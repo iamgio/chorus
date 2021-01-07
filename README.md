@@ -87,22 +87,18 @@ If you want to make it public, you can add it to the official [themes repository
 ## Downloading
 Chorus is downloadable on [chorusmc.org](https://chorusmc.org).  
 Older versions can be found [here](https://github.com/iAmGio/chorus/releases).  
-**Note that Chorus does not currently work on Java 11 and above.** 
 
 #### Windows
 Be sure you have Java 8 or above installed.   
 Download chorus-X.X.X.exe, move it to the desired installation folder and run it.  
 
-#### macOS / OS X
+#### macOS and Linux
 Be sure you have Java 8 or above installed.  
-Download chorus-X.X.X.jar, move it to the desired installation folder and run it.
-
-#### Linux
-Be sure you have Java 8 or above and `openjfx` installed.  
 Download chorus-X.X.X.jar, move it to the desired installation folder and run it.  
 
 ### Donating
-I (yes, Chorus is mantained by a single guy) worked so hard on this project, which you are downloading for free. If you like this software, or you just want to support me, I'd really enjoy donations.     
+I (yes, Chorus is mantained by a single guy) worked so hard on this project.  
+If you like this software, or just want to support me, I'd really enjoy donations.     
 By donating, you'll be added to the 'Donators List' accessible from the program.
 
 ### License

@@ -194,7 +194,7 @@ public class Chorus extends FXApplication {
         Addons.INSTANCE.invoke("onInit");
     }
 
-    public static void main(String... args) {
+    public static void start(String... args) {
         Chorus.args = args;
         if(args.length > 0) {
             passedFile = new File(args[0]);

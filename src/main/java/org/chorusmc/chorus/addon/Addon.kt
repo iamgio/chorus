@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.chorusmc.chorus.addon
 
 import jdk.nashorn.api.scripting.ScriptUtils
@@ -48,7 +50,7 @@ data class Addon(val file: File) {
         config = AddonConfiguration()
         with(config!!) {
             createIfAbsent(folder)
-            values.forEach { k, v ->
+            values.forEach { (k, v) ->
                 var value = v
                 if(v.toString() == "[object Array]") {
                     value = ScriptUtils.convert(v, Array<Any>::class.java)
