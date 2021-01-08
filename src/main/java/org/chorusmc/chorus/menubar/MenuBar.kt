@@ -4,6 +4,8 @@ import javafx.scene.control.Menu
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
+import org.chorusmc.chorus.menubar.addons.BrowseAddons
+import org.chorusmc.chorus.menubar.addons.MyAddons
 import org.chorusmc.chorus.menubar.edit.*
 import org.chorusmc.chorus.menubar.file.*
 import org.chorusmc.chorus.menubar.help.*
@@ -41,6 +43,13 @@ object MenuBar {
                         )
                 ),
                 MenuBarMainButton(
+                      "addons",
+                      listOf(
+                              MenuBarButton("addons.myaddons", MyAddons()),
+                              MenuBarButton("addons.browseaddons", BrowseAddons()),
+                      )
+                ),
+                MenuBarMainButton(
                         "help",
                         listOf(
                                 MenuBarButton("help.credits", Credits()),
@@ -48,7 +57,6 @@ object MenuBar {
                                 MenuBarButton("help.donate", Donate()),
                                 MenuBarButton("help.donators_list", DonatorsList()),
                                 MenuBarButton("help.license", License()),
-                                MenuBarButton("help.addons", Addons()),
                                 MenuBarButton("help.check_for_updates", CheckForUpdates())
                         )
                 )

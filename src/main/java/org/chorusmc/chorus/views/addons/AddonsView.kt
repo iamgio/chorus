@@ -16,10 +16,10 @@ import java.awt.Desktop
 /**
  * @author Gio
  */
-class AddonsView(private val addons: List<Addon>) : View(translate("bar.help.addons"), null, 500.0, 500.0) {
+class AddonsView(private val addons: List<Addon>) : View(translate("bar.addons.myaddons"), null, 500.0, 500.0) {
 
     override fun show() {
-        val titlebar = HBox(20.0, Label(translate("bar.help.addons"))).apply {
+        val titlebar = HBox(20.0, Label(translate("bar.addons.myaddons"))).apply {
             alignment = Pos.CENTER_LEFT
         }
         titlebar.children += HBox().apply {

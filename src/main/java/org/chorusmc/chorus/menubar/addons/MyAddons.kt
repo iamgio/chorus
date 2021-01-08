@@ -1,4 +1,4 @@
-package org.chorusmc.chorus.menubar.help
+package org.chorusmc.chorus.menubar.addons
 
 import org.chorusmc.chorus.addon.Addons
 import org.chorusmc.chorus.menubar.MenuBarAction
@@ -7,7 +7,7 @@ import org.chorusmc.chorus.views.addons.AddonsView
 /**
  * @author Gio
  */
-class Addons : MenuBarAction {
+class MyAddons : MenuBarAction {
 
     override fun onAction() {
         AddonsView(Addons.addons).show()
