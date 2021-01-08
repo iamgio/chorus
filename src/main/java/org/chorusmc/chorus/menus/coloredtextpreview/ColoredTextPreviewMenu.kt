@@ -1,17 +1,14 @@
 package org.chorusmc.chorus.menus.coloredtextpreview
 
-import eu.iamgio.libfx.timing.WaitingTimer
 import javafx.beans.property.Property
 import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
-import javafx.util.Duration
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewImage
 import org.chorusmc.chorus.menus.custom.CustomMenu
 import org.chorusmc.chorus.minecraft.chat.ChatParser
-import org.chorusmc.chorus.util.SkinFix
 
 /**
  * @author Gio
@@ -28,7 +25,7 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         maxWidth = image.prefWidth
         prefWidth = image.prefWidth
         children += image
-        VBox.setVgrow(image, Priority.NEVER)
+        setVgrow(image, Priority.NEVER)
         image.prefWidthProperty().addListener {_ ->
             maxWidth = image.prefWidth
             prefWidth = image.prefWidth
@@ -36,15 +33,6 @@ class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, 
         inputs.forEach {
             if(it is Button) {
                 it.alignment = Pos.CENTER
-            }
-            if(it is TextArea && SkinFix.JAVA_VERSION <= 1.8) {
-                it.isCache = false
-                WaitingTimer().start({
-                    if(it.childrenUnmodifiable.isEmpty()) return@start
-                    val scrollpane = it.childrenUnmodifiable[0] as ScrollPane
-                    scrollpane.isCache = false
-                    scrollpane.childrenUnmodifiable.forEach {it.isCache = false}
-                }, Duration(500.0))
             }
             textfieldsVbox.children += it
             it.prefWidth = image.prefWidth

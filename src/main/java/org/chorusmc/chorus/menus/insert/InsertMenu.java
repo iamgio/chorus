@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.menus.BrowsableVBox;
-import org.chorusmc.chorus.menus.FixedScrollPane;
 import org.chorusmc.chorus.menus.MenuPlacer;
 import org.chorusmc.chorus.menus.Showable;
 import org.chorusmc.chorus.nodes.Tab;
@@ -26,10 +25,10 @@ import java.util.List;
  */
 public class InsertMenu extends VBox implements Showable {
 
-    private TextField textfield;
-    private BrowsableVBox vbox;
-    private FixedScrollPane pane;
-    private InsertMenuMember[] members;
+    private final TextField textfield;
+    private final BrowsableVBox vbox;
+    private final ScrollPane pane;
+    private final InsertMenuMember[] members;
 
     private Node target;
 
@@ -49,7 +48,7 @@ public class InsertMenu extends VBox implements Showable {
         getChildren().add(textfield);
 
         vbox = new BrowsableVBox(textfield);
-        pane = new FixedScrollPane(vbox);
+        pane = new ScrollPane(vbox);
         vbox.setScrollPane(pane);
         pane.getStyleClass().addAll("hints-scrollpane", "edge-to-edge");
         pane.setMaxHeight(350);
@@ -63,7 +62,7 @@ public class InsertMenu extends VBox implements Showable {
         Platform.runLater(textfield::requestFocus);
     }
 
-    public InsertMenu(Class<Enum> enumClass) {
+    public InsertMenu(Class<Enum<?>> enumClass) {
         this(
                 Arrays.stream(enumClass.getEnumConstants())
                 .map(InsertMenuMember::new)
