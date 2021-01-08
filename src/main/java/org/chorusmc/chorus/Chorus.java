@@ -57,7 +57,7 @@ public class Chorus extends FXApplication {
     private static File passedFile;
 
     public ChorusConfig config = new ChorusConfig();
-    public ChorusFolder folder = new ChorusFolder(), backups = new ChorusFolder(), themes = new ChorusFolder();
+    public ChorusFolder folder = new ChorusFolder(), backups = new ChorusFolder(), themes = new ChorusFolder(), addons = new ChorusFolder();
 
     private ResourceBundle resourceBundle;
 
@@ -118,7 +118,6 @@ public class Chorus extends FXApplication {
         folder.createIfAbsent(ChorusFolder.RELATIVE);
         backups.createIfAbsent(new File(ChorusFolder.RELATIVE, "backups"));
         themes.createIfAbsent(new File(ChorusFolder.RELATIVE, "themes"));
-        ChorusFolder addons = new ChorusFolder();
         addons.createIfAbsent(new File(ChorusFolder.RELATIVE, "addons"));
         config.createIfAbsent(folder);
 

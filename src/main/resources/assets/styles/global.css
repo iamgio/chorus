@@ -2,6 +2,10 @@
     -fx-font-family: "Noto Sans";
 }
 
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
 .context-menu {
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 1 7 7 7, 0 6 6 6, 1 5 5 5;

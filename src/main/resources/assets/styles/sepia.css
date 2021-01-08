@@ -461,7 +461,11 @@
 
 .addon-title-bar {
     -fx-background-color: derive(-fx-secondary, -30%);
+}
+
+.addon-title-bar * {
     -fx-text-fill: -fx-text-color;
+    -fx-fill: -fx-text-color;
 }
 
 .addon-node:even {

@@ -469,6 +469,7 @@
     -fx-background-color: derive(-fx-secondary, 5%);
 }
 
-.addon-node .label, .addon-title-bar {
+.addon-node .label, .addon-title-bar * {
     -fx-text-fill: -fx-text-color;
+    -fx-fill: -fx-text-color;
 }

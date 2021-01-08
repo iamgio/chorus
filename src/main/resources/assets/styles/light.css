@@ -448,7 +448,11 @@
 
 .addon-title-bar {
     -fx-background-color: -fx-secondary;
+}
+
+.addon-title-bar * {
     -fx-text-fill: white;
+    -fx-fill: white;
 }
 
 .addon-node:even {
