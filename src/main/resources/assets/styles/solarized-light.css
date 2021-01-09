@@ -72,8 +72,8 @@
     -fx-background-color: -fx-base3;
 }
 
-.area, .colored-text-area {
-    -fx-highlight-fill: derive(-fx-base3, -25%);
+.area .selection, .colored-text-area .selection {
+    -fx-fill: derive(-fx-base3, -25%);
 }
 
 .area .paragraph-box:has-caret {

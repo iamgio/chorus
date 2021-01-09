@@ -72,8 +72,8 @@
     -fx-background-color: -fx-primary;
 }
 
-.area {
-    -fx-highlight-fill: derive(-fx-primary, -20%);
+.area .selection {
+    -fx-fill: derive(-fx-primary, -20%);
 }
 
 .colored-text-area {

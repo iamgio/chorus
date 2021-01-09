@@ -79,8 +79,8 @@
     -fx-focus-color: transparent;
 }
 
-.area {
-    -fx-highlight-fill: derive(-fx-primary, -20%)
+.area .selection {
+    -fx-fill: derive(-fx-primary, -20%)
 }
 
 .area .paragraph-box:has-caret {

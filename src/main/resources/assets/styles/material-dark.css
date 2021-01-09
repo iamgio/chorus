@@ -81,8 +81,8 @@
     -fx-background-color: -fx-primary;
 }
 
-.area, .colored-text-area {
-    -fx-highlight-fill: #314549;
+.area .selection, .colored-text-area .selection {
+    -fx-fill: #314549;
 }
 
 .area .paragraph-box:has-caret {
