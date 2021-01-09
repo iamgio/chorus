@@ -1,6 +1,8 @@
 var fx = javafx.scene;
 
-var fxcontrols = fx.control;
+var fxcontrols   = fx.control;
+var fxlayout     = fx.layout;
+var fxproperty   = javafx.beans.property;
 
 /**
  * Used to allow string translation. See wiki for further information
@@ -828,11 +830,11 @@ function TextArea(text) {
 }
 
 function VBox(spacing) {
-    return spacing ? new fx.layout.VBox(spacing) : new fx.layout.VBox();
+    return spacing ? new fxlayout.VBox(spacing) : new fxlayout.VBox();
 }
 
 function HBox(spacing) {
-    return spacing ? new fx.layout.HBox(spacing) : new fx.layout.HBox();
+    return spacing ? new fxlayout.HBox(spacing) : new fxlayout.HBox();
 }
 
 function Image(path) {
