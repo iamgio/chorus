@@ -21,7 +21,7 @@ class Notification(private val text: String, private val type: NotificationType)
             val root = Chorus.getInstance().root
             val label = Label(text).apply {
                 translateY = -70.0
-                prefWidthProperty().bind(root.prefWidthProperty())
+                prefWidthProperty().bind(root.widthProperty())
                 padding = Insets(20.0)
                 style = "-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 10, 0, 0, 5)"
                 background = Background(BackgroundFill(type.paint, CornerRadii.EMPTY, Insets.EMPTY))
