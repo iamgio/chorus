@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
+import org.chorusmc.chorus.minecraft.IdAble
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.item.Item
 
@@ -25,8 +26,14 @@ class GUIFormatPosition(val slot: Int) {
     constructor(x: Int, y: Int) : this(x + y * 9)
 }
 
-data class GUIFormatItem(val position: GUIFormatPosition, val item: Item, val meta: Int = 0) {
+data class GUIFormatItem(val position: GUIFormatPosition, val item: Item?, val meta: Int = 0) {
 
     constructor(position: GUIFormatPosition, item: String, meta: Int) :
-            this(position, McClass(Item::class.java).valueOf<Item>(item.toUpperCase().replace(" ", "_")) as Item, meta)
+            this(position, McClass(Item::class.java).let {
+                if(item.toIntOrNull() == null) {
+                    it.valueOf<Item>(item.toUpperCase().replace(" ", "_"))
+                } else {
+                    it.enumValues.firstOrNull { it is IdAble && it.id.toString() == item }
+                }
+            } as? Item, meta)
 }

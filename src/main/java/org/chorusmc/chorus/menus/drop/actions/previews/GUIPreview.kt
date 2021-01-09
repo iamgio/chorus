@@ -21,6 +21,8 @@ import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.nodes.popup.LocalTextPopup
+import org.chorusmc.chorus.notification.Notification
+import org.chorusmc.chorus.notification.NotificationType
 import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.util.toFlowList
@@ -37,55 +39,64 @@ class GUIPreview : DropMenuAction() {
     }
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val useFormatData = Format.format != null && area.selection.length > 0
-        val selectedText = if(useFormatData) area.selectedText else selectedText
-        val map = if(useFormatData) {
-            try {
-                Yaml().load<Map<String, Any>>(selectedText)
-            } catch(e: Exception) {
-                null
-            }
-        } else null
-        val textfield = TextField(
-                when {
-                    useFormatData && map != null -> Format.format!!.getName(map)
-                    selectedText.isNotEmpty() -> selectedText
-                    else -> translate("preview.gui.title_default")
+        try {
+            val useFormatData = Format.format != null
+            val selectedText = if(useFormatData) area.selectedText.let { if(it.isNotEmpty()) it else area.text } else selectedText
+            val map = if(useFormatData) {
+                try {
+                    Yaml().load<Map<String, Any>>(selectedText)
+                } catch(e: Exception) {
+                    null
                 }
-        )
-        textfield.promptText = translate("preview.gui.title_prompt")
-        val rows = Spinner<Int>(1, 6,
-                if(useFormatData && map != null) Format.format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
-        val image = GUIPreviewImage(colorPrefix + "8" + textfield.text, rows.value)
-        val button = Button(translate("preview.gui.clear"))
-        button.setOnAction {
-            grid!!.members.forEach {it.clear()}
-            grid = Grid(textfield)
-            updateMembers(grid!!, rows.value, image)
-            textfield.requestFocus()
-            textfield.positionCaret(textfield.length)
-        }
-        if(grid == null || useFormatData) {
-            grid = Grid(textfield)
-        }
-        updateMembers(grid!!, rows.value, image)
-        val menu = ColoredTextPreviewMenu(translate("preview.gui"), image, listOf(textfield, rows, button))
-        textfield.textProperty().addListener {_ ->
-            menu.image.flows = listOf(ChatParser(colorPrefix + "8" + textfield.text, true).toTextFlow(false)).toFlowList()
-            updateMembers(grid!!, rows.value, image)
-        }
-        rows.valueProperty().addListener {_ ->
-            updateMembers(grid!!, rows.value, image)
-            menu.image.background.image = Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-${rows.value}.png"))
-        }
-        if(useFormatData && map != null) {
-            Format.format!!.getItems(map).forEach {
-                grid!!.members[it.position.slot].setItem(it.item, it.meta)
+            } else null
+            val textfield = TextField(
+                    when {
+                        useFormatData && map != null -> Format.format!!.getName(map)
+                        selectedText.isNotEmpty() -> selectedText
+                        else -> translate("preview.gui.title_default")
+                    }
+            )
+            textfield.promptText = translate("preview.gui.title_prompt")
+            val rows = Spinner<Int>(1, 6,
+                    if(useFormatData && map != null) Format.format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
+            val image = GUIPreviewImage(colorPrefix + "8" + textfield.text, rows.value)
+            val button = Button(translate("preview.gui.clear"))
+            button.setOnAction {
+                grid!!.members.forEach { it.clear() }
+                grid = Grid(textfield)
+                updateMembers(grid!!, rows.value, image)
+                textfield.requestFocus()
+                textfield.positionCaret(textfield.length)
             }
+            if(grid == null || useFormatData) {
+                grid = Grid(textfield)
+            }
+            updateMembers(grid!!, rows.value, image)
+            val menu = ColoredTextPreviewMenu(translate("preview.gui"), image, listOf(textfield, rows, button))
+            textfield.textProperty().addListener { _ ->
+                menu.image.flows = listOf(ChatParser(colorPrefix + "8" + textfield.text, true).toTextFlow(false)).toFlowList()
+                updateMembers(grid!!, rows.value, image)
+            }
+            rows.valueProperty().addListener { _ ->
+                updateMembers(grid!!, rows.value, image)
+                menu.image.background.image = Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-${rows.value}.png"))
+            }
+            if(useFormatData && map != null) {
+                Format.format!!.getItems(map).forEach {
+                    if(it.position.slot < grid!!.members.size) {
+                        it.item?.let { item ->
+                            grid!!.members[it.position.slot].setItem(item, it.meta)
+                        }
+                    }
+                }
+            }
+            menu.layoutX = x
+            menu.layoutY = y
+            menu.show()
+        } catch(e: Exception) {
+            Notification(translate("preview.gui.error"), NotificationType.ERROR).send()
+            e.printStackTrace()
         }
-        menu.layoutX = x
-        menu.layoutY = y
-        menu.show()
     }
 }
 
@@ -99,7 +110,7 @@ private fun updateMembers(grid: Grid, rows: Int, image: ColoredTextPreviewImage)
 private class Grid(private val titleField: TextField) {
 
     var members = mutableListOf<GridMember>()
-    private var positions = emptyList<Pair<Double, Double>>()
+    private var positions = mutableListOf<Pair<Double, Double>>()
 
     var rows = 1
     private val columns = 9
@@ -116,7 +127,7 @@ private class Grid(private val titleField: TextField) {
                     member.layoutX = x
                     member.layoutY = y
                     members.add(member)
-                    positions += x to y
+                    positions.add(x to y)
                     x += pass
                 }
                 n++
