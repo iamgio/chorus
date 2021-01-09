@@ -9,12 +9,16 @@ import org.chorusmc.chorus.minecraft.item.Item
  */
 abstract class GUIFormat {
 
+    var name = ""
+        private set
+
     abstract fun getName(map: Map<String, Any>): String
     abstract fun getRows(map: Map<String, Any>): Int
     abstract fun getItems(map: Map<String, Any>): List<GUIFormatItem>
 
-    fun setActive() {
+    fun setActive(name: String) {
         Format.format = this
+        this.name = name
     }
 }
 

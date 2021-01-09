@@ -94,7 +94,7 @@ class GUIPreview : DropMenuAction() {
             menu.layoutY = y
             menu.show()
         } catch(e: Exception) {
-            Notification(translate("preview.gui.error"), NotificationType.ERROR).send()
+            Notification(translate("preview.gui.error", Format.format?.name ?: "-"), NotificationType.ERROR).send()
             e.printStackTrace()
         }
     }
