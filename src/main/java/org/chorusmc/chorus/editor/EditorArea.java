@@ -117,7 +117,7 @@ public class EditorArea extends CodeArea {
             }
         });
 
-        setMouseOverTextDelay(Duration.ofMillis(750));
+        setMouseOverTextDelay(Duration.ofMillis(500));
 
         requestFollowCaret();
     }
