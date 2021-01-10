@@ -88,8 +88,8 @@ public class EditorArea extends CodeArea {
         addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             if(new KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN).match(e)) {
                 MainDropMenu.quickOpen();
-            } else if(e.getCode() == KeyCode.DOWN && AutocompletionMenu.getActual() != null) {
-                AutocompletionMenu autocompletionMenu = AutocompletionMenu.getActual();
+            } else if(e.getCode() == KeyCode.DOWN && AutocompletionMenu.getCurrent() != null) {
+                AutocompletionMenu autocompletionMenu = AutocompletionMenu.getCurrent();
                 autocompletionMenu.requestFocus();
                 autocompletionMenu.getVbox().setBVHover(0, true);
                 e.consume();
@@ -98,7 +98,7 @@ public class EditorArea extends CodeArea {
 
         caretPositionProperty().addListener((o, oldV, newV) -> {
             if(newV < oldV) {
-                AutocompletionMenu menu = AutocompletionMenu.getActual();
+                AutocompletionMenu menu = AutocompletionMenu.getCurrent();
                 if(menu != null) menu.hide();
             }
         });
@@ -211,7 +211,7 @@ public class EditorArea extends CodeArea {
         StringBuilder init = new StringBuilder();
         String text = getParagraph(paragraphIndex).getText();
         for(char c : text.toCharArray()) {
-            if(c == ' ' || c == '\t') {
+            if(Character.isWhitespace(c)) {
                 init.append(c);
             } else break;
         }

@@ -29,12 +29,12 @@ class AutocompletionListener : EditorEvent() {
     }
 
     override fun onChange(change: PlainTextChange, area: EditorArea) {
-        val actual = AutocompletionMenu.actual
+        val current = AutocompletionMenu.current
         if(!b && config.getBoolean("3.YAML.4.Autocompletion")) {
             if(change.inserted.length > change.removed.length) {
                 var word = ""
                 val pos = area.caretPosition
-                for(i in pos downTo 0) {
+                for(i in pos - 1 downTo 0) {
                     if(area.text.length <= i) return
                     val char = area.text[i]
                     if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
@@ -62,15 +62,15 @@ class AutocompletionListener : EditorEvent() {
                         }
                     }
                     val menu = AutocompletionMenu(options, word, optionsSize, area.caretPosition, this)
-                    actual?.hide()
+                    current?.hide()
                     if(menu.children.size > 0) {
                         val bounds = area.localCaretBounds
                         menu.layoutX = bounds.minX
                         menu.layoutY = bounds.minY + 90
                         menu.show()
                     }
-                } else actual?.hide()
-            } else actual?.hide()
+                } else current?.hide()
+            } else current?.hide()
         }
     }
 

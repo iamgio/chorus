@@ -25,7 +25,7 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
         isFocusTraversable = true
         focusedProperty().addListener {_, _, new -> if(new) vbox.requestFocus()}
         val area = area!!
-        var list = emptyList<String>()
+        val list = mutableListOf<String>()
         options.forEach {option ->
             if(!list.contains(option.key)) {
                 val button = AutocompletionButton(option.key)
@@ -37,16 +37,16 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
                         if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
                         padding++
                     }
-                    area.replaceText(pos - word.length + 1, pos + padding, option.value)
+                    area.replaceText(pos - word.length, pos + padding, option.value)
                     hide()
                     listener.b = false
                 }
-                list += option.key
+                list.add(option.key)
                 vbox.children += button
             }
         }
         if(vbox.children.size > 0) {
-            val max = (vbox.children.sortedBy {(it as AutocompletionButton).prefWidth}.last() as AutocompletionButton)
+            val max = (vbox.children.maxByOrNull { (it as AutocompletionButton).prefWidth }!! as AutocompletionButton)
             prefWidth = max.prefWidth
             vbox.children.forEach {(it as AutocompletionButton).prefWidth = max.prefWidth}
             val label = Label(size.toString() + " " + translate("autocompletion.results." + if(list.size > 1) "plural" else "singular"))
@@ -88,7 +88,7 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
     override fun getMenuY(): Double = layoutY
 
     companion object {
-        @JvmStatic val actual
+        @JvmStatic val current
             get() = Chorus.getInstance().root.children.filterIsInstance<AutocompletionMenu>().firstOrNull()
     }
 }

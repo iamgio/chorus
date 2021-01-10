@@ -15,9 +15,9 @@ import org.fxmisc.richtext.event.MouseOverTextEvent
 class ImagePopup : Popup() {
 
     lateinit var image: Image
-    var imageWidth: Double? = null
-    var imageHeight: Double? = null
-    var hideOnMove = true
+    private var imageWidth: Double? = null
+    private var imageHeight: Double? = null
+    private var hideOnMove = true
 
     override fun show(ownerNode: Node?, anchorX: Double, anchorY: Double) {
         val imageView = ImageView(image).apply {
@@ -29,7 +29,7 @@ class ImagePopup : Popup() {
         pane.style += "-fx-padding: 10; -fx-background-radius: 360"
         pane.alignment = Pos.CENTER
         content += pane
-        super.show(ownerNode, anchorX - imageView.fitWidth, anchorY)
+        super.show(ownerNode, anchorX - imageView.image.width * 1.2, anchorY)
 
         if(hideOnMove) {
             area!!.addEventHandler(MouseOverTextEvent.MOUSE_OVER_TEXT_END) {_ ->
