@@ -8,6 +8,7 @@ import org.chorusmc.chorus.Chorus
 enum class EditorFont(val fontName: String, private vararg val fontFileNames: String) {
 
     DEFAULT(""),
+    CONSOLAS("Consolas", "Consolas.ttf", "Consolas Bold.ttf"),
     INCONSOLATA("Inconsolata", "Inconsolata-Regular.ttf", "Inconsolata-Bold.ttf"),
     MONACO("Monaco", "Monaco.ttf");
 
