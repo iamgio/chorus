@@ -148,7 +148,6 @@ public class EditorArea extends CodeArea {
         return spansBuilder.create();
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void addStyleClass(int start, int end, String styleClass) {
         for(int i = start; i <= end; i++) {
             if(i == getLength()) return;
@@ -158,7 +157,6 @@ public class EditorArea extends CodeArea {
         }
     }
 
-    @SuppressWarnings({"WeakerAccess"})
     public void removeStyleClass(int start, int end, String styleClass) {
         for(int i = start; i <= end; i++) {
             if(i == getLength()) return;
@@ -196,6 +194,7 @@ public class EditorArea extends CodeArea {
         FileMethod file = Tab.getCurrentTab().getFile().getUpdatedFile();
         if(file != null) {
             replaceText(file.getText());
+            updateHighlighting();
             return true;
         } else {
             new Notification(Utils.translate("error.refresh", file.getName()), NotificationType.ERROR).send();
