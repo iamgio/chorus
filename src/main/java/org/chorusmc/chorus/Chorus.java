@@ -181,7 +181,6 @@ public class Chorus extends FXApplication {
         loadFont("Minecraft-Bold.otf");
         loadFont("Minecraft-Italic.otf");
         loadFont("Minecraft-BoldItalic.otf");
-        loadFont("Obfuscated.TTF");
 
         if(inherit) stage.setMaximized(config.getBoolean("_win.max"));
         getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();

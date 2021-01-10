@@ -1,6 +1,5 @@
 .obfuscated {
-    -fx-font-family: "Alphabet of the Magi";
-    -fx-font-size: 13;
+    -fx-scale-y: -1;
 }
 
 .bold {
@@ -105,4 +104,6 @@
 
 .color-prefix {
     -fx-opacity: .2;
+    -fx-rotate: 0;
+    -fx-scale-y: 1;
 }

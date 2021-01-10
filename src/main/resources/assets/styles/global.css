@@ -151,11 +151,6 @@
     -fx-font-size: 18;
 }
 
-.minecraft-bossbar-preview-flow .obfuscated {
-    -fx-font-family: "Alphabet of the Magi";
-    -fx-font-size: 9;
-}
-
 .minecraft-mobbar-preview-flow {
     -fx-background-color: rgba(0, 0, 0, .4);
 }

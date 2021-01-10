@@ -26,7 +26,7 @@ enum class ChatFormat(override val char: Char, override val styleClass: String =
 
         init {
             var timer = runObfuscatedLoop(null)
-            SettingsBuilder.addAction("4.Minecraft.6.Obfuscated_text_speed_(ms)", Runnable {
+            SettingsBuilder.addAction("4.Minecraft.6.Obfuscated_text_speed_(ms)", {
                 timer = runObfuscatedLoop(timer)
             })
         }
@@ -38,7 +38,7 @@ enum class ChatFormat(override val char: Char, override val styleClass: String =
             repeatingTimer.start({
                 obfuscatedLabels.forEach {
                     var text = ""
-                    (0 until it.text.length).forEach {
+                    repeat((it.text.indices).count()) {
                         text += letters[Random().nextInt(letters.length)]
                     }
                     Platform.runLater {it.text = text}
