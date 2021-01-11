@@ -39,7 +39,7 @@ fun closeTabs() {
 @Throws(MissingResourceException::class) fun translateWithException(key: String, vararg replacements: String, bundle: ResourceBundle = Chorus.getInstance().resourceBundle): String {
     var str = bundle.getString(key)
     if(replacements.isNotEmpty()) {
-        (0 until replacements.size).forEach {str = str.replace("\$${it + 1}", replacements[it])}
+        (replacements.indices).forEach {str = str.replace("\$${it + 1}", replacements[it])}
     }
     return str
 }
