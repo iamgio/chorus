@@ -47,28 +47,35 @@ import java.util.ResourceBundle;
 import static org.chorusmc.chorus.util.Utils.joinEnum;
 
 /**
- * @author Gio
+ * This is the main class of Chorus
+ * @author Giorgio Garofalo
  */
 public class Chorus extends FXApplication {
 
-    //Edit Updater.kt#VERSION to change version
+    // Version of the program (x.y[.z])
+    // Edit Updater.kt#VERSION to change
     public static final String VERSION = Version.VERSION;
 
+    // File passed from argument
     private static File passedFile;
 
     public ChorusConfig config = new ChorusConfig();
     public ChorusFolder folder = new ChorusFolder(), backups = new ChorusFolder(), themes = new ChorusFolder(), addons = new ChorusFolder();
 
+    // Bundle used for internazionalization
     private ResourceBundle resourceBundle;
 
+    // Console arguments
     private static String[] args;
 
     private static Chorus instance;
 
+    // Root of the JavaFX UI
     public Pane root;
 
     @Override
     public void start() {
+        // Display the splash menu
         Stage splash = new Stage(StageStyle.UNDECORATED);
         splash.getIcons().add(new Image(getClass().getResourceAsStream("/assets/images/icon.png")));
         splash.setTitle("Chorus " + VERSION);
@@ -77,6 +84,7 @@ public class Chorus extends FXApplication {
         splashRoot.setPrefSize(splashImage.getImage().getWidth(), splashImage.getImage().getHeight());
         splash.setScene(new Scene(splashRoot));
         splash.show();
+
         Platform.runLater(() -> {
             try {
                 initApp();
@@ -90,6 +98,7 @@ public class Chorus extends FXApplication {
     private void initApp() throws Exception {
         Stage stage = getStage().toStage();
         Locker locker = new Locker();
+        // Check if an instance of the program is already running
         locker.setOnSecondInstance(message -> {
             stage.setAlwaysOnTop(true);
             stage.setAlwaysOnTop(false);
@@ -114,6 +123,7 @@ public class Chorus extends FXApplication {
 
         instance = this;
 
+        // Create subfolders if absent
         folder = new ChorusFolder();
         folder.createIfAbsent(ChorusFolder.RELATIVE);
         backups.createIfAbsent(new File(ChorusFolder.RELATIVE, "backups"));
@@ -130,16 +140,27 @@ public class Chorus extends FXApplication {
         }
         if(!Addons.INSTANCE.getAddons().isEmpty()) Addons.INSTANCE.initEngine();
 
+        // Load themes
         Themes.loadInternalThemes();
         Themes.loadExternalThemes();
 
+        // Cache game components icons
         cacheIcons();
 
+        // Load resource bundle
         resourceBundle = ResourceBundle.getBundle("assets/lang/lang",
                 Locale.forLanguageTag(Lang.fromCommonName(config.get("1.Appearance.4.Language")).getTag()));
+
+        // Load root from FXML
+        // TODO switch from FXML to code
         root = loadRoot("/assets/views/Editor.fxml", resourceBundle);
+
+        // Set previous window size
         boolean inherit = config.getBoolean("1.Appearance.3.Inherit_window_size");
         Scene scene = new Scene(root, inherit ? config.getInt("_win.width") : 950, inherit ? config.getInt("_win.height") : 600);
+        if(inherit) stage.setMaximized(config.getBoolean("_win.max"));
+
+        // Load theme
         Theme theme = Themes.byConfig();
         if(theme.getInternal()) {
             loadStylesheet(scene, theme.getPath()[0]);
@@ -147,8 +168,10 @@ public class Chorus extends FXApplication {
             scene.getStylesheets().add(theme.getPath()[0]);
         }
 
+        // Register file-related events
         registerEvents();
 
+        // Called when the program is closed
         stage.setOnCloseRequest(e -> {
             Utils.closeTabs();
             config.set("_win.max", String.valueOf(stage.isMaximized()));
@@ -160,7 +183,10 @@ public class Chorus extends FXApplication {
             System.exit(0);
         });
 
+        // Change theme when the setting is updated
         SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
+
+        // Change autocompletion options and RegEx patterns when the Minecraft version is updated
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             cacheIcons();
             AutocompletionListener.loadOptions();
@@ -175,6 +201,7 @@ public class Chorus extends FXApplication {
             );
         });
 
+        // Load fonts
         loadFont("NotoSans-Regular.ttf"); // Google's Noto Sans
         loadFont("NotoSans-Bold.ttf");    // https://fonts.google.com/specimen/Noto+Sans
         loadFont("Minecraft.otf");
@@ -182,9 +209,10 @@ public class Chorus extends FXApplication {
         loadFont("Minecraft-Italic.otf");
         loadFont("Minecraft-BoldItalic.otf");
 
-        if(inherit) stage.setMaximized(config.getBoolean("_win.max"));
+        // Show window
         getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();
 
+        // Load passed file
         if(passedFile != null) {
             new EditorTab(new LocalFile(passedFile)).add();
         }
@@ -205,27 +233,28 @@ public class Chorus extends FXApplication {
             Addons.INSTANCE.invoke("onKeyPress", e)
         );
         Events.getEvents().addAll(Arrays.asList(
-                new AutoSavingListener(),
-                new AutocompletionListener(),
-                new TabListener(),
-                new AutoTabListener(),
-                new Openable('[', ']', true),
-                new Openable('{', '}', true),
-                new Openable('%', '%', true, true),
-                new Openable('\'', '\''),
-                new Openable('"', '"')
+                new AutoSavingListener(),                                   // Task called every X that automatically saves the active files if enabled
+                new AutocompletionListener(),                               // Menu displayed when some elements match what the user is typing
+                new TabListener(),                                          // Converts TABs to spaces if enabled
+                new AutoTabListener(),                                      // Automatically aligns new lines
+                new Openable('[', ']', true),                 // Automatically closes brackets
+                new Openable('{', '}', true),                 // Automatically closes curly braces
+                new Openable('%', '%', true, true),   // Automatically closes %
+                new Openable('\'', '\''),                                   // Automatically closes quotes
+                new Openable('"', '"')                                      // Automatically closes double quotes
         ));
         Events.getYamlComponents().addAll(Arrays.asList(
-                new EditorTab.Companion.ShowableRemover(),
-                new KeyHoverListener(),
-                new IconableHoverListener(),
-                new InfoHoverListener(),
-                new ColoredChatTextHoverListener(),
-                new RightClickListener()
+                new EditorTab.Companion.ShowableRemover(),                  // Closes active showables/menus when a new tab is opened
+                new KeyHoverListener(),                                     // Shows key path on hover
+                new IconableHoverListener(),                                // Shows icons of game elements on hover
+                new InfoHoverListener(),                                    // Shows information box on CTRL+click on game elements
+                new ColoredChatTextHoverListener(),                         // Shows quick preview of colored text
+                new RightClickListener()                                    // Shows drop menu on right click
         ));
     }
 
     public void setTheme(Theme theme) {
+        // Apply CSS of the theme to the UI and editor areas
         Scene scene = getStage().toStage().getScene();
         scene.getStylesheets().set(0, theme.getPath()[0]);
         for(Tab tab : EditorController.getInstance().tabPane.getTabs()) {
@@ -239,6 +268,7 @@ public class Chorus extends FXApplication {
     }
 
     private void cacheIcons() {
+        // Asynchronously store game icons
         new Thread(() -> {
             ItemIconLoader.cache();
             ParticleIconLoader.cache();

@@ -9,21 +9,23 @@ import org.json.simple.JSONObject
 import java.io.File
 import java.io.IOException
 
-        const val VERSION = "1.3"
-private const val URL     = "https://api.github.com/repos/iAmGio/chorus/releases/latest"
+        const val VERSION = "1.3"                                                        // Current version
+private const val URL     = "https://api.github.com/repos/iAmGio/chorus/releases/latest" // GitHub API endpoint
 
 /**
- * @author Gio
+ * Used for update checking and downloading
+ * @author Giorgio Garofalo
  */
 class Updater {
 
+    // Parsed JSON data
     private val parsed: JSONObject = JSONParser().parse(java.net.URL(URL))
 
+    // Latest version available as string
     val latestVersion = parsed["tag_name"].toString()
 
     val isUpdatePresent: Boolean
         get() = "v$VERSION" < latestVersion
-
 
     fun downloadLatest(type: Int): Pair<Status, File?> {
         val folder = ChorusFolder.RELATIVE
