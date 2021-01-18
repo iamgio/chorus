@@ -6,7 +6,7 @@ import org.chorusmc.chorus.menus.coloredtexteditor.ColoredTextEditor
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredText : DropMenuAction() {
 

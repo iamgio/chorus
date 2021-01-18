@@ -6,7 +6,7 @@ import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TestFileView : View(
         translate("testfile.title"), Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png")), 550.0, 400.0, false

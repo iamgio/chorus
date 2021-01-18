@@ -3,7 +3,7 @@ package org.chorusmc.chorus.menus
 import org.chorusmc.chorus.Chorus
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class MenuPlacer(showable: Showable) {
 

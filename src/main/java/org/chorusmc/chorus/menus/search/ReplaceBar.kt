@@ -8,7 +8,7 @@ import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ReplaceBar(private val area: EditorArea) : BaseSearchBar(area) {
 

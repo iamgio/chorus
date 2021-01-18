@@ -3,7 +3,7 @@ package org.chorusmc.chorus.settings.nodes
 import javafx.scene.control.Label
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SettingText : Label() {
 

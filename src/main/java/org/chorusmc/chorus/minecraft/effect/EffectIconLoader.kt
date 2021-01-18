@@ -6,7 +6,7 @@ import org.chorusmc.chorus.util.effectIcons
 import javafx.scene.image.Image
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EffectIconLoader(private val effect: Effect) : IconLoader {
 

@@ -12,7 +12,7 @@ import org.chorusmc.chorus.views.TestFileView
 import org.yaml.snakeyaml.Yaml
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TestFile : MenuBarAction {
 
@@ -21,7 +21,7 @@ class TestFile : MenuBarAction {
 
     override fun onAction() {
         val area = area ?: return
-        if(!area.file.name.endsWith(".yml")) {
+        if(!area.fileMethod.name.endsWith(".yml")) {
             Notification(translate("testfile.notyaml"), NotificationType.ERROR).send()
             return
         }

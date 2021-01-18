@@ -9,7 +9,8 @@ import org.chorusmc.chorus.util.config
 import java.util.*
 
 /**
- * @author Gio
+ * Component that changes text properties (bold, italics, etc.)
+ * @author Giorgio Garofalo
  */
 enum class ChatFormat(override val char: Char, override val styleClass: String = "") : ChatComponent {
 

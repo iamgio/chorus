@@ -16,7 +16,8 @@ import org.chorusmc.chorus.menus.insert.InsertMenuHint
 const val HOVER_STYLE_CLASS = "bvhover"
 
 /**
- * @author Gio
+ * Represents a vertical box that can be explored using keyboard
+ * @author Giorgio Garofalo
  */
 open class BrowsableVBox @JvmOverloads constructor(textField: TextField? = null, autoFocus: Boolean = true) : VBox() {
 

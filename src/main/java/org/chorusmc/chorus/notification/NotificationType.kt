@@ -4,7 +4,7 @@ import javafx.scene.paint.Paint
 import javafx.util.Duration
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 enum class NotificationType(val paint: Paint, val duration: Duration) {
 

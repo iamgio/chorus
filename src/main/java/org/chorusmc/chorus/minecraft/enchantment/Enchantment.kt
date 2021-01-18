@@ -6,7 +6,8 @@ import org.chorusmc.chorus.util.StringUtils
 import java.io.IOException
 
 /**
- * @author Gio
+ * Represents an in-game enchantment
+ * @author Giorgio Garofalo
  */
 interface Enchantment : McComponent, IdAble, Descriptionable, Fetchable {
 

@@ -3,7 +3,7 @@ package org.chorusmc.chorus.nodes.stylesheets
 import java.io.File
 
 /**
- * @author Giorgio Garofalo
+ * @author Giorgio Garofalorgio Garofalo
  */
 class ExternalStylesheet(_path: String) : AbstractStylesheet() {
 

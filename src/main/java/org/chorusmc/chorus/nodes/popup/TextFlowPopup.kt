@@ -5,7 +5,7 @@ import javafx.scene.text.TextFlow
 import javafx.stage.Popup
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TextFlowPopup : Popup() {
 

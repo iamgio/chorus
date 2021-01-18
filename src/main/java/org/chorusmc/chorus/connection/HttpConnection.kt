@@ -5,7 +5,8 @@ import org.jsoup.nodes.Document
 import java.io.IOException
 
 /**
- * @author Gio
+ * Class that handles requests over HTTP via JSoup
+ * @author Giorgio Garofalo
  */
 class HttpConnection(val url: String) {
 

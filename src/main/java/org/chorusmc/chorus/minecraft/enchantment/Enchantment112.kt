@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.minecraft.enchantment
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 enum class Enchantment112(override val id: Short, override val description: String) : Enchantment {
 

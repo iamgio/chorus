@@ -3,7 +3,7 @@ package org.chorusmc.chorus.util;
 import javafx.scene.control.ComboBox;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public final class KotlinFix {
 
@@ -12,7 +12,7 @@ public final class KotlinFix {
     /*
     Workaround (https://stackoverflow.com/questions/38779666/how-to-fix-overload-resolution-ambiguity-in-kotlin-no-lambda)
      */
-    public static void select(ComboBox box, int index) {
+    public static void select(ComboBox<?> box, int index) {
         box.getSelectionModel().select(index);
     }
 }

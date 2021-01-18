@@ -13,7 +13,8 @@ import javax.script.ScriptException
 import javax.script.SimpleScriptContext
 
 /**
- * @author Gio
+ * Represents a JavaScript add-on
+ * @author Giorgio Garofalo
  */
 data class Addon(val file: File) {
 

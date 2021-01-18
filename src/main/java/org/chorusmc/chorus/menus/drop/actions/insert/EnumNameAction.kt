@@ -7,7 +7,7 @@ import org.chorusmc.chorus.minecraft.McComponent
 import org.chorusmc.chorus.util.makeFormal
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class EnumNameAction(protected var enumClass: Class<out McComponent>) : DropMenuAction() {
 

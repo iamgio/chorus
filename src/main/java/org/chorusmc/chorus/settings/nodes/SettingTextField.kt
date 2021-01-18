@@ -4,7 +4,7 @@ import javafx.scene.control.TextField
 import org.chorusmc.chorus.configuration.ChorusConfiguration
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SettingTextField : TextField(), SettingNode {
 

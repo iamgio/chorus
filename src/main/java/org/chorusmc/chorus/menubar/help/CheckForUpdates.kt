@@ -10,7 +10,7 @@ import org.chorusmc.chorus.updater.Updater
 import org.chorusmc.chorus.views.UpdaterView
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class CheckForUpdates : MenuBarAction {
 

@@ -7,7 +7,7 @@ import org.chorusmc.chorus.util.translate
 const val INSERT_DROP_MENU_TYPE = "insert"
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class InsertDropMenu : DropMenu(INSERT_DROP_MENU_TYPE) {
 

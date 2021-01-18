@@ -10,7 +10,7 @@ import org.chorusmc.chorus.util.tabs
 import org.fxmisc.flowless.VirtualizedScrollPane
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class Tab(text: String, content: Node, val file: FileMethod) : Tab("$text ", content) {
 

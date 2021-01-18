@@ -3,13 +3,26 @@ package org.chorusmc.chorus.yaml
 import org.chorusmc.chorus.editor.EditorArea
 
 /**
- * @author Gio
+ * Represents a YAML key
+ * @param index character index
+ * @param area current area
+ * @author Giorgio Garofalo
  */
 class Key(index: Int, private val area: EditorArea) {
 
+    /**
+     * Name of the key
+     */
     val name = charToWord(index, "key")
+
+    /**
+     * Line where the key is at
+     */
     private val paragraphIndex = area.getParagraphIndex(index)
 
+    /**
+     * Super-key
+     */
     private val parent: Key?
         get() {
             return (paragraphIndex downTo 0)
@@ -17,6 +30,9 @@ class Key(index: Int, private val area: EditorArea) {
                     ?.let {area.getKey(area.paragraphToCharIndex(it))}
         }
 
+    /**
+     * A list of key paths in order
+     */
     val hierarchy: List<Key>
         get() {
             val list = ArrayList<Key>()

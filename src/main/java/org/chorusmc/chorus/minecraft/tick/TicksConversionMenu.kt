@@ -3,7 +3,7 @@ package org.chorusmc.chorus.minecraft.tick
 import org.chorusmc.chorus.menus.conversion.ConversionMenu
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TicksConversionMenu : ConversionMenu<TimeUnit>(TimeUnit::class.java, 1) {
 

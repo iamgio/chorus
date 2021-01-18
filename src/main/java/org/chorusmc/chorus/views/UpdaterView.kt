@@ -12,7 +12,7 @@ import org.chorusmc.chorus.util.translate
 import java.io.File
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class UpdaterView : View(
         translate("updater.title"),

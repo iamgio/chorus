@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class LocalFile(val file: File) : FileMethod {
 

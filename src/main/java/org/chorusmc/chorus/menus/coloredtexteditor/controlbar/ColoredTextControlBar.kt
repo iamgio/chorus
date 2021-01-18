@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredTextControlBar : HBox() {
 
@@ -38,7 +38,7 @@ class ColoredTextControlBar : HBox() {
         )
 
         val spacer = Pane()
-        HBox.setHgrow(spacer, Priority.ALWAYS)
+        setHgrow(spacer, Priority.ALWAYS)
 
         children.addAll(formatsHbox, spacer, colorComboBox)
     }

@@ -1,12 +1,19 @@
 package org.chorusmc.chorus.theme
 
 /**
- * @author Gio
+ * Represents a theme
+ * @author Giorgio Garofalo
  */
 class Theme(_name: String, val internal: Boolean = false) {
 
+    /**
+     * Name of the theme
+     */
     val name = _name.replace("_", " ")
 
+    /**
+     * Paths to CSS files
+     */
     val path: Array<String> = if(internal) {
         arrayOf(
                 "/assets/styles/${_name.toLowerCase()}.css",

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public final class Showables {
 
@@ -25,10 +25,11 @@ public final class Showables {
     }
 
     // For JS API
-    @SuppressWarnings("unused")
     public static <T extends DropMenu> T newMenu(String type) throws ReflectiveOperationException {
         Class<? extends DropMenu> clazz = DROP_MENU_TYPES.get(type);
         if(clazz == null) return null;
+
+        @SuppressWarnings("deprecation")
         DropMenu menu = clazz.newInstance();
         menu.setType(type);
         return (T) menu;

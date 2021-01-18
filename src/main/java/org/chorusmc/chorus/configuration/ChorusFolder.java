@@ -6,7 +6,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class ChorusFolder {
 

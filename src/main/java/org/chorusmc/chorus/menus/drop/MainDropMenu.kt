@@ -12,7 +12,7 @@ import org.chorusmc.chorus.util.translate
 const val MAIN_DROP_MENU_TYPE = "main"
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class MainDropMenu : DropMenu(MAIN_DROP_MENU_TYPE) {
 
@@ -33,7 +33,7 @@ class MainDropMenu : DropMenu(MAIN_DROP_MENU_TYPE) {
             val bounds = if(x == null || y == null) (area?.localCaretBounds ?: return) else null
             menu.layoutX = x ?: bounds!!.minX
             menu.layoutY = y ?: bounds!!.minY + 85
-            var showables = emptyList<Showable>()
+            val showables = mutableListOf<Showable>()
             Chorus.getInstance().root.children.forEach {
                 if(it is Showable) showables += it
             }

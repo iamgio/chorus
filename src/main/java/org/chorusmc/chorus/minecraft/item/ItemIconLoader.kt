@@ -8,7 +8,7 @@ import org.chorusmc.chorus.util.itemIcons
 
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ItemIconLoader(private val item: Item) : IconLoader {
 

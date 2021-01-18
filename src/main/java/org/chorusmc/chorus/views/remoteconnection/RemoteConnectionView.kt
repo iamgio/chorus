@@ -18,7 +18,7 @@ import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.View
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class RemoteConnectionView(private val name: String, defaultPort: Int, setting: String, private val psw: Password) : View(
         "",
@@ -42,10 +42,11 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
     var title = "Chorus - $name"
         set(value) {
             stage.title = value
+            field = value
         }
 
     fun onConfirm(unit: (String, String, Int, String, Boolean) -> Unit) = connectButton.setOnAction {
-        unit(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text, ips[ip.selectionModel.selectedItem]!!.third != null)
+        unit(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text, ips[ip.selectionModel.selectedItem]?.third != null)
     }
 
     var onBrowse: (Pair<String, String>) -> Unit = {}
@@ -53,12 +54,12 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
     init {
         config[setting].split("\\n").forEach {
             with(it.split("|")) {
-                ips += this[0] to when(size) {
+                ips = ips + (this[0] to when(size) {
                     2 -> Triple(this[1], defaultPort.toString(), null)
                     3 -> Triple(this[1], this[2], null)
                     4 -> if(name == "SFTP") Triple(this[1], this[2], this[3]) else return@with
                     else -> return@with
-                }
+                })
             }
         }
     }
@@ -68,7 +69,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         root.styleClass.addAll("pane", "sftp-pane")
         val addressHbox = HBox(ip)
         ip.selectionModel.selectedItemProperty().addListener {_ ->
-            val triple = ips[ip.selectionModel.selectedItem]!!
+            val triple = ips[ip.selectionModel.selectedItem] ?: return@addListener
             username.text = triple.first
             port.text = triple.second
             if(triple.third == null && addressHbox.children.size > 2 && !addressHbox.children.contains(password)) {
@@ -113,7 +114,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         }
         if(ip.selectionModel.selectedItem != null) {
             addressHbox.children.addAll(username, port, connectButton)
-            if(ips[ip.selectionModel.selectedItem]!!.third == null) addressHbox.children.add(2, password)
+            if(ips[ip.selectionModel.selectedItem]?.third == null) addressHbox.children.add(2, password)
         }
         addressHbox.styleClass += "sftp-address-box"
         addressHbox.alignment = Pos.CENTER

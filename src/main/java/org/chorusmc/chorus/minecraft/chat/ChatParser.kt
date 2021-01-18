@@ -11,39 +11,41 @@ import org.chorusmc.chorus.variable.Variables
 import org.fxmisc.richtext.CodeArea
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ChatParser @JvmOverloads constructor(private val string: String, private val useVariables: Boolean = false) {
 
     private val prefix = colorPrefix
 
+    // The string is split into raw parts, separating text from components
     private val parts: List<Any>
         get() {
-            var list = emptyList<Any>()
+            val parts = mutableListOf<Any>()
             var i = 0
             string.replace("''", "'").split(prefix).forEach {
                 if(i == 0) {
-                    list += it
+                    parts += it
                 } else if(it.isNotEmpty()) {
                     val color = ChatColor.byChar(it[0].toLowerCase())
                     val format = ChatFormat.byChar(it[0].toLowerCase())
                     if(color == null && format == null) {
-                        list += "$prefix$it"
+                        parts += "$prefix$it"
                     } else {
                         val component: ChatComponent = color ?: format!!
-                        list += component
-                        list += it.substring(1)
+                        parts += component
+                        parts += it.substring(1)
                     }
-                } else list += prefix
+                } else parts += prefix
                 i++
             }
-            return list
+            return parts
         }
 
+    // The raw parts are converted into a list of texts paired with a list of components
     private val parsed: List<Pair<String, List<ChatComponent>>>
         get() {
             val parts = this.parts
-            var list = emptyList<Pair<String, List<ChatComponent>>>()
+            val list = mutableListOf<Pair<String, List<ChatComponent>>>()
 
             var color: ChatColor = ChatColor.WHITE
             val formats = mutableListOf<ChatFormat>()
@@ -76,13 +78,17 @@ class ChatParser @JvmOverloads constructor(private val string: String, private v
                             })
                         }
                         components += color
-                        list += s to components
+                        list.add(s to components)
                     }
                 }
             }
             return list
         }
 
+    /**
+     * Removes any component
+     * @return Input as plain text
+     */
     fun toPlainText(): String {
         var text = ""
         parsed.forEach {text += it.first}
@@ -90,6 +96,10 @@ class ChatParser @JvmOverloads constructor(private val string: String, private v
     }
 
 
+    /**
+     * @param shadows whether the text should have shadows
+     * @return Input converted to a JavaFX TextFlow
+     */
     fun toTextFlow(shadows: Boolean = true): TextFlow {
         val flow = TextFlow()
 
@@ -137,11 +147,11 @@ class ChatParser @JvmOverloads constructor(private val string: String, private v
 
     fun parseToString(area: CodeArea): String {
         var string = ""
-        var actualStyles = emptyList<String>()
+        var currentStyles = emptyList<String>()
         area.text.replace("\n", "").replace("'", "''").forEachIndexed {index, char ->
             val style = area.getStyleOfChar(index).reversed()
-            if(actualStyles != style) {
-                actualStyles = style
+            if(currentStyles != style) {
+                currentStyles = style
                 style.forEach {
                     if(!(it == "white" && index == 0)) {
                         string += prefix + if(it == "white") {

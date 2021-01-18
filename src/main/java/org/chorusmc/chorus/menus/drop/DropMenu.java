@@ -15,7 +15,7 @@ import org.chorusmc.chorus.util.Utils;
 import java.util.List;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public abstract class DropMenu extends BrowsableVBox implements Showable {
 
@@ -60,12 +60,10 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
     }
 
     // For JS API
-    @SuppressWarnings("unused")
     public void addButton(int index, String text, DropMenuAction action) {
         initButton(new DropMenuButton(text, action, false), index);
     }
 
-    @SuppressWarnings("unused")
     public void addButton(String text, DropMenuAction action) {
         initButton(new DropMenuButton(text, action, false));
     }

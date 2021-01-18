@@ -7,7 +7,8 @@ import com.jcraft.jsch.Session
 import java.util.*
 
 /**
- * @author Gio
+ * Class that handles connections over SFTP using JSch
+ * @author Giorgio Garofalo
  */
 class SFTPRemoteConnection(override val ip: String, override val username: String, override val port: Int, override val password: String, val useRsa: Boolean = false) : RemoteConnection {
 

@@ -19,7 +19,7 @@ import org.chorusmc.chorus.variable.Variable
 import org.chorusmc.chorus.variable.Variables
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class QuickVariablesMenu(varName: String) : VBox(), Showable {
 

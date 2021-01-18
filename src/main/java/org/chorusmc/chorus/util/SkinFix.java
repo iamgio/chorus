@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.util;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public final class SkinFix {
 

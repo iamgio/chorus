@@ -11,7 +11,7 @@ import org.chorusmc.chorus.util.hideMenuOnInteract
 import org.fxmisc.flowless.VirtualizedScrollPane
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredTextEditor : VBox(), Showable {
 

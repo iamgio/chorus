@@ -7,7 +7,7 @@ import org.chorusmc.chorus.util.config
 import org.fxmisc.richtext.model.PlainTextChange
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AutoTabListener : EditorEvent() {
 

@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ObservableValue
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 @FunctionalInterface
 interface MenuBarAction {

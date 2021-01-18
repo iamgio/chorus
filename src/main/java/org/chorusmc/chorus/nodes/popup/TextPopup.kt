@@ -5,7 +5,7 @@ import javafx.scene.control.Label
 import javafx.stage.Popup
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TextPopup : Popup() {
 

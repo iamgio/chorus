@@ -4,7 +4,7 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 abstract class AbstractStylesheet {
 

@@ -5,7 +5,7 @@ import org.chorusmc.chorus.menus.variables.VariablesMenu;
 import java.util.List;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public final class Variables {
 

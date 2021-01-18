@@ -6,7 +6,7 @@ import javafx.scene.text.TextAlignment
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class DropMenuButton(text: String, val action: DropMenuAction, isShowType: Boolean = false) : Button(text) {
 

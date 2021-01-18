@@ -10,7 +10,7 @@ import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.util.valueOf
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class IdAction(protected var enumClass: Class<out McComponent>) : DropMenuAction() {
 

@@ -10,7 +10,7 @@ import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ArmorPreview : DropMenuAction() {
 

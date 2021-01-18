@@ -7,7 +7,7 @@ import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.util.entityIcons
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EntityIconLoader(private val entity: Entity) : IconLoader {
 

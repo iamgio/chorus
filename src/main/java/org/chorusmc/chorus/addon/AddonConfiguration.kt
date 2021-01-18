@@ -8,7 +8,7 @@ import java.io.FileInputStream
 import java.io.FileWriter
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 
 class AddonConfiguration : ChorusConfiguration("config.yml") {

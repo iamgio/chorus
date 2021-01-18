@@ -9,7 +9,7 @@ import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TitlePreview : DropMenuAction() {
 

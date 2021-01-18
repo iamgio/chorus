@@ -3,7 +3,8 @@ package org.chorusmc.chorus.minecraft.sound
 import org.chorusmc.chorus.minecraft.McComponent
 
 /**
- * @author Gio
+ * Represents an in-game sound element
+ * @author Giorgio Garofalo
  */
 enum class Sound : McComponent {
 

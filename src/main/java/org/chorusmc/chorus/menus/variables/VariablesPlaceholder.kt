@@ -7,7 +7,7 @@ import javafx.scene.layout.StackPane
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class VariablesPlaceholder : FlowPane() {
 

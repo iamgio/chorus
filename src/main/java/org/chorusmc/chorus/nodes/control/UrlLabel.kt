@@ -5,7 +5,7 @@ import javafx.scene.text.Text
 import org.chorusmc.chorus.Chorus
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class UrlLabel(text: String, var url: String) : Text(text) {
 

@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 interface IDefinedStyleClass {
 

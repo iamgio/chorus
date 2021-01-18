@@ -52,25 +52,41 @@ import static org.chorusmc.chorus.util.Utils.joinEnum;
  */
 public class Chorus extends FXApplication {
 
-    // Version of the program (x.y[.z])
     // Edit Updater.kt#VERSION to change
+    /**
+     * Version of the program (x.y[.z])
+     */
     public static final String VERSION = Version.VERSION;
 
-    // File passed from argument
+    /**
+     * File passed from argument
+     */
     private static File passedFile;
 
+    /**
+     * Configuration (settings)
+     */
     public ChorusConfig config = new ChorusConfig();
     public ChorusFolder folder = new ChorusFolder(), backups = new ChorusFolder(), themes = new ChorusFolder(), addons = new ChorusFolder();
 
-    // Bundle used for internazionalization
+    /**
+     * Bundle used for internazionalization
+     */
     private ResourceBundle resourceBundle;
 
-    // Console arguments
+    /**
+     * Console arguments
+     */
     private static String[] args;
 
+    /**
+     * Singleton
+     */
     private static Chorus instance;
 
-    // Root of the JavaFX UI
+    /**
+     * Root of the JavaFX UI
+     */
     public Pane root;
 
     @Override
@@ -253,6 +269,10 @@ public class Chorus extends FXApplication {
         ));
     }
 
+    /**
+     * Sets active theme
+     * @param theme new theme
+     */
     public void setTheme(Theme theme) {
         // Apply CSS of the theme to the UI and editor areas
         Scene scene = getStage().toStage().getScene();
@@ -263,6 +283,10 @@ public class Chorus extends FXApplication {
         }
     }
 
+    /**
+     * Loads an internal font
+     * @param name file name
+     */
     public void loadFont(String name) {
         Font.loadFont(getClass().getResourceAsStream("/assets/fonts/" + name), 25);
     }
@@ -277,10 +301,17 @@ public class Chorus extends FXApplication {
         }).start();
     }
 
+    /**
+     * Singleton
+     * @return Chorus instance
+     */
     public static Chorus getInstance() {
         return instance;
     }
 
+    /**
+     * @return Bundle used for internazionalization
+     */
     public ResourceBundle getResourceBundle() {
         return resourceBundle;
     }

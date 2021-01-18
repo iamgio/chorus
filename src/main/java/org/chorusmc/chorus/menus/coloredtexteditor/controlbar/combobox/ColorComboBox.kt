@@ -9,7 +9,7 @@ import javafx.scene.control.ComboBox
 import javafx.util.Duration
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColorComboBox : ComboBox<ChatColor>() {
 

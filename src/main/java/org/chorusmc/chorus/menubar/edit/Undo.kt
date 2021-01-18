@@ -6,7 +6,7 @@ import org.chorusmc.chorus.nodes.Tab
 import org.chorusmc.chorus.util.area
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class Undo : MenuBarAction {
 

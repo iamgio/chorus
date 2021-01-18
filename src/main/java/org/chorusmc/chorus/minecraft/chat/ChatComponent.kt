@@ -4,7 +4,8 @@ import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.util.colorPrefix
 
 /**
- * @author Gio
+ * Represents any component that changes the aspect of a text (&a, &l, etc.)
+ * @author Giorgio Garofalo
  */
 interface ChatComponent {
 

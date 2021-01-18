@@ -3,7 +3,7 @@ package org.chorusmc.chorus.nodes.popup
 import javafx.scene.control.Label
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class LocalTextPopup : Label() {
 

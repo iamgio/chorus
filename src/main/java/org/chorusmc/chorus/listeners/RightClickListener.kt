@@ -5,7 +5,7 @@ import org.chorusmc.chorus.menus.drop.MainDropMenu
 import javafx.scene.input.MouseButton
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class RightClickListener : TabOpenerListener {
 

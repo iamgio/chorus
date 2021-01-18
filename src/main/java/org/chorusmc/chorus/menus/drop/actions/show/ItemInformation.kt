@@ -7,7 +7,7 @@ import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.minecraft.item.ItemInformationBox
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ItemInformation : InformationMenuAction() {
 

@@ -4,7 +4,7 @@ import javafx.scene.image.Image
 import org.chorusmc.chorus.minecraft.Iconable
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class InsertMenuMember(val name: String, val icons: List<Image>) {
 

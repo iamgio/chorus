@@ -30,7 +30,7 @@ import org.chorusmc.chorus.util.translate
 import org.yaml.snakeyaml.Yaml
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class GUIPreview : DropMenuAction() {
 

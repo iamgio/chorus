@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredTextPreviewTitleBar(text: String, closeButton: Boolean = false) : HBox(4.0) {
 
@@ -25,7 +25,7 @@ class ColoredTextPreviewTitleBar(text: String, closeButton: Boolean = false) : H
         children += label
         if(closeButton) {
             val spacer = Pane()
-            HBox.setHgrow(spacer, Priority.ALWAYS)
+            setHgrow(spacer, Priority.ALWAYS)
             close.styleClass += "close-button"
             close.style = "-fx-font-weight: bold"
             close.alignment = Pos.CENTER_RIGHT

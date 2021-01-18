@@ -5,7 +5,7 @@ import javafx.scene.text.TextFlow
 import org.chorusmc.chorus.Chorus
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ChatPreviewImage : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/chat-background.png"))),

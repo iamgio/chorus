@@ -1,6 +1,6 @@
 package org.chorusmc.chorus.nodes.stylesheets
 
 /**
- * @author Giorgio Garofalo
+ * @author Giorgio Garofalorgio Garofalo
  */
 class InternalStylesheet(override val path: String) : AbstractStylesheet()

@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.minecraft.entity
 
 /**
- * @author Giorgio Garofalo
+ * @author Giorgio Garofalorgio Garofalo
  */
 enum class Entity116 : Entity {
     DROPPED_ITEM,

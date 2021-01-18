@@ -6,7 +6,7 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TabBrowsable {
 

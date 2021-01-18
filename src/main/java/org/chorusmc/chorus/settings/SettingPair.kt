@@ -11,7 +11,7 @@ import org.chorusmc.chorus.util.stringToList
 import org.chorusmc.chorus.util.toObservableList
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SettingPair(config: ChorusConfiguration, name: String, key: String, _inputString: String? = null, isExternal: Boolean) {
 
@@ -40,6 +40,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, _input
                     SettingInput.valueOf(inputString.split(" ")[0].split("{")[0])
                 } else SettingInput.TEXT
 
+        @Suppress("DEPRECATION")
         input = settingInput.clazz.newInstance()
         input.id = key
         input.styleClass += settingInput.styleClass

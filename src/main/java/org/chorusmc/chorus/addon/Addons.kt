@@ -7,7 +7,7 @@ import javax.script.ScriptEngineManager
 import javax.script.ScriptException
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 object Addons {
 

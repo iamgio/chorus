@@ -4,7 +4,7 @@ import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.drop.DropMenu
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 abstract class DropMenuAction {
 

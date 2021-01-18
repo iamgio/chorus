@@ -1,7 +1,8 @@
 package org.chorusmc.chorus.menus
 
 /**
- * @author Gio
+ * Represents a class associated to a unique action
+ * @author Giorgio Garofalo
  */
 interface Actionable {
 

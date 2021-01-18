@@ -9,7 +9,7 @@ import org.chorusmc.chorus.menus.drop.actions.show.ItemInformation
 import org.chorusmc.chorus.yaml.charToWord
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class InfoHoverListener : TabOpenerListener {
 

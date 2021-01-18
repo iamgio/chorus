@@ -3,7 +3,7 @@ package org.chorusmc.chorus.menus.search;
 import javafx.scene.control.IndexRange;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class SearchResults {
 

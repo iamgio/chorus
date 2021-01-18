@@ -6,7 +6,7 @@ import org.chorusmc.chorus.minecraft.IconLoader
 import org.chorusmc.chorus.util.particleIcons
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ParticleIconLoader(private val particle: Particle) : IconLoader {
 

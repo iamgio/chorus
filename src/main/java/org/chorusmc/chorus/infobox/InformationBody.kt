@@ -7,7 +7,7 @@ import org.chorusmc.chorus.nodes.control.UrlLabel
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class InformationBody(title: String, subtitle: String, text: String, url: String? = null) : VBox() {
 

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public abstract class ChorusConfiguration {
 
@@ -16,7 +16,7 @@ public abstract class ChorusConfiguration {
         this.name = name;
     }
 
-    public void createIfAbsent(File folder) throws IOException {}
+    public void createIfAbsent(File folder) {}
 
     public void createIfAbsent(ChorusFolder folder) throws IOException {
         createIfAbsent(folder.getFile());

@@ -6,7 +6,7 @@ import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AutocompletionButton(text: String) : Button(text) {
 

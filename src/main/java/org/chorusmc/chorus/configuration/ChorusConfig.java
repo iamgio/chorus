@@ -7,7 +7,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class ChorusConfig extends ChorusConfiguration {
 
@@ -37,7 +37,7 @@ public class ChorusConfig extends ChorusConfiguration {
         }
         properties.load(new FileInputStream(target));
         for(Object key : internalProperties.keySet()) {
-            if(!key.toString().contains("%style") && !key.toString().contains("~") && !properties.keySet().contains(key)) {
+            if(!key.toString().contains("%style") && !key.toString().contains("~") && !properties.containsKey(key)) {
                 set(key.toString(), internalProperties.getProperty(key.toString()));
             }
         }

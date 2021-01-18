@@ -7,7 +7,7 @@ import javafx.scene.control.Button
 import javafx.scene.layout.HBox
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class VariablesControlBar(menu: VariablesMenu) : HBox(20.0) {
 

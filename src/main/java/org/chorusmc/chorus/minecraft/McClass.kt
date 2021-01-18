@@ -6,7 +6,8 @@ import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.util.config
 
 /**
- * @author Gio
+ * Wrapper for accessing version-specific game elements
+ * @author Giorgio Garofalo
  */
 @Suppress("UNCHECKED_CAST")
 class McClass @JvmOverloads constructor(private val component: Class<out McComponent>?, val version: String = config["4.Minecraft.0.Server_version"]) {

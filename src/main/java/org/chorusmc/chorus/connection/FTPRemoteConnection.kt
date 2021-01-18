@@ -3,7 +3,8 @@ package org.chorusmc.chorus.connection
 import org.apache.commons.net.ftp.FTPSClient
 
 /**
- * @author Gio
+ * Class that handles connections over FTP using Apache Commons Net
+ * @author Giorgio Garofalo
  */
 class FTPRemoteConnection(override val ip: String, override val username: String, override val port: Int, override val password: String) : RemoteConnection {
 
@@ -28,7 +29,7 @@ class FTPRemoteConnection(override val ip: String, override val username: String
         }
 
     override fun getFiles(loc: String): List<RemoteFile> {
-        var list = client?.listFiles(loc)?.map {RemoteFile(it.name, it.isDirectory)} ?: emptyList()
+        val list = (client?.listFiles(loc)?.map {RemoteFile(it.name, it.isDirectory)} ?: emptyList()).toMutableList()
         if(!list.map {it.filename}.contains("..")) {
             list += RemoteFile("..", true)
         }

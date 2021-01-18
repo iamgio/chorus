@@ -7,7 +7,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 abstract class ColoredTextPreviewImage @JvmOverloads constructor(
         val background: ColoredTextBackground,
@@ -30,6 +30,7 @@ abstract class ColoredTextPreviewImage @JvmOverloads constructor(
                 initFlow(flow, index)
                 children += flow
             }
+            field = value
         }
 
     init {

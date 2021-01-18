@@ -11,7 +11,7 @@ import org.chorusmc.chorus.menubar.file.*
 import org.chorusmc.chorus.menubar.help.*
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 object MenuBar {
 

@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCombination
 import javafx.scene.input.KeyEvent
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ResetColoredTextControlButton(barChildren: List<Node>, colorChooser: ColorComboBox) : Button("R") {
 

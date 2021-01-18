@@ -17,7 +17,7 @@ import org.chorusmc.chorus.util.hideMenuOnInteract
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 abstract class BaseSearchBar(private val area: EditorArea) : HBox(), Showable {
 
@@ -45,7 +45,7 @@ abstract class BaseSearchBar(private val area: EditorArea) : HBox(), Showable {
         label.alignment = Pos.CENTER_LEFT
 
         val spacer = Pane()
-        HBox.setHgrow(spacer, Priority.ALWAYS)
+        setHgrow(spacer, Priority.ALWAYS)
 
         val close = Button("x")
         close.styleClass += "close-button"
@@ -92,9 +92,9 @@ abstract class BaseSearchBar(private val area: EditorArea) : HBox(), Showable {
     }
 
     private fun processResults(text: String) {
-        var results = emptyList<IndexRange>()
+        val results = mutableListOf<IndexRange>()
         if(text.length <= area.text.length) {
-            for(i in 0 until area.text.length) {
+            for(i in area.text.indices) {
                 with(area.text.indexOf(text, i)) {
                     if(this >= 0 && !containsRange(results, this)) {
                         results += IndexRange(this, this + text.length)

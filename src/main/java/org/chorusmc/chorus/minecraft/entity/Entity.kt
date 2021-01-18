@@ -7,7 +7,8 @@ import org.chorusmc.chorus.util.StringUtils
 import java.io.IOException
 
 /**
- * @author Gio
+ * Represents an in-game entity (sheep, zombie, etc.)
+ * @author Giorgio Garofalo
  */
 interface Entity : McComponent, Iconable, Fetchable {
 

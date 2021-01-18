@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class InsertMenu extends VBox implements Showable {
 
@@ -92,7 +92,7 @@ public class InsertMenu extends VBox implements Showable {
                     meta = hint.getSelected();
                     onSelect.run();
                 });
-                hint.setOnMouseClicked(e -> hint.getAction().run());
+                hint.setOnMouseClicked(e -> hint.getAction());
                 vbox.getChildren().add(hint);
             }
         }

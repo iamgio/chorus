@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class VariablesMenu {
 

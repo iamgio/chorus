@@ -4,7 +4,7 @@ import javafx.scene.control.TextArea
 import org.chorusmc.chorus.configuration.ChorusConfiguration
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SettingTextArea : TextArea(), SettingNode {
 

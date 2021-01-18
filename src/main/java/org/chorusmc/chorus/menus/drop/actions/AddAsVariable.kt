@@ -4,7 +4,7 @@ import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.quickvariables.QuickVariablesMenu
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AddAsVariable : DropMenuAction() {
 

@@ -7,7 +7,7 @@ import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SettingsBuilder private constructor() {
 
@@ -43,11 +43,11 @@ class SettingsBuilder private constructor() {
             if(s.startsWith("external:")) {
                 // External (add-on) settings
                 Addons.addons.filter {it.allowSettings && it.name.equals(s.removePrefix("external:"), true)}.forEach { addon ->
-                    addon.config?.keys?.filter {!it.toString().startsWith("_")}?.forEach {
+                    addon.config?.keys?.filter {!it.startsWith("_")}?.forEach {
                         val pair = SettingPair(
                                 addon.config!!,
-                                it.toString().replace("_", " ").capitalize(),
-                                it.toString(),
+                                it.replace("_", " ").capitalize(),
+                                it,
                                 null,
                                 true
                         )
@@ -80,7 +80,7 @@ class SettingsBuilder private constructor() {
             if(!actions.containsKey(setting)) {
                 actions += setting to listOf(runnable)
             } else {
-                var actions = actions[setting]!!
+                val actions = actions[setting]!!.toMutableList()
                 actions += runnable
                 this.actions += setting to actions
             }

@@ -4,7 +4,7 @@ import org.chorusmc.chorus.editor.EditorArea
 import org.fxmisc.richtext.model.PlainTextChange
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 abstract class EditorEvent {
 

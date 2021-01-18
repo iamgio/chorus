@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class EditorController implements Initializable {
 

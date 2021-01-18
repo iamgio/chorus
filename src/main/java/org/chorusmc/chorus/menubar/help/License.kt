@@ -11,7 +11,7 @@ import org.chorusmc.chorus.views.HelpView
 import org.jsoup.Jsoup
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class License : MenuBarAction {
 

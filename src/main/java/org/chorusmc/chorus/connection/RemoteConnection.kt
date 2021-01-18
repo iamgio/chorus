@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.connection
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 interface RemoteConnection {
 

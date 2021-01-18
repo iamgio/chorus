@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AddonNode(imageUrl: String?, name: String, version: String, description: String?, credits: String?, odd: Boolean = false) : HBox(40.0) {
 

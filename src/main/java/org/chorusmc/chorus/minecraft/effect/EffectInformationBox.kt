@@ -8,7 +8,7 @@ import org.chorusmc.chorus.infobox.fetchingText
 import org.chorusmc.chorus.util.makeFormal
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EffectInformationBox(val image: Image, private val effect: Effect) : InformationBox(InformationHead(image)) {
 

@@ -6,7 +6,7 @@ import org.chorusmc.chorus.editor.EditorController
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class MenuBarMainButton @JvmOverloads constructor(val translateKey: String? = null, buttons: List<MenuBarButton> = emptyList()) : Menu() {
 

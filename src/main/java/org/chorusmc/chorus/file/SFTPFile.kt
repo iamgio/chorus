@@ -7,7 +7,7 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SFTPFile(private val connection: SFTPRemoteConnection, private val path: String) : FileMethod {
 
@@ -29,7 +29,7 @@ class SFTPFile(private val connection: SFTPRemoteConnection, private val path: S
     override val text: String
         get() = getText(file)
 
-    override val updatedFile: FileMethod?
+    override val updatedFile: FileMethod
         get() = SFTPFile(connection, path)
 
     override var closed: Boolean = false

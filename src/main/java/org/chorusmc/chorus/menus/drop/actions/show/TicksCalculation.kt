@@ -5,7 +5,7 @@ import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.minecraft.tick.TicksInformationBox
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TicksCalculation : DropMenuAction() {
 

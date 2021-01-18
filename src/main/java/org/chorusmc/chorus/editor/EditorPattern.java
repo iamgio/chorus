@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import static org.chorusmc.chorus.util.Utils.joinEnum;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public enum EditorPattern {
 

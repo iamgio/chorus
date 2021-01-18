@@ -8,7 +8,7 @@ import org.chorusmc.chorus.util.translateWithException
 import java.util.*
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SettingButton(text: String) : Button(text) {
 

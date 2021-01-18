@@ -3,7 +3,7 @@ package org.chorusmc.chorus.listeners
 import org.chorusmc.chorus.editor.EditorArea
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 interface TabOpenerListener {
 

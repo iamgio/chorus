@@ -4,7 +4,7 @@ import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.menus.variables.VariablesMenu
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class Variables : MenuBarAction {
 

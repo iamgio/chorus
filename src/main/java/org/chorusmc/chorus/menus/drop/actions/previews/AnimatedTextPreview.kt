@@ -3,8 +3,6 @@ package org.chorusmc.chorus.menus.drop.actions.previews
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
-import javafx.event.ActionEvent
-import javafx.event.EventHandler
 import javafx.scene.control.Button
 import javafx.scene.control.TextArea
 import javafx.util.Duration
@@ -17,7 +15,7 @@ import org.chorusmc.chorus.nodes.control.NumericTextField
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AnimatedTextPreview : DropMenuAction() {
 
@@ -66,7 +64,7 @@ private class PlayButton(delayField: NumericTextField, countField: NumericTextFi
             area.isDisable = true
             isDisable = true
             flows.forEachIndexed { index, flow ->
-                timeline.keyFrames += KeyFrame(Duration(delay * (index + 1)), EventHandler<ActionEvent> {
+                timeline.keyFrames += KeyFrame(Duration(delay * (index + 1)), {
                     image.flows[0] = flow
                 })
             }

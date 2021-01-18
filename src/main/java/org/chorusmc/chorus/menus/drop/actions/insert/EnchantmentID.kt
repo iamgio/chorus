@@ -5,12 +5,12 @@ import org.chorusmc.chorus.minecraft.enchantment.Enchantment
 import org.chorusmc.chorus.settings.SettingsBuilder
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EnchantmentID : IdAction(McClass(Enchantment::class.java).cls) {
 
     init {
-        SettingsBuilder.addAction("4.Minecraft.0.Server_version", Runnable {
+        SettingsBuilder.addAction("4.Minecraft.0.Server_version", {
             enumClass = McClass(Enchantment::class.java).cls
         })
     }

@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.minecraft.item
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 enum class Item114 : Item {
 

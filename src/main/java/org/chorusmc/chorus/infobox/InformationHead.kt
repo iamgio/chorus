@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane
 import javafx.scene.text.Text
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class InformationHead(image: Image?, text: String? = null) : StackPane() {
 

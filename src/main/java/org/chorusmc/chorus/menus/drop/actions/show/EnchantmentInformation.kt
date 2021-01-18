@@ -7,7 +7,7 @@ import org.chorusmc.chorus.minecraft.enchantment.Enchantment
 import org.chorusmc.chorus.minecraft.enchantment.EnchantmentInformationBox
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EnchantmentInformation : InformationMenuAction() {
 

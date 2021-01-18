@@ -5,7 +5,7 @@ import org.chorusmc.chorus.minecraft.entity.Entity
 import org.chorusmc.chorus.minecraft.entity.EntityInformationBox
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EntityInformation : InformationMenuAction() {
 

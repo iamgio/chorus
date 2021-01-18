@@ -4,7 +4,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.previews.ColoredTextPreviewI
 import javafx.scene.text.TextFlow
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class FlowList : ArrayList<TextFlow>() {
 

@@ -5,7 +5,7 @@ import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.fxmisc.richtext.CodeArea
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredTextArea(text: String, editor: ColoredTextEditor) : CodeArea(ChatParser(text.replace("\n", "")).toPlainText()) {
 
@@ -16,11 +16,11 @@ class ColoredTextArea(text: String, editor: ColoredTextEditor) : CodeArea(ChatPa
 
         if(text.isNotEmpty()) ChatParser(text).styleArea(this)
         plainTextChanges().filter {change ->
-            !getText().isEmpty() &&
+            getText().isNotEmpty() &&
                     change.inserted != change.removed &&
                     !change.inserted.contains("\n")}
                 .subscribe {change ->
-                    var styles = emptyList<String>()
+                    val styles = mutableListOf<String>()
                     editor.controlBar.formatButtons.filter {it.isSelected}.forEach {styles += it.formatStyleClass}
                     styles += editor.controlBar.colorComboBox.selectionModel.selectedItem.styleClass
                     ChatComponent.sortStyleClasses(styles.toMutableList())

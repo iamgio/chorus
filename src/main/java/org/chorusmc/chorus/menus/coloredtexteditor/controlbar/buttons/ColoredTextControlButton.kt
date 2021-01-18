@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCombination
 import javafx.scene.input.KeyEvent
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class ColoredTextControlButton(text: String, val formatStyleClass: String, shortcut: KeyCode) : ToggleButton(text) {
 

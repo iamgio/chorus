@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle
 import org.chorusmc.chorus.Chorus
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class HelpView(private val title: String) : View(
         "Chorus - $title",

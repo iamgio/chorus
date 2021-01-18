@@ -8,7 +8,7 @@ import javafx.scene.paint.Paint
 import javafx.scene.shape.Rectangle
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredTextBackground {
 

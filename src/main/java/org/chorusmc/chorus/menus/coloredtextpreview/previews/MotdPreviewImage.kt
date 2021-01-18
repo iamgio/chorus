@@ -8,7 +8,7 @@ import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.withStyleClass
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class MotdPreviewImage(title: String, first: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/motd-background.png"))),

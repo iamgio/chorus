@@ -5,7 +5,7 @@ import org.chorusmc.chorus.menus.Showables
 import org.chorusmc.chorus.menus.drop.DropMenu
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class NewMenuAction(private val newMenu: Class<out DropMenu>) : DropMenuAction() {
 
@@ -17,6 +17,7 @@ open class NewMenuAction(private val newMenu: Class<out DropMenu>) : DropMenuAct
         this.type = type
     }
 
+    @Suppress("DEPRECATION")
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val menu = newMenu.newInstance()
         source!!.hide()

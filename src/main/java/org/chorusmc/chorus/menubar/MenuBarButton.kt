@@ -6,7 +6,7 @@ import org.chorusmc.chorus.editor.events.Events
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class MenuBarButton @JvmOverloads constructor(translateKey: String? = null, action: MenuBarAction, combination: KeyCodeCombination? = null) : MenuItem() {
 

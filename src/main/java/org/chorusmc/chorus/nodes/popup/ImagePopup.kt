@@ -10,7 +10,7 @@ import org.chorusmc.chorus.util.area
 import org.fxmisc.richtext.event.MouseOverTextEvent
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ImagePopup : Popup() {
 

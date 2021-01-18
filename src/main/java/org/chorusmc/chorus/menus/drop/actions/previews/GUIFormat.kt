@@ -5,7 +5,7 @@ import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.item.Item
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 abstract class GUIFormat {
 

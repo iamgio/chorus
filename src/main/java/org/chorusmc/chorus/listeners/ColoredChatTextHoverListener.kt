@@ -9,7 +9,7 @@ import org.chorusmc.chorus.yaml.charToWord
 import org.fxmisc.richtext.event.MouseOverTextEvent
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredChatTextHoverListener : TabOpenerListener {
 

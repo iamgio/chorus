@@ -9,7 +9,7 @@ import org.chorusmc.chorus.menus.Actionable
 import org.chorusmc.chorus.menus.HOVER_STYLE_CLASS
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class InsertMenuHint(val text: String, images: List<Image>?) : HBox(), Actionable {
 

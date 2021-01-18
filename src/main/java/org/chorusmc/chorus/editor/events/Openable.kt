@@ -7,7 +7,7 @@ var bypassOpenable = false
 var bypassOpenableLock = false
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class Openable @JvmOverloads constructor(private val c1: Char, private val c2: Char, private val onString: Boolean = false, private val nullChar: Boolean = false) : EditorEvent() {
 

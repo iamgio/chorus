@@ -4,7 +4,7 @@ import javafx.scene.Cursor
 import javafx.scene.Parent
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class Draggable(private val node: Parent, private val container: Parent) {
 

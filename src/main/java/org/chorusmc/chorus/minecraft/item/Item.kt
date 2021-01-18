@@ -7,7 +7,8 @@ import org.chorusmc.chorus.util.StringUtils
 import java.io.IOException
 
 /**
- * @author Gio
+ * Represents an in-game item (cobblestone, dirt, etc.)
+ * @author Giorgio Garofalo
  */
 interface Item : McComponent, Iconable, IdAble, Fetchable {
 

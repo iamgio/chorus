@@ -34,24 +34,41 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Gio
+ * Represents the editor the user interacts with
+ * @see CodeArea
+ * @author Giorgio Garofalo
  */
 public class EditorArea extends CodeArea {
 
+    /**
+     * The method used to read the file, depending on if it is local or remote
+     */
     private final FileMethod file;
+
+    /**
+     * Whether the file supports highlighting
+     */
     private final boolean highlight;
 
+    /**
+     * RegEx pattern for highlighting
+     */
     private Pattern pattern = EditorPattern.compile();
 
     public EditorArea(FileMethod file, boolean highlight) {
         super(file.getText());
         this.file = file;
         this.highlight = highlight;
+
+        // Add styles
         getStylesheets().add(Themes.byConfig().getPath()[1]);
         getStylesheets().add("/assets/styles/chat-styles.css");
         getStyleClass().add("area");
+
+        // Add line numbers on the side
         setParagraphGraphicFactory(LineNumberFactory.get(this));
 
+        // Update font and font size dinamically when their value is changed
         final String fontSizeSetting = "1.Appearance.2.Font_size";
         final String fontSetting = "1.Appearance.5.Font";
 
@@ -67,9 +84,11 @@ public class EditorArea extends CodeArea {
             }
         };
 
+        // Bind the task to settings
         SettingsBuilder.addAction(fontSizeSetting, updateFont, true);
         SettingsBuilder.addAction(fontSetting, updateFont, true);
 
+        // Update RegEx patterns whenever Minecraft version is changed
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             if(EditorPattern.patternEdited) {
                 pattern = EditorPattern.compile();
@@ -78,17 +97,22 @@ public class EditorArea extends CodeArea {
             }
         });
 
+        // Performs highlighting
         Platform.runLater(this::updateHighlighting);
         plainTextChanges().filter(change -> !change.getInserted().equals(change.getRemoved())).subscribe(change -> {
             updateHighlighting();
+            // Call events on change
             Events.getEvents().forEach(e -> e.onChange(change, this));
             Addons.INSTANCE.invoke("onAreaTextChange", change, this);
         });
 
+        // Manage key events
         addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             if(new KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN).match(e)) {
+                // Open drop menu on CTRL+space
                 MainDropMenu.quickOpen();
             } else if(e.getCode() == KeyCode.DOWN && AutocompletionMenu.getCurrent() != null) {
+                // Show autocompletion
                 AutocompletionMenu autocompletionMenu = AutocompletionMenu.getCurrent();
                 autocompletionMenu.requestFocus();
                 autocompletionMenu.getVbox().setBVHover(0, true);
@@ -96,6 +120,7 @@ public class EditorArea extends CodeArea {
             }
         });
 
+        // Hide autocompletion menu if the caret moves back
         caretPositionProperty().addListener((o, oldV, newV) -> {
             if(newV < oldV) {
                 AutocompletionMenu menu = AutocompletionMenu.getCurrent();
@@ -103,6 +128,7 @@ public class EditorArea extends CodeArea {
             }
         });
 
+        // Update font size on CTRL+wheel
         addEventFilter(ScrollEvent.ANY, e -> {
             if(e.isControlDown()) {
                 e.consume();
@@ -117,11 +143,16 @@ public class EditorArea extends CodeArea {
             }
         });
 
+        // Time needed for mouse-hover actions to be triggered
         setMouseOverTextDelay(Duration.ofMillis(500));
 
+        // The editor scrolls according to caret position
         requestFollowCaret();
     }
 
+    /**
+     * Updates text highlighting
+     */
     private void updateHighlighting() {
         if((highlight || supportsHighlighting()) && !getText().isEmpty()) {
             setStyleSpans(0, computeHighlighting());
@@ -130,6 +161,9 @@ public class EditorArea extends CodeArea {
         }
     }
 
+    /**
+     * @return Style spans for highlighting
+     */
     private StyleSpans<Collection<String>> computeHighlighting() {
         String text = getText();
         Matcher matcher = pattern.matcher(text);
@@ -148,6 +182,12 @@ public class EditorArea extends CodeArea {
         return spansBuilder.create();
     }
 
+    /**
+     * Adds a style class to a certain region
+     * @param start start index
+     * @param end end index
+     * @param styleClass name of the style class
+     */
     public void addStyleClass(int start, int end, String styleClass) {
         for(int i = start; i <= end; i++) {
             if(i == getLength()) return;
@@ -157,6 +197,12 @@ public class EditorArea extends CodeArea {
         }
     }
 
+    /**
+     * Removes a style class from a certain region
+     * @param start start index
+     * @param end end index
+     * @param styleClass name of the style class
+     */
     public void removeStyleClass(int start, int end, String styleClass) {
         for(int i = start; i <= end; i++) {
             if(i == getLength()) return;
@@ -166,6 +212,11 @@ public class EditorArea extends CodeArea {
         }
     }
 
+    /**
+     * Adds a style class to regions based on a RegEx match
+     * @param pattern RegEx pattern
+     * @param styleClass name of the style class
+     */
     public void highlight(String pattern, String styleClass) {
         String text = getText();
         if(text.isEmpty()) return;
@@ -176,20 +227,33 @@ public class EditorArea extends CodeArea {
         });
     }
 
-    public FileMethod getFile() {
+    /**
+     * @return The method used to read the file, depending on if it is local or remote
+     */
+    public FileMethod getFileMethod() {
         return file;
     }
 
+    /**
+     * Saves the file and sends a notification if an error occurs
+     */
     public void saveFile() {
         if(!file.save(getText())) {
             new Notification(Utils.translate("error.save", file.getName()), NotificationType.ERROR).send();
         }
     }
 
+    /**
+     * @return Whether the file type supports text highlighting
+     */
     public boolean supportsHighlighting() {
         return file.getName().endsWith(".yml");
     }
 
+    /**
+     * Updates the content of the file
+     * @return Whether the update happened or not
+     */
     public boolean refresh() {
         FileMethod file = Tab.getCurrentTab().getFile().getUpdatedFile();
         if(file != null) {
@@ -202,10 +266,17 @@ public class EditorArea extends CodeArea {
         }
     }
 
+    /**
+     * @return Caret position in window
+     */
     public Bounds getLocalCaretBounds() {
         return getCaretBounds().isPresent() ? screenToLocal(getCaretBounds().get()) : null;
     }
 
+    /**
+     * @param paragraphIndex line index
+     * @return Whitespaces at the start of the line
+     */
     public String getInit(int paragraphIndex) {
         StringBuilder init = new StringBuilder();
         String text = getParagraph(paragraphIndex).getText();
@@ -217,6 +288,10 @@ public class EditorArea extends CodeArea {
         return init.toString();
     }
 
+    /**
+     * @param charIndex character index
+     * @return Corresponding paragraph index
+     */
     public Integer getParagraphIndex(int charIndex) {
         for(int i = 0, length = 0; i < getParagraphs().size(); i++) {
             length += getParagraphLength(i) + 1;
@@ -227,6 +302,10 @@ public class EditorArea extends CodeArea {
         return null;
     }
 
+    /**
+     * @param paragraphIndex line index
+     * @return Index of the first character of the line
+     */
     public Integer paragraphToCharIndex(int paragraphIndex) {
         for(int i = 0, length = 0; i < getParagraphs().size(); i++) {
             if(i == paragraphIndex) {
@@ -238,10 +317,17 @@ public class EditorArea extends CodeArea {
         return null;
     }
 
+    /**
+     * @return Region where new text is inserted (selection range if present, otherwise caret position)
+     */
     public IndexRange getSubstitutionRange() {
         return getSelectedText().isEmpty() ? new IndexRange(getCaretPosition(), getCaretPosition()) : getSelection();
     }
 
+    /**
+     * @param index character index
+     * @return YAML key of that index (if exists)
+     */
     public Key getKey(int index) {
         return new Key(index, this);
     }

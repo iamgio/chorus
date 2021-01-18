@@ -8,7 +8,7 @@ import org.chorusmc.chorus.infobox.fetchingText
 import org.chorusmc.chorus.util.makeFormal
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EntityInformationBox(val image: Image?, private val entity: Entity) : InformationBox(InformationHead(image)) {
 

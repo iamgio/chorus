@@ -5,7 +5,7 @@ import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.views.addons.AddonsView
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class MyAddons : MenuBarAction {
 

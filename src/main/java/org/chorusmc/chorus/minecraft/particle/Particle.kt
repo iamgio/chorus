@@ -5,7 +5,8 @@ import org.chorusmc.chorus.minecraft.Iconable
 import org.chorusmc.chorus.minecraft.McComponent
 
 /**
- * @author Gio
+ * Represents an in-game particle element
+ * @author Giorgio Garofalo
  */
 enum class Particle : McComponent, Iconable {
 

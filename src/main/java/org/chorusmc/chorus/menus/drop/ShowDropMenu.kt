@@ -13,7 +13,7 @@ import org.chorusmc.chorus.util.translate
 const val SHOW_DROP_MENU_TYPE = "show"
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ShowDropMenu : DropMenu(SHOW_DROP_MENU_TYPE) {
 

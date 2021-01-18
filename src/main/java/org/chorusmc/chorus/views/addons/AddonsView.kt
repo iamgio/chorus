@@ -14,7 +14,7 @@ import org.chorusmc.chorus.views.View
 import java.awt.Desktop
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AddonsView(private val addons: List<Addon>) : View(translate("bar.addons.myaddons"), null, 500.0, 500.0) {
 

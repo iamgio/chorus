@@ -8,7 +8,7 @@ import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.theme.Themes
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class View(
         title: String,

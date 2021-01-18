@@ -10,12 +10,12 @@ import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SignPreview : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        var textfields = emptyList<TextField>()
+        val textfields = mutableListOf<TextField>()
         val selectedText = selectedText
         (0 until 4).forEach {
             val textfield = TextField(

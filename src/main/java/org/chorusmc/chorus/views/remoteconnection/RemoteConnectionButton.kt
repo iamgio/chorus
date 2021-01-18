@@ -10,7 +10,7 @@ import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.connection.RemoteConnection
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class RemoteConnectionButton(text: String, private var loc: String, view: RemoteConnectionView, connection: RemoteConnection, isFolder: Boolean) : HBox(7.5) {
 

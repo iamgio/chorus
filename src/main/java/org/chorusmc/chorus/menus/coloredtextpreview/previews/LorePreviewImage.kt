@@ -7,7 +7,7 @@ import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.withStyleClass
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class LorePreviewImage(name: String, text: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Paint.valueOf("10020f")),

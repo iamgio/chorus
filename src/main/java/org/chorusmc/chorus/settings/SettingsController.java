@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class SettingsController implements Initializable {
 

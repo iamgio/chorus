@@ -8,7 +8,7 @@ import org.chorusmc.chorus.infobox.InformationHead
 import org.chorusmc.chorus.util.makeFormal
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EnchantmentInformationBox(enchantment: Enchantment) : InformationBox(InformationHead(
         Image(Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/enchantments/enchantment_book.png"))

@@ -9,7 +9,7 @@ import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.makeFormal
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ItemInformationBox(val image: Image?, private val item: Item) : InformationBox(InformationHead(image)) {
 

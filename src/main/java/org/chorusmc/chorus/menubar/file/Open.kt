@@ -10,7 +10,7 @@ import org.chorusmc.chorus.nodes.Tab
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class Open : MenuBarAction {
 

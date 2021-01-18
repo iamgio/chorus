@@ -11,7 +11,7 @@ import org.chorusmc.chorus.nodes.control.NumericTextField
 import org.chorusmc.chorus.util.*
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: Int) : HBox(3.5), Showable {
 

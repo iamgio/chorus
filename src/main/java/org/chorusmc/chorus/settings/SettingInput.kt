@@ -4,7 +4,7 @@ import org.chorusmc.chorus.settings.nodes.*
 import javafx.scene.Node
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 enum class SettingInput(val clazz: Class<out Node>, val styleClass: String) {
 

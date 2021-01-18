@@ -8,7 +8,7 @@ import org.chorusmc.chorus.minecraft.effect.Effect
 import org.chorusmc.chorus.minecraft.effect.EffectInformationBox
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class EffectInformation : InformationMenuAction() {
 

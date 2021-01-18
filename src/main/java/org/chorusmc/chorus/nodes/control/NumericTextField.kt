@@ -3,7 +3,7 @@ package org.chorusmc.chorus.nodes.control
 import javafx.scene.control.TextField
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class NumericTextField(text: String = "") : TextField(text) {
 

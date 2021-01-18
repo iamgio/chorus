@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class ColorCellFactory implements Callback<ListView<ChatColor>, ListCell<ChatColor>> {
 

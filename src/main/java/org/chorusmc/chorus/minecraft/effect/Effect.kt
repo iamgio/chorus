@@ -6,7 +6,8 @@ import org.chorusmc.chorus.minecraft.*
 import java.io.IOException
 
 /**
- * @author Gio
+ * Represents an in-game effect element
+ * @author Giorgio Garofalo
  */
 enum class Effect(override val id: Short) : McComponent, Iconable, IdAble, Fetchable {
 

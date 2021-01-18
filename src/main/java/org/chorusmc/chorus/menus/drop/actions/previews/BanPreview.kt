@@ -11,7 +11,7 @@ import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.util.withStyleClass
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class BanPreview : DropMenuAction() {
 

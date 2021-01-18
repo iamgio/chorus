@@ -8,7 +8,7 @@ import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.HelpView
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ReportABug : MenuBarAction {
 

@@ -3,7 +3,7 @@ package org.chorusmc.chorus.minecraft.tick
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 enum class TimeUnit(val value: Double) {
 

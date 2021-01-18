@@ -9,7 +9,7 @@ import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class Refresh : MenuBarAction {
 

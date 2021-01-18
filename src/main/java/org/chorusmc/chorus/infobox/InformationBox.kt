@@ -9,7 +9,7 @@ import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.util.hideMenuOnInteract
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class InformationBox() : VBox(), Showable {
 

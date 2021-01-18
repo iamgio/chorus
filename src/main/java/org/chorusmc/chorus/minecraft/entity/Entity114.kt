@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.minecraft.entity
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 enum class Entity114 : Entity {
 

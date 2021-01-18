@@ -18,7 +18,7 @@ import org.fxmisc.richtext.model.PlainTextChange
 const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}_$]"
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AutocompletionListener : EditorEvent() {
 

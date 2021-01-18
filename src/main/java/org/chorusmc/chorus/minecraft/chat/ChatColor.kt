@@ -3,7 +3,8 @@ package org.chorusmc.chorus.minecraft.chat
 import org.chorusmc.chorus.util.colorPrefix
 
 /**
- * @author Gio
+ * Component that changes text color
+ * @author Giorgio Garofalo
  */
 enum class ChatColor(override val char: Char, val hex: String, val backgroundRGB: Array<Int>) : ChatComponent {
 
@@ -33,7 +34,7 @@ enum class ChatColor(override val char: Char, val hex: String, val backgroundRGB
     companion object {
         fun byChar(char: Char): ChatColor? = values().firstOrNull {it.char == char}
         fun byStyleClass(styleClass: String): ChatColor? = try {
-            ChatColor.valueOf(styleClass.toUpperCase().replace("-", "_"))
+            valueOf(styleClass.toUpperCase().replace("-", "_"))
         } catch(e: IllegalArgumentException) {
             null
         }

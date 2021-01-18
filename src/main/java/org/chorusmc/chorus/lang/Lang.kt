@@ -1,7 +1,8 @@
 package org.chorusmc.chorus.lang
 
 /**
- * @author Gio
+ * Used for internazionalization via resource bundles
+ * @author Giorgio Garofalo
  */
 enum class Lang(val tag: String, private val commonName: String) {
 

@@ -6,7 +6,8 @@ import it.sauronsoftware.junique.MessageHandler;
 import javafx.application.Platform;
 
 /**
- * @author Gio
+ * This class uses the JUnique library to handle multiple instances of the program
+ * @author Giorgio Garofalo
  */
 public class Locker {
 

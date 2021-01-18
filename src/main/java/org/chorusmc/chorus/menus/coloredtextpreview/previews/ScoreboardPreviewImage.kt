@@ -9,7 +9,7 @@ import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.withStyleClass
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ScoreboardPreviewImage(title: String, text: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/scoreboard-background.png"))),

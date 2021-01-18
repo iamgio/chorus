@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 public class JSONParser {
 

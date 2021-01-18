@@ -8,7 +8,7 @@ import org.chorusmc.chorus.util.config
 import org.fxmisc.richtext.model.PlainTextChange
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AutoSavingListener : EditorEvent() {
 
@@ -22,7 +22,7 @@ class AutoSavingListener : EditorEvent() {
             editedAreas.add(area)
             if(!areas.contains(area)) {
                 timer.start({
-                    if(editedAreas.contains(area) && !area.file.closed) {
+                    if(editedAreas.contains(area) && !area.fileMethod.closed) {
                         area.saveFile()
                         editedAreas.remove(area)
                     }

@@ -12,10 +12,16 @@ import javafx.util.Duration
 import org.chorusmc.chorus.Chorus
 
 /**
- * @author Gio
+ * Represents a text notification that can be shown at any time
+ * @param text notification text
+ * @param type notification gravity
+ * @author Giorgio Garofalo
  */
 class Notification(private val text: String, private val type: NotificationType) {
 
+    /**
+     * Sends the notification
+     */
     fun send() {
         Platform.runLater {
             val root = Chorus.getInstance().root

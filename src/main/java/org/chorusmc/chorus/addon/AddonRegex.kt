@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.addon
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AddonRegex(regex: String) {
 

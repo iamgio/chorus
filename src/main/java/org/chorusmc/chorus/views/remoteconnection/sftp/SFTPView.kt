@@ -5,7 +5,7 @@ import org.chorusmc.chorus.menubar.file.OpenFromSFTP
 import org.chorusmc.chorus.views.remoteconnection.RemoteConnectionView
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class SFTPView : RemoteConnectionView("SFTP", 22, "5.SFTP.1.Servers", SFTPRemoteConnection.Companion) {
 

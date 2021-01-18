@@ -11,7 +11,7 @@ import org.chorusmc.chorus.menus.custom.CustomMenu
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class ColoredTextPreviewMenu(title: String, val image: ColoredTextPreviewImage, inputs: List<Control>) : CustomMenu(title), Showable {
 

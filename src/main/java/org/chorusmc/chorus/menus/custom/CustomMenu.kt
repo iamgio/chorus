@@ -15,7 +15,7 @@ import org.chorusmc.chorus.util.hideMenuOnInteract
 
 /**
  * For JS API
- * @author Gio
+ * @author Giorgio Garofalo
  */
 open class CustomMenu @JvmOverloads constructor(title: String, private val draggable: Boolean = true) : VBox(), Showable {
 

@@ -9,7 +9,7 @@ import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.withStyleClass
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AnimatedTextPreviewImage(text: String) : ColoredTextPreviewImage(
         ColoredTextBackground(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/animated-text-background.png"))),

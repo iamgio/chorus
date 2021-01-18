@@ -6,7 +6,7 @@ import org.chorusmc.chorus.infobox.InformationHead
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class TicksInformationBox(ticks: Int) : InformationBox(InformationHead(null, translate("ticks.title", ticks.toString()))) {
 

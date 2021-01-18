@@ -14,7 +14,7 @@ import org.chorusmc.chorus.util.hideMenuOnInteract
 import org.chorusmc.chorus.util.translate
 
 /**
- * @author Gio
+ * @author Giorgio Garofalo
  */
 class AutocompletionMenu(options: HashMap<String, String>, word: String, size: Int, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
 
