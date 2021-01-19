@@ -11,7 +11,7 @@ class SFTPView : RemoteConnectionView("SFTP", 22, "5.SFTP.1.Servers", SFTPRemote
 
     init {
         onBrowse = {
-            OpenFromSFTP.lastLoc += it
+            OpenFromSFTP.lastLocation += it
         }
     }
 }

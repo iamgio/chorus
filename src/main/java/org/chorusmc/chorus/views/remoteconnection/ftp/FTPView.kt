@@ -11,7 +11,7 @@ class FTPView : RemoteConnectionView("FTP", 21, "6.FTP.1.Servers", FTPRemoteConn
 
     init {
         onBrowse = {
-            OpenFromFTP.lastLoc += it
+            OpenFromFTP.lastLocation += it
         }
     }
 }

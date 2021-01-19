@@ -10,6 +10,7 @@ import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.TestFileView
 import org.yaml.snakeyaml.Yaml
+import kotlin.concurrent.thread
 
 /**
  * @author Giorgio Garofalo
@@ -27,7 +28,7 @@ class TestFile : MenuBarAction {
         }
         val view = TestFileView()
         view.show()
-        Thread {
+        thread {
             var i = 0
             try {
                 val yaml = Yaml()
@@ -46,6 +47,6 @@ class TestFile : MenuBarAction {
                 if(i == 0) view.text = ""
                 view.text += "$i ${if(i == 1) translate("testfile.error_singular") else translate("testfile.error_plural")}"
             }
-        }.start()
+        }
     }
 }

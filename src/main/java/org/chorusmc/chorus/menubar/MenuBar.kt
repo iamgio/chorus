@@ -20,7 +20,7 @@ object MenuBar {
                 MenuBarMainButton(
                         "file",
                         listOf(
-                                MenuBarButton("file.new", CreateFile(), KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN)),
+                                MenuBarButton("file.new", NewFile(), KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN)),
                                 MenuBarButton("file.open", Open(), KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN)),
                                 MenuBarButton("file.sftp", OpenFromSFTP(), KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)),
                                 MenuBarButton("file.ftp", OpenFromFTP()),
