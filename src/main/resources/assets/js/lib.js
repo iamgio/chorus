@@ -381,6 +381,59 @@ function getSound(name) {
 }
 
 /**
+ * Converts a string to a conversion-ready time unit
+ * ms/millis/milliseconds -> MILLISECONDS
+ * sec/seconds            -> SECONDS
+ * min/minutes            -> MINUTES
+ * hr/hours               -> HOURS
+ * days                   -> DAYS
+ * @param timeUnit unit as string
+ * @return org.chorusmc.chorus.minecraft.ticks.TimeUnit
+ */
+function toTicksTimeUnit(timeUnit) {
+    var TimeUnit = chorus_type('minecraft.tick.TimeUnit');
+    switch (timeUnit.toLowerCase()) {
+        case 'ms':
+        case 'millis':
+        case 'milliseconds':
+            return TimeUnit.MILLISECONDS;
+        case 'sec':
+        case 'seconds':
+            return TimeUnit.SECONDS;
+        case 'min':
+        case 'minutes':
+            return TimeUnit.MINUTES;
+        case 'hr':
+        case 'hours':
+            return TimeUnit.HOURS;
+        case 'days':
+            return TimeUnit.DAYS;
+    }
+}
+
+/**
+ * Converts a time unit to ticks
+ * @param type unit type (@see toTicksTimeUnit)
+ * @param time amount of time
+ * @return Int
+ */
+function timeToTicks(type, time) {
+    var Converter = chorus_type('minecraft.tick.TicksConverter');
+    return parseInt(new Converter().convert(toTicksTimeUnit(type), time.toString()));
+}
+
+/**
+ * Converts ticks to a time unit
+ * @param type unit type (@see toTicksTimeUnit)
+ * @param time amount of ticks
+ * @return Float
+ */
+function ticksToTime(type, ticks) {
+    var Converter = chorus_type('minecraft.tick.TicksConverter');
+    return parseFloat(new Converter().revert(toTicksTimeUnit(type), ticks.toString()));
+}
+
+/**
  * Creates a menu-bar button
  * @param name visible name of the button
  * @param id identifier (name if null)

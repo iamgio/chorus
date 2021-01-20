@@ -13,6 +13,11 @@ import org.chorusmc.chorus.util.*
 /**
  * @author Giorgio Garofalo
  */
+interface Converter<in T> {
+    fun convert(type: T, text: String): String
+    fun revert(type: T, text: String): String
+}
+
 abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: Int) : HBox(3.5), Showable {
 
     private val combobox = ComboBox(enumClass.enumConstants.toList().toObservableList())
@@ -28,7 +33,7 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         button.setOnAction {
             @Suppress("UNCHECKED_CAST")
             area!!.replaceText(area!!.substitutionRange,
-                    convert(combobox.selectionModel.selectedItem, textfield.text))
+                    converter.convert(combobox.selectionModel.selectedItem, textfield.text))
             hide()
             area!!.requestFocus()
         }
@@ -43,7 +48,7 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         children.addAll(combobox, textfield, button)
     }
 
-    abstract fun convert(type: T, text: String): String
+    abstract val converter: Converter<T>
 
     override fun show() {
         hide()
