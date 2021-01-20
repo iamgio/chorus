@@ -68,16 +68,24 @@ data class Addon(val file: File) {
         context = SimpleScriptContext()
         with(Addons.scriptEngine!!) {
             context = this@Addon.context
-            put("chorus_js_api", "classpath:assets/js/lib.js")
-            put("chorus_translate", "classpath:assets/js/translator.js")
+
+            // Inject variables
+            "classpath:js".let {
+                put("chorus_js_api", "$it/lib.js")
+                put("chorus_translate", "$it/translator.js")
+            }
             put("thisAddon", this@Addon)
             put("chorusClass", Chorus::class.java)
             put("name", name)
+
+            // Eval
             try {
                 eval(InputStreamReader(FileInputStream(file)))
             } catch(e: ScriptException) {
                 System.err.println(e.message!!)
             }
+
+            // Get info
             val global = context.getAttribute("nashorn.global") as Bindings
             with(global["version"]) {
                 if(this != null) version = this.toString()
@@ -88,6 +96,7 @@ data class Addon(val file: File) {
             }
             imageUrl = global["image"]?.toString()
             description = global["description"]?.toString()
+
             invoke(this@Addon, "onLoad")
         }
     }
