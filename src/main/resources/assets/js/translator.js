@@ -6,14 +6,14 @@
  * @return java.lang.String
  */
 function translateFromWeb(from, to, text) {
-    var doc = connect('https://async.reverso.net/WebReferences/WSAJAXInterface.asmx/TranslateCorrWS')
-        .requestBody("{'searchText': '" + text.replaceAll("\\bi\\b", "I").replace("'", "\\'") + "', 'direction': '" + from + "-" + to + "-7', 'maxTranslationChars':'-1', 'usecorr':'true'}")
+    var options = '{"origin": "reversodesktop", "sentenceSplitter": true, "contextResults": true, "languageDetection": false}';
+    var doc = connect('https://api.reverso.net/translate/v1/translation')
+        .requestBody('{"format": "text", "from": "' + from + '", "to": "' + to + '", input: "' + text + '", "options": ' + options + '}')
         .ignoreHttpErrors(true)
         .ignoreContentType(true)
         .userAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0')
         .header('Content-Type', 'application/json')
         .referrer('http://www.reverso.net/')
         .post();
-    print(doc.body())
-    return json(doc.body().text()).get("d").get("result");
+    return json(doc.body().text()).get("translation")[0];
 }
