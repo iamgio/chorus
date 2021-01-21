@@ -89,12 +89,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>11</version>
+            <version>15.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>11</version>
+            <version>15.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.nashorn</groupId>
+            <artifactId>nashorn-core</artifactId>
+            <version>15.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>

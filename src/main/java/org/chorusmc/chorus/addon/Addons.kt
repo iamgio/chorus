@@ -1,9 +1,8 @@
 package org.chorusmc.chorus.addon
 
-import org.chorusmc.chorus.Chorus
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory
 import javax.script.Invocable
 import javax.script.ScriptEngine
-import javax.script.ScriptEngineManager
 import javax.script.ScriptException
 
 /**
@@ -14,7 +13,7 @@ object Addons {
     var scriptEngine: ScriptEngine? = null
 
     fun initEngine() {
-        scriptEngine = ScriptEngineManager(Chorus::class.java.classLoader).getEngineByExtension("js")
+        scriptEngine = NashornScriptEngineFactory().getScriptEngine("--language=es6")
         addons.forEach {
             it.eval()
         }

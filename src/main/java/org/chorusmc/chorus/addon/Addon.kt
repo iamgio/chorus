@@ -2,8 +2,8 @@
 
 package org.chorusmc.chorus.addon
 
-import jdk.nashorn.api.scripting.ScriptUtils
 import org.chorusmc.chorus.Chorus
+import org.openjdk.nashorn.api.scripting.ScriptUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
