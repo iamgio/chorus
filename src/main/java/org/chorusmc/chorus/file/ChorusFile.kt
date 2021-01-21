@@ -1,10 +1,35 @@
 package org.chorusmc.chorus.file
 
 /**
- * Represents a method used to read and write a file
+ * Wrapper of either a local or remote file
  * @author Giorgio Garofalo
  */
 interface ChorusFile {
+
+    /**
+     * File type (can be one of the following: local, SFTP, FTP)
+     */
+    val type: String
+
+    /**
+     * Whether the file is local
+     */
+    val isLocal: Boolean
+        get() = this is LocalFile
+
+    /**
+     * Whether the file is gotten via SFTP
+     * @see SFTPFile
+     */
+    val isSFTP: Boolean
+        get() = this is SFTPFile
+
+    /**
+     * Whether the file is gotten via FTP
+     * @see FTPFile
+     */
+    val isFTP: Boolean
+        get() = this is SFTPFile
 
     /**
      * File name
@@ -12,9 +37,9 @@ interface ChorusFile {
     val name: String
 
     /**
-     * Absolute path of the file with some modifications
+     * Absolute path of the file
      */
-    val formalAbsolutePath: String
+    val absolutePath: String
 
     /**
      * Name of the parent folder

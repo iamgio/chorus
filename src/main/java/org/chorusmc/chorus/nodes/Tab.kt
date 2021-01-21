@@ -16,7 +16,7 @@ class Tab(text: String, content: Node, val file: ChorusFile) : Tab("$text ", con
 
     init {
         setOnCloseRequest {
-            tabs.remove(file.formalAbsolutePath)
+            tabs.remove(file.absolutePath)
             close(false)
         }
     }

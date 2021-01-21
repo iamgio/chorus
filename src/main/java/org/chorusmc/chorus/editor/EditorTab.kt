@@ -26,7 +26,7 @@ class EditorTab(private var file: ChorusFile) {
      */
     fun add() {
         val tabPane = EditorController.getInstance().tabPane
-        val path = file.formalAbsolutePath
+        val path = file.absolutePath
 
         // If the file is present, focus it
         if(tabs.containsKey(path)) {

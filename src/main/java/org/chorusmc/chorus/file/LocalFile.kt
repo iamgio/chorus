@@ -11,10 +11,12 @@ import java.nio.file.Files
  */
 class LocalFile(val file: File) : ChorusFile {
 
+    override val type = "local"
+
     override val name: String
         get() = file.name
 
-    override val formalAbsolutePath: String
+    override val absolutePath: String
         get() = file.absolutePath
 
     override val parentName: String

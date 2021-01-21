@@ -17,10 +17,12 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
         client.completePendingCommand()
     }
 
+    override val type = "ftp"
+
     override val name: String
         get() = path.split("/").last()
 
-    override val formalAbsolutePath: String
+    override val absolutePath: String
         get() = "$path [FTP]"
 
     override val parentName: String

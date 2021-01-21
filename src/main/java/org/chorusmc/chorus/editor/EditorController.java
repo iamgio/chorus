@@ -11,6 +11,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.file.ChorusFile;
 import org.chorusmc.chorus.file.LocalFile;
 import org.chorusmc.chorus.menubar.MenuBarMainButton;
 import org.chorusmc.chorus.nodes.Tab;
@@ -72,9 +73,10 @@ public class EditorController implements Initializable {
         });
         tabPane.getSelectionModel().selectedItemProperty().addListener(e -> {
             Tab tab = Tab.getCurrentTab();
+            ChorusFile file = tab.getFile();
             Tab.Companion.TabProperty property = Tab.Companion.getCurrentTabProperty();
             Chorus.getInstance().getStage().withTitle("Chorus" +
-                    (tab != null ? " - " + tab.getFile().getFormalAbsolutePath() : ""));
+                    (tab != null ? " - " + (file.getAbsolutePath() + (!file.isLocal() ? "[" + file.getType() + "]" : "")) : ""));
             if(tab != null) {
                 EditorArea area = tab.getArea();
                 Platform.runLater(area::requestFocus);
