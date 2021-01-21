@@ -14,13 +14,13 @@ class SFTPFile(private val connection: SFTPRemoteConnection, private val path: S
     private val channel = connection.channel as ChannelSftp
     private val file = channel[path]
 
-    override val type = "local"
+    override val type = "SFTP"
 
     override val name: String
         get() = path.split("/").last()
 
     override val absolutePath: String
-        get() = "$path [SFTP]"
+        get() = path
 
     override val parentName: String
         get() {
