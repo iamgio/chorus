@@ -5,14 +5,14 @@ import javafx.scene.Node
 import javafx.scene.control.Tab
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.EditorController
-import org.chorusmc.chorus.file.FileMethod
+import org.chorusmc.chorus.file.ChorusFile
 import org.chorusmc.chorus.util.tabs
 import org.fxmisc.flowless.VirtualizedScrollPane
 
 /**
  * @author Giorgio Garofalo
  */
-class Tab(text: String, content: Node, val file: FileMethod) : Tab("$text ", content) {
+class Tab(text: String, content: Node, val file: ChorusFile) : Tab("$text ", content) {
 
     init {
         setOnCloseRequest {

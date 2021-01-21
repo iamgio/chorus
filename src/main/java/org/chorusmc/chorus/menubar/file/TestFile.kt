@@ -22,7 +22,7 @@ class TestFile : MenuBarAction {
 
     override fun onAction() {
         val area = area ?: return
-        if(!area.fileMethod.name.endsWith(".yml")) {
+        if(!area.file.name.endsWith(".yml")) {
             Notification(translate("testfile.notyaml"), NotificationType.ERROR).send()
             return
         }

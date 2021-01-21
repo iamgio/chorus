@@ -4,7 +4,7 @@ package org.chorusmc.chorus.file
  * Represents a method used to read and write a file
  * @author Giorgio Garofalo
  */
-interface FileMethod {
+interface ChorusFile {
 
     /**
      * File name
@@ -29,7 +29,7 @@ interface FileMethod {
     /**
      * The same file containing updated content
      */
-    val updatedFile: FileMethod?
+    val updatedFile: ChorusFile?
 
     /**
      * Whether the connection is closed or not

@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream
 /**
  * @author Giorgio Garofalo
  */
-class FTPFile(private val connection: FTPRemoteConnection, private val path: String) : FileMethod {
+class FTPFile(private val connection: FTPRemoteConnection, private val path: String) : ChorusFile {
 
     private val client = connection.client!!
     private val file = client.retrieveFileStream(path)
@@ -32,7 +32,7 @@ class FTPFile(private val connection: FTPRemoteConnection, private val path: Str
     override val text: String
         get() = getText(file)
 
-    override val updatedFile: FileMethod
+    override val updatedFile: ChorusFile
         get() = FTPFile(connection, path)
 
     override var closed: Boolean = false

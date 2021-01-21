@@ -4,7 +4,6 @@ import com.jcraft.jsch.Channel
 import com.jcraft.jsch.ChannelSftp
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.Session
-import org.chorusmc.chorus.file.FileMethod
 import org.chorusmc.chorus.file.SFTPFile
 import java.util.*
 

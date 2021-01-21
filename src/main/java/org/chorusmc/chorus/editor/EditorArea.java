@@ -9,7 +9,7 @@ import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.addon.AddonRegex;
 import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.editor.events.Events;
-import org.chorusmc.chorus.file.FileMethod;
+import org.chorusmc.chorus.file.ChorusFile;
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu;
 import org.chorusmc.chorus.menus.drop.MainDropMenu;
 import org.chorusmc.chorus.minecraft.chat.ChatComponent;
@@ -43,7 +43,7 @@ public class EditorArea extends CodeArea {
     /**
      * The method used to read the file, depending on if it is local or remote
      */
-    private final FileMethod file;
+    private final ChorusFile file;
 
     /**
      * Whether the file supports highlighting
@@ -55,7 +55,7 @@ public class EditorArea extends CodeArea {
      */
     private Pattern pattern = EditorPattern.compile();
 
-    public EditorArea(FileMethod file, boolean highlight) {
+    public EditorArea(ChorusFile file, boolean highlight) {
         super(file.getText());
         this.file = file;
         this.highlight = highlight;
@@ -228,9 +228,9 @@ public class EditorArea extends CodeArea {
     }
 
     /**
-     * @return The method used to read the file, depending on if it is local or remote
+     * @return The way used to read the file, depending on wether it is local or remote
      */
-    public FileMethod getFileMethod() {
+    public ChorusFile getFile() {
         return file;
     }
 
@@ -255,7 +255,7 @@ public class EditorArea extends CodeArea {
      * @return Whether the update happened or not
      */
     public boolean refresh() {
-        FileMethod file = Tab.getCurrentTab().getFile().getUpdatedFile();
+        ChorusFile file = Tab.getCurrentTab().getFile().getUpdatedFile();
         if(file != null) {
             replaceText(file.getText());
             updateHighlighting();

@@ -1,6 +1,6 @@
 package org.chorusmc.chorus.connection
 
-import org.chorusmc.chorus.file.FileMethod
+import org.chorusmc.chorus.file.ChorusFile
 
 /**
  * @author Giorgio Garofalo
@@ -18,7 +18,7 @@ interface RemoteConnection {
 
     fun disconnect()
     fun logout()
-    fun instantiateFile(path: String): FileMethod
+    fun instantiateFile(path: String): ChorusFile
     fun updatePassword(password: CharArray)
     @Throws(Exception::class) fun getFiles(loc: String): List<RemoteFile>
 }

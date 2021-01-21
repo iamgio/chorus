@@ -22,7 +22,7 @@ class AutoSavingListener : EditorEvent() {
             editedAreas.add(area)
             if(!areas.contains(area)) {
                 timer.start({
-                    if(editedAreas.contains(area) && !area.fileMethod.closed) {
+                    if(editedAreas.contains(area) && !area.file.closed) {
                         area.saveFile()
                         editedAreas.remove(area)
                     }

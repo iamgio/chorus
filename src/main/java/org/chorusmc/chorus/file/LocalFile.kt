@@ -9,7 +9,7 @@ import java.nio.file.Files
 /**
  * @author Giorgio Garofalo
  */
-class LocalFile(val file: File) : FileMethod {
+class LocalFile(val file: File) : ChorusFile {
 
     override val name: String
         get() = file.name
@@ -27,7 +27,7 @@ class LocalFile(val file: File) : FileMethod {
             Files.readAllLines(file.toPath(), StandardCharsets.ISO_8859_1).joinToString("\n")
         }
 
-    override val updatedFile: FileMethod?
+    override val updatedFile: ChorusFile?
         get() = try {
             LocalFile(File(file.absolutePath))
         } catch(e: IOException) {

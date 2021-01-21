@@ -3,7 +3,7 @@ package org.chorusmc.chorus.editor
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.addon.Addons
 import org.chorusmc.chorus.editor.events.Events
-import org.chorusmc.chorus.file.FileMethod
+import org.chorusmc.chorus.file.ChorusFile
 import org.chorusmc.chorus.listeners.TabOpenerListener
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.Tab
@@ -19,7 +19,7 @@ import kotlin.concurrent.thread
  * @param
  * @author Giorgio Garofalo
  */
-class EditorTab(private var file: FileMethod) {
+class EditorTab(private var file: ChorusFile) {
 
     /**
      * Adds the tab
