@@ -76,7 +76,7 @@ public class EditorController implements Initializable {
             ChorusFile file = tab.getFile();
             Tab.Companion.TabProperty property = Tab.Companion.getCurrentTabProperty();
             Chorus.getInstance().getStage().withTitle("Chorus" +
-                    (tab != null ? " - " + (file.getAbsolutePath() + (!file.isLocal() ? "[" + file.getType() + "]" : "")) : ""));
+                    (tab != null ? " - " + (file.getAbsolutePath() + (!file.isLocal() ? " [" + file.getType() + "]" : "")) : ""));
             if(tab != null) {
                 EditorArea area = tab.getArea();
                 Platform.runLater(area::requestFocus);
