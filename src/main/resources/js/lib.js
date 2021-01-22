@@ -261,6 +261,18 @@ function getActiveTab() {
 }
 
 /**
+ * Opens a local file tab
+ * @param file either absolute path or a File instance
+ * @return org.chorusmc.chorus.nodes.Tab
+ */
+function openFile(file) {
+    var EditorTab = chorus_type('editor.EditorTab');
+    var LocalFile = chorus_type('file.LocalFile');
+    file = typeof file == 'string' ? new File(file) : file;
+    return new EditorTab(new LocalFile(file)).add();
+}
+
+/**
  * Returns active Minecraft version (from settings > Minecraft > Server version)
  * @return java.lang.String
  */

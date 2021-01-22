@@ -23,15 +23,18 @@ class EditorTab(private var file: ChorusFile) {
 
     /**
      * Adds the tab
+     * @return The tab
      */
-    fun add() {
+    fun add(): Tab? {
         val tabPane = EditorController.getInstance().tabPane
         val path = file.absolutePath
 
         // If the file is present, focus it
         if(tabs.containsKey(path)) {
-            tabPane.selectionModel.select(tabs[path])
-            return
+            tabs[path].let {
+                tabPane.selectionModel.select(it)
+                return it as? Tab
+            }
         }
 
         // Append the tab
@@ -57,6 +60,8 @@ class EditorTab(private var file: ChorusFile) {
 
         // Focuses the editor
         area.requestFocus()
+
+        return tab
     }
 
     companion object {
