@@ -15,7 +15,11 @@ object Addons {
     fun initEngine() {
         scriptEngine = NashornScriptEngineFactory().getScriptEngine("--language=es6")
         addons.forEach {
-            it.eval()
+            try {
+                it.eval()
+            } catch(e: ScriptException) {
+                printScriptError(it, e)
+            }
         }
     }
 
@@ -35,6 +39,10 @@ fun ScriptEngine.invoke(addon: Addon, func: String, vararg args: Any) {
     try {
         (this as? Invocable)?.invokeFunction(func, *args)
     } catch(e: ScriptException) {
-        System.err.println(e.message!!)
+        printScriptError(addon, e)
     } catch(ignored: NoSuchMethodException) {}
+}
+
+private fun printScriptError(addon: Addon, e: ScriptException) {
+    System.err.println("[${addon.name}] ${e.message} (at line ${e.lineNumber} column ${e.columnNumber})")
 }
