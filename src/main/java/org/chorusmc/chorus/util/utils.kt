@@ -2,11 +2,14 @@
 
 package org.chorusmc.chorus.util
 
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
 import javafx.beans.property.Property
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseEvent
+import javafx.util.Duration
 import org.apache.commons.io.IOUtils
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
@@ -105,7 +108,15 @@ fun getText(input: InputStream): String =
             IOUtils.toString(input, StandardCharsets.ISO_8859_1)
         }
 
-// For JS API
+// Utilities for JS API
+
 fun listen(property: Property<*>, action: () -> Unit) {
     property.addListener { _ -> action()}
+}
+
+fun wait(action: () -> Unit, millis: Double, count: Int) {
+    with(Timeline(KeyFrame(Duration(millis), { _ -> action() }))) {
+        cycleCount = count
+        playFromStart()
+    }
 }
