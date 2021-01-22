@@ -551,10 +551,8 @@ function createDropMenu(type, buttons) {
     var DropMenuExtender = Java.extend(DropMenuClass, {
         getButtons: function() {
             var updatedButtons = new ArrayList();
-            for(i = 0; i < buttons.length; i++) {
-                for(text in buttons[i]) {
-                    updatedButtons.add(dm_button(text, buttons[i][text]));
-                }
+            for (text in buttons) {
+                updatedButtons.add(dm_button(text, buttons[text]));
             }
             return updatedButtons;
         }
