@@ -15,7 +15,11 @@ class SettingsBuilder private constructor() {
         private val values
                 get() = config.internalKeys.sortedByDescending {it.toString()}
 
-        val actions = HashMap<String, List<Runnable>>()
+        // Actions run when a setting with an active listener is changed
+        val actions = hashMapOf<String, List<Runnable>>()
+
+        // Runtime replacements
+        val placeholders = hashMapOf<String, String>()
 
         @JvmStatic fun buildLeft(): List<SettingButton> {
             // Internal settings
@@ -89,6 +93,10 @@ class SettingsBuilder private constructor() {
 
         @JvmStatic fun callAction(setting: String) {
             actions[setting]?.forEach {it.run()}
+        }
+
+        @JvmStatic fun addPlaceholder(placeholder: String, replacement: String) {
+            placeholders[placeholder] = replacement
         }
     }
 }

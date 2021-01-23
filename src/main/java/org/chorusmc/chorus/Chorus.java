@@ -16,6 +16,7 @@ import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.configuration.ChorusConfig;
 import org.chorusmc.chorus.configuration.ChorusFolder;
 import org.chorusmc.chorus.editor.EditorController;
+import org.chorusmc.chorus.editor.EditorFonts;
 import org.chorusmc.chorus.editor.EditorPattern;
 import org.chorusmc.chorus.editor.EditorTab;
 import org.chorusmc.chorus.editor.events.Events;
@@ -40,6 +41,7 @@ import org.chorusmc.chorus.util.Utils;
 
 import java.awt.*;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -67,7 +69,11 @@ public class Chorus extends FXApplication {
      * Configuration (settings)
      */
     public ChorusConfig config = new ChorusConfig();
-    public ChorusFolder folder = new ChorusFolder(), backups = new ChorusFolder(), themes = new ChorusFolder(), addons = new ChorusFolder();
+    public ChorusFolder folder = new ChorusFolder(),
+            backups = new ChorusFolder(),
+            fonts = new ChorusFolder(),
+            themes = new ChorusFolder(),
+            addons = new ChorusFolder();
 
     /**
      * Bundle used for internazionalization
@@ -143,18 +149,13 @@ public class Chorus extends FXApplication {
         folder = new ChorusFolder();
         folder.createIfAbsent(ChorusFolder.RELATIVE);
         backups.createIfAbsent(new File(ChorusFolder.RELATIVE, "backups"));
+        fonts.createIfAbsent(new File(ChorusFolder.RELATIVE, "fonts"));
         themes.createIfAbsent(new File(ChorusFolder.RELATIVE, "themes"));
         addons.createIfAbsent(new File(ChorusFolder.RELATIVE, "addons"));
         config.createIfAbsent(folder);
 
         // Load add-ons
-        File[] addonsFiles = addons.getFile().listFiles();
-        if(addonsFiles.length > 0) {
-            for(File file : addonsFiles) {
-                if(file.getName().endsWith(".js")) Addons.INSTANCE.getAddons().add(new Addon(file));
-            }
-        }
-        if(!Addons.INSTANCE.getAddons().isEmpty()) Addons.INSTANCE.initEngine();
+        loadAddons();
 
         // Load themes
         Themes.loadInternalThemes();
@@ -177,53 +178,19 @@ public class Chorus extends FXApplication {
         if(inherit) stage.setMaximized(config.getBoolean("_win.max"));
 
         // Load theme
-        Theme theme = Themes.byConfig();
-        if(theme.getInternal()) {
-            loadStylesheet(scene, theme.getPath()[0]);
-        } else {
-            scene.getStylesheets().add(theme.getPath()[0]);
-        }
+        loadTheme(scene);
 
         // Register file-related events
         registerEvents();
 
         // Called when the program is closed
-        stage.setOnCloseRequest(e -> {
-            Utils.closeTabs();
-            config.set("_win.max", String.valueOf(stage.isMaximized()));
-            if(!stage.isMaximized()) {
-                config.set("_win.width", String.valueOf((int) root.getWidth()));
-                config.set("_win.height", String.valueOf((int) root.getHeight()));
-            }
-            Addons.INSTANCE.invoke("onClose");
-            System.exit(0);
-        });
-
-        // Change theme when the setting is updated
-        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
-
-        // Change autocompletion options and RegEx patterns when the Minecraft version is updated
-        SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
-            cacheIcons();
-            AutocompletionListener.loadOptions();
-            EditorPattern.ITEM.setPattern(
-                    "(\\b(" + joinEnum(new McClass(Item.class).getCls()) + ")\\b)(:\\d(\\d)?)?"
-            );
-            EditorPattern.ENTITY.setPattern(
-                    "\\b(" + joinEnum(new McClass(Entity.class).getCls()) + ")\\b"
-            );
-            EditorPattern.ENCHANTMENT.setPattern(
-                    "\\b(" + joinEnum(new McClass(Enchantment.class).getCls()) + ")\\b"
-            );
-        });
+        setWindowClosedEvent(stage);
 
         // Load fonts
-        loadFont("NotoSans-Regular.ttf"); // Google's Noto Sans
-        loadFont("NotoSans-Bold.ttf");    // https://fonts.google.com/specimen/Noto+Sans
-        loadFont("Minecraft.otf");
-        loadFont("Minecraft-Bold.otf");
-        loadFont("Minecraft-Italic.otf");
-        loadFont("Minecraft-BoldItalic.otf");
+        loadFonts();
+
+        // Sets listeners for certain settings
+        loadSettingsInteractions();
 
         // Show window
         getStage().withScene(scene).withIcon("/assets/images/icon.png").withTitle("Chorus").show();
@@ -242,6 +209,16 @@ public class Chorus extends FXApplication {
             passedFile = new File(args[0]);
         }
         launch(args);
+    }
+
+    private void loadAddons() {
+        File[] addonsFiles = addons.getFile().listFiles();
+        if(addonsFiles.length > 0) {
+            for(File file : addonsFiles) {
+                if(file.getName().endsWith(".js")) Addons.INSTANCE.getAddons().add(new Addon(file));
+            }
+        }
+        if(!Addons.INSTANCE.getAddons().isEmpty()) Addons.INSTANCE.initEngine();
     }
 
     private void registerEvents() {
@@ -283,12 +260,38 @@ public class Chorus extends FXApplication {
         }
     }
 
+    private void loadTheme(Scene scene) {
+        Theme theme = Themes.byConfig();
+        if(theme.getInternal()) {
+            loadStylesheet(scene, theme.getPath()[0]);
+        } else {
+            scene.getStylesheets().add(theme.getPath()[0]);
+        }
+    }
+
+    /**
+     * Loads a font
+     * @param inputStream font input stream
+     */
+    public void loadFont(InputStream inputStream) {
+        Font.loadFont(inputStream, 25);
+    }
+
     /**
      * Loads an internal font
      * @param name file name
      */
     public void loadFont(String name) {
-        Font.loadFont(getClass().getResourceAsStream("/assets/fonts/" + name), 25);
+        loadFont(getClass().getResourceAsStream("/assets/fonts/" + name));
+    }
+
+    private void loadFonts() {
+        loadFont("NotoSans-Regular.ttf"); // Google's Noto Sans
+        loadFont("NotoSans-Bold.ttf");    // https://fonts.google.com/specimen/Noto+Sans
+        loadFont("Minecraft.otf");
+        loadFont("Minecraft-Bold.otf");
+        loadFont("Minecraft-Italic.otf");
+        loadFont("Minecraft-BoldItalic.otf");
     }
 
     private void cacheIcons() {
@@ -299,6 +302,41 @@ public class Chorus extends FXApplication {
             EffectIconLoader.cache();
             EntityIconLoader.cache();
         }).start();
+    }
+
+    private void setWindowClosedEvent(Stage stage) {
+        stage.setOnCloseRequest(e -> {
+            Utils.closeTabs();
+            config.set("_win.max", String.valueOf(stage.isMaximized()));
+            if(!stage.isMaximized()) {
+                config.set("_win.width", String.valueOf((int) root.getWidth()));
+                config.set("_win.height", String.valueOf((int) root.getHeight()));
+            }
+            Addons.INSTANCE.invoke("onClose");
+            System.exit(0);
+        });
+    }
+
+    private void loadSettingsInteractions() {
+        // Change theme when the setting is updated
+        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
+
+        // Change autocompletion options and RegEx patterns when the Minecraft version is updated
+        SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
+            cacheIcons();
+            AutocompletionListener.loadOptions();
+            EditorPattern.ITEM.setPattern(
+                    "(\\b(" + joinEnum(new McClass(Item.class).getCls()) + ")\\b)(:\\d(\\d)?)?"
+            );
+            EditorPattern.ENTITY.setPattern(
+                    "\\b(" + joinEnum(new McClass(Entity.class).getCls()) + ")\\b"
+            );
+            EditorPattern.ENCHANTMENT.setPattern(
+                    "\\b(" + joinEnum(new McClass(Enchantment.class).getCls()) + ")\\b"
+            );
+        });
+
+        SettingsBuilder.addPlaceholder("fonts", EditorFonts.generateConfigPlaceholder());
     }
 
     /**

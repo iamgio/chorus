@@ -13,15 +13,17 @@ import org.chorusmc.chorus.util.toObservableList
 /**
  * @author Giorgio Garofalo
  */
-class SettingPair(config: ChorusConfiguration, name: String, key: String, _inputString: String? = null, isExternal: Boolean) {
+class SettingPair(config: ChorusConfiguration, name: String, key: String, private var _inputString: String? = null, isExternal: Boolean) {
 
     private val label: Label
     private val input: Node
 
     init {
+        SettingsBuilder.placeholders.forEach { (placeholder, replacement) ->
+            _inputString = _inputString?.replace("@$placeholder", replacement)
+        }
         val inputString = _inputString ?: if(isExternal) {
-            val value = config[key]
-            when(value) {
+            when(val value = config[key]) {
                 is String -> if(value.contains("\n")) "TEXTAREA" else "TEXTFIELD"
                 is List<*> -> "TEXTAREA"
                 is Number -> "TEXTFIELD [^0-9]"

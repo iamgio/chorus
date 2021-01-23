@@ -77,10 +77,10 @@ public class EditorArea extends CodeArea {
             setStyle("-fx-font-size: " + fontSize + ";");
 
             String fontName = Chorus.getInstance().config.get(fontSetting);
-            EditorFont font = EditorFont.valueOf(fontName.toUpperCase().replace(" ", "_"));
-            if(font != EditorFont.DEFAULT) {
+            EditorFont font = EditorFonts.byName(fontName);
+            if(font != InternalFont.DEFAULT) {
                 font.load();
-                setStyle(getStyle() + "-fx-font-family: " + font.getFontName() + ";");
+                setStyle(getStyle() + "-fx-font-family: \"" + font.getFamilyName() + "\";");
             }
         };
 
