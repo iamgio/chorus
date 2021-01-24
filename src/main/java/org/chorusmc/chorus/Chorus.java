@@ -17,7 +17,7 @@ import org.chorusmc.chorus.configuration.ChorusConfig;
 import org.chorusmc.chorus.configuration.ChorusFolder;
 import org.chorusmc.chorus.editor.EditorController;
 import org.chorusmc.chorus.editor.EditorFonts;
-import org.chorusmc.chorus.editor.EditorPattern;
+import org.chorusmc.chorus.editor.FixedEditorPattern;
 import org.chorusmc.chorus.editor.EditorTab;
 import org.chorusmc.chorus.listeners.Events;
 import org.chorusmc.chorus.listeners.Openable;
@@ -326,13 +326,13 @@ public class Chorus extends FXApplication {
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             cacheIcons();
             AutocompletionListener.loadOptions();
-            EditorPattern.ITEM.setPattern(
+            FixedEditorPattern.ITEM.setPattern(
                     "(\\b(" + joinEnum(new McClass(Item.class).getCls()) + ")\\b)(:\\d(\\d)?)?"
             );
-            EditorPattern.ENTITY.setPattern(
+            FixedEditorPattern.ENTITY.setPattern(
                     "\\b(" + joinEnum(new McClass(Entity.class).getCls()) + ")\\b"
             );
-            EditorPattern.ENCHANTMENT.setPattern(
+            FixedEditorPattern.ENCHANTMENT.setPattern(
                     "\\b(" + joinEnum(new McClass(Enchantment.class).getCls()) + ")\\b"
             );
         });

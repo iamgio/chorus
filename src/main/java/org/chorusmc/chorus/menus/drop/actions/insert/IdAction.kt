@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.menus.drop.actions.insert
 
 import org.chorusmc.chorus.editor.EditorArea
-import org.chorusmc.chorus.editor.EditorPattern
+import org.chorusmc.chorus.editor.FixedEditorPattern
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 import org.chorusmc.chorus.menus.insert.InsertMenu
 import org.chorusmc.chorus.minecraft.IdAble
@@ -20,7 +20,7 @@ open class IdAction(protected var enumClass: Class<out McComponent>) : DropMenuA
         if(area.selectedText.isNotEmpty()) {
             menu.textField.text =
                     try {
-                        if(area.selectedText.matches(Regex(EditorPattern.ITEM.pattern))) {
+                        if(area.selectedText.matches(Regex(FixedEditorPattern.ITEM.pattern))) {
                             area.selectedText.makeFormal()
                         } else {
                             (IdAble.byId<IdAble>(enumClass, area.selectedText.split(":")[0].toShort()) as? McComponent)

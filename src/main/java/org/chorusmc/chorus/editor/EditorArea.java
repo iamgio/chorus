@@ -5,9 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.IndexRange;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
-import kotlin.ranges.IntRange;
 import org.chorusmc.chorus.Chorus;
-import org.chorusmc.chorus.addon.AddonRegex;
 import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.file.ChorusFile;
 import org.chorusmc.chorus.listeners.Events;
@@ -26,10 +24,7 @@ import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,7 +48,12 @@ public class EditorArea extends CodeArea {
     /**
      * RegEx pattern for highlighting
      */
-    private Pattern pattern = EditorPattern.compile();
+    private Pattern pattern = EditorPattern.compile(FixedEditorPattern.values());
+
+    /**
+     * RegEx-styleclass map that contains highlighting patterns that are applied after the first computation
+     */
+    private final List<EditorPattern> overlayPatterns = new ArrayList<>();
 
     public EditorArea(ChorusFile file, boolean highlight) {
         super(file.getText());
@@ -90,9 +90,9 @@ public class EditorArea extends CodeArea {
 
         // Update RegEx patterns whenever Minecraft version is changed
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
-            if(EditorPattern.patternEdited) {
-                pattern = EditorPattern.compile();
-                EditorPattern.patternEdited = false;
+            if(FixedEditorPattern.patternEdited) {
+                pattern = EditorPattern.compile(FixedEditorPattern.values());
+                FixedEditorPattern.patternEdited = false;
                 updateHighlighting();
             }
         });
@@ -147,8 +147,16 @@ public class EditorArea extends CodeArea {
      */
     private void updateHighlighting() {
         if((highlight || supportsHighlighting()) && !getText().isEmpty()) {
-            setStyleSpans(0, computeHighlighting());
             ChatComponent.Companion.highlightCodes(this);
+            setStyleSpans(0,
+                    computeHighlighting(pattern, Arrays.asList(FixedEditorPattern.values()))
+                            .overlay(computeHighlighting(EditorPattern.compile(overlayPatterns), overlayPatterns),
+                                    (first, second) -> {
+                                        ArrayList<String> list = new ArrayList<>();
+                                        list.addAll(first);
+                                        list.addAll(second);
+                                        return list;
+                                    }));
             Addons.INSTANCE.invoke("onHighlightingUpdate", this);
         }
     }
@@ -156,18 +164,18 @@ public class EditorArea extends CodeArea {
     /**
      * @return Style spans for highlighting
      */
-    private StyleSpans<Collection<String>> computeHighlighting() {
+    private StyleSpans<Collection<String>> computeHighlighting(Pattern pattern, List<EditorPattern> patterns) {
         String text = getText();
         Matcher matcher = pattern.matcher(text);
         int i = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
         while(matcher.find()) {
             String styleClass = null;
-            for(EditorPattern editorPattern : EditorPattern.values()) {
-                if(matcher.group(editorPattern.name()) != null) styleClass = editorPattern.getStyleClass();
+            for(EditorPattern editorPattern : patterns) {
+                if(matcher.group(editorPattern.getName()) != null) styleClass = editorPattern.getStyleClass();
             }
             spansBuilder.add(Collections.emptyList(), matcher.start() - i);
-            spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
+            spansBuilder.add(Arrays.asList(styleClass.split(" ")), matcher.end() - matcher.start());
             i = matcher.end();
         }
         spansBuilder.add(Collections.emptyList(), text.length() - i);
@@ -205,18 +213,40 @@ public class EditorArea extends CodeArea {
     }
 
     /**
-     * Adds a style class to regions based on a RegEx match
+     * Adds the given pattern to the post-processing highlighting queue
+     * @param name pattern unique name
+     * @param pattern RegEx pattern
+     * @param styleClass name of the style class
+     */
+    public void highlight(String name, String pattern, String styleClass) {
+        for(EditorPattern editorPattern : overlayPatterns) {
+            if(editorPattern.getName().equals(name)) return;
+        }
+        this.overlayPatterns.add(new EditorPattern() {
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public String getStyleClass() {
+                return styleClass;
+            }
+
+            @Override
+            public String getPattern() {
+                return pattern;
+            }
+        });
+    }
+
+    /**
+     * Adds the given pattern to the post-processing highlighting queue
      * @param pattern RegEx pattern
      * @param styleClass name of the style class
      */
     public void highlight(String pattern, String styleClass) {
-        String text = getText();
-        if(text.isEmpty()) return;
-        AddonRegex regex = new AddonRegex(pattern);
-        regex.findAll(text).iterator().forEachRemaining(match -> {
-            IntRange range = match.getRange();
-            addStyleClass(range.getStart(), range.getEndInclusive(), styleClass);
-        });
+        highlight(styleClass.replace("-", "").toUpperCase(), pattern, styleClass);
     }
 
     /**

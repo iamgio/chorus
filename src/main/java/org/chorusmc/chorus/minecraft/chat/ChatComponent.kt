@@ -31,8 +31,8 @@ interface ChatComponent {
             val prefix = colorPrefix
             val values: List<ChatComponent> = ChatColor.values().toList() + ChatFormat.values()
             values.forEach {
-                area.highlight(prefix + it.char, it.styleClass)
-                area.highlight("$prefix(?=${it.char})", "color-prefix")
+                area.highlight("HLCOLORCODE${it.char}", "(?<=$prefix)${it.char}", it.styleClass)
+                area.highlight("HLCOLORPREFIX${it.char}","$prefix(?=${it.char})", "color-prefix ${it.styleClass}")
             }
         }
     }

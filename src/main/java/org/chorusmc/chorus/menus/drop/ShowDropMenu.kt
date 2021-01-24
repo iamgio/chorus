@@ -1,6 +1,6 @@
 package org.chorusmc.chorus.menus.drop
 
-import org.chorusmc.chorus.editor.EditorPattern
+import org.chorusmc.chorus.editor.FixedEditorPattern
 import org.chorusmc.chorus.menus.drop.actions.show.*
 import org.chorusmc.chorus.minecraft.IdAble
 import org.chorusmc.chorus.minecraft.McClass
@@ -28,20 +28,20 @@ class ShowDropMenu : DropMenu(SHOW_DROP_MENU_TYPE) {
         val selected = area!!.selectedText
         val parts = selected.split(":")
         if(selected.isNotEmpty() && parts.isNotEmpty()) {
-            if(selected.toIntOrNull() != null || selected.matches(Regex(EditorPattern.ITEMID.pattern))) {
+            if(selected.toIntOrNull() != null || selected.matches(Regex(FixedEditorPattern.ITEMID.pattern))) {
                 val item = IdAble.byId(McClass(Item::class.java).cls, parts[0].toShort()) as Item?
                 list[0].isDisable = item == null
-            } else if(selected.matches(Regex(EditorPattern.ITEM.pattern))) {
+            } else if(selected.matches(Regex(FixedEditorPattern.ITEM.pattern))) {
                 list[0].isDisable = McClass(Item::class.java).valueOf<Item>(parts[0]) == null
             }
-            if(selected.matches(Regex(EditorPattern.EFFECT.pattern)) ||
+            if(selected.matches(Regex(FixedEditorPattern.EFFECT.pattern)) ||
                     (selected.toShortOrNull() != null && IdAble.byId<Effect>(Effect::class.java, selected.toShort()) != null)) {
                 list[1].isDisable = false
             }
-            if(selected.matches(Regex(EditorPattern.ENTITY.pattern))) {
+            if(selected.matches(Regex(FixedEditorPattern.ENTITY.pattern))) {
                 list[2].isDisable = false
             }
-            if(selected.matches(Regex(EditorPattern.ENCHANTMENT.pattern)) ||
+            if(selected.matches(Regex(FixedEditorPattern.ENCHANTMENT.pattern)) ||
                     (selected.toShortOrNull() != null && IdAble.byId<Enchantment>(McClass(Enchantment::class.java).cls, selected.toShort()) != null)) {
                 list[3].isDisable = false
             }
