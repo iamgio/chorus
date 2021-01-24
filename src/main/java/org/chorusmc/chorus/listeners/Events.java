@@ -1,8 +1,7 @@
-package org.chorusmc.chorus.editor.events;
+package org.chorusmc.chorus.listeners;
 
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction;
 import org.chorusmc.chorus.menubar.MenuBarAction;
-import org.chorusmc.chorus.listeners.TabOpenerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +13,10 @@ public final class Events {
 
     private Events() {}
 
-    private static List<EditorEvent> events = new ArrayList<>();
-    private static List<MenuBarAction> menuActions = new ArrayList<>();
-    private static List<TabOpenerListener> yamlComponents = new ArrayList<>();
-    private static List<DropMenuAction> dropMenuActions = new ArrayList<>();
+    private static final List<EditorEvent> events = new ArrayList<>();
+    private static final List<MenuBarAction> menuActions = new ArrayList<>();
+    private static final List<TabOpenerListener> yamlComponents = new ArrayList<>();
+    private static final List<DropMenuAction> dropMenuActions = new ArrayList<>();
 
     public static List<EditorEvent> getEvents() {
         return events;

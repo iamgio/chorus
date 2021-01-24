@@ -2,7 +2,7 @@ package org.chorusmc.chorus.menubar
 
 import javafx.scene.control.MenuItem
 import javafx.scene.input.KeyCodeCombination
-import org.chorusmc.chorus.editor.events.Events
+import org.chorusmc.chorus.listeners.Events
 import org.chorusmc.chorus.util.translate
 
 /**

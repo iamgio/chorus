@@ -1,8 +1,8 @@
 package org.chorusmc.chorus.menubar.edit
 
 import javafx.beans.value.ObservableValue
-import org.chorusmc.chorus.editor.events.bypassOpenable
-import org.chorusmc.chorus.editor.events.bypassOpenableLock
+import org.chorusmc.chorus.listeners.bypassOpenable
+import org.chorusmc.chorus.listeners.bypassOpenableLock
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.menus.search.ReplaceBar
 import org.chorusmc.chorus.menus.search.SearchBar

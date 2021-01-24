@@ -19,8 +19,8 @@ import org.chorusmc.chorus.editor.EditorController;
 import org.chorusmc.chorus.editor.EditorFonts;
 import org.chorusmc.chorus.editor.EditorPattern;
 import org.chorusmc.chorus.editor.EditorTab;
-import org.chorusmc.chorus.editor.events.Events;
-import org.chorusmc.chorus.editor.events.Openable;
+import org.chorusmc.chorus.listeners.Events;
+import org.chorusmc.chorus.listeners.Openable;
 import org.chorusmc.chorus.file.LocalFile;
 import org.chorusmc.chorus.lang.Lang;
 import org.chorusmc.chorus.listeners.*;
@@ -234,7 +234,8 @@ public class Chorus extends FXApplication {
                 new Openable('{', '}', true),                 // Automatically closes curly braces
                 new Openable('%', '%', true, true),   // Automatically closes %
                 new Openable('\'', '\''),                                   // Automatically closes quotes
-                new Openable('"', '"')                                      // Automatically closes double quotes
+                new Openable('"', '"'),                                     // Automatically closes double quotes
+                new DropMenuCombinationListener()                           // Open drop menu on CTRL+space
         ));
         Events.getYamlComponents().addAll(Arrays.asList(
                 new EditorTab.Companion.ShowableRemover(),                  // Closes active showables/menus when a new tab is opened

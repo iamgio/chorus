@@ -1,7 +1,8 @@
 package org.chorusmc.chorus.listeners
 
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
 import org.chorusmc.chorus.editor.EditorArea
-import org.chorusmc.chorus.editor.events.EditorEvent
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.effect.Effect
@@ -26,6 +27,16 @@ class AutocompletionListener : EditorEvent() {
 
     init {
         loadOptions()
+    }
+
+    override fun onKeyPress(event: KeyEvent, area: EditorArea) {
+        if(event.code == KeyCode.DOWN) {
+            with(AutocompletionMenu.current ?: return) {
+                requestFocus()
+                vbox.setBVHover(0, true)
+                event.consume()
+            }
+        }
     }
 
     override fun onChange(change: PlainTextChange, area: EditorArea) {
@@ -82,12 +93,12 @@ class AutocompletionListener : EditorEvent() {
             options =
                     linkedMapOf(
                             "true" to "true", "false" to "false",
-                            *McClass(Item::class.java).enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
-                            *McClass(Entity::class.java).enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
-                            *Particle.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-                            *Effect.values().map {it.name.makeFormal() to it.name}.toTypedArray(),
-                            *McClass(Enchantment::class.java).enumValues.map {it.name.makeFormal() to it.name}.toTypedArray(),
-                            *Sound.values().map {it.name.makeFormal() to it.name}.toTypedArray()
+                            *McClass(Item::class.java).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Entity::class.java).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *Particle.values().map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *Effect.values().map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Enchantment::class.java).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *Sound.values().map { it.name.makeFormal() to it.name }.toTypedArray()
                     )
         }
     }

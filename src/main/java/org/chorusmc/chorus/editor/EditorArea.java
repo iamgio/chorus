@@ -3,15 +3,15 @@ package org.chorusmc.chorus.editor;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.IndexRange;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import kotlin.ranges.IntRange;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.addon.AddonRegex;
 import org.chorusmc.chorus.addon.Addons;
-import org.chorusmc.chorus.editor.events.Events;
 import org.chorusmc.chorus.file.ChorusFile;
+import org.chorusmc.chorus.listeners.Events;
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu;
-import org.chorusmc.chorus.menus.drop.MainDropMenu;
 import org.chorusmc.chorus.minecraft.chat.ChatComponent;
 import org.chorusmc.chorus.nodes.Tab;
 import org.chorusmc.chorus.notification.Notification;
@@ -102,22 +102,14 @@ public class EditorArea extends CodeArea {
         plainTextChanges().filter(change -> !change.getInserted().equals(change.getRemoved())).subscribe(change -> {
             updateHighlighting();
             // Call events on change
-            Events.getEvents().forEach(e -> e.onChange(change, this));
+            Events.getEvents().forEach(event -> event.onChange(change, this));
             Addons.INSTANCE.invoke("onAreaTextChange", change, this);
         });
 
         // Manage key events
         addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            if(new KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN).match(e)) {
-                // Open drop menu on CTRL+space
-                MainDropMenu.quickOpen();
-            } else if(e.getCode() == KeyCode.DOWN && AutocompletionMenu.getCurrent() != null) {
-                // Show autocompletion
-                AutocompletionMenu autocompletionMenu = AutocompletionMenu.getCurrent();
-                autocompletionMenu.requestFocus();
-                autocompletionMenu.getVbox().setBVHover(0, true);
-                e.consume();
-            }
+            Events.getEvents().forEach(event -> event.onKeyPress(e, this));
+            Addons.INSTANCE.invoke("onAreaKeyPress", e, this);
         });
 
         // Hide autocompletion menu if the caret moves back
