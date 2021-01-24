@@ -9,13 +9,20 @@ import org.chorusmc.chorus.nodes.control.UrlLabel
 import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.HelpView
 import org.jsoup.Jsoup
+import java.util.Locale
 
 class Credits : MenuBarAction {
 
     override fun onAction() {
         val helpView = HelpView(translate("help.credits.title"))
         helpView.addText(translate("help.credits.subtitle", "♥"), true)
-        translate("help.credits.text").split("\n").forEach {helpView.addText(it)}
+        translate(
+                "help.credits.text",
+                "xQuickGlare, Pompiere1, SuperMarcomen, SnowyCoder, Mega, Thundy, NiceCraftz",
+                "moonmatt",
+                locale = Locale.ENGLISH
+        )
+                .split("\n").forEach { helpView.addText(it) }
         helpView.addText(translate(".credits"))
         helpView.show()
     }
@@ -26,8 +33,8 @@ class Donate : MenuBarAction {
     override fun onAction() {
 
         val helpView = HelpView(translate("help.donate.title"))
-        helpView.addText(translate("help.donate.text"))
-        helpView.addNode(UrlLabel(translate("help.donate.url_text"), "https://paypal.me/giogar"))
+        helpView.addText(translate("help.donate.text", locale = Locale.ENGLISH))
+        helpView.addNode(UrlLabel(translate("help.donate.url_text"), "http://donate.chorusmc.org"))
         helpView.show()
     }
 }
