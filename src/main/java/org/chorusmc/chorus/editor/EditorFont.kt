@@ -53,9 +53,9 @@ private class ExternalFontFinder : FontFinder {
 enum class InternalFont(override val familyName: String, private vararg val fileNames: String) : EditorFont {
 
     DEFAULT("Default"),
-    CONSOLAS("Consolas", "Consolas.ttf", "Consolas Bold.ttf"),
+    CONSOLAS("Consolas", "Consolas-Regular.ttf", "Consolas-Bold.ttf", "Consolas-Italic.ttf", "Consolas-BoldItalic.ttf"),
     INCONSOLATA("Inconsolata", "Inconsolata-Regular.ttf", "Inconsolata-Bold.ttf"),
-    MONACO("Monaco", "Monaco.ttf");
+    MONEGO("Monego", "Monego-Regular.otf", "Monego-Bold.otf", "Monego-Italic.otf", "Monego-BoldItalic.otf");
 
     override fun load() = fileNames.forEach { Chorus.getInstance().loadFont(it) }
 }
