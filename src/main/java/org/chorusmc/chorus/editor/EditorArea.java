@@ -148,6 +148,7 @@ public class EditorArea extends CodeArea {
     private void updateHighlighting() {
         if((highlight || supportsHighlighting()) && !getText().isEmpty()) {
             ChatComponent.Companion.highlightCodes(this);
+            Addons.INSTANCE.invoke("onHighlightingUpdate", this);
             setStyleSpans(0,
                     computeHighlighting(pattern, Arrays.asList(FixedEditorPattern.values()))
                             .overlay(computeHighlighting(EditorPattern.compile(overlayPatterns), overlayPatterns),
@@ -157,7 +158,6 @@ public class EditorArea extends CodeArea {
                                         list.addAll(second);
                                         return list;
                                     }));
-            Addons.INSTANCE.invoke("onHighlightingUpdate", this);
         }
     }
 
