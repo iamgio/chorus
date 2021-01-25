@@ -92,7 +92,7 @@ public class InsertMenu extends VBox implements Showable {
                     meta = hint.getSelected();
                     onSelect.run();
                 });
-                hint.setOnMouseClicked(e -> hint.getAction());
+                hint.setOnMouseClicked(e -> hint.getAction().run());
                 vbox.getChildren().add(hint);
             }
         }
