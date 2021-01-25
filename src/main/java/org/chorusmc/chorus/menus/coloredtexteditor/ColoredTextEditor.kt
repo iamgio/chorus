@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.coloredtexteditor.controlbar.ColoredTextControlBar
+import org.chorusmc.chorus.menus.drop.actions.previews.selectedText
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.util.hideMenuOnInteract
 import org.fxmisc.flowless.VirtualizedScrollPane
@@ -15,14 +16,14 @@ import org.fxmisc.flowless.VirtualizedScrollPane
  */
 class ColoredTextEditor : VBox(), Showable {
 
-    val area = ColoredTextArea(org.chorusmc.chorus.util.area!!.selectedText.replace("\n", ""), this)
+    val area = ColoredTextArea(selectedText.replace("\n", ""), this)
     val controlBar: ColoredTextControlBar
 
     init {
         styleClass += "colored-text-editor"
         style = "-fx-background-radius: 10"
 
-        val scrollPane = VirtualizedScrollPane<ColoredTextArea>(area)
+        val scrollPane = VirtualizedScrollPane(area)
         scrollPane.vbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
 
         coloredTextArea = area
