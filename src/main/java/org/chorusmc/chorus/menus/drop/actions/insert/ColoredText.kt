@@ -14,7 +14,7 @@ class ColoredText : DropMenuAction() {
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         if(area.selection.length == 0) {
             val bounds = charToWordBounds(area.caretPosition, "string")
-            area.selectRange(bounds.start + 1, bounds.end)
+            if(bounds.length > 0) area.selectRange(bounds.start + 1, bounds.end)
         }
         val editor = ColoredTextEditor()
         val root = Chorus.getInstance().root

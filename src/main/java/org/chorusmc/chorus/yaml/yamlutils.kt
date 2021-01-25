@@ -35,6 +35,8 @@ fun charToWordBounds(index: Int, styleClass: String, stopOnLineBreak: Boolean = 
         end--
     }
 
+    if(start > end) return IndexRange(index, index)
+
     return IndexRange(start, if(end >= area.length) area.length else end)
 }
 
