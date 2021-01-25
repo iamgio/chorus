@@ -4,6 +4,7 @@ import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.coloredtexteditor.ColoredTextEditor
 import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
+import org.chorusmc.chorus.yaml.charToWordBounds
 
 /**
  * @author Giorgio Garofalo
@@ -11,6 +12,10 @@ import org.chorusmc.chorus.menus.drop.actions.DropMenuAction
 class ColoredText : DropMenuAction() {
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
+        if(area.selection.length == 0) {
+            val bounds = charToWordBounds(area.caretPosition, "string")
+            area.selectRange(bounds.start + 1, bounds.end)
+        }
         val editor = ColoredTextEditor()
         val root = Chorus.getInstance().root
         editor.prefWidthProperty().bind(root.widthProperty().divide(1.8))

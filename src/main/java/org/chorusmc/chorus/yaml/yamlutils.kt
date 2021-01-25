@@ -27,6 +27,14 @@ fun charToWordBounds(index: Int, styleClass: String, stopOnLineBreak: Boolean = 
         end++
     }
 
+    while(area.text[start].isWhitespace()) {
+        start++
+    }
+
+    while(area.text[end].isWhitespace()) {
+        end--
+    }
+
     return IndexRange(start, if(end >= area.length) area.length else end)
 }
 
@@ -40,5 +48,5 @@ fun charToWord(index: Int, styleClass: String, stopOnLineBreak: Boolean = true):
     val bounds = charToWordBounds(index, styleClass, stopOnLineBreak)
     val area = area!!
     if(bounds.start < 0 || bounds.end >= area.length) return ""
-    return area.getText(bounds.start, bounds.end + 1).trim()
+    return area.getText(bounds.start, bounds.end + 1)
 }
