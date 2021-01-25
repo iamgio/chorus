@@ -17,6 +17,7 @@ import org.chorusmc.chorus.notification.NotificationType;
 import org.chorusmc.chorus.settings.SettingsBuilder;
 import org.chorusmc.chorus.theme.Themes;
 import org.chorusmc.chorus.util.Utils;
+import org.chorusmc.chorus.util.VarsKt;
 import org.chorusmc.chorus.yaml.Key;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
@@ -147,11 +148,12 @@ public class EditorArea extends CodeArea {
      */
     private void updateHighlighting() {
         if((highlight || supportsHighlighting()) && !getText().isEmpty()) {
-            ChatComponent.Companion.highlightCodes(this);
+            overlayPatterns.clear();
+            if(VarsKt.getConfig().getBoolean("4.Minecraft.5.Highlight_color_codes")) ChatComponent.Companion.highlightCodes(this);
             Addons.INSTANCE.invoke("onHighlightingUpdate", this);
-            setStyleSpans(0,
-                    computeHighlighting(pattern, Arrays.asList(FixedEditorPattern.values()))
-                            .overlay(computeHighlighting(EditorPattern.compile(overlayPatterns), overlayPatterns),
+            Pattern overlayPattern = EditorPattern.compile(overlayPatterns);
+            StyleSpans<Collection<String>> fixedHighlighting = computeHighlighting(pattern, Arrays.asList(FixedEditorPattern.values()));
+            setStyleSpans(0, overlayPattern == null ? fixedHighlighting : fixedHighlighting.overlay(computeHighlighting(EditorPattern.compile(overlayPatterns), overlayPatterns),
                                     (first, second) -> {
                                         ArrayList<String> list = new ArrayList<>();
                                         list.addAll(first);
@@ -219,9 +221,6 @@ public class EditorArea extends CodeArea {
      * @param styleClass name of the style class
      */
     public void highlight(String name, String pattern, String styleClass) {
-        for(EditorPattern editorPattern : overlayPatterns) {
-            if(editorPattern.getName().equals(name)) return;
-        }
         this.overlayPatterns.add(new EditorPattern() {
             @Override
             public String getName() {

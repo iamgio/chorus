@@ -14,6 +14,7 @@ public interface EditorPattern {
     String getPattern();
 
     static Pattern compile(List<EditorPattern> patterns) {
+        if(patterns.isEmpty()) return null;
         StringBuilder patternBuilder = new StringBuilder();
         for(EditorPattern pattern : patterns) {
             patternBuilder.append("(?<").append(pattern.getName()).append(">").append(pattern.getPattern()).append(")|");
