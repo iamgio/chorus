@@ -11,10 +11,7 @@ import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.TabBrowsable
 import org.chorusmc.chorus.menus.coloredtextpreview.ColoredTextPreviewTitleBar
-import org.chorusmc.chorus.util.InteractFilter
-import org.chorusmc.chorus.util.area
-import org.chorusmc.chorus.util.config
-import org.chorusmc.chorus.util.hideMenuOnInteract
+import org.chorusmc.chorus.util.*
 import org.chorusmc.chorus.variable.Variable
 import org.chorusmc.chorus.variable.Variables
 
@@ -31,14 +28,14 @@ class QuickVariablesMenu(varName: String) : VBox(), Showable {
         prefWidth = 300.0
         prefHeight = 100.0
         alignment = Pos.CENTER
-        val bar = ColoredTextPreviewTitleBar("Add variable")
+        val bar = ColoredTextPreviewTitleBar(translate("addvariable.title"))
         bar.prefWidth = prefWidth
         Draggable(bar, this).initDrag()
         val hbox = HBox(7.5)
         hbox.children.addAll(name, value)
         val buttons = HBox(3.0)
-        val ok = Button("OK")
-        val cancel = Button("Cancel")
+        val ok = Button(translate("addvariable.ok"))
+        val cancel = Button(translate("addvariable.cancel"))
         ok.setOnAction {
             Variables.getVariables() += Variable(name.text, value.text)
             hide()
