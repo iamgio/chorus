@@ -12,7 +12,7 @@ import org.chorusmc.chorus.util.config
 class AutoTabListener : EditorEvent() {
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
-        if(event.code == KeyCode.ENTER) {
+        if(event.code == KeyCode.ENTER && area.caretColumn > 0) {
             val paragraphIndex = area.currentParagraph
             val replacement = area.getInit(paragraphIndex).let {
                 if(area.getParagraph(paragraphIndex).text.endsWith(":")) {
