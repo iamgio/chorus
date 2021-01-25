@@ -76,8 +76,8 @@ class AutocompletionListener : EditorEvent() {
                     current?.hide()
                     if(menu.children.size > 0) {
                         val bounds = area.localCaretBounds
-                        menu.layoutX = bounds.minX
-                        menu.layoutY = bounds.minY + 90
+                        menu.layoutX = bounds?.minX ?: 0.0
+                        menu.layoutY = (bounds?.minY ?: 0.0) + 90
                         menu.show()
                     }
                 } else current?.hide()
