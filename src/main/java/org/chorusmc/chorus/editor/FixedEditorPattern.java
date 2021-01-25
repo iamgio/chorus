@@ -24,7 +24,7 @@ public enum FixedEditorPattern implements EditorPattern {
     FALSE("\\bfalse\\b"),
     STRING("(?<!\\w)('(.*?)')|(\"(.*?)\")"),
     ITEMID("\\b\\d+(:\\d+)\\b"),
-    NUMBER("\\d+(\\.\\d+)?"),
+    NUMBER("-?\\d+(\\.\\d+)?"),
     BRACKET("\\[|\\]"),
     ITEM("(\\b(" + joinEnum(new McClass(Item.class).getCls()) + ")\\b)(:\\d(\\d)?)?"),
     PARTICLE("\\b(" + joinEnum(Particle.class) + ")\\b"),
