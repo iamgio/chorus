@@ -22,7 +22,7 @@ class ScoreboardPreviewImage(title: String, text: String) : ColoredTextPreviewIm
     override val styleClass = "minecraft-scoreboard-preview-flow"
 
     override fun initFlow(flow: TextFlow, index: Int) {
-        flow.minWidth = width - 15.0
+        flow.minWidthProperty().bind(widthProperty().subtract(15))
         flow.layoutX = 15.0
         flow.layoutY = 25.0 + index * 31
         if(index == 0) flow.textAlignment = TextAlignment.CENTER

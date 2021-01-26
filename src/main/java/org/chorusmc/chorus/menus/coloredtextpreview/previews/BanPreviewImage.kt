@@ -24,7 +24,7 @@ class BanPreviewImage(text: String) : ColoredTextPreviewImage(
 
     override fun initFlow(flow: TextFlow, index: Int) {
         flow.styleClass += styleClass
-        flow.minWidth = width
+        flow.minWidthProperty().bind(widthProperty())
         flow.textAlignment = TextAlignment.CENTER
         flow.layoutY = 25.0 + (if(index > 0) 10 else 0) + index * 31
     }
