@@ -21,11 +21,12 @@ class ColoredChatTextHoverListener : TabOpenerListener {
             if(area.getStyleOfChar(index).contains("string")) {
                 val position = e.screenPosition
                 var s = charToWord(e.characterIndex, "string", false)
-                        .substring(1)
-                s = s.substring(0, s.length - (if(s.endsWith("\n")) 2 else 1)).replace("\n", " ")
-                if(s.contains(colorPrefix) || config.getBoolean("4.Minecraft.2.Force_string_preview")) {
-                    popup!!.flow = ChatParser(s, true).toTextFlow()
-                    popup!!.show(area, position.x, position.y + 10)
+                if(s.isNotEmpty()) {
+                    s = s.substring(1, s.length - (if(s.endsWith("\n")) 2 else 1)).replace("\n", " ")
+                    if(s.contains(colorPrefix) || config.getBoolean("4.Minecraft.2.Force_string_preview")) {
+                        popup!!.flow = ChatParser(s, true).toTextFlow()
+                        popup!!.show(area, position.x, position.y + 10)
+                    }
                 }
             }
         }
