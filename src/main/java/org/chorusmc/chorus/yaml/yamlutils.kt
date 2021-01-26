@@ -31,7 +31,7 @@ fun charToWordBounds(index: Int, styleClass: String, stopOnLineBreak: Boolean = 
         start++
     }
 
-    while(area.text[end].isWhitespace()) {
+    while(end < area.length && area.text[end].isWhitespace()) {
         end--
     }
 
