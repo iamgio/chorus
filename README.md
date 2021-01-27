@@ -102,5 +102,5 @@ If you like this software, or just want to support me, I'd really enjoy donation
 By donating, you'll be added to the 'Donators List' accessible from the program.
 
 ### License
-Chorus and its source code are under Apache License 2.0. For further information, check [LICENSE](https://github.com/iAmGio/chorus/blob/master/LICENSE).  
+Chorus and its source code are under GPL-3 license. For further information, check [LICENSE](https://github.com/iAmGio/chorus/blob/master/LICENSE).  
 Unauthorized distribution and/or sale are prohibited.
