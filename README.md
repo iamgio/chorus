@@ -5,8 +5,8 @@
 [![Code Quality](https://www.codefactor.io/repository/github/iamgio/chorus/badge)](https://www.codefactor.io/repository/github/iamgio/chorus) ![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg) [![Release](https://img.shields.io/github/release/iamgio/chorus.svg)](https://chorusmc.org) [![GitHub license](https://img.shields.io/github/license/iAmGio/chorus)](https://github.com/iAmGio/chorus/blob/master/LICENSE)
 
 ## What is Chorus?
-Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for everybody who works on [Spigot](https://spigotmc.org)-based Minecraft servers.  
-Thanks to its features, Chorus is perfect to edit your configurations quicker. 
+Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for anyone who works on [Spigot](https://spigotmc.org)-based Minecraft servers.  
+Thanks to its features, Chorus is perfect to edit configurations quickly and easily. 
 
 ## Why Chorus?
 **Chorus has a lot of features that will help you edit your configuration with extreme ease:**   
