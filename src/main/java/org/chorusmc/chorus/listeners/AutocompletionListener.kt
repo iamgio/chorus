@@ -30,6 +30,7 @@ class AutocompletionListener : EditorEvent() {
     }
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
+        // Move through the menu if the down arrow key is pressed
         if(event.code == KeyCode.DOWN) {
             with(AutocompletionMenu.current ?: return) {
                 requestFocus()
@@ -43,8 +44,15 @@ class AutocompletionListener : EditorEvent() {
         val current = AutocompletionMenu.current
         if(!b && config.getBoolean("3.YAML.4.Autocompletion")) {
             if(change.inserted.length > change.removed.length) {
-                var word = ""
                 val pos = area.caretPosition
+                if(area.caretPosition < area.text.length) {
+                    // Exit if the user is typing a key
+                    val style = area.getStyleOfChar(pos)
+                    if("key" in style || "colon" in style) return
+                }
+
+                // Find the current word
+                var word = ""
                 for(i in pos - 1 downTo 0) {
                     if(area.text.length <= i) return
                     val char = area.text[i]
@@ -52,27 +60,34 @@ class AutocompletionListener : EditorEvent() {
                     word += char
                 }
                 word = word.reversed()
+                println(word)
+
+
                 if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
                     val maxSize = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
-                    val variables = Variables.getVariables().map {it.name}.reversed()
-                    val options = options.filter {it.key.toLowerCase().replace(" ", "_").contains(word.toLowerCase())} as LinkedHashMap<String, String>
-                    val optionsSize = options.size
-                    if(options.size > maxSize) {
-                        @Suppress("UNCHECKED_CAST")
-                        val copy = options.clone() as LinkedHashMap<String, String>
-                        options.clear()
-                        var i = 0
-                        variables.forEach {
-                            options[it] = it
-                            i++
-                        }
-                        for((k, v) in copy) {
-                            if(i == maxSize) break
-                            options[k] = v
-                            i++
-                        }
+
+                    // Load game elements if the user is typing in a string
+                    val options = if("string" in area.getStyleOfChar(pos)) {
+                        LinkedHashMap()
+                    } else {
+                        options.filter { it.key.replace(" ", "_").contains(word, ignoreCase = true) } as LinkedHashMap<String, String>
                     }
-                    val menu = AutocompletionMenu(options, word, optionsSize, area.caretPosition, this)
+
+                    // Load variables
+                    Variables.getVariables().reversed().forEach {
+                        if(it.name.contains(word, ignoreCase = true)) options += it.name to it.name
+                    }
+
+                    // Get amount of options (to be shown in the bottom of the menu)
+                    val optionsSize = options.size
+
+                    // Truncate the options to the max size if needed
+                    val updatedOptions = if(options.size > maxSize) {
+                        var i = -1
+                        options.filter { i++; i < maxSize } as LinkedHashMap<String, String>
+                    } else options
+
+                    val menu = AutocompletionMenu(updatedOptions, word, optionsSize, area.caretPosition, this)
                     current?.hide()
                     if(menu.children.size > 0) {
                         val bounds = area.localCaretBounds
@@ -93,12 +108,12 @@ class AutocompletionListener : EditorEvent() {
             options =
                     linkedMapOf(
                             "true" to "true", "false" to "false",
-                            *McClass(Item::class.java).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Entity::class.java).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *Particle.values().map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *Effect.values().map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Item::class.java).enumValues       .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Entity::class.java).enumValues     .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *Particle.values()                          .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *Effect.values()                            .map { it.name.makeFormal() to it.name }.toTypedArray(),
                             *McClass(Enchantment::class.java).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *Sound.values().map { it.name.makeFormal() to it.name }.toTypedArray()
+                            *Sound.values()                             .map { it.name.makeFormal() to it.name }.toTypedArray()
                     )
         }
     }
