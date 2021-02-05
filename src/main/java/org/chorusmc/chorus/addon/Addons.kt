@@ -1,8 +1,8 @@
 package org.chorusmc.chorus.addon
 
-import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory
 import javax.script.Invocable
 import javax.script.ScriptEngine
+import javax.script.ScriptEngineManager
 import javax.script.ScriptException
 
 /**
@@ -10,10 +10,15 @@ import javax.script.ScriptException
  */
 object Addons {
 
+    val libraries = arrayOf(
+            "lib", "translator"
+    )
+
     var scriptEngine: ScriptEngine? = null
 
     fun initEngine() {
-        scriptEngine = NashornScriptEngineFactory().getScriptEngine("--language=es6")
+        System.setProperty("--js.nashorn-compat", "true")
+        scriptEngine = ScriptEngineManager().getEngineByName("graal.js")
         addons.forEach {
             try {
                 it.eval()

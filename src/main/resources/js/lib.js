@@ -59,11 +59,12 @@ function runLater(action) {
 }
 
 /**
- * Runs an action on another thread
+ * UNSUPPORTED SINCE GRAALVM MIGRATION. Runs an action on another thread
  * @param action action to be ran
  */
 function runAsync(action) {
-    new java.lang.Thread(action).start();
+    print('[' + getThisAddon().getName() + '] Multithreading is currently unsupported.');
+    //new java.lang.Thread(action).start();
 }
 
 /**
@@ -71,7 +72,7 @@ function runAsync(action) {
  * @return Double
  */
 function getWindowX() {
-    return chorus.stage.toStage().getX();
+    return chorus.getStage().toStage().getX();
 }
 
 /**
@@ -79,7 +80,7 @@ function getWindowX() {
  * @return Double
  */
 function getWindowY() {
-    return chorus.stage.toStage().getY();
+    return chorus.getStage().toStage().getY();
 }
 
 /**
@@ -116,11 +117,11 @@ function getThisAddon() {
 }
 
 /**
- * Allows to interact with the config via settings
+ * Allows interaction with the config via settings
  * @param allowSettings
  */
 function allowSettings(allowSettings) {
-    getThisAddon().allowSettings = allowSettings;
+    getThisAddon().setAllowSettings(allowSettings);
 }
 
 /**
@@ -156,7 +157,7 @@ function loadConfiguration(file) {
  * @param file either string relative path to file or file itself
  */
 function loadConfig(file) {
-    getThisAddon().config = loadConfiguration(file);
+    getThisAddon().setConfig(loadConfiguration(file));
 }
 
 /**
@@ -333,7 +334,7 @@ function getMcClass(element) {
  * @return org.chorusmc.chorus.minecraft.item.Item[]
  */
 function getItems() {
-    return getMcClass('Item').enumValues;
+    return getMcClass('Item').getEnumValues();
 }
 
 /**
@@ -350,7 +351,7 @@ function getItem(name) {
  * @return org.chorusmc.chorus.minecraft.entity.Entity[]
  */
 function getEntities() {
-    return getMcClass('Entity').enumValues;
+    return getMcClass('Entity').getEnumValues();
 }
 
 /**
@@ -367,7 +368,7 @@ function getEntity(name) {
  * @return org.chorusmc.chorus.minecraft.enchantment.Enchantment[]
  */
 function getEnchantments() {
-    return getMcClass('Enchantment').enumValues;
+    return getMcClass('Enchantment').getEnumValues();
 }
 
 /**
@@ -558,7 +559,7 @@ function createDropMenu(type, buttons) {
         }
     });
     var dropMenu = new DropMenuExtender()
-    dropMenu.type = type;
+    dropMenu.setType(type);
     return dropMenu;
 }
 
@@ -578,7 +579,7 @@ function Menu(title, isDraggable) {
  */
 function getSelectedText() {
     var UtilsClass = chorus_type('menus.drop.actions.previews.PreviewutilsKt');
-    return UtilsClass.selectedText;
+    return UtilsClass.getSelectedText();
 }
 
 /**
@@ -589,7 +590,7 @@ function getSelectedText() {
  */
 function generateFlowList(textArea, menu) {
     var UtilsClass = chorus_type('menus.drop.actions.previews.PreviewutilsKt');
-    return new UtilsClass().generateFlowList(textArea, menu.image);
+    return new UtilsClass().generateFlowList(textArea, menu.getImage());
 }
 
 /**
@@ -606,7 +607,7 @@ function PreviewMenu(title, image, controls, initFlow, flowsAmount) {
     var img = typeof image == 'string' ? new PreviewBackground(image) : image;
     var menu = new MenuClass(title, new ImageClass(img, flowsAmount ? flowsAmount : controls.length) {
         initFlow: function (flow, index) {
-            flow.minWidth = img.width
+            flow.setMinWidth(img.width);
             initFlow(flow, index);
         }
     }, controls);
@@ -664,7 +665,7 @@ function View(title, image, width, height, isResizable) {
 function showTextPopup(text, x, y) {
     var TextPopup = chorus_type('nodes.popup.TextPopup');
     var popup = new TextPopup();
-    popup.text = text;
+    popup.setText(text);
     popup.show(chorus.root, x, y);
     return popup;
 }
@@ -678,7 +679,7 @@ function showTextPopup(text, x, y) {
 function showTextFlowPopup(textFlow, x, y) {
     var TextFlowPopup = chorus_type('nodes.popup.TextFlowPopup');
     var popup = new TextFlowPopup();
-    popup.flow = textFlow;
+    popup.setFlow(textFlow);
     popup.show(chorus.root, x, y);
     return popup;
 }
@@ -694,10 +695,10 @@ function showTextFlowPopup(textFlow, x, y) {
 function showImagePopup(image, x, y, width, height) {
     var ImagePopup = chorus_type('nodes.popup.ImagePopup');
     var popup = new ImagePopup();
-    popup.image = image;
-    popup.hideOnMove = false
-    if(width) popup.imageWidth = width;
-    if(height) popup.imageHeight = height
+    popup.setImage(image);
+    popup.setHideOnMove(false)
+    if(width) popup.setImageWidth(width);
+    if(height) popup.setImageHeight(height);
     popup.show(chorus.root, x, y);
     return popup;
 }
@@ -707,7 +708,7 @@ function showImagePopup(image, x, y, width, height) {
  * @return java.lang.String
  */
 function getColorPrefix() {
-    return chorus_type('util.VarsKt').colorPrefix;
+    return chorus_type('util.VarsKt').getColorPrefix();
 }
 
 /**
@@ -767,7 +768,7 @@ function getVariable(name) {
     return getVariables()
         .stream()
         .filter(function (variable) {
-            return variable.name == name;
+            return variable.getName() == name;
         })
         .findAny()
         .orElse(null);

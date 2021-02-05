@@ -10,6 +10,7 @@
 
     <properties>
         <kotlin.version>1.4.21</kotlin.version>
+        <graalvm.version>21.0.0</graalvm.version>
     </properties>
 
     <repositories>
@@ -97,9 +98,20 @@
             <version>15.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.openjdk.nashorn</groupId>
-            <artifactId>nashorn-core</artifactId>
-            <version>15.1.1</version>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>graal-sdk</artifactId>
+            <version>${graalvm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js-scriptengine</artifactId>
+            <version>${graalvm.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
