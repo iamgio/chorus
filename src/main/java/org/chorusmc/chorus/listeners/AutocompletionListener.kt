@@ -60,7 +60,6 @@ class AutocompletionListener : EditorEvent() {
                     word += char
                 }
                 word = word.reversed()
-                println(word)
 
 
                 if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
