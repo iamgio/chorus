@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.addon
 
+import java.lang.IllegalStateException
 import javax.script.Invocable
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
@@ -42,6 +43,8 @@ fun ScriptEngine.invoke(addon: Addon, func: String, vararg args: Any) {
         (this as? Invocable)?.invokeFunction(func, *args)
     } catch(e: ScriptException) {
         printScriptError(addon, e)
+    } catch(ignored: IllegalStateException) {
+        // Multithreading error. The task runs though
     } catch(ignored: NoSuchMethodException) {}
 }
 

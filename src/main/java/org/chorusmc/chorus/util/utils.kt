@@ -107,16 +107,3 @@ fun getText(input: InputStream): String =
         } catch(e: MalformedInputException) {
             IOUtils.toString(input, StandardCharsets.ISO_8859_1)
         }
-
-// Utilities for JS API
-
-fun listen(property: Property<*>, action: () -> Unit) {
-    property.addListener { _ -> action()}
-}
-
-fun wait(action: () -> Unit, millis: Double, count: Int) {
-    with(Timeline(KeyFrame(Duration(millis), { _ -> action() }))) {
-        cycleCount = count
-        playFromStart()
-    }
-}

@@ -7,12 +7,12 @@ function runLater(action) {
 }
 
 /**
- * UNSUPPORTED SINCE GRAALVM MIGRATION. Runs an action on another thread
+ * Runs an action on another thread
  * @param action action to be ran
  */
 function runAsync(action) {
-    print('[' + getThisAddon().getName() + '] Multithreading is currently unsupported.');
-    //new java.lang.Thread(action).start();
+    //print('[' + getThisAddon().getName() + '] Multithreading is currently unsupported.');
+    chorus_type('util.JsUtils').runAsync(action);
 }
 
 /**
@@ -22,7 +22,7 @@ function runAsync(action) {
  * @param times amount of cycles to be executed
  */
 function cycle(action, millis, times) {
-    chorus_type('util.Utils').wait(action, millis, times);
+    chorus_type('util.JsUtils').wait(action, millis, times);
 }
 
 /**
@@ -59,5 +59,5 @@ function setTimeout(action, millis) {
  * @param action task to be run when the value changes
  */
 function listen(property, action) {
-    chorus_type('util.Utils').listen(property, action);
+    chorus_type('util.JsUtils').listen(property, action);
 }
