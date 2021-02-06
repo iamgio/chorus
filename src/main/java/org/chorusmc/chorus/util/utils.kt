@@ -2,14 +2,10 @@
 
 package org.chorusmc.chorus.util
 
-import javafx.animation.KeyFrame
-import javafx.animation.Timeline
-import javafx.beans.property.Property
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseEvent
-import javafx.util.Duration
 import org.apache.commons.io.IOUtils
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
