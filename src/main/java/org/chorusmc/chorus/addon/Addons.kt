@@ -10,15 +10,12 @@ import javax.script.ScriptException
  */
 object Addons {
 
-    val libraries = arrayOf(
-            "lib", "translator"
-    )
-
     var scriptEngine: ScriptEngine? = null
 
     fun initEngine() {
         System.setProperty("--js.nashorn-compat", "true")
         scriptEngine = ScriptEngineManager().getEngineByName("graal.js")
+
         addons.forEach {
             try {
                 it.eval()

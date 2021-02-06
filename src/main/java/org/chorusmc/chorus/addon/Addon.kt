@@ -80,7 +80,7 @@ data class Addon(val file: File) {
             // Eval
             try {
                 // Eval libraries
-                Addons.libraries.forEach { evalLibrary(it, this) }
+                libraries.forEach { evalLibrary(it, this) }
                 // Eval add-on
                 eval(InputStreamReader(FileInputStream(file)))
             } catch(e: ScriptException) {

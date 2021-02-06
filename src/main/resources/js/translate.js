@@ -1,4 +1,30 @@
 /**
+ * Used to allow string translation. See wiki for further information
+ */
+var translationMap;
+
+// Supported languages
+var en = 'en';
+var it = 'it';
+var de = 'de';
+
+/**
+ * Translates a string based on translationMap. English value is returned if there is not any translation for current locale
+ * @param key translation key present in translationMap
+ * @return java.lang.String
+ */
+function translate(key) {
+    var locale = chorus.getResourceBundle().getLocale().toLanguageTag();
+    var subTranslationMap = translationMap[key];
+    if(!subTranslationMap) {
+        print('Error: there is no translation key ' + key);
+        return;
+    }
+    var translation = subTranslationMap[locale];
+    return translation ? translation : subTranslationMap['en']
+}
+
+/**
  * Translates text from a language to another using Reverso
  * @param from input language code (en, it...)
  * @param to output language code
