@@ -103,11 +103,15 @@
 }
 
 .lineno {
-    -fx-background-color: rgba(0, 0, 0, .015);
+    -fx-background-color: -fx-primary;
     -fx-opacity: .8;
     -fx-text-fill: derive(black, 30%);
     -fx-font-style: normal;
     -fx-font-size: 65%;
+}
+
+.area .paragraph-box:has-caret .lineno {
+    -fx-background-color: derive(-fx-primary, -10%);
 }
 
 .scroll-bar:hover, .scroll-bar:focused {

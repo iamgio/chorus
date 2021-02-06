@@ -115,6 +115,10 @@
     -fx-font-size: 65%;
 }
 
+.area .paragraph-box:has-caret .lineno {
+    -fx-background-color: -fx-area-highlight-color;
+}
+
 .scroll-bar:hover .thumb, .scroll-bar:focused .thumb {
     -fx-opacity: .75;
 }
