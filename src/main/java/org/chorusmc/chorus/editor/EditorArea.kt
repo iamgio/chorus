@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.editor
 
 import javafx.application.Platform
+import javafx.css.PseudoClass
 import javafx.geometry.Bounds
 import javafx.scene.control.IndexRange
 import javafx.scene.input.KeyEvent
@@ -327,6 +328,11 @@ class EditorArea(
                 Chorus.getInstance().config[fontSizeSetting] = fontSize.toString()
                 callAction(fontSizeSetting)
             }
+        }
+
+        // Make line numbers (.lineno) opaque if the scroll X position is greater than 0
+        estimatedScrollXProperty().addListener { _ ->
+            pseudoClassStateChanged(PseudoClass.getPseudoClass("x-scrolled"), estimatedScrollX > 0)
         }
 
         // Time needed for mouse-hover actions to be triggered

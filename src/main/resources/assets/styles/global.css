@@ -42,6 +42,10 @@
     -fx-pref-width: 20;
 }
 
+.area:x-scrolled .lineno {
+    -fx-opacity: 1;
+}
+
 .drop-menu .drop-menu-button:disabled {
     -fx-opacity: .8;
 }
