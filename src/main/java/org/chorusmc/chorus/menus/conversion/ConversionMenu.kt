@@ -28,7 +28,7 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         style = "-fx-padding: 10"
         alignment = Pos.CENTER_LEFT
         textfield = NumericTextField(area!!.selectedText)
-        KotlinFix.select(combobox, defaultIndex)
+        combobox.selectionModel.select(defaultIndex)
         val button = Button(translate("ticks.ok"))
         button.setOnAction {
             @Suppress("UNCHECKED_CAST")
