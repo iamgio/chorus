@@ -20,6 +20,14 @@ function connect(url, data) {
 }
 
 /**
+ * Opens a URL or file using the user's favorite browser
+ * @param url URL or local path
+ */
+function openUrl(url) {
+    chorus.getHostServices().showDocument(url);
+}
+
+/**
  * Parses JSON
  * @param json either JSON string or URL to JSON
  * @return org.json.simple.JSONObject
