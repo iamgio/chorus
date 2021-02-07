@@ -27,6 +27,7 @@ import org.chorusmc.chorus.util.colorPrefix
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.util.toFlowList
 import org.chorusmc.chorus.util.translate
+import org.graalvm.polyglot.PolyglotException
 import org.yaml.snakeyaml.Yaml
 
 /**
@@ -39,49 +40,65 @@ class GUIPreview : DropMenuAction() {
     }
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        try {
-            val useFormatData = Format.format != null
-            val selectedText = if(useFormatData) area.selectedText.let { if(it.isNotEmpty()) it else area.text } else selectedText
-            val map = if(useFormatData) {
-                try {
-                    Yaml().load<Map<String, Any>>(selectedText)
-                } catch(e: Exception) {
-                    null
+        val useFormatData = Format.format != null
+        val selectedText = if(useFormatData) area.selectedText.let { if(it.isNotEmpty()) it else area.text } else selectedText
+
+        // Parse YAML if using a format
+        val map = if(useFormatData) {
+            try {
+                Yaml().load<Map<String, Any>>(selectedText)
+            } catch(e: Exception) {
+                null
+            }
+        } else null
+
+        // Load UI
+        val textfield = TextField(
+                when {
+                    useFormatData && map != null -> Format.format!!.getName(map)
+                    selectedText.isNotEmpty() -> selectedText
+                    else -> translate("preview.gui.title_default")
                 }
-            } else null
-            val textfield = TextField(
-                    when {
-                        useFormatData && map != null -> Format.format!!.getName(map)
-                        selectedText.isNotEmpty() -> selectedText
-                        else -> translate("preview.gui.title_default")
-                    }
-            )
-            textfield.promptText = translate("preview.gui.title_prompt")
-            val rows = Spinner<Int>(1, 6,
-                    if(useFormatData && map != null) Format.format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
-            val image = GUIPreviewImage(colorPrefix + "8" + textfield.text, rows.value)
-            val button = Button(translate("preview.gui.clear"))
-            button.setOnAction {
-                grid!!.members.forEach { it.clear() }
-                grid = Grid(textfield)
-                updateMembers(grid!!, rows.value, image)
-                textfield.requestFocus()
-                textfield.positionCaret(textfield.length)
-            }
-            if(grid == null || useFormatData) {
-                grid = Grid(textfield)
-            }
+        )
+        textfield.promptText = translate("preview.gui.title_prompt")
+        val rows = Spinner<Int>(1, 6,
+                if(useFormatData && map != null) Format.format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
+        val image = GUIPreviewImage(colorPrefix + "8" + textfield.text, rows.value)
+        val button = Button(translate("preview.gui.clear"))
+
+        // Clear button
+        button.setOnAction {
+            grid!!.members.forEach { it.clear() }
+            grid = Grid(textfield)
             updateMembers(grid!!, rows.value, image)
-            val menu = ColoredTextPreviewMenu(translate("preview.gui"), image, listOf(textfield, rows, button))
-            textfield.textProperty().addListener { _ ->
-                menu.image.flows = listOf(ChatParser(colorPrefix + "8" + textfield.text, true).toTextFlow(false)).toFlowList()
-                updateMembers(grid!!, rows.value, image)
-            }
-            rows.valueProperty().addListener { _ ->
-                updateMembers(grid!!, rows.value, image)
-                menu.image.background.image = Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-${rows.value}.png"))
-            }
-            if(useFormatData && map != null) {
+            textfield.requestFocus()
+            textfield.positionCaret(textfield.length)
+        }
+
+        // Load new empty grid if either there is not a previous one or if a format is being used
+        if(grid == null || useFormatData) {
+            grid = Grid(textfield)
+        }
+
+        // Load initial grid
+        updateMembers(grid!!, rows.value, image)
+
+        // Create menu
+        val menu = ColoredTextPreviewMenu(translate("preview.gui"), image, listOf(textfield, rows, button))
+
+        // Set listeners
+        textfield.textProperty().addListener { _ ->
+            menu.image.flows = listOf(ChatParser(colorPrefix + "8" + textfield.text, true).toTextFlow(false)).toFlowList()
+            updateMembers(grid!!, rows.value, image)
+        }
+        rows.valueProperty().addListener { _ ->
+            updateMembers(grid!!, rows.value, image)
+            menu.image.background.image = Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/gui-${rows.value}.png"))
+        }
+
+        // Load format data
+        if(useFormatData && map != null) {
+            try {
                 Format.format!!.getItems(map).forEach {
                     if(it.position.slot < grid!!.members.size) {
                         it.item?.let { item ->
@@ -89,14 +106,16 @@ class GUIPreview : DropMenuAction() {
                         }
                     }
                 }
+            } catch(e: PolyglotException) {
+                System.err.println("${Format.format!!.name} GUI error: ${e.message} at line ${e.sourceLocation.startLine}")
+                Notification(translate("preview.gui.error", Format.format?.name ?: "-"), NotificationType.ERROR).send()
             }
-            menu.layoutX = x
-            menu.layoutY = y
-            menu.show()
-        } catch(e: Exception) {
-            Notification(translate("preview.gui.error", Format.format?.name ?: "-"), NotificationType.ERROR).send()
-            e.printStackTrace()
         }
+
+        // Show menu
+        menu.layoutX = x
+        menu.layoutY = y
+        menu.show()
     }
 }
 
@@ -208,7 +227,8 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
                         }
                     }
                 }
-                else -> {}
+                else -> {
+                }
             }
         }
     }
@@ -222,7 +242,8 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
             Platform.runLater {
                 titleField.requestFocus()
                 titleField.positionCaret(titleField.length)
-            }}, Duration(2.0))
+            }
+        }, Duration(2.0))
     }
 
     private fun updatePopupText(popup: LocalTextPopup) {
