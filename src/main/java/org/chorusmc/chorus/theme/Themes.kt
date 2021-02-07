@@ -1,79 +1,64 @@
-package org.chorusmc.chorus.theme;
+package org.chorusmc.chorus.theme
 
-import org.chorusmc.chorus.Chorus;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import org.chorusmc.chorus.Chorus
+import java.io.File
 
 /**
  * Represents a collection of themes
  * @author Giorgio Garofalo
  */
-public final class Themes {
+object Themes {
 
-    private Themes() {}
+    /**
+     * Available themes
+     */
+    val themes = mutableListOf<Theme>()
 
-    // Available themes
-    private static final List<Theme> themes = new ArrayList<>();
-
-    // CSS files associated to theme names
-    private static final HashMap<String, File[]> files = new HashMap<>();
+    /**
+     * CSS files associated to theme names
+     */
+    val files = hashMapOf<String, Array<File>>()
 
     /**
      * @param name name of the theme
      * @return Theme by name if exists, <tt>null</tt> otherwise
      */
-    public static Theme byName(String name) {
-        for(Theme theme : themes) {
-            if(theme.getName().toLowerCase().equals(name.toLowerCase())) {
-                return theme;
-            }
-        }
-        return null;
-    }
+    @JvmStatic
+    fun byName(name: String?) = themes.firstOrNull { it.name.equals(name, ignoreCase = true) }
 
     /**
      * @return User-selected theme
      */
-    public static Theme byConfig() {
-        Theme theme = byName(Chorus.getInstance().config.get("1.Appearance.1.Theme"));
-        return theme == null ? themes.get(0) : theme;
-    }
+    @JvmStatic
+    fun byConfig() = byName(Chorus.getInstance().config["1.Appearance.1.Theme"]) ?: themes[0]
 
     /**
-     * @return Available themes
+     * @return Settings placeholder
      */
-    public static List<Theme> getThemes() {
-        return themes;
-    }
-
-    /**
-     * @return CSS files associated to theme names
-     */
-    public static HashMap<String, File[]> getFiles() {
-        return files;
-    }
+    @JvmStatic
+    fun generateConfigPlaceholder() = themes.joinToString("|") { if(it.isInternal) it.name.capitalize() else it.name }
 
     /**
      * Loads internal themes
      */
-    public static void loadInternalThemes() {
-        String[] names = {"dark", "light", "sepia", "solarized-dark", "solarized-light", "material-dark", "black_&_white"};
-        for(String name : names) {
-            themes.add(new Theme(name, true));
+    @JvmStatic
+    fun loadInternalThemes() {
+        val names = arrayOf("dark", "light", "sepia", "solarized-dark", "solarized-light", "material-dark", "black_&_white")
+        for(name in names) {
+            themes.add(Theme(name, true))
         }
     }
 
     /**
      * Loads external themes from /themes folder
      */
-    public static void loadExternalThemes() {
-        for(File folder : Chorus.getInstance().themes.getFile().listFiles()) {
-            if(!folder.isFile() && folder.listFiles().length == 3) {
-                files.put(folder.getName(), folder.listFiles());
-                themes.add(new Theme(folder.getName(), false));
+    @JvmStatic
+    fun loadExternalThemes() {
+        Chorus.getInstance().themes.file.listFiles()?.forEach { folder ->
+            val files = folder.listFiles()
+            if(!folder.isFile && (files?.size ?: 0) == 3) {
+                this.files[folder.name] = files!!
+                themes.add(Theme(folder.name, false))
             }
         }
     }

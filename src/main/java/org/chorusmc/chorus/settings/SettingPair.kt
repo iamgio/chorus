@@ -6,7 +6,6 @@ import javafx.scene.control.Label
 import javafx.scene.layout.HBox
 import org.chorusmc.chorus.configuration.ChorusConfiguration
 import org.chorusmc.chorus.settings.nodes.*
-import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.stringToList
 import org.chorusmc.chorus.util.toObservableList
 
@@ -70,14 +69,9 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
                 input.textProperty().addListener {_ -> SettingsBuilder.actions[key]?.forEach {it.run()}}
             }
             is SettingComboBox -> {
-                if(!isExternal && key == "1.Appearance.1.Theme") {
-                    input.items = Themes.getThemes().map {it.name.toLowerCase().capitalize()}.toObservableList()
-                    input.value = Themes.byConfig().name.toLowerCase().capitalize()
-                } else {
-                    input.items = stringToList(inputString!!).toObservableList()
-                    input.value = config[key].toString().toLowerCase().capitalize()
-                }
-                input.selectionModel.selectedItemProperty().addListener {_ -> SettingsBuilder.actions[key]?.forEach {it.run()}}
+                input.items = stringToList(inputString!!).toObservableList()
+                input.value = config[key].toString()
+                input.selectionModel.selectedItemProperty().addListener { _ -> SettingsBuilder.actions[key]?.forEach { it.run() } }
             }
             is SettingCheckBox -> {
                 input.isSelected = config.getBoolean(key)

@@ -83,7 +83,7 @@ class Settings : MenuBarAction {
         val scene = Scene(root, 800.0, 550.0)
         scene.stylesheets.addAll(Themes.byConfig().path[2], "/assets/styles/global.css")
         SettingsBuilder.addAction("1.Appearance.1.Theme", {
-            scene.stylesheets[0] = Themes.byName(config["1.Appearance.1.Theme"]).path[2]
+            scene.stylesheets[0] = Themes.byConfig().path[2]
         })
         stage.minWidth = scene.width
         stage.minHeight = scene.height

@@ -4,7 +4,7 @@ package org.chorusmc.chorus.theme
  * Represents a theme
  * @author Giorgio Garofalo
  */
-class Theme(_name: String, val internal: Boolean = false) {
+class Theme(_name: String, val isInternal: Boolean = false) {
 
     /**
      * Name of the theme
@@ -14,14 +14,14 @@ class Theme(_name: String, val internal: Boolean = false) {
     /**
      * Paths to CSS files
      */
-    val path: Array<String> = if(internal) {
+    val path: Array<String> = if(isInternal) {
         arrayOf(
                 "/assets/styles/${_name.toLowerCase()}.css",
                 "/assets/styles/${_name.toLowerCase()}-highlight.css",
                 "/assets/styles/${_name.toLowerCase()}-settings.css"
         )
     } else {
-        val files = Themes.getFiles()[_name]!!
+        val files = Themes.files[_name]!!
         arrayOf(files[0].toURI().toString(), files[1].toURI().toString(), files[2].toURI().toString())
                 .sortedBy {
                     when {
@@ -32,5 +32,5 @@ class Theme(_name: String, val internal: Boolean = false) {
                 }.toTypedArray()
     }
 
-    override fun toString(): String = "[Theme: $name, ${if(internal) "" else " not"}internal]"
+    override fun toString(): String = "[Theme: $name, ${if(isInternal) "" else " not"}internal]"
 }

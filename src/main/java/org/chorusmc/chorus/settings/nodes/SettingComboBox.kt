@@ -13,7 +13,7 @@ class SettingComboBox : ComboBox<Any>(), SettingNode {
     init {
         prefWidth = 200.0
         selectionModel.selectedItemProperty().addListener {_ ->
-            config.set(id, selectionModel.selectedItem.toString().toUpperCase())
+            config.set(id, selectionModel.selectedItem.toString())
         }
     }
 }

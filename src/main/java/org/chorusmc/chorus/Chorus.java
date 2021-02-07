@@ -263,7 +263,7 @@ public class Chorus extends FXApplication {
 
     private void loadTheme(Scene scene) {
         Theme theme = Themes.byConfig();
-        if(theme.getInternal()) {
+        if(theme.isInternal()) {
             loadStylesheet(scene, theme.getPath()[0]);
         } else {
             scene.getStylesheets().add(theme.getPath()[0]);
@@ -337,6 +337,7 @@ public class Chorus extends FXApplication {
             );
         });
 
+        SettingsBuilder.addPlaceholder("themes", Themes.generateConfigPlaceholder());
         SettingsBuilder.addPlaceholder("fonts", EditorFonts.generateConfigPlaceholder());
     }
 
