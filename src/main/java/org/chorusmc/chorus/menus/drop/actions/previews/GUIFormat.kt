@@ -1,12 +1,30 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
+import org.chorusmc.chorus.menus.drop.actions.previews.GUIFormats.generateConfigPlaceholder
 import org.chorusmc.chorus.minecraft.IdAble
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.item.Item
+import org.chorusmc.chorus.settings.SettingsBuilder.Companion.addPlaceholder
+import org.chorusmc.chorus.util.config
 
 /**
  * @author Giorgio Garofalo
  */
+object GUIFormats {
+    val formats = mutableListOf<GUIFormat>()
+
+    val format: GUIFormat?
+        get() = config["4.Minecraft.7.GUI_Format"].let { configFormat ->
+            if(configFormat == "-") {
+                null
+            } else {
+                formats.firstOrNull { it.name == configFormat}
+            }
+        }
+
+    fun generateConfigPlaceholder() = "-|" + formats.sortedBy { it.name }.joinToString("|") { it.name }
+}
+
 abstract class GUIFormat {
 
     var name = ""
@@ -17,8 +35,10 @@ abstract class GUIFormat {
     abstract fun getItems(map: Map<String, Any>): List<GUIFormatItem>
 
     fun setActive(name: String) {
-        Format.format = this
+        GUIFormats.formats += this
         this.name = name
+
+        addPlaceholder("guiformats", generateConfigPlaceholder())
     }
 }
 

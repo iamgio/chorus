@@ -40,7 +40,9 @@ class GUIPreview : DropMenuAction() {
     }
 
     override fun onAction(area: EditorArea, x: Double, y: Double) {
-        val useFormatData = Format.format != null
+        val format = GUIFormats.format
+        val useFormatData = format != null
+
         val selectedText = if(useFormatData) area.selectedText.let { if(it.isNotEmpty()) it else area.text } else selectedText
 
         // Parse YAML if using a format
@@ -55,14 +57,14 @@ class GUIPreview : DropMenuAction() {
         // Load UI
         val textfield = TextField(
                 when {
-                    useFormatData && map != null -> Format.format!!.getName(map)
+                    useFormatData && map != null -> format!!.getName(map)
                     selectedText.isNotEmpty() -> selectedText
                     else -> translate("preview.gui.title_default")
                 }
         )
         textfield.promptText = translate("preview.gui.title_prompt")
         val rows = Spinner<Int>(1, 6,
-                if(useFormatData && map != null) Format.format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
+                if(useFormatData && map != null) format!!.getRows(map) else if(grid == null) 1 else grid!!.rows)
         val image = GUIPreviewImage(colorPrefix + "8" + textfield.text, rows.value)
         val button = Button(translate("preview.gui.clear"))
 
@@ -99,7 +101,7 @@ class GUIPreview : DropMenuAction() {
         // Load format data
         if(useFormatData && map != null) {
             try {
-                Format.format!!.getItems(map).forEach {
+                format!!.getItems(map).forEach {
                     if(it.position.slot < grid!!.members.size) {
                         it.item?.let { item ->
                             grid!!.members[it.position.slot].setItem(item, it.meta)
@@ -107,8 +109,8 @@ class GUIPreview : DropMenuAction() {
                     }
                 }
             } catch(e: PolyglotException) {
-                System.err.println("${Format.format!!.name} GUI error: ${e.message} at line ${e.sourceLocation.startLine}")
-                Notification(translate("preview.gui.error", Format.format?.name ?: "-"), NotificationType.ERROR).send()
+                System.err.println("${format!!.name} GUI error: ${e.message} at line ${e.sourceLocation.startLine}")
+                Notification(translate("preview.gui.error", format.name), NotificationType.ERROR).send()
             }
         }
 
@@ -268,8 +270,4 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
 
 private object Clipboard {
     var copied: GridMember? = null
-}
-
-object Format {
-    var format: GUIFormat? = null
 }
