@@ -11,6 +11,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.file.ChorusFile;
 import org.chorusmc.chorus.file.LocalFile;
 import org.chorusmc.chorus.menubar.MenuBarMainButton;
@@ -87,6 +88,8 @@ public class EditorController implements Initializable {
             Platform.runLater(area::requestFocus);
             property.set(tab);
             property.getAreaProperty().set(area);
+
+            Addons.INSTANCE.invoke("onTabSwitch", tab);
         });
     }
 
