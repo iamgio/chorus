@@ -16,10 +16,18 @@ function chorus_type(name) {
 
 /**
  * Loads and adds a JVM library to the classpath
- * @param jarName path to the jar starting from the add-on's folder
+ * @param jarName path to the .jar file starting from the add-on's folder
  */
 function loadJar(jarName) {
-    Java.addToClasspath(new File(jarName, getFolder()))
+    Java.addToClasspath(new File(jarName, getFolder()));
+}
+
+/**
+ * Loads a JavaScript library file
+ * @param jsName path to the .js file starting from the add-on's folder
+ */
+function loadJS(jsName) {
+    load(getFolder().getAbsolutePath() + java.io.File.separator + jsName);
 }
 
 // --- PACKAGE UTILITIES --- //
