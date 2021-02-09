@@ -69,6 +69,7 @@ data class Addon(val file: File) {
             "polyglot.js".let { js ->
                 put("$js.allowHostAccess", true)
                 put("$js.allowHostClassLookup", Predicate<String> { _ -> true })
+                put("$js.allowHostClassLoading", true)
                 put("$js.allowIO", true)
             }
 

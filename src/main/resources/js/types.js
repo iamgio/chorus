@@ -1,9 +1,3 @@
-var fx = javafx.scene;
-
-var fxcontrols   = fx.control;
-var fxlayout     = fx.layout;
-var fxproperty   = javafx.beans.property;
-
 /**
  * Returns the corresponding Java class
  * @param name Java class (with package)
@@ -19,6 +13,22 @@ function type(name) {
 function chorus_type(name) {
     return type('org.chorusmc.chorus.' + name);
 }
+
+/**
+ * Loads and adds a JVM library to the classpath
+ * @param jarName path to the jar starting from the add-on's folder
+ */
+function loadJar(jarName) {
+    Java.addToClasspath(new File(jarName, getFolder()))
+}
+
+// --- PACKAGE UTILITIES --- //
+
+var fx = javafx.scene;
+
+var fxcontrols   = fx.control;
+var fxlayout     = fx.layout;
+var fxproperty   = javafx.beans.property;
 
 // --- TYPE UTILITIES --- //
 
