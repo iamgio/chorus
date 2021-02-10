@@ -30,6 +30,7 @@ data class Addon(val file: File) {
     var config: AddonConfiguration? = null
 
     var allowSettings = false
+    var translateSettings = false
 
     var version: String = "1.0.0"
         private set
@@ -102,6 +103,15 @@ data class Addon(val file: File) {
             invoke(this@Addon, "onLoad")
         }
     }
+
+    private fun eval(code: String): Any? {
+        return with(Addons.scriptEngine!!) {
+            context = this@Addon.context
+            eval(code)
+        }
+    }
+
+    fun translate(key: String) = eval("translate('$key');").toString()
 
     private fun evalLibrary(name: String, engine: ScriptEngine) {
         engine.eval(InputStreamReader(javaClass.getResourceAsStream("/js/$name.js")))

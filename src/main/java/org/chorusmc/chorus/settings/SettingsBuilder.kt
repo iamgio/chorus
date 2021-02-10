@@ -50,7 +50,7 @@ class SettingsBuilder private constructor() {
                     addon.config?.keys?.filter {!it.startsWith("_")}?.forEach {
                         val pair = SettingPair(
                                 addon.config!!,
-                                it.replace("_", " ").capitalize(),
+                                if(addon.translateSettings) addon.translate("config.$it") else it.replace("_", " ").capitalize(),
                                 it,
                                 null,
                                 addon

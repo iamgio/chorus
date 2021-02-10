@@ -1,9 +1,17 @@
 /**
  * Allows interaction with the config via settings
- * @param allowSettings
+ * @param allowSettings whether the configuration can be edited from settings
  */
 function allowSettings(allowSettings) {
     getThisAddon().setAllowSettings(allowSettings);
+}
+
+/**
+ * Allows settings to be translated via translation schemes if allowSettings is set to true
+ * @param translateSettings whether the configuration strings should be translated
+ */
+function translateConfigSettings(translateSettings) {
+    getThisAddon().setTranslateSettings(translateSettings);
 }
 
 /**

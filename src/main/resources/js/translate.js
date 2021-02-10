@@ -1,7 +1,7 @@
 /**
  * Used to allow string translation. See wiki for further information
  */
-var translationMap;
+var translationMap = {};
 
 // Supported languages
 var en = 'en';
@@ -18,7 +18,7 @@ function translate(key) {
     var subTranslationMap = translationMap[key];
     if(!subTranslationMap) {
         print('Error: there is no translation key ' + key);
-        return;
+        return '[' + key + ']';
     }
     var translation = subTranslationMap[locale];
     return translation ? translation : subTranslationMap['en']
