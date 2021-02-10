@@ -1,9 +1,10 @@
 /**
  * Returns the corresponding Java class
  * @param name Java class (with package)
+ * @param classLoader optional java.net.URLClassLoader (see createClassLoader)
  */
-function type(name) {
-    return Java.type(name);
+function type(name, classLoader) {
+    return classLoader ? classLoader.loadClass(name) : Java.type(name);
 }
 
 /**
@@ -12,6 +13,20 @@ function type(name) {
  */
 function chorus_type(name) {
     return type('org.chorusmc.chorus.' + name);
+}
+
+/**
+ * Creates a class loader
+ * @param jarName path to the .jar file starting from the add-on's folder
+ * @return java.net.URLClassLoader
+ */
+function createClassLoader(jarName) {
+    var URL = type("java.net.URL");
+    var URLClassLoader = type("java.net.URLClassLoader");
+
+    var file = new File(jarName, getFolder());
+
+    return new URLClassLoader([file.toURL()]);
 }
 
 /**
