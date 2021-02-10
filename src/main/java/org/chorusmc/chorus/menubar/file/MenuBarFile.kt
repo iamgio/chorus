@@ -2,9 +2,7 @@ package org.chorusmc.chorus.menubar.file
 
 import eu.iamgio.libfx.files.FileCreator
 import javafx.beans.value.ObservableValue
-import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
-import javafx.scene.control.SplitPane
 import javafx.scene.image.Image
 import javafx.stage.FileChooser
 import javafx.stage.Stage
@@ -16,9 +14,9 @@ import org.chorusmc.chorus.nodes.Tab
 import org.chorusmc.chorus.notification.Notification
 import org.chorusmc.chorus.notification.NotificationType
 import org.chorusmc.chorus.settings.SettingsBuilder
+import org.chorusmc.chorus.settings.nodes.SettingsPane
 import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.area
-import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.translate
 
 val yamlExtensionFilter: FileChooser.ExtensionFilter
@@ -79,15 +77,14 @@ class Settings : MenuBarAction {
             stage.requestFocus()
             return
         }
-        val root = FXMLLoader.load<SplitPane>(Chorus::class.java.getResource("/assets/views/Settings.fxml"))
-        val scene = Scene(root, 800.0, 550.0)
+        val root = SettingsPane()
+        val scene = Scene(root, root.prefWidth, root.prefHeight)
         scene.stylesheets.addAll(Themes.byConfig().path[2], "/assets/styles/global.css")
         SettingsBuilder.addAction("1.Appearance.1.Theme", {
             scene.stylesheets[0] = Themes.byConfig().path[2]
         })
         stage.minWidth = scene.width
         stage.minHeight = scene.height
-        stage.isResizable = false
         stage.title = "Chorus - ${translate("settings.title")}"
         stage.scene = scene
         stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))

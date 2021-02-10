@@ -18,13 +18,14 @@ class SettingButton(text: String) : Button(text) {
     init {
         id = "external:$text"
         styleClass += "setting-button"
+        isWrapText = true
         setOnAction {
             rightVBox.children.clear()
             SettingsBuilder.buildRight(id).forEach {
                 val texts = if(it.id != null) try {
                     translateWithException(it.id).split("\n")
                 } catch(e: MissingResourceException) {
-                    emptyList<String>()
+                    emptyList()
                 } else emptyList()
                 val vbox = VBox(10.0, it)
                 texts.forEach {

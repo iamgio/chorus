@@ -1,25 +1,22 @@
 package org.chorusmc.chorus.settings;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * @author Giorgio Garofalo
  */
-public class SettingsController implements Initializable {
+public class SettingsController {
 
     private static SettingsController instance;
 
-    @FXML public VBox leftVbox;
-    @FXML public VBox rightVbox;
+    public VBox leftVbox;
+    public VBox rightVbox;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public SettingsController() {
         instance = this;
+    }
+
+    public void build() {
         SettingsBuilder.buildLeft().forEach(leftVbox.getChildren()::add);
     }
 
