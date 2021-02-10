@@ -19,14 +19,16 @@ class Tab(text: String, content: Node, val file: ChorusFile) : Tab("$text ", con
         setOnCloseRequest {
             tabs.remove(file.absolutePath)
             close(false)
-            Addons.invoke("onTabClose", this)
         }
     }
 
     @JvmOverloads fun close(isList: Boolean = false) {
         area?.saveFile()
         file.close()
-        if(!isList) EditorController.getInstance().tabPane.tabs -= this
+        if(!isList) {
+            EditorController.getInstance().tabPane.tabs -= this
+            Addons.invoke("onTabClose", this)
+        }
     }
 
     @Suppress("UNCHECKED_CAST")
