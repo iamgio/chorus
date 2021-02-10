@@ -51,6 +51,15 @@ function getConfig() {
 }
 
 /**
+ * Calls a task when a config value changes
+ * @param key target key
+ * @param action task to run
+ */
+function addConfigAction(key, action) {
+    chorus_type('settings.SettingsBuilder').addAction('addon=' + getThisAddon().getName() + ':' + key, action);
+}
+
+/**
  * Loads a map from YAML string
  * @param yaml YAML as string
  * @return java.util.Map<String, Object>

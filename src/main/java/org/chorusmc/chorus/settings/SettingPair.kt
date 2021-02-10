@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.layout.HBox
+import org.chorusmc.chorus.addon.Addon
 import org.chorusmc.chorus.configuration.ChorusConfiguration
 import org.chorusmc.chorus.settings.nodes.*
 import org.chorusmc.chorus.util.stringToList
@@ -12,7 +13,7 @@ import org.chorusmc.chorus.util.toObservableList
 /**
  * @author Giorgio Garofalo
  */
-class SettingPair(config: ChorusConfiguration, name: String, key: String, private var _inputString: String? = null, isExternal: Boolean) {
+class SettingPair(config: ChorusConfiguration, name: String, key: String, private var _inputString: String? = null, private val addon: Addon?) {
 
     private val label: Label
     private val input: Node
@@ -21,7 +22,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
         SettingsBuilder.placeholders.forEach { (placeholder, replacement) ->
             _inputString = _inputString?.replace("@$placeholder", replacement)
         }
-        val inputString = _inputString ?: if(isExternal) {
+        val inputString = _inputString ?: if(addon != null) {
             when(val value = config[key]) {
                 is String -> if(value.contains("\n")) "TEXTAREA" else "TEXTFIELD"
                 is List<*> -> "TEXTAREA"
@@ -54,7 +55,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
                     input.regex = Regex(inputString.replace("TEXTFIELD ", ""))
                 }
                 input.text = config[key].toString()
-                input.textProperty().addListener {_ -> SettingsBuilder.actions[key]?.forEach {it.run()}}
+                input.textProperty().addListener {_ -> getActions(key)?.forEach {it.run()}}
             }
             is SettingTextArea -> {
                 input.prefWidth = 400.0
@@ -66,18 +67,23 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
                         this.toString().replace("\\n", "\n")
                     }
                 }
-                input.textProperty().addListener {_ -> SettingsBuilder.actions[key]?.forEach {it.run()}}
+                input.textProperty().addListener {_ -> getActions(key)?.forEach {it.run()}}
             }
             is SettingComboBox -> {
                 input.items = stringToList(inputString!!).toObservableList()
                 input.value = config[key].toString()
-                input.selectionModel.selectedItemProperty().addListener { _ -> SettingsBuilder.actions[key]?.forEach { it.run() } }
+                input.selectionModel.selectedItemProperty().addListener { _ -> getActions(key)?.forEach { it.run() } }
             }
             is SettingCheckBox -> {
                 input.isSelected = config.getBoolean(key)
-                input.selectedProperty().addListener {_ -> SettingsBuilder.actions[key]?.forEach {it.run()}}
+                input.selectedProperty().addListener {_ -> getActions(key)?.forEach {it.run()}}
             }
         }
+    }
+
+    private fun getActions(key: String): List<Runnable>? {
+        if(addon == null) return SettingsBuilder.actions[key]
+        return SettingsBuilder.actions["addon=${addon.name}:$key"]
     }
 
     fun generate(): HBox {

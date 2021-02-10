@@ -53,7 +53,7 @@ class SettingsBuilder private constructor() {
                                 it.replace("_", " ").capitalize(),
                                 it,
                                 null,
-                                true
+                                addon
                         )
                         list += pair.generate()
                     }
@@ -70,7 +70,7 @@ class SettingsBuilder private constructor() {
                                 translate("settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase()),
                                 it.toString(),
                                 config.getInternalString("$it%style"),
-                                false
+                                null
                         )
                         val hbox = pair.generate()
                         hbox.id = "settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase() + ".text"
