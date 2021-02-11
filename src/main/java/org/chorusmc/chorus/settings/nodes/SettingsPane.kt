@@ -43,6 +43,10 @@ class SettingsPane : SplitPane() {
         controller.build()
     }
 
+    fun updateOnMaximized(maximized: Boolean) {
+        setDividerPositions(if(maximized) 0.2 else 0.3)
+    }
+
     private fun scrollpane(child: Node) = ScrollPane(child).also {
         it.styleClass += "edge-to-edge"
         it.hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER

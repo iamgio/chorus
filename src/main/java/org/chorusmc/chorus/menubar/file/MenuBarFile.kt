@@ -88,6 +88,7 @@ class Settings : MenuBarAction {
         stage.title = "Chorus - ${translate("settings.title")}"
         stage.scene = scene
         stage.icons += Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png"))
+        stage.maximizedProperty().addListener { _ -> root.updateOnMaximized(stage.isMaximized) }
         stage.show()
     }
 }
