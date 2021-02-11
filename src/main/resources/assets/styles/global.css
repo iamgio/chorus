@@ -79,6 +79,11 @@
     -fx-font-size: 12;
 }
 
+.setting-separator {
+    -fx-opacity: .1;
+    -fx-max-height: 1;
+}
+
 .no-tabs-label, .version-label {
     -fx-font-size: 25;
 }

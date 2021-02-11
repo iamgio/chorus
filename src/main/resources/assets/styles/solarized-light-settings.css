@@ -52,3 +52,7 @@
 .setting-checkbox:selected .mark {
     -fx-background-color: -fx-base3;
 }
+
+.setting-separator {
+    -fx-background-color: -fx-base00;
+}

@@ -4,6 +4,8 @@ import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.layout.HBox
+import javafx.scene.layout.Pane
+import javafx.scene.layout.Priority
 import org.chorusmc.chorus.addon.Addon
 import org.chorusmc.chorus.configuration.ChorusConfiguration
 import org.chorusmc.chorus.settings.nodes.*
@@ -88,7 +90,13 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
 
     fun generate(): HBox {
         val hbox = HBox(25.0, input)
-        if(input !is SettingText) hbox.children.add(0, label)
+        if(input !is SettingText) {
+            hbox.children.add(0, label)
+            hbox.children.add(1, Pane().also {
+                HBox.setHgrow(it, Priority.ALWAYS)
+                it.styleClass += "setting-separator"
+            })
+        }
         hbox.alignment = Pos.CENTER_LEFT
         return hbox
     }

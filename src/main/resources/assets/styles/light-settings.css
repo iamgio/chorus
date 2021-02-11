@@ -60,3 +60,8 @@
 .setting-checkbox:selected .mark {
     -fx-background-color: white;
 }
+
+.setting-separator {
+    -fx-background-color: black;
+    -fx-opacity: .3;
+}
