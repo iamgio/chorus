@@ -6,7 +6,6 @@ import javafx.scene.layout.VBox
 import javafx.scene.text.TextAlignment
 import org.chorusmc.chorus.settings.SettingsBuilder
 import org.chorusmc.chorus.settings.SettingsController
-import java.util.*
 
 /**
  * @author Giorgio Garofalo
@@ -20,7 +19,7 @@ class SettingButton(text: String) : Button(text) {
 
         id = "external:$text"
         styleClass += "setting-button"
-        style = "-fx-padding: 5 0 5 20"
+        style = "-fx-padding: 8 0 8 20"
         isWrapText = true
 
         alignment = Pos.CENTER_LEFT

@@ -28,7 +28,7 @@ class SettingsPane : SplitPane() {
                     it.styleClass += "left-pane"
                     it.prefHeightProperty().bind(prefHeightProperty())
 
-                    it.children += scrollpane(VBox(10.0).also {
+                    it.children += scrollpane(VBox(6.0).also {
                         it.style = "-fx-padding: 30"
                         controller.leftVbox = it
                     })
