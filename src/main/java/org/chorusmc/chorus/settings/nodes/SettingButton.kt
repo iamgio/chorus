@@ -6,7 +6,6 @@ import javafx.scene.layout.VBox
 import javafx.scene.text.TextAlignment
 import org.chorusmc.chorus.settings.SettingsBuilder
 import org.chorusmc.chorus.settings.SettingsController
-import org.chorusmc.chorus.util.translateWithException
 import java.util.*
 
 /**
@@ -31,19 +30,9 @@ class SettingButton(text: String) : Button(text) {
 
         setOnAction {
             rightVBox.children.clear()
-            SettingsBuilder.buildRight(id).forEach {
-                val texts = if(it.id != null) try {
-                    translateWithException(it.id).split("\n")
-                } catch(e: MissingResourceException) {
-                    emptyList()
-                } else emptyList()
-                val vbox = VBox(10.0, it)
-                texts.forEach {
-                    vbox.children += with(SettingText()) {
-                        this.text = it
-                        this
-                    }
-                }
+            SettingsBuilder.buildRight(id).forEach { hbox ->
+                val vbox = VBox(10.0, hbox)
+                vbox.children += SettingText().also { if(hbox.id != null) it.text = hbox.id }
                 rightVBox.children += vbox
             }
             leftVbox.children.forEach {

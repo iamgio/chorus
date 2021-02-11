@@ -24,6 +24,10 @@ function translate(key) {
     return translation ? translation : subTranslationMap['en']
 }
 
+function translationKeyExists(key) {
+    return !!translationMap[key];
+}
+
 /**
  * Translates text from a language to another using Reverso
  * @param from input language code (en, it...)

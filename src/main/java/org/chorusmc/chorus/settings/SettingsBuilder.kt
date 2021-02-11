@@ -5,6 +5,9 @@ import org.chorusmc.chorus.addon.Addons
 import org.chorusmc.chorus.settings.nodes.SettingButton
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.translate
+import org.chorusmc.chorus.util.translateWithException
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author Giorgio Garofalo
@@ -55,7 +58,12 @@ class SettingsBuilder private constructor() {
                                 null,
                                 addon
                         )
-                        list += pair.generate()
+                        list += pair.generate().also { hbox ->
+                            val key = "config.${it}.text"
+                            if(addon.translationKeyExists(key)) {
+                                hbox.id = addon.translate(key)
+                            }
+                        }
                     }
                 }
                 return list
@@ -72,9 +80,11 @@ class SettingsBuilder private constructor() {
                                 config.getInternalString("$it%style"),
                                 null
                         )
-                        val hbox = pair.generate()
-                        hbox.id = "settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase() + ".text"
-                        list += hbox
+                        list += pair.generate().also {
+                            try {
+                                it.id = translateWithException("settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase() + ".text")
+                            } catch(ignored: MissingResourceException) {}
+                        }
                     }
 
             return list

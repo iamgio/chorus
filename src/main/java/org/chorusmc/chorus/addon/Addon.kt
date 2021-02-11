@@ -27,6 +27,9 @@ data class Addon(val file: File) {
     val folder: File
         get() = File(file.parentFile, name)
 
+    val configPrefix: String
+        get() = "addon=$name:"
+
     var config: AddonConfiguration? = null
 
     var allowSettings = false
@@ -112,6 +115,8 @@ data class Addon(val file: File) {
     }
 
     fun translate(key: String) = eval("translate('$key');").toString()
+
+    fun translationKeyExists(key: String) = eval("translationKeyExists('$key');") as Boolean
 
     private fun evalLibrary(name: String, engine: ScriptEngine) {
         engine.eval(InputStreamReader(javaClass.getResourceAsStream("/js/$name.js")))

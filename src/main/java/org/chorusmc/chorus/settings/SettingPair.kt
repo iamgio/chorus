@@ -85,7 +85,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
 
     private fun getActions(key: String): List<Runnable>? {
         if(addon == null) return SettingsBuilder.actions[key]
-        return SettingsBuilder.actions["addon=${addon.name}:$key"]
+        return SettingsBuilder.actions[addon.configPrefix + key]
     }
 
     fun generate(): HBox {

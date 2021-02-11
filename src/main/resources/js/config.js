@@ -64,7 +64,7 @@ function getConfig() {
  * @param action task to run
  */
 function addConfigAction(key, action) {
-    chorus_type('settings.SettingsBuilder').addAction('addon=' + getThisAddon().getName() + ':' + key, action);
+    chorus_type('settings.SettingsBuilder').addAction(getThisAddon().getConfigPrefix() + key, action);
 }
 
 /**
