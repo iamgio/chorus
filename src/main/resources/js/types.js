@@ -24,9 +24,7 @@ function createClassLoader(jarName) {
     var URL = type("java.net.URL");
     var URLClassLoader = type("java.net.URLClassLoader");
 
-    var file = new File(jarName, getFolder());
-
-    return new URLClassLoader([file.toURL()]);
+    return new URLClassLoader([toFile(jarName).toURL()]);
 }
 
 /**
@@ -34,7 +32,7 @@ function createClassLoader(jarName) {
  * @param jarName path to the .jar file starting from the add-on's folder
  */
 function loadJar(jarName) {
-    Java.addToClasspath(new File(jarName, getFolder()));
+    Java.addToClasspath(toFile(jarName));
 }
 
 /**

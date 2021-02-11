@@ -56,15 +56,8 @@ data class Addon(val file: File) {
         with(config!!) {
             createIfAbsent(folder)
             values.forEach { (k, v) ->
-
-                // Engine bug where an array is converted to an empty map
-                val value = if(v.javaClass.name == "com.oracle.truffle.polyglot.PolyglotMap") {
-                    // Convert data to Java array
-                    eval("Java.to(${v.toString().substring(v.toString().indexOf(")") + 1)}, 'java.lang.Object[]');")!!
-                } else v
-
                 if(!keys.contains(k)) {
-                    config!!.setWithoutSaving(k, value)
+                    config!!.setWithoutSaving(k, v)
                 }
             }
             store()

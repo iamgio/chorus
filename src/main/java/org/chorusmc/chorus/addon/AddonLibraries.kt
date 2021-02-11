@@ -5,6 +5,7 @@ package org.chorusmc.chorus.addon
  */
 val libraries = arrayOf(
         "types",
+        "utils",
         "lib",
         "config",
         "graphics",

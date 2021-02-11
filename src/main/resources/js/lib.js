@@ -26,12 +26,3 @@ function getThisAddon() {
     // Injected
     return thisAddon;
 }
-
-/**
- * Returns File instance
- * @param file relative path to file or file itself
- * @return java.io.File
- */
-function toFile(file) {
-    return typeof file == 'string' ? new File(file, getFolder()) : file;
-}
