@@ -63,6 +63,10 @@
     -fx-background-color: transparent;
 }
 
+.left-pane .scroll-bar {
+    -fx-opacity: .3;
+}
+
 .no-tabs-label, .version-label {
     -fx-font-size: 25;
 }

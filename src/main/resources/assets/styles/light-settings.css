@@ -31,6 +31,14 @@
     -fx-font-weight: bold;
 }
 
+.left-pane .thumb {
+    -fx-background-color: white;
+}
+
+.left-pane .scroll-bar:hover {
+    -fx-background-color: transparent;
+}
+
 .setting-label, .setting-text {
     -fx-text-fill: #232323;
 }

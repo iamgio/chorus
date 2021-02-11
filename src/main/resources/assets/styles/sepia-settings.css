@@ -16,6 +16,14 @@
     -fx-text-fill: white;
 }
 
+.left-pane .thumb {
+    -fx-background-color: black;
+}
+
+.left-pane .scroll-bar:hover {
+    -fx-background-color: transparent;
+}
+
 .setting-button {
     -fx-background-color: transparent;
     -fx-text-fill: white;

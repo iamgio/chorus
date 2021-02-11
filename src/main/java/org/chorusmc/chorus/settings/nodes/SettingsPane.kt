@@ -20,9 +20,9 @@ class SettingsPane : SplitPane() {
         styleClass += "pane"
 
         val controller = SettingsController()
+        controller.pane = this
 
         items.addAll(
-
 
                 StackPane().also {
                     it.styleClass += "left-pane"

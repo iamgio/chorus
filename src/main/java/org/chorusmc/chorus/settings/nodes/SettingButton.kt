@@ -1,7 +1,9 @@
 package org.chorusmc.chorus.settings.nodes
 
+import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.VBox
+import javafx.scene.text.TextAlignment
 import org.chorusmc.chorus.settings.SettingsBuilder
 import org.chorusmc.chorus.settings.SettingsController
 import org.chorusmc.chorus.util.translateWithException
@@ -12,13 +14,21 @@ import java.util.*
  */
 class SettingButton(text: String) : Button(text) {
 
-    private val leftVbox = SettingsController.getInstance().leftVbox
-    private val rightVBox = SettingsController.getInstance().rightVbox
-
     init {
+        val pane = SettingsController.getInstance().pane
+        val leftVbox = SettingsController.getInstance().leftVbox
+        val rightVBox = SettingsController.getInstance().rightVbox
+
         id = "external:$text"
         styleClass += "setting-button"
+        style = "-fx-padding: 5 0 5 20"
         isWrapText = true
+
+        alignment = Pos.CENTER_LEFT
+        textAlignment = TextAlignment.LEFT
+
+        prefWidthProperty().bind(pane.prefWidthProperty().multiply(pane.dividers.first().positionProperty()))
+
         setOnAction {
             rightVBox.children.clear()
             SettingsBuilder.buildRight(id).forEach {
