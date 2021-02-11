@@ -45,7 +45,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
         @Suppress("DEPRECATION")
         input = settingInput.clazz.newInstance()
         input.id = key
-        input.styleClass += settingInput.styleClass
+        input.styleClass.addAll(settingInput.styleClass, "setting-control")
 
         if(input is SettingNode) input.config = config
 

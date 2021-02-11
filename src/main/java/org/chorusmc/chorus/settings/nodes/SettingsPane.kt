@@ -34,7 +34,7 @@ class SettingsPane : SplitPane() {
                     })
                 },
 
-                scrollpane(VBox(30.0).also {
+                scrollpane(VBox(40.0).also {
                     controller.rightVbox = it
                     it.style = "-fx-padding: 30"
                 })

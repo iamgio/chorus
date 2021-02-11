@@ -27,7 +27,7 @@ class SettingButton(text: String) : Button(text) {
         alignment = Pos.CENTER_LEFT
         textAlignment = TextAlignment.LEFT
 
-        prefWidthProperty().bind(pane.prefWidthProperty().multiply(pane.dividers.first().positionProperty()))
+        prefWidthProperty().bind(pane.widthProperty().multiply(pane.dividers.first().positionProperty()))
 
         setOnAction {
             rightVBox.children.clear()

@@ -67,6 +67,18 @@
     -fx-opacity: .3;
 }
 
+.setting-label {
+    -fx-font-size: 15;
+}
+
+.setting-control, .setting-control .text {
+    -fx-font-size: 13.5;
+}
+
+.setting-text {
+    -fx-font-size: 12;
+}
+
 .no-tabs-label, .version-label {
     -fx-font-size: 25;
 }
