@@ -13,7 +13,7 @@ import org.chorusmc.chorus.settings.SettingsController
 class SettingsPane : SplitPane() {
 
     init {
-        prefWidth = 850.0
+        prefWidth = 1000.0
         prefHeight = 650.0
         setDividerPositions(0.3)
 
