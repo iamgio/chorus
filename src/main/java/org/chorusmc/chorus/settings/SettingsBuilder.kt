@@ -50,7 +50,7 @@ class SettingsBuilder private constructor() {
             if(s.startsWith("external:")) {
                 // External (add-on) settings
                 Addons.addons.filter {it.allowSettings && it.name.equals(s.removePrefix("external:"), true)}.forEach { addon ->
-                    addon.config?.keys?.filter {!it.startsWith("_")}?.forEach {
+                    addon.configKeys.filter {!it.startsWith("_")}?.forEach {
                         val pair = SettingPair(
                                 addon.config!!,
                                 if(addon.translateSettings) addon.translate("config.$it") else it.replace("_", " ").capitalize(),

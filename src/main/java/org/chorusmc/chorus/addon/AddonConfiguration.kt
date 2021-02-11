@@ -27,6 +27,7 @@ class AddonConfiguration : ChorusConfiguration("config.yml") {
         if(!this::config.isInitialized) {
             config = Yaml(with(DumperOptions()) {
                 defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
+                isPrettyFlow = true
                 this
             })
         }

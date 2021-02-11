@@ -32,6 +32,8 @@ data class Addon(val file: File) {
 
     var config: AddonConfiguration? = null
 
+    val configKeys = mutableListOf<String>()
+
     var allowSettings = false
     var translateSettings = false
 
@@ -55,8 +57,12 @@ data class Addon(val file: File) {
         config = AddonConfiguration()
         with(config!!) {
             createIfAbsent(folder)
+            val keys = this.keys
             values.forEach { (k, v) ->
-                if(!keys.contains(k)) {
+                if(k !in configKeys) {
+                    configKeys += k
+                }
+                if(k !in keys) {
                     config!!.setWithoutSaving(k, v)
                 }
             }
