@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.addon
 
+import org.graalvm.polyglot.PolyglotException
 import java.lang.IllegalStateException
 import javax.script.Invocable
 import javax.script.ScriptEngine
@@ -48,6 +49,7 @@ fun ScriptEngine.invoke(addon: Addon, func: String, vararg args: Any) {
     } catch(ignored: NoSuchMethodException) {}
 }
 
-private fun printScriptError(addon: Addon, e: ScriptException) {
-    System.err.println("[${addon.name}] ${e.message} (at line ${e.lineNumber} column ${e.columnNumber})")
+private fun printScriptError(addon: Addon, scriptException: ScriptException) {
+    val ex = scriptException.cause as? PolyglotException ?: return
+    System.err.println("[${addon.name}] ${ex.message}\n\tat line ${ex.sourceLocation.startLine} column ${ex.sourceLocation.startColumn}")
 }
