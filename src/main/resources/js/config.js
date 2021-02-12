@@ -63,7 +63,7 @@ function getConfig() {
  * @param key target key
  * @param action task to run
  */
-function addConfigAction(key, action) {
+function addConfigListener(key, action) {
     chorus_type('settings.SettingsBuilder').addAction(getThisAddon().getConfigPrefix() + key, action);
 }
 
