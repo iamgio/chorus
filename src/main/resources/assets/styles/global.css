@@ -216,6 +216,7 @@
 .addon-node .credits {
     -fx-font-size: 12;
     -fx-opacity: .5;
+    -fx-padding: 2 0 10 0;
 }
 
 .addon-node .description {

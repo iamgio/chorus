@@ -33,7 +33,7 @@ class AddonNode(imageUrl: String?, name: String, version: String, description: S
                     this
                 }
         )
-        val infoVbox = VBox(5.0, nameHbox)
+        val infoVbox = VBox(nameHbox)
         if(credits != null) {
             infoVbox.children += with(Label("${translate("addons.by")} $credits")) {
                 styleClass += "credits"

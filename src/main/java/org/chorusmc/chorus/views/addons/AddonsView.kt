@@ -16,7 +16,7 @@ import java.awt.Desktop
 /**
  * @author Giorgio Garofalo
  */
-class AddonsView(private val addons: List<Addon>) : View(translate("bar.addons.myaddons"), null, 500.0, 500.0) {
+class AddonsView(private val addons: List<Addon>) : View(translate("bar.addons.myaddons"), null, 800.0, 600.0) {
 
     override fun show() {
         val titlebar = HBox(20.0, Label(translate("bar.addons.myaddons"))).apply {
