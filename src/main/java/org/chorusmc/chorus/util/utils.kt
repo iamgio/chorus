@@ -22,8 +22,9 @@ import java.util.*
 val area: EditorArea?
     get() = Tab.currentTab?.area
 
+// ABC {A|B|C|D} -> [A, B, C, D]
 fun stringToList(s: String): List<String> {
-    return s.split("{")[1].replace("}", "").split("|")
+    return s.substring(s.indexOf('{') + 1).let { it.substring(0, it.length - 1) }.split("|")
 }
 
 val tabsList

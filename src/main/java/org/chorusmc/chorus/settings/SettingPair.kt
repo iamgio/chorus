@@ -72,8 +72,9 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
                 input.textProperty().addListener {_ -> getActions(key)?.forEach {it.run()}}
             }
             is SettingComboBox -> {
-                input.items = stringToList(inputString!!).toObservableList()
-                input.value = config[key].toString()
+                val options = stringToList(inputString!!)
+                input.items = options.toObservableList()
+                input.value = options.first { it.equals(config[key].toString(), ignoreCase = true) }
                 input.selectionModel.selectedItemProperty().addListener { _ -> getActions(key)?.forEach { it.run() } }
             }
             is SettingCheckBox -> {
