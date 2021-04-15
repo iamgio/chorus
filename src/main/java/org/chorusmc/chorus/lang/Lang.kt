@@ -9,6 +9,7 @@ enum class Lang(val tag: String, private val commonName: String) {
     ENGLISH("en", "English"),
     ITALIAN("it", "Italiano"),
     GERMAN("de", "Deutsch"),
+    RUSSIAN("ru", "русский"),
     SCHINESE("zhcn", "简体中文");
 
     companion object {

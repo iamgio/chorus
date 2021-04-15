@@ -19,6 +19,7 @@ import org.chorusmc.chorus.editor.EditorController;
 import org.chorusmc.chorus.editor.EditorFonts;
 import org.chorusmc.chorus.editor.FixedEditorPattern;
 import org.chorusmc.chorus.editor.EditorTab;
+import org.chorusmc.chorus.lang.UTF8Control;
 import org.chorusmc.chorus.listeners.Events;
 import org.chorusmc.chorus.listeners.Openable;
 import org.chorusmc.chorus.file.LocalFile;
@@ -166,7 +167,7 @@ public class Chorus extends FXApplication {
 
         // Load resource bundle
         resourceBundle = ResourceBundle.getBundle("assets/lang/lang",
-                Locale.forLanguageTag(Lang.fromCommonName(config.get("1.Appearance.4.Language")).getTag()));
+                Locale.forLanguageTag(Lang.fromCommonName(config.get("1.Appearance.4.Language")).getTag()), new UTF8Control());
 
         // Load root from FXML
         // TODO switch from FXML to code
