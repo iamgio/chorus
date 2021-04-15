@@ -28,6 +28,7 @@ class SFTPRemoteConnection(override val ip: String, override val username: Strin
         isValid = true
         channel
     } catch(e: Exception) {
+        e.printStackTrace()
         null
     }
 

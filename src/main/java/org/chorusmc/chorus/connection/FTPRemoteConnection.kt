@@ -21,6 +21,7 @@ class FTPRemoteConnection(override val ip: String, override val username: String
         home = client.printWorkingDirectory()
         client
     } catch(e: Exception) {
+        e.printStackTrace()
         null
     }
 
