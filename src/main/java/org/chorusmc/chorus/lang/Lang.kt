@@ -13,5 +13,6 @@ enum class Lang(val tag: String, private val commonName: String) {
 
     companion object {
         @JvmStatic fun fromCommonName(name: String) = values().first {it.commonName.equals(name, true)}
+        @JvmStatic fun generateConfigPlaceholder() = values().joinToString("|") { it.commonName }
     }
 }

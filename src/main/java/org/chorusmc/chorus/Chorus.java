@@ -338,6 +338,7 @@ public class Chorus extends FXApplication {
         });
 
         SettingsBuilder.addPlaceholder("themes", Themes.generateConfigPlaceholder());
+        SettingsBuilder.addPlaceholder("languages", Lang.generateConfigPlaceholder());
         SettingsBuilder.addPlaceholder("fonts", EditorFonts.generateConfigPlaceholder());
     }
 
