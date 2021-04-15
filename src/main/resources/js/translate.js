@@ -3,11 +3,6 @@
  */
 var translationMap = {};
 
-// Supported languages
-var en = 'en';
-var it = 'it';
-var de = 'de';
-
 /**
  * Translates a string based on translationMap. English value is returned if there is not any translation for current locale
  * @param key translation key present in translationMap
@@ -15,6 +10,7 @@ var de = 'de';
  */
 function translate(key) {
     var locale = chorus.getResourceBundle().getLocale().toLanguageTag();
+    print(locale)
     var subTranslationMap = translationMap[key];
     if(!subTranslationMap) {
         print('Error: there is no translation key ' + key);
