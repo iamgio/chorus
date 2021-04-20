@@ -13,15 +13,17 @@ import javafx.util.Duration
 /**
  * @author Giorgio Garofalo
  */
-class ColoredTextBackground {
+class ColoredTextBackground(animateColor: Boolean) {
 
     var onWidthChange = Runnable {}
 
-    constructor(image: Image) {
+    constructor() : this(false)
+
+    constructor(image: Image, animateColor: Boolean = false) : this(animateColor) {
         this.image = image
     }
 
-    constructor(paint: Paint) {
+    constructor(paint: Paint, animateColor: Boolean = false) : this(animateColor) {
         this.paint = paint
     }
 
@@ -29,7 +31,11 @@ class ColoredTextBackground {
     val pane = StackPane()
 
     init {
-        pane.children += AnimatedColor(rectangle).custom<AnimatedColor> { it.withDuration(Duration.millis(180.0)).withCurve(Curve.EASE_IN_OUT) }
+        pane.children += if(animateColor) {
+            AnimatedColor(rectangle).custom<AnimatedColor> { it.withDuration(Duration.millis(180.0)).withCurve(Curve.EASE_IN_OUT) }
+        } else {
+            rectangle
+        }
     }
 
     var image: Image? = null

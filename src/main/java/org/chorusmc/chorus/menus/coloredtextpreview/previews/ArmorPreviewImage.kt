@@ -11,7 +11,7 @@ import org.chorusmc.chorus.menus.coloredtextpreview.FlowList
  * @author Giorgio Garofalo
  */
 class ArmorPreviewImage(color: Color) : ColoredTextPreviewImage(
-        ColoredTextBackground(color).andNode(ImageView(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/armor.png"))), 250.0, 144.0),
+        ColoredTextBackground(color, animateColor = true).andNode(ImageView(Image(Chorus::class.java.getResourceAsStream("/assets/minecraft/previews/armor.png"))), 250.0, 144.0),
         flows = FlowList()
 ) {
 
