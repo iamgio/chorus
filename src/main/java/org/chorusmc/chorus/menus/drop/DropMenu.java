@@ -1,7 +1,9 @@
 package org.chorusmc.chorus.menus.drop;
 
+import animatefx.animation.AnimationFX;
+import animatefx.animation.ZoomIn;
+import animatefx.animation.ZoomOut;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Pane;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.menus.BrowsableVBox;
@@ -19,7 +21,8 @@ import java.util.List;
  */
 public abstract class DropMenu extends BrowsableVBox implements Showable {
 
-    public String type;
+    private String type;
+    private boolean isSubMenu;
 
     public DropMenu(String type) {
         if(!type.isEmpty()) {
@@ -38,6 +41,10 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
     public void setType(String type) {
         this.type = type;
         Showables.DROP_MENU_TYPES.putIfAbsent(type, getClass());
+    }
+
+    public void setIsSubMenu(boolean subMenu) {
+        isSubMenu = subMenu;
     }
 
     private void initButton(DropMenuButton button, int index) {
@@ -73,20 +80,20 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
     @Override
     public void show() {
         Addons.INSTANCE.invoke("onDropMenuOpen", type, this);
-        hide();
         MenuPlacer placer = new MenuPlacer(this);
         setLayoutX(placer.getX());
         setLayoutY(placer.getY());
-        Pane root = Chorus.getInstance().root;
-        if(!root.getChildren().contains(this)) {
-            root.getChildren().add(this);
-        }
+        Chorus.getInstance().root.getChildren().add(this);
         Utils.hideMenuOnInteract(this);
+
+        if(!isSubMenu) new ZoomIn(this).setSpeed(10).play();
     }
 
     @Override
     public void hide() {
-        Chorus.getInstance().root.getChildren().remove(this);
+        AnimationFX animation = new ZoomOut(this).setSpeed(10);
+        animation.setOnFinished(e -> Chorus.getInstance().root.getChildren().remove(this));
+        animation.play();
     }
 
     @Override

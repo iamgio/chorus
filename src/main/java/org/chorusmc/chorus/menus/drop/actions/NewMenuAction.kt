@@ -11,7 +11,7 @@ open class NewMenuAction(private val newMenu: Class<out DropMenu>) : DropMenuAct
 
     private var type: String? = null
 
-    // For JS Api
+    // For JS API
     @Suppress("unused")
     constructor(type: String) : this(Showables.DROP_MENU_TYPES[type]!!) {
         this.type = type
@@ -24,6 +24,7 @@ open class NewMenuAction(private val newMenu: Class<out DropMenu>) : DropMenuAct
         menu.layoutX = source!!.layoutX
         menu.layoutY = source!!.layoutY
         menu.setType(type ?: Showables.getType(newMenu))
+        menu.setIsSubMenu(true)
         menu.show()
     }
 }
