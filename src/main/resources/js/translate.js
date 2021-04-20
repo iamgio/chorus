@@ -10,7 +10,6 @@ var translationMap = {};
  */
 function translate(key) {
     var locale = chorus.getResourceBundle().getLocale().toLanguageTag();
-    print(locale)
     var subTranslationMap = translationMap[key];
     if(!subTranslationMap) {
         print('Error: there is no translation key ' + key);
