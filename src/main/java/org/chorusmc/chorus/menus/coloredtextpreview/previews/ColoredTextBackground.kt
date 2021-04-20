@@ -1,11 +1,14 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
+import eu.iamgio.animated.AnimatedColor
+import eu.iamgio.animated.Curve
 import javafx.scene.Node
 import javafx.scene.image.Image
 import javafx.scene.layout.StackPane
 import javafx.scene.paint.ImagePattern
 import javafx.scene.paint.Paint
 import javafx.scene.shape.Rectangle
+import javafx.util.Duration
 
 /**
  * @author Giorgio Garofalo
@@ -26,7 +29,7 @@ class ColoredTextBackground {
     val pane = StackPane()
 
     init {
-        pane.children += rectangle
+        pane.children += AnimatedColor(rectangle).custom<AnimatedColor> { it.withDuration(Duration.millis(180.0)).withCurve(Curve.EASE_IN_OUT) }
     }
 
     var image: Image? = null
