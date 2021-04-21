@@ -1,5 +1,7 @@
 package org.chorusmc.chorus.menus.coloredtexteditor
 
+import animatefx.animation.ZoomIn
+import animatefx.animation.ZoomOut
 import javafx.scene.control.ScrollPane
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.VBox
@@ -44,19 +46,19 @@ class ColoredTextEditor : VBox(), Showable {
     }
 
     override fun show() {
-        hide()
-        val root = Chorus.getInstance().root
-        if(!root.children.contains(this)) {
-            root.children += this
-        }
+        Chorus.getInstance().root.children += this
         hideMenuOnInteract(this)
         area.requestFocus()
         area.moveTo(area.text.length)
+
+        ZoomIn(this).setSpeed(5.5).play()
     }
 
     override fun hide() {
-        Chorus.getInstance().root.children -= this
         coloredTextArea = null
+        ZoomOut(this).setSpeed(6.0).also {
+            it.setOnFinished { Chorus.getInstance().root.children -= this }
+        }.play()
     }
 }
 
