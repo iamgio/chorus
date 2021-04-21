@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.menus.custom
 
+import animatefx.animation.*
 import javafx.scene.control.TextInputControl
 import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
@@ -39,10 +40,10 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
         val placer = MenuPlacer(this)
         layoutX = placer.x
         layoutY = placer.y
-        val root = Chorus.getInstance().root
-        if(root.children.contains(this)) hide()
-        root.children += this
+
+        Chorus.getInstance().root.children += this
         if(!draggable) filters += InteractFilter.AREA
+
         hideMenuOnInteract(this, *filters)
         val inputs = searchInputs(this)
         if(inputs.isNotEmpty()) {
@@ -52,6 +53,8 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
             }
             TabBrowsable.initBrowsing(inputs)
         } else requestFocus()
+
+        ZoomIn(this).setSpeed(8.0).play()
     }
 
     private fun searchInputs(pane: Pane = this, inputs: List<TextInputControl> = emptyList()): List<TextInputControl> {
@@ -67,9 +70,12 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
     }
 
     override fun hide() {
-        Chorus.getInstance().root.children -= this
         if(this::onClose.isInitialized) onClose()
         area?.requestFocus()
+
+        ZoomOut(this).setSpeed(9.0).also {
+            it.setOnFinished { Chorus.getInstance().root.children -= this }
+        }.play()
     }
 
     override fun getMenuWidth() = prefWidth
