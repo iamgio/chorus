@@ -194,10 +194,6 @@
     -fx-text-fill: -fx-base3;
 }
 
-.information-box {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 15, 0, 0, 7);
-}
-
 .search-menu {
     -fx-background-color: -fx-base03;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .6), 12, 0, 0, -.3);

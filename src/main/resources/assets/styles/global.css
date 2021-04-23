@@ -116,6 +116,10 @@
     -fx-font-size: 20;
 }
 
+.information-box {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 15, 0, 0, 7);
+}
+
 .minecraft-chat-preview-flow, .minecraft-scoreboard-title-preview-flow, .minecraft-scoreboard-preview-flow {
     -fx-padding: 0 3.5 .5 10;
 }
