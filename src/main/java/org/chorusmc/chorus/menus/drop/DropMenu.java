@@ -1,11 +1,10 @@
 package org.chorusmc.chorus.menus.drop;
 
-import animatefx.animation.AnimationFX;
-import animatefx.animation.ZoomIn;
-import animatefx.animation.ZoomOut;
 import javafx.geometry.Pos;
 import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.addon.Addons;
+import org.chorusmc.chorus.animation.Animation;
+import org.chorusmc.chorus.animation.AnimationType;
 import org.chorusmc.chorus.menus.BrowsableVBox;
 import org.chorusmc.chorus.menus.MenuPlacer;
 import org.chorusmc.chorus.menus.Showable;
@@ -86,14 +85,12 @@ public abstract class DropMenu extends BrowsableVBox implements Showable {
         Chorus.getInstance().root.getChildren().add(this);
         Utils.hideMenuOnInteract(this);
 
-        if(!isSubMenu) new ZoomIn(this).setSpeed(10).play();
+        if(!isSubMenu) new Animation(AnimationType.ZOOM_IN, true).play(this, 10);
     }
 
     @Override
     public void hide() {
-        AnimationFX animation = new ZoomOut(this).setSpeed(10);
-        animation.setOnFinished(e -> Chorus.getInstance().root.getChildren().remove(this));
-        animation.play();
+        new Animation(AnimationType.ZOOM_OUT, true).playAndRemove(this, 10);
     }
 
     @Override

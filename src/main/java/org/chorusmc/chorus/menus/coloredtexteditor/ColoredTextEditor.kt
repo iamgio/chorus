@@ -6,6 +6,8 @@ import javafx.scene.control.ScrollPane
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.animation.Animation
+import org.chorusmc.chorus.animation.AnimationType
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.menus.coloredtexteditor.controlbar.ColoredTextControlBar
 import org.chorusmc.chorus.minecraft.chat.ChatParser
@@ -51,14 +53,12 @@ class ColoredTextEditor : VBox(), Showable {
         area.requestFocus()
         area.moveTo(area.text.length)
 
-        ZoomIn(this).setSpeed(5.5).play()
+        Animation(AnimationType.ZOOM_IN, true).play(this, 5.5)
     }
 
     override fun hide() {
         coloredTextArea = null
-        ZoomOut(this).setSpeed(6.0).also {
-            it.setOnFinished { Chorus.getInstance().root.children -= this }
-        }.play()
+        Animation(AnimationType.ZOOM_OUT, true).playAndRemove(this, 6.0)
     }
 }
 

@@ -5,6 +5,8 @@ import javafx.scene.control.TextInputControl
 import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.animation.Animation
+import org.chorusmc.chorus.animation.AnimationType
 import org.chorusmc.chorus.menus.Draggable
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
@@ -54,7 +56,7 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
             TabBrowsable.initBrowsing(inputs)
         } else requestFocus()
 
-        ZoomIn(this).setSpeed(8.0).play()
+        Animation(AnimationType.ZOOM_IN, true).play(this, 8.0)
     }
 
     private fun searchInputs(pane: Pane = this, inputs: List<TextInputControl> = emptyList()): List<TextInputControl> {
@@ -73,9 +75,7 @@ open class CustomMenu @JvmOverloads constructor(title: String, private val dragg
         if(this::onClose.isInitialized) onClose()
         area?.requestFocus()
 
-        ZoomOut(this).setSpeed(9.0).also {
-            it.setOnFinished { Chorus.getInstance().root.children -= this }
-        }.play()
+        Animation(AnimationType.ZOOM_OUT, true).playAndRemove(this, 9.0)
     }
 
     override fun getMenuWidth() = prefWidth
