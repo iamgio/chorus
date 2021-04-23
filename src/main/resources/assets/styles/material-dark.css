@@ -183,7 +183,7 @@
 }
 
 .information-head {
-    -fx-background-color: derive(-fx-secondary, -40%);
+    -fx-background-color: rgba(38, 49, 56, .2);
 }
 
 .information-head > .label {

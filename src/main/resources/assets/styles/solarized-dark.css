@@ -174,7 +174,11 @@
     -fx-text-fill: -fx-base3;
 }
 
-.information-head, .colored-text-control-bar {
+.information-head {
+    -fx-background-color: rgba(0, 43, 54, .2);
+}
+
+.colored-text-control-bar {
     -fx-background-color: derive(-fx-base03, -25%);
 }
 

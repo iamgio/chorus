@@ -166,6 +166,11 @@
             <version>v0.0.1</version>
         </dependency>
         <dependency>
+            <groupId>com.github.iAmGio</groupId>
+            <artifactId>froxty</artifactId>
+            <version>v1.3.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>

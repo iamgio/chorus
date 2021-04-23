@@ -187,7 +187,7 @@
 }
 
 .information-head, .colored-text-control-bar {
-    -fx-background-color: derive(-fx-secondary, -25%);
+    -fx-background-color: rgba(89, 47, 23, .2);
 }
 
 .information-head > .label {

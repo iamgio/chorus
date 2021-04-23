@@ -170,11 +170,11 @@
 }
 
 .information-head {
-    -fx-background-color: derive(-fx-base3, -35%);
+    -fx-background-color: rgba(253, 246, 227, .2);
 }
 
 .information-body {
-    -fx-background-color: derive(-fx-base3, -20%);
+    -fx-background-color: derive(-fx-base3, -10%);
 }
 
 .url {
@@ -182,7 +182,7 @@
 }
 
 .information-body .label, .information-head > .label {
-    -fx-text-fill: derive(-fx-base00, -10%);
+    -fx-text-fill: derive(-fx-base00, -40%);
 }
 
 .information-box {

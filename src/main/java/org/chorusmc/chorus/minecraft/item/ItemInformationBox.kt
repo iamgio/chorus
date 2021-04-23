@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.minecraft.item
 
+import javafx.application.Platform
 import javafx.scene.image.Image
 import org.chorusmc.chorus.infobox.InformationBody
 import org.chorusmc.chorus.infobox.InformationBox
@@ -7,6 +8,7 @@ import org.chorusmc.chorus.infobox.InformationHead
 import org.chorusmc.chorus.infobox.fetchingText
 import org.chorusmc.chorus.util.area
 import org.chorusmc.chorus.util.makeFormal
+import kotlin.concurrent.thread
 
 /**
  * @author Giorgio Garofalo
@@ -22,6 +24,8 @@ class ItemInformationBox(val image: Image?, private val item: Item) : Informatio
     }
 
     override fun after() {
-        body.text = item.description
+        thread {
+            item.description.let { Platform.runLater { body.text = it } }
+        }
     }
 }

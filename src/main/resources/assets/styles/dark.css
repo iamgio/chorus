@@ -169,7 +169,11 @@
     -fx-text-fill: white;
 }
 
-.information-head, .colored-text-control-bar {
+.information-head {
+    -fx-background-color: rgba(36, 41, 46, .2);
+}
+
+.colored-text-control-bar {
     -fx-background-color: #24292e;
 }
 

@@ -177,7 +177,11 @@
     -fx-text-fill: -fx-primary;
 }
 
-.information-head, .colored-text-control-bar {
+.information-head {
+    -fx-background-color: rgba(26, 26, 26, .2);
+}
+
+.colored-text-control-bar {
     -fx-background-color: derive(-fx-secondary, -25%);
 }
 

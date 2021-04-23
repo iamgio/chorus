@@ -29,21 +29,20 @@ open class InformationBox() : VBox(), Showable {
 
     init {
         prefWidth = 300.0
+        maxWidth = prefWidth
         styleClass += "information-box"
         @Suppress("LEAKINGTHIS")
         hideMenuOnInteract(this)
     }
 
     override fun show() {
-        hide()
         val placer = MenuPlacer(this)
         layoutX = placer.x
         layoutY = placer.y
+
         children.addAll(head, body)
-        val root = Chorus.getInstance().root
-        if(!root.children.contains(this)) {
-            root.children.add(this)
-        }
+        Chorus.getInstance().root.children += this
+
         Addons.invoke("onInfoBoxOpen", this)
         if(callUpdate) {
             Platform.runLater {
@@ -54,7 +53,7 @@ open class InformationBox() : VBox(), Showable {
     }
 
     override fun hide() {
-        Chorus.getInstance().root.children.remove(this)
+        Chorus.getInstance().root.children -= this
     }
 
     override fun getMenuWidth() = prefWidth * 1.2
