@@ -148,7 +148,7 @@ class ChatParser @JvmOverloads constructor(private val string: String, private v
     fun parseToString(area: CodeArea): String {
         var string = ""
         var currentStyles = emptyList<String>()
-        area.text.replace("\n", "").replace("'", "''").forEachIndexed {index, char ->
+        area.text.forEachIndexed {index, char ->
             val style = area.getStyleOfChar(index).reversed()
             if(currentStyles != style) {
                 currentStyles = style
@@ -160,7 +160,9 @@ class ChatParser @JvmOverloads constructor(private val string: String, private v
                     }
                 }
             }
-            string += char
+            if(char != '\n') {
+                string += if(char == '\'') "''" else char
+            }
         }
         return string
     }

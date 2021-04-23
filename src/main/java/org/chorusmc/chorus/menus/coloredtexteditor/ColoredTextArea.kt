@@ -19,9 +19,9 @@ class ColoredTextArea(text: String, editor: ColoredTextEditor) : CodeArea(ChatPa
             getText().isNotEmpty() &&
                     change.inserted != change.removed &&
                     !change.inserted.contains("\n")}
-                .subscribe {change ->
+                .subscribe { change ->
                     val styles = mutableListOf<String>()
-                    editor.controlBar.formatButtons.filter {it.isSelected}.forEach {styles += it.formatStyleClass}
+                    editor.controlBar.formatButtons.filter { it.isSelected }.forEach { styles += it.formatStyleClass }
                     styles += editor.controlBar.colorComboBox.selectionModel.selectedItem.styleClass
                     ChatComponent.sortStyleClasses(styles.toMutableList())
                     setStyle(change.position, change.position + change.inserted.length, styles)
