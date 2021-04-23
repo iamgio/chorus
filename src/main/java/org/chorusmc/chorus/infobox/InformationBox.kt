@@ -4,6 +4,8 @@ import javafx.application.Platform
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.addon.Addons
+import org.chorusmc.chorus.animation.Animation
+import org.chorusmc.chorus.animation.AnimationType
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.util.hideMenuOnInteract
@@ -50,10 +52,12 @@ open class InformationBox() : VBox(), Showable {
                 Addons.invoke("onInfoBoxContentUpdate", this)
             }
         }
+
+        Animation(AnimationType.ZOOM_IN, true).play(this, 7.0)
     }
 
     override fun hide() {
-        Chorus.getInstance().root.children -= this
+        Animation(AnimationType.ZOOM_OUT, true).playAndRemove(this, 3.0)
     }
 
     override fun getMenuWidth() = prefWidth * 1.2
