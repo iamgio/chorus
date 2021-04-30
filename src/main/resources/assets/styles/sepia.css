@@ -434,8 +434,9 @@
     -fx-stroke-width: 0;
 }
 
-.updater {
+.updater, .updater .progress-indicator {
     -fx-background-color: derive(-fx-primary, -20%);
+    -fx-progress-color: derive(-fx-primary, -20%);
 }
 
 .updater .label {

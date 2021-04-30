@@ -438,12 +438,13 @@
     -fx-background-color: derive(-fx-base03, -20%);
 }
 
-.updater .label {
+.updater .label, .updater .progress-indicator {
     -fx-text-fill: -fx-base3;
+    -fx-progress-color: -fx-base3;
 }
 
 .updater .button {
-    -fx-background-color: -fx-base2;
+    -fx-background-color: -fx-base02;
     -fx-text-fill: white;
 }
 

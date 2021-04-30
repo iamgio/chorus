@@ -430,12 +430,14 @@
     -fx-background-color: derive(-fx-secondary, -20%);
 }
 
-.updater .label {
+.updater .label, .updater .progress-indicator {
     -fx-text-fill: white;
+    -fx-progress-color: white;
 }
 
 .updater .button {
     -fx-background-color: rgba(255, 255, 255, .2);
+    -fx-text-fill: white;
 }
 
 .updater .button:hover {

@@ -3,6 +3,7 @@ package org.chorusmc.chorus.views
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Label
+import javafx.scene.control.ProgressIndicator
 import javafx.scene.image.Image
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
@@ -17,21 +18,20 @@ import java.io.File
 class UpdaterView : View(
         translate("updater.title"),
         Image(Chorus::class.java.getResourceAsStream("/assets/images/icon.png")),
-        450.0,
+        600.0,
         350.0,
         false
 ) {
 
     private val root = VBox(15.0)
     private val label = Label()
-    private val hbox = HBox(3.0)
+    private val hbox = HBox(10.0)
 
     override fun show() {
         stage.initStyle(StageStyle.UNDECORATED)
         root.alignment = Pos.CENTER
         root.styleClass += "updater"
         root.style = "-fx-padding: 10"
-        label.style = "-fx-font-size: 17.5"
         label.alignment = Pos.CENTER
         label.isWrapText = true
         hbox.alignment = Pos.CENTER
@@ -58,17 +58,18 @@ class UpdaterView : View(
         return b1
     }
 
-    fun setExeOrJar(): Pair<Button, Button> {
+    fun setChoice(): Array<Button> {
         label.text = translate("updater.filetype")
-        val jar = Button(".jar")
-        val exe = Button(".exe")
-        hbox.children.setAll(jar, exe)
-        return jar to exe
+        val windows = Button("Windows") // .exe
+        val linux = Button("Linux") // .jar
+        val macOs = Button("MacOS") // .zip
+        hbox.children.setAll(windows, macOs, linux)
+        return arrayOf(windows, linux, macOs)
     }
 
     fun setDownloading(version: String) {
         label.text = translate("updater.downloading", version)
-        hbox.children.clear()
+        hbox.children.setAll(ProgressIndicator())
     }
 
     fun setSuccess(file: File) {

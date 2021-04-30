@@ -204,6 +204,15 @@
     -fx-font-size: 22.5;
 }
 
+.updater > .label {
+    -fx-font-size: 18;
+    -fx-text-alignment: center;
+}
+
+.updater .button {
+    -fx-font-size: 17;
+}
+
 .addon-title-bar {
     -fx-font-size: 30;
 }

@@ -413,8 +413,9 @@
     -fx-background-color: derive(-fx-menu-color, -20%);
 }
 
-.updater .label {
+.updater .label, .updater .progress-indicator {
     -fx-text-fill: white;
+    -fx-progress-color: white;
 }
 
 .updater .button {
