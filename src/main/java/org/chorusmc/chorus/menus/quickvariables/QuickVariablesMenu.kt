@@ -6,6 +6,8 @@ import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.animation.Animation
+import org.chorusmc.chorus.animation.AnimationType
 import org.chorusmc.chorus.menus.Draggable
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
@@ -51,23 +53,21 @@ class QuickVariablesMenu(varName: String) : VBox(), Showable {
     }
 
     override fun show() {
-        hide()
         val placer = MenuPlacer(this)
         layoutX = placer.x
         layoutY = placer.y
-        val root = Chorus.getInstance().root
-        if(!root.children.contains(this)) {
-            root.children.add(this)
-        }
+        Chorus.getInstance().root.children += this
         hideMenuOnInteract(this, InteractFilter.AREA, InteractFilter.MENUS, InteractFilter.ESC, InteractFilter.TABPANE)
         TabBrowsable.initBrowsing(listOf(name, value))
         value.positionCaret(value.length)
         value.selectAll()
         value.requestFocus()
+
+        Animation(AnimationType.ZOOM_IN, true).play(this, 8.0)
     }
 
     override fun hide() {
-        Chorus.getInstance().root.children -= this
+        Animation(AnimationType.ZOOM_OUT, true).playAndRemove(this, 9.0)
         area!!.requestFocus()
     }
 
