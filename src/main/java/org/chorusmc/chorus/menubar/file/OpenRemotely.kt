@@ -24,9 +24,10 @@ abstract class OpenRemotely(
         private val view: RemoteConnectionView,
 ) : MenuBarAction {
 
+    private var connection: RemoteConnection? = null
+
     override fun onAction() {
         view.show()
-        var connection: RemoteConnection? = null
         view.onConfirm { ip, username, port, password, useRsa ->
             if(connection != null && connection!!.isValid) {
                 view.title = "${translate("remote.disconnecting")}..."
