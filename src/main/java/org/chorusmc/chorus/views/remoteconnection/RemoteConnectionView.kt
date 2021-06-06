@@ -68,7 +68,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         val root = VBox()
         root.styleClass.addAll("pane", "sftp-pane")
         val addressHbox = HBox(ip)
-        ip.selectionModel.selectedItemProperty().addListener {_ ->
+        ip.selectionModel.selectedItemProperty().addListener { _ ->
             val triple = ips[ip.selectionModel.selectedItem] ?: return@addListener
             username.text = triple.first
             port.text = triple.second
@@ -158,17 +158,26 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
             connection.getFiles(location)
         }
         title = "Chorus - $name [$location]"
-        files.filter {it.filename != "."}.sortedBy {it.filename}.sortedBy {!it.isDir}.forEach {
-            if(!(location == "/" && it.filename == "..")) {
-                val button = RemoteConnectionButton(it.filename, "$location${if(location.endsWith("/")) "" else "/"}${it.filename}", this, connection, it.isDir)
-                button.prefWidthProperty().bind(filesBox.prefWidthProperty())
-                button.addEventFilter(MouseEvent.MOUSE_PRESSED) {
-                    filesBox.children.filtered {it != button}.forEach {
-                        it.pseudoClassStateChanged(PseudoClass.getPseudoClass("focused"), false)
-                    }
+        if(location != "/") {
+            filesBox.children += generateParentFolderButton(location, connection)
+        }
+        files.filter { it.filename != "." && it.filename != ".." }.sortedBy { it.filename }.sortedBy { !it.isDir }.forEach { file ->
+            filesBox.children += generateButton(file.filename, location + (if(location.endsWith("/")) "" else "/") + file.filename, connection, file.isDir)
+        }
+    }
+
+    private fun generateButton(name: String, loc: String, connection: RemoteConnection, isDir: Boolean): RemoteConnectionButton {
+        return RemoteConnectionButton(name, loc, this, connection, isDir).apply {
+            prefWidthProperty().bind(filesBox.prefWidthProperty())
+            addEventFilter(MouseEvent.MOUSE_PRESSED) {
+                filesBox.children.filtered { it != this }.forEach {
+                    it.pseudoClassStateChanged(PseudoClass.getPseudoClass("focused"), false)
                 }
-                filesBox.children += button
             }
         }
+    }
+
+    private fun generateParentFolderButton(loc: String, connection: RemoteConnection): RemoteConnectionButton {
+        return generateButton("..", loc.substring(0, loc.lastIndexOf("/")), connection, isDir = true)
     }
 }
