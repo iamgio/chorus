@@ -21,12 +21,13 @@ abstract class OpenRemotely(
         private val name: String,
         private val savePassword: Boolean,
         private val lastLocation: LastLocation,
-        private val view: RemoteConnectionView,
+        private val view: () -> RemoteConnectionView,
 ) : MenuBarAction {
 
     private var connection: RemoteConnection? = null
 
     override fun onAction() {
+        val view = this.view()
         view.show()
         view.onConfirm { ip, username, port, password, useRsa ->
             if(connection != null && connection!!.isValid) {
@@ -71,7 +72,7 @@ class OpenFromFTP : OpenRemotely(
         name = "FTP",
         savePassword = config.getBoolean("6.FTP.2.Save_password"),
         lastLocation = Companion,
-        view = FTPView()
+        view = { FTPView() }
 ) {
     override fun createConnection(ip: String, username: String, port: Int, password: String, useRsa: Boolean) = FTPRemoteConnection(ip, username, port, password)
 
@@ -84,7 +85,7 @@ class OpenFromSFTP : OpenRemotely(
         name = "SFTP",
         savePassword = config.getBoolean("5.SFTP.2.Save_password"),
         lastLocation = Companion,
-        view = SFTPView()
+        view = { SFTPView() }
 ) {
     override fun createConnection(ip: String, username: String, port: Int, password: String, useRsa: Boolean) = SFTPRemoteConnection(ip, username, port, password, useRsa)
 
