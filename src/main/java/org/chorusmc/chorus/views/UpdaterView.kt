@@ -62,9 +62,9 @@ class UpdaterView : View(
         label.text = translate("updater.filetype")
         val windows = Button("Windows") // .exe
         val linux = Button("Linux") // .jar
-        val macOs = Button("MacOS") // .zip
+        val macOs = Button("MacOS") // .app.zip
         hbox.children.setAll(windows, macOs, linux)
-        return arrayOf(windows, linux, macOs)
+        return arrayOf(macOs, windows, linux) // Alphabetical order
     }
 
     fun setDownloading(version: String) {
