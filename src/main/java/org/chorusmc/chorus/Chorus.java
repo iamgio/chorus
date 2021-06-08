@@ -34,6 +34,8 @@ import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
 import org.chorusmc.chorus.minecraft.item.Item;
 import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
 import org.chorusmc.chorus.minecraft.particle.ParticleIconLoader;
+import org.chorusmc.chorus.notification.Notification;
+import org.chorusmc.chorus.notification.NotificationType;
 import org.chorusmc.chorus.settings.SettingsBuilder;
 import org.chorusmc.chorus.theme.Theme;
 import org.chorusmc.chorus.theme.Themes;
@@ -322,6 +324,8 @@ public class Chorus extends FXApplication {
     private void loadSettingsInteractions() {
         // Change theme when the setting is updated
         SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
+
+        SettingsBuilder.addAction("1.Appearance.4.Language", () -> new Notification(Utils.translate("language.restart"), NotificationType.MESSAGE).send());
 
         // Change autocompletion options and RegEx patterns when the Minecraft version is updated
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
