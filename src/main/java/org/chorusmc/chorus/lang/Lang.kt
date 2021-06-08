@@ -10,7 +10,7 @@ enum class Lang(val tag: String, private val commonName: String) {
     ITALIAN("it", "Italiano"),
     GERMAN("de", "Deutsch"),
     RUSSIAN("ru", "русский"),
-    SCHINESE("zhHans", "简体中文");
+    SCHINESE("zhcn", "简体中文");
 
     companion object {
         @JvmStatic fun fromCommonName(name: String) = values().first {it.commonName.equals(name, true)}
