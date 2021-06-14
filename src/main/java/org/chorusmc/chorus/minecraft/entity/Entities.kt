@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.minecraft.entity
 
+import javafx.scene.image.Image
 import org.chorusmc.chorus.minecraft.McComponents
 import org.chorusmc.chorus.minecraft.McVersion
 import org.chorusmc.chorus.minecraft.SuperMcComponents
@@ -18,6 +19,7 @@ object Entities : SuperMcComponents<Entity> {
 open class DefaultEntity(val version: McVersion) : McComponents<Entity>("entities", version) {
     override fun parse(data: List<String>) = object : Entity {
         override val name: String = data.first()
+        override val icons: List<Image> = loadIcon(name.toLowerCase())?.let { listOf(it) } ?: emptyList()
     }
 }
 

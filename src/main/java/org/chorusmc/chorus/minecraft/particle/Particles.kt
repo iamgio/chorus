@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.minecraft.particle
 
+import javafx.scene.image.Image
 import org.chorusmc.chorus.minecraft.McComponents
 import org.chorusmc.chorus.minecraft.McVersion
 import org.chorusmc.chorus.minecraft.SuperMcComponents
@@ -19,6 +20,7 @@ object Particles : SuperMcComponents<Particle> {
 open class DefaultParticle(version: McVersion) : McComponents<Particle>("particles", version) {
     override fun parse(data: List<String>) = object : Particle {
         override val name: String = data.first()
+        override val icons: List<Image> = loadIcon(name.toLowerCase())?.let { listOf(it) } ?: emptyList()
     }
 }
 

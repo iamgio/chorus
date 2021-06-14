@@ -1,5 +1,6 @@
 package org.chorusmc.chorus.minecraft.effect
 
+import javafx.scene.image.Image
 import org.chorusmc.chorus.minecraft.McComponents
 import org.chorusmc.chorus.minecraft.McVersion
 import org.chorusmc.chorus.minecraft.SuperMcComponents
@@ -19,6 +20,7 @@ open class DefaultEffect(version: McVersion) : McComponents<Effect>("effects", v
     override fun parse(data: List<String>) = object : Effect {
         override val name: String = data.first()
         override val id: Short = data[1].toShort()
+        override val icons: List<Image> = loadIcon(id.toString())?.let { listOf(it) } ?: emptyList()
     }
 }
 

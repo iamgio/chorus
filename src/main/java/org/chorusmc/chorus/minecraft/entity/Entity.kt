@@ -1,8 +1,10 @@
 package org.chorusmc.chorus.minecraft.entity
 
-import javafx.scene.image.Image
 import org.chorusmc.chorus.connection.HttpConnection
-import org.chorusmc.chorus.minecraft.*
+import org.chorusmc.chorus.minecraft.Fetchable
+import org.chorusmc.chorus.minecraft.Iconable
+import org.chorusmc.chorus.minecraft.McComponent
+import org.chorusmc.chorus.minecraft.NO_PAGE
 import org.chorusmc.chorus.util.StringUtils
 import java.io.IOException
 
@@ -11,12 +13,6 @@ import java.io.IOException
  * @author Giorgio Garofalo
  */
 interface Entity : McComponent, Iconable, Fetchable {
-
-    override val iconLoader: IconLoader
-        get() = EntityIconLoader(this)
-
-    override val icons: List<Image>
-        get() = iconLoader.images
 
     override val connection: HttpConnection
             get() = HttpConnection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(name.toLowerCase())}")

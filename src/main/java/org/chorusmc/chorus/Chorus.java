@@ -25,10 +25,6 @@ import org.chorusmc.chorus.lang.UTF8Control;
 import org.chorusmc.chorus.listeners.*;
 import org.chorusmc.chorus.lock.Locker;
 import org.chorusmc.chorus.minecraft.McVersion;
-import org.chorusmc.chorus.minecraft.effect.EffectIconLoader;
-import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
-import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
-import org.chorusmc.chorus.minecraft.particle.ParticleIconLoader;
 import org.chorusmc.chorus.notification.Notification;
 import org.chorusmc.chorus.notification.NotificationType;
 import org.chorusmc.chorus.settings.SettingsBuilder;
@@ -156,9 +152,6 @@ public class Chorus extends FXApplication {
         // Load themes
         Themes.loadInternalThemes();
         Themes.loadExternalThemes();
-
-        // Cache game components icons
-        cacheIcons();
 
         // Load resource bundle
         resourceBundle = ResourceBundle.getBundle("assets/lang/lang",
@@ -291,16 +284,6 @@ public class Chorus extends FXApplication {
         loadFont("Minecraft-BoldItalic.otf");
     }
 
-    private void cacheIcons() {
-        // Asynchronously store game icons
-        new Thread(() -> {
-            ItemIconLoader.cache();
-            ParticleIconLoader.cache();
-            EffectIconLoader.cache();
-            EntityIconLoader.cache();
-        }).start();
-    }
-
     private void setWindowClosedEvent(Stage stage) {
         stage.setOnCloseRequest(e -> {
             Utils.closeTabs();
@@ -318,11 +301,11 @@ public class Chorus extends FXApplication {
         // Change theme when the setting is updated
         SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
 
+        // Add notification when language is changed
         SettingsBuilder.addAction("1.Appearance.4.Language", () -> new Notification(Utils.translate("language.restart"), NotificationType.MESSAGE).send());
 
         // Change autocompletion options and RegEx patterns when the Minecraft version is updated
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
-            cacheIcons();
             AutocompletionListener.loadOptions();
             FixedEditorPattern.update();
         });

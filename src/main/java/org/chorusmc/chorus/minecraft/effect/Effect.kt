@@ -1,6 +1,5 @@
 package org.chorusmc.chorus.minecraft.effect
 
-import javafx.scene.image.Image
 import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.minecraft.*
 import java.io.IOException
@@ -10,12 +9,6 @@ import java.io.IOException
  * @author Giorgio Garofalo
  */
 interface Effect : McComponent, Iconable, IdAble, Fetchable {
-
-    override val iconLoader: IconLoader
-        get() = EffectIconLoader(this)
-
-    override val icons: List<Image>
-        get() = iconLoader.images
 
     override val connection: HttpConnection
         get() = HttpConnection("https://minecraft.gamepedia.com/Effect")
