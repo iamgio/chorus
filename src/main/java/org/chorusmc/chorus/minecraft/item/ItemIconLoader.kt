@@ -4,6 +4,7 @@ import javafx.scene.image.Image
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.minecraft.IconLoader
 import org.chorusmc.chorus.minecraft.McClass
+import org.chorusmc.chorus.minecraft.McVersion
 import org.chorusmc.chorus.util.itemIcons
 
 
@@ -18,13 +19,13 @@ class ItemIconLoader(private val item: Item) : IconLoader {
             val mcclass = McClass(Items)
              mcclass.enumValues.forEach { item ->
                 val list = mutableListOf<Image>()
-                repeat(if(mcclass.version == "1.12") 19 else 1) {
+                repeat(if(mcclass.version == McVersion.V1_12) 19 else 1) {
                     val id = item.id
                     val filename = when(mcclass.version) {
-                        "1.12" -> "v112/$id-$it"
-                        "1.13" -> "v113/${item.name.toLowerCase()}-$it"
-                        "1.14" -> "v115/${item.name.toLowerCase()}"
-                        else -> "v${mcclass.version.replace(".", "")}/${item.name.toLowerCase()}"
+                        McVersion.V1_12 -> "v112/$id-$it"
+                        McVersion.V1_13 -> "v113/${item.name.toLowerCase()}-$it"
+                        McVersion.V1_14 -> "v115/${item.name.toLowerCase()}"
+                        else -> mcclass.version.packageName + "/" + item.name.toLowerCase()
                     }
                     val inputStream = Chorus::class.java.classLoader.getResourceAsStream("assets/minecraft/items/$filename.png")
 

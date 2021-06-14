@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.configuration;
 
 import org.chorusmc.chorus.Chorus;
+import org.chorusmc.chorus.minecraft.McVersion;
 
 import java.io.*;
 import java.util.Properties;
@@ -81,7 +82,7 @@ public class ChorusConfig extends ChorusConfiguration {
         }
     }
 
-    public String getMcVersion() {
-        return get("4.Minecraft.0.Server_version");
+    public McVersion getMcVersion() {
+        return McVersion.fromCommonName(get("4.Minecraft.0.Server_version"));
     }
 }

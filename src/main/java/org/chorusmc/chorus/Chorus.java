@@ -24,6 +24,7 @@ import org.chorusmc.chorus.lang.Lang;
 import org.chorusmc.chorus.lang.UTF8Control;
 import org.chorusmc.chorus.listeners.*;
 import org.chorusmc.chorus.lock.Locker;
+import org.chorusmc.chorus.minecraft.McVersion;
 import org.chorusmc.chorus.minecraft.effect.EffectIconLoader;
 import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
 import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
@@ -329,6 +330,7 @@ public class Chorus extends FXApplication {
         SettingsBuilder.addPlaceholder("themes", Themes.generateConfigPlaceholder());
         SettingsBuilder.addPlaceholder("languages", Lang.generateConfigPlaceholder());
         SettingsBuilder.addPlaceholder("fonts", EditorFonts.generateConfigPlaceholder());
+        SettingsBuilder.addPlaceholder("mcversions", McVersion.generateConfigPlaceholder());
     }
 
     /**

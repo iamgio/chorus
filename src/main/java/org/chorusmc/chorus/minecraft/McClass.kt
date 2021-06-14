@@ -6,7 +6,7 @@ import org.chorusmc.chorus.util.config
  * Wrapper for accessing version-specific game elements
  * @author Giorgio Garofalo
  */
-class McClass<T : McComponent> @JvmOverloads constructor(private val component: SuperMcComponents<T>, val version: String = config.mcVersion) {
+class McClass<T : McComponent> @JvmOverloads constructor(private val component: SuperMcComponents<T>, val version: McVersion = config.mcVersion) {
 
     /*constructor(componentAsString: String) : this(
             when(componentAsString.toLowerCase()) {

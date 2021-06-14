@@ -1,20 +1,21 @@
 package org.chorusmc.chorus.minecraft.enchantment
 
 import org.chorusmc.chorus.minecraft.McComponents
+import org.chorusmc.chorus.minecraft.McVersion
 import org.chorusmc.chorus.minecraft.SuperMcComponents
 
 object Enchantments : SuperMcComponents<Enchantment> {
-    override val subComponents: Map<String, McComponents<Enchantment>>
+    override val subComponents: Map<McVersion, McComponents<Enchantment>>
         get() = mapOf(
-                "1.16" to Enchantment116,
-                "1.15" to Enchantment116, // Same as 1.16
-                "1.14" to Enchantment114,
-                "1.13" to Enchantment113,
-                "1.12" to Enchantment112
+                McVersion.V1_16 to Enchantment116,
+                McVersion.V1_15 to Enchantment116, // Same as 1.16
+                McVersion.V1_14 to Enchantment114,
+                McVersion.V1_13 to Enchantment113,
+                McVersion.V1_12 to Enchantment112
         )
 }
 
-abstract class DefaultEnchantment(version: String) : McComponents<Enchantment>("v$version/enchantments") {
+abstract class DefaultEnchantment(version: McVersion) : McComponents<Enchantment>("enchantments", version) {
     override fun parse(data: List<String>) = object : Enchantment {
         override val name: String = data.first()
         override val realName: String = data[1]
@@ -22,7 +23,7 @@ abstract class DefaultEnchantment(version: String) : McComponents<Enchantment>("
     }
 }
 
-object Enchantment112 : DefaultEnchantment("112") {
+object Enchantment112 : DefaultEnchantment(McVersion.V1_12) {
     override fun parse(data: List<String>) = object : Enchantment {
         override val name: String = data.first()
         override val id: Short = data[1].toShort()
@@ -30,6 +31,6 @@ object Enchantment112 : DefaultEnchantment("112") {
     }
 }
 
-object Enchantment113 : DefaultEnchantment("113")
-object Enchantment114 : DefaultEnchantment("114")
-object Enchantment116 : DefaultEnchantment("116")
+object Enchantment113 : DefaultEnchantment(McVersion.V1_13)
+object Enchantment114 : DefaultEnchantment(McVersion.V1_14)
+object Enchantment116 : DefaultEnchantment(McVersion.V1_16)

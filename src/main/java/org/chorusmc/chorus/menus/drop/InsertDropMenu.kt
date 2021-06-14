@@ -1,6 +1,7 @@
 package org.chorusmc.chorus.menus.drop
 
 import org.chorusmc.chorus.menus.drop.actions.insert.*
+import org.chorusmc.chorus.minecraft.McVersion
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.translate
 
@@ -22,7 +23,7 @@ class InsertDropMenu : DropMenu(INSERT_DROP_MENU_TYPE) {
                 DropMenuButton(translate("insert.enchantment_name"), EnchantmentName()),
                 DropMenuButton(translate("insert.ticks"), Ticks())
         )
-        if(config.mcVersion == "1.12") {
+        if(config.mcVersion == McVersion.V1_12) {
             array.add(2, DropMenuButton(translate("insert.item_id"), ItemID()))
             array.add(5, DropMenuButton(translate("insert.effect_id"), EffectID()))
             array.add(9, DropMenuButton(translate("insert.enchantment_id"), EnchantmentID()))
