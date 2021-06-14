@@ -2,13 +2,19 @@ package org.chorusmc.chorus.editor;
 
 import org.chorusmc.chorus.minecraft.McClass;
 import org.chorusmc.chorus.minecraft.effect.Effect;
+import org.chorusmc.chorus.minecraft.effect.Effects;
 import org.chorusmc.chorus.minecraft.enchantment.Enchantment;
+import org.chorusmc.chorus.minecraft.enchantment.Enchantments;
+import org.chorusmc.chorus.minecraft.entity.Entities;
 import org.chorusmc.chorus.minecraft.entity.Entity;
 import org.chorusmc.chorus.minecraft.item.Item;
+import org.chorusmc.chorus.minecraft.item.Items;
 import org.chorusmc.chorus.minecraft.particle.Particle;
+import org.chorusmc.chorus.minecraft.particle.Particles;
 import org.chorusmc.chorus.minecraft.sound.Sound;
+import org.chorusmc.chorus.minecraft.sound.Sounds;
 
-import static org.chorusmc.chorus.util.Utils.joinEnum;
+import java.util.function.Supplier;
 
 /**
  * @author Giorgio Garofalo
@@ -26,28 +32,29 @@ public enum FixedEditorPattern implements EditorPattern {
     ITEMID("\\b\\d+(:\\d+)\\b"),
     NUMBER("-?\\d+(\\.\\d+)?"),
     BRACKET("\\[|\\]"),
-    ITEM("(\\b(" + joinEnum(new McClass(Item.class).getCls()) + ")\\b)(:\\d(\\d)?)?"),
-    PARTICLE("\\b(" + joinEnum(Particle.class) + ")\\b"),
-    EFFECT("\\b(" + joinEnum(Effect.class) + ")\\b"),
-    SOUND("\\b(" + joinEnum(Sound.class) + ")\\b"),
-    ENCHANTMENT("\\b(" + joinEnum(new McClass(Enchantment.class).getCls()) + ")\\b"),
-    ENTITY("\\b(" + joinEnum(new McClass(Entity.class).getCls()) + ")\\b");
+    ITEM(() -> "(\\b(" + new McClass<Item>(Items.INSTANCE).joinEnum() + ")\\b)(:\\d(\\d)?)?"),
+    PARTICLE(() -> "\\b(" + new McClass<Particle>(Particles.INSTANCE).joinEnum() + ")\\b"),
+    EFFECT(() -> "\\b(" + new McClass<Effect>(Effects.INSTANCE).joinEnum() + ")\\b"),
+    SOUND(() -> "\\b(" + new McClass<Sound>(Sounds.INSTANCE) + ")\\b"),
+    ENCHANTMENT(() -> "\\b(" + new McClass<Enchantment>(Enchantments.INSTANCE).joinEnum() + ")\\b"),
+    ENTITY(() -> "\\b(" + new McClass<Entity>(Entities.INSTANCE).joinEnum() + ")\\b");
 
     private String pattern;
+    private final Supplier<String> patternSupplier;
+
     FixedEditorPattern(String pattern) {
         this.pattern = pattern;
+        this.patternSupplier = null;
     }
 
-
+    FixedEditorPattern(Supplier<String> pattern) {
+        this.patternSupplier = pattern;
+        this.pattern = pattern.get();
+    }
 
     @Override
     public String getPattern() {
         return pattern;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-        patternEdited = true;
     }
 
     @Override
@@ -61,4 +68,11 @@ public enum FixedEditorPattern implements EditorPattern {
     }
 
     public static boolean patternEdited = false;
+
+    public static void update() {
+        patternEdited = true;
+        for(FixedEditorPattern editorPattern : values()) {
+            if(editorPattern.patternSupplier != null) editorPattern.pattern = editorPattern.patternSupplier.get();
+        }
+    }
 }

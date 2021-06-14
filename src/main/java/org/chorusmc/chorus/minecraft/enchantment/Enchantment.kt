@@ -14,9 +14,7 @@ interface Enchantment : McComponent, IdAble, Descriptionable, Fetchable {
     override val connection: HttpConnection
         get() = HttpConnection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(realName.toLowerCase())}")
 
-    // Since 1.16 implementation
     val realName: String
-        get() = ""
 
     // Since 1.16 implementation
     override val description: String

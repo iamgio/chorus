@@ -80,4 +80,8 @@ public class ChorusConfig extends ChorusConfiguration {
             e.printStackTrace();
         }
     }
+
+    public String getMcVersion() {
+        return get("4.Minecraft.0.Server_version");
+    }
 }

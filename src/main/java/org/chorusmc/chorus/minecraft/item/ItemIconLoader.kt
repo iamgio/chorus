@@ -15,11 +15,11 @@ class ItemIconLoader(private val item: Item) : IconLoader {
     companion object {
         @JvmStatic fun cache() {
             itemIcons.clear()
-            val mcclass = McClass(Item::class.java)
+            val mcclass = McClass(Items)
              mcclass.enumValues.forEach { item ->
                 val list = mutableListOf<Image>()
                 repeat(if(mcclass.version == "1.12") 19 else 1) {
-                    val id = (item as Item).id
+                    val id = item.id
                     val filename = when(mcclass.version) {
                         "1.12" -> "v112/$id-$it"
                         "1.13" -> "v113/${item.name.toLowerCase()}-$it"

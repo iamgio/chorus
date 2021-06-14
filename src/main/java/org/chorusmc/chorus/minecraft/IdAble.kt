@@ -8,7 +8,6 @@ interface IdAble {
 
     val id: Short
 
-    @Suppress("UNCHECKED_CAST")
     companion object {
 
         /**
@@ -16,12 +15,7 @@ interface IdAble {
          * @param id i
          * @return Element with matching ID, <tt>null<tt> otherwise
          */
-        fun <T> byId(idAble: Class<out McComponent>, id: Short): T? where T: IdAble =
-                idAble.enumConstants.firstOrNull {(it as IdAble).id == id} as T?
-
-        /**
-         * @see byId
-         */
-        inline fun <reified T> byId(id: Short): T? where T: IdAble = byId(T::class.java as Class<out McComponent>, id)
+        fun <T> byId(idAble: McComponents<T>, id: Short): T? where T : IdAble, T : McComponent =
+                idAble.components.firstOrNull { (it as IdAble).id == id }
     }
 }

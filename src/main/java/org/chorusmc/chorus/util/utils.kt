@@ -12,7 +12,6 @@ import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.editor.EditorController
 import org.chorusmc.chorus.editor.EditorTab
 import org.chorusmc.chorus.menus.Showable
-import org.chorusmc.chorus.minecraft.McComponent
 import org.chorusmc.chorus.nodes.Tab
 import java.io.InputStream
 import java.nio.charset.MalformedInputException
@@ -94,9 +93,6 @@ fun hideMenuOnInteract(showable: Showable, vararg filters: InteractFilter = Inte
 enum class InteractFilter {
     AREA, TABPANE, MENUS, ESC, TAB, TABOPEN;
 }
-
-
-fun joinEnum(enumClass: Class<out McComponent>): String = enumClass.enumConstants.sortedBy {it.name.length}.reversed().joinToString("|")
 
 fun getText(input: InputStream): String =
         try {

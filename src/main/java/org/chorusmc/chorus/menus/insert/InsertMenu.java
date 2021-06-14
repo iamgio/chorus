@@ -13,11 +13,11 @@ import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.menus.BrowsableVBox;
 import org.chorusmc.chorus.menus.MenuPlacer;
 import org.chorusmc.chorus.menus.Showable;
+import org.chorusmc.chorus.minecraft.McComponents;
 import org.chorusmc.chorus.nodes.Tab;
 import org.chorusmc.chorus.util.InteractFilter;
 import org.chorusmc.chorus.util.Utils;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -62,9 +62,9 @@ public class InsertMenu extends VBox implements Showable {
         Platform.runLater(textfield::requestFocus);
     }
 
-    public InsertMenu(Class<Enum<?>> enumClass) {
+    public InsertMenu(McComponents<?> components) {
         this(
-                Arrays.stream(enumClass.getEnumConstants())
+                components.getComponents().stream()
                 .map(InsertMenuMember::new)
                 .toArray(InsertMenuMember[]::new)
         );

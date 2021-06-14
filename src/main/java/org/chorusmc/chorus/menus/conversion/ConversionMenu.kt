@@ -8,7 +8,10 @@ import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.control.NumericTextField
-import org.chorusmc.chorus.util.*
+import org.chorusmc.chorus.util.area
+import org.chorusmc.chorus.util.hideMenuOnInteract
+import org.chorusmc.chorus.util.toObservableList
+import org.chorusmc.chorus.util.translate
 
 /**
  * @author Giorgio Garofalo
@@ -31,7 +34,6 @@ abstract class ConversionMenu<in T: Enum<*>>(enumClass: Class<T>, defaultIndex: 
         combobox.selectionModel.select(defaultIndex)
         val button = Button(translate("ticks.ok"))
         button.setOnAction {
-            @Suppress("UNCHECKED_CAST")
             area!!.replaceText(area!!.substitutionRange,
                     converter.convert(combobox.selectionModel.selectedItem, textfield.text))
             hide()

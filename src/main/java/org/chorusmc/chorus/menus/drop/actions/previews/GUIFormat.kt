@@ -1,9 +1,9 @@
 package org.chorusmc.chorus.menus.drop.actions.previews
 
 import org.chorusmc.chorus.menus.drop.actions.previews.GUIFormats.generateConfigPlaceholder
-import org.chorusmc.chorus.minecraft.IdAble
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.item.Item
+import org.chorusmc.chorus.minecraft.item.Items
 import org.chorusmc.chorus.settings.SettingsBuilder.Companion.addPlaceholder
 import org.chorusmc.chorus.util.config
 
@@ -53,11 +53,11 @@ class GUIFormatPosition(val slot: Int) {
 data class GUIFormatItem(val position: GUIFormatPosition, val item: Item?, val meta: Int = 0) {
 
     constructor(position: GUIFormatPosition, item: String, meta: Int) :
-            this(position, McClass(Item::class.java).let {
+            this(position, McClass(Items).let {
                 if(item.toIntOrNull() == null) {
                     it.valueOf<Item>(item.toUpperCase().replace(" ", "_"))
                 } else {
-                    it.enumValues.firstOrNull { it is IdAble && it.id.toString() == item }
+                    it.enumValues.firstOrNull { it.id.toString() == item }
                 }
-            } as? Item, meta)
+            }, meta)
 }

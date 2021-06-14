@@ -5,12 +5,12 @@ import javafx.scene.input.KeyEvent
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu
 import org.chorusmc.chorus.minecraft.McClass
-import org.chorusmc.chorus.minecraft.effect.Effect
-import org.chorusmc.chorus.minecraft.enchantment.Enchantment
-import org.chorusmc.chorus.minecraft.entity.Entity
-import org.chorusmc.chorus.minecraft.item.Item
-import org.chorusmc.chorus.minecraft.particle.Particle
-import org.chorusmc.chorus.minecraft.sound.Sound
+import org.chorusmc.chorus.minecraft.effect.Effects
+import org.chorusmc.chorus.minecraft.enchantment.Enchantments
+import org.chorusmc.chorus.minecraft.entity.Entities
+import org.chorusmc.chorus.minecraft.item.Items
+import org.chorusmc.chorus.minecraft.particle.Particles
+import org.chorusmc.chorus.minecraft.sound.Sounds
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.variable.Variables
@@ -107,12 +107,12 @@ class AutocompletionListener : EditorEvent() {
             options =
                     linkedMapOf(
                             "true" to "true", "false" to "false",
-                            *McClass(Item::class.java).enumValues       .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Entity::class.java).enumValues     .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *Particle.values()                          .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *Effect.values()                            .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Enchantment::class.java).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *Sound.values()                             .map { it.name.makeFormal() to it.name }.toTypedArray()
+                            *McClass(Items).enumValues                  .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Entities).enumValues               .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Particles).enumValues              .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Effects).enumValues                .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Enchantments).enumValues           .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                            *McClass(Sounds).enumValues                 .map { it.name.makeFormal() to it.name }.toTypedArray()
                     )
         }
     }

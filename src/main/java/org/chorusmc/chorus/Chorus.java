@@ -17,21 +17,15 @@ import org.chorusmc.chorus.configuration.ChorusConfig;
 import org.chorusmc.chorus.configuration.ChorusFolder;
 import org.chorusmc.chorus.editor.EditorController;
 import org.chorusmc.chorus.editor.EditorFonts;
-import org.chorusmc.chorus.editor.FixedEditorPattern;
 import org.chorusmc.chorus.editor.EditorTab;
-import org.chorusmc.chorus.lang.UTF8Control;
-import org.chorusmc.chorus.listeners.Events;
-import org.chorusmc.chorus.listeners.Openable;
+import org.chorusmc.chorus.editor.FixedEditorPattern;
 import org.chorusmc.chorus.file.LocalFile;
 import org.chorusmc.chorus.lang.Lang;
+import org.chorusmc.chorus.lang.UTF8Control;
 import org.chorusmc.chorus.listeners.*;
 import org.chorusmc.chorus.lock.Locker;
-import org.chorusmc.chorus.minecraft.McClass;
 import org.chorusmc.chorus.minecraft.effect.EffectIconLoader;
-import org.chorusmc.chorus.minecraft.enchantment.Enchantment;
-import org.chorusmc.chorus.minecraft.entity.Entity;
 import org.chorusmc.chorus.minecraft.entity.EntityIconLoader;
-import org.chorusmc.chorus.minecraft.item.Item;
 import org.chorusmc.chorus.minecraft.item.ItemIconLoader;
 import org.chorusmc.chorus.minecraft.particle.ParticleIconLoader;
 import org.chorusmc.chorus.notification.Notification;
@@ -48,8 +42,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-import static org.chorusmc.chorus.util.Utils.joinEnum;
 
 /**
  * This is the main class of Chorus
@@ -331,15 +323,7 @@ public class Chorus extends FXApplication {
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             cacheIcons();
             AutocompletionListener.loadOptions();
-            FixedEditorPattern.ITEM.setPattern(
-                    "(\\b(" + joinEnum(new McClass(Item.class).getCls()) + ")\\b)(:\\d(\\d)?)?"
-            );
-            FixedEditorPattern.ENTITY.setPattern(
-                    "\\b(" + joinEnum(new McClass(Entity.class).getCls()) + ")\\b"
-            );
-            FixedEditorPattern.ENCHANTMENT.setPattern(
-                    "\\b(" + joinEnum(new McClass(Enchantment.class).getCls()) + ")\\b"
-            );
+            FixedEditorPattern.update();
         });
 
         SettingsBuilder.addPlaceholder("themes", Themes.generateConfigPlaceholder());

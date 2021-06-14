@@ -1,33 +1,34 @@
 package org.chorusmc.chorus.minecraft
 
-import org.chorusmc.chorus.minecraft.enchantment.Enchantment
-import org.chorusmc.chorus.minecraft.entity.Entity
-import org.chorusmc.chorus.minecraft.item.Item
 import org.chorusmc.chorus.util.config
 
 /**
  * Wrapper for accessing version-specific game elements
  * @author Giorgio Garofalo
  */
-@Suppress("UNCHECKED_CAST")
-class McClass @JvmOverloads constructor(private val component: Class<out McComponent>?, val version: String = config["4.Minecraft.0.Server_version"]) {
+class McClass<T : McComponent> @JvmOverloads constructor(private val component: SuperMcComponents<T>, val version: String = config.mcVersion) {
 
-    constructor(componentAsString: String) : this(
+    /*constructor(componentAsString: String) : this(
             when(componentAsString.toLowerCase()) {
-                "item" -> Item::class.java
-                "entity" -> Entity::class.java
-                "enchantment" -> Enchantment::class.java
+                "item" -> Items
+                "entity" -> Entities
+                "enchantment" -> Enchantments
                 else -> null
-            }
-    )
+            }!!,
+    )*/
 
-    val cls: Class<out McComponent>
-        get() = Class.forName("${component!!.name}${version.replace(".", "")}") as Class<out McComponent>
+    //val cls: Class<out McComponents<*>>
+    //    get() = Class.forName("${component!!.name}${version.replace(".", "")}") as Class<out McComponents<*>>
 
-    val enumValues: Array<out McComponent>
-        get() = cls.enumConstants
+    val components: McComponents<T>
+        get() = component.subComponents[version]!!
 
-    fun <T> valueOf(e: String) where T: McComponent = enumValues.firstOrNull {it.name == e} as T?
+    val enumValues: List<T>
+        get() = components.components
 
-    fun <T> listValues() where T: McComponent = enumValues.map {it as T}
+    fun <T> valueOf(e: String) where T: McComponent = enumValues.firstOrNull { it.name == e }
+
+    fun <T> listValues() where T: McComponent = enumValues
+
+    fun joinEnum() = enumValues.sortedByDescending { it.name.length }.joinToString("|") { it.name }
 }

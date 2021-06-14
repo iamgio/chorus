@@ -20,6 +20,7 @@ import org.chorusmc.chorus.menus.insert.InsertMenu
 import org.chorusmc.chorus.minecraft.McClass
 import org.chorusmc.chorus.minecraft.chat.ChatParser
 import org.chorusmc.chorus.minecraft.item.Item
+import org.chorusmc.chorus.minecraft.item.Items
 import org.chorusmc.chorus.nodes.popup.LocalTextPopup
 import org.chorusmc.chorus.notification.Notification
 import org.chorusmc.chorus.notification.NotificationType
@@ -192,8 +193,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
             showingMenu?.hide()
             when(it.button) {
                 MouseButton.PRIMARY -> {
-                    @Suppress("UNCHECKED_CAST")
-                    val menu = InsertMenu(McClass(Item::class.java).cls as Class<Enum<*>>)
+                    val menu = InsertMenu(McClass(Items).components)
                     menu.target = titleField
                     if(item != null) {
                         menu.textField.text = item!!.name.makeFormal()
@@ -201,7 +201,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
                     menu.layoutX = layoutX + 40
                     menu.layoutY = layoutY
                     menu.setOnSelect {
-                        item = McClass(Item::class.java).valueOf(menu.selected.toUpperCase().replace(" ", "_"))
+                        item = McClass(Items).valueOf<Item>(menu.selected.toUpperCase().replace(" ", "_"))
                         meta = if(menu.meta > 0) menu.meta else 0
                         setItem(item!!, meta)
                     }
@@ -239,7 +239,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
         this.item = item
         removeImage()
         val icons = item.icons
-        children += ImageView(if(icons.size > meta) icons[meta] else (McClass(Item::class.java).valueOf<Item>("BEDROCK"))!!.icons[0])
+        children += ImageView(if(icons.size > meta) icons[meta] else (McClass(Items).valueOf<Item>("BEDROCK"))!!.icons.first())
         WaitingTimer().start({
             Platform.runLater {
                 titleField.requestFocus()
