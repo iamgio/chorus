@@ -193,7 +193,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
             showingMenu?.hide()
             when(it.button) {
                 MouseButton.PRIMARY -> {
-                    val menu = InsertMenu(McClass(Items).components)
+                    val menu = InsertMenu(McClass(Items).components.components)
                     menu.target = titleField
                     if(item != null) {
                         menu.textField.text = item!!.name.makeFormal()

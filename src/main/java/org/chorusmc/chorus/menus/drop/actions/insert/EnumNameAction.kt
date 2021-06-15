@@ -16,7 +16,7 @@ open class EnumNameAction<T : McComponent>(private val superComponents: SuperMcC
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val components = McClass(superComponents).components
 
-        val menu = InsertMenu(components)
+        val menu = InsertMenu(components.components)
         if(area.selectedText.isNotEmpty()) {
             menu.textField.text = area.selectedText.toLowerCase().split(":")[0]
                     .replace("tnt", "TNT").makeFormal()

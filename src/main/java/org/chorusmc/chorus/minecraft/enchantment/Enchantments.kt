@@ -20,6 +20,7 @@ abstract class DefaultEnchantment(version: McVersion) : McComponents<Enchantment
         override val name: String = data.first()
         override val realName: String = data[1]
         override val id: Short = -1
+        override fun toString() = name
     }
 }
 
@@ -28,6 +29,7 @@ object Enchantment112 : DefaultEnchantment(McVersion.V1_12) {
         override val name: String = data.first()
         override val id: Short = data[1].toShort()
         override val realName: String = data[2]
+        override fun toString() = name
     }
 }
 

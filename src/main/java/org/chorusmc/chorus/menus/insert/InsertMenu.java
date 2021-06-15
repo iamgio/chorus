@@ -13,7 +13,7 @@ import org.chorusmc.chorus.Chorus;
 import org.chorusmc.chorus.menus.BrowsableVBox;
 import org.chorusmc.chorus.menus.MenuPlacer;
 import org.chorusmc.chorus.menus.Showable;
-import org.chorusmc.chorus.minecraft.McComponents;
+import org.chorusmc.chorus.minecraft.McComponent;
 import org.chorusmc.chorus.nodes.Tab;
 import org.chorusmc.chorus.util.InteractFilter;
 import org.chorusmc.chorus.util.Utils;
@@ -62,9 +62,9 @@ public class InsertMenu extends VBox implements Showable {
         Platform.runLater(textfield::requestFocus);
     }
 
-    public InsertMenu(McComponents<?> components) {
+    public InsertMenu(List<McComponent> components) {
         this(
-                components.getComponents().stream()
+                components.stream()
                 .map(InsertMenuMember::new)
                 .toArray(InsertMenuMember[]::new)
         );
@@ -74,7 +74,7 @@ public class InsertMenu extends VBox implements Showable {
         vbox.getChildren().clear();
         for(InsertMenuMember member : members) {
             String name = member.getName().toLowerCase().replace("_", " ");
-            if(name.replace("_", " ").contains(textfield.getText().toLowerCase())) {
+            if(name.contains(textfield.getText().toLowerCase())) {
                 List<Image> images = member.getIcons();
                 InsertMenuHint hint = new InsertMenuHint(name, images);
                 if(!images.isEmpty()) {
@@ -88,7 +88,7 @@ public class InsertMenu extends VBox implements Showable {
                     });
                 }
                 hint.setAction(() -> {
-                    selected = name;
+                    selected = member.getName();
                     meta = hint.getSelected();
                     onSelect.run();
                 });

@@ -20,6 +20,7 @@ open class DefaultEntity(val version: McVersion) : McComponents<Entity>("entitie
     override fun parse(data: List<String>) = object : Entity {
         override val name: String = data.first()
         override val icons: List<Image> = loadIcon(name.toLowerCase())?.let { listOf(it) } ?: emptyList()
+        override fun toString() = name
     }
 }
 

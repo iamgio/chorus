@@ -4,7 +4,7 @@
  * @return java.lang.String
  */
 function getMinecraftVersion() {
-    return chorus.config.get('4.Minecraft.0.Server_version');
+    return chorus.config.getMcVersion().toString();
 }
 
 /**
@@ -14,7 +14,8 @@ function getMinecraftVersion() {
  */
 function getMcClass(element) {
     var McClass = chorus_type('minecraft.McClass');
-    return new McClass(element);
+    var elementInstance = chorus_type('minecraft.' + element).INSTANCE
+    return new McClass(elementInstance);
 }
 
 /**
@@ -22,7 +23,7 @@ function getMcClass(element) {
  * @return org.chorusmc.chorus.minecraft.item.Item[]
  */
 function getItems() {
-    return getMcClass('Item').getEnumValues();
+    return getMcClass('item.Items').getEnumValues();
 }
 
 /**
@@ -31,7 +32,7 @@ function getItems() {
  * @return org.chorusmc.chorus.minecraft.item.Item
  */
 function getItem(name) {
-    return getMcClass('Item').valueOf(name);
+    return getMcClass('item.Items').valueOf(name);
 }
 
 /**
@@ -39,7 +40,7 @@ function getItem(name) {
  * @return org.chorusmc.chorus.minecraft.entity.Entity[]
  */
 function getEntities() {
-    return getMcClass('Entity').getEnumValues();
+    return getMcClass('entity.Entities').getEnumValues();
 }
 
 /**
@@ -48,7 +49,7 @@ function getEntities() {
  * @return org.chorusmc.chorus.minecraft.entity.Entity
  */
 function getEntity(name) {
-    return getMcClass('Entity').valueOf(name);
+    return getMcClass('entity.Entities').valueOf(name);
 }
 
 /**
@@ -56,7 +57,7 @@ function getEntity(name) {
  * @return org.chorusmc.chorus.minecraft.enchantment.Enchantment[]
  */
 function getEnchantments() {
-    return getMcClass('Enchantment').getEnumValues();
+    return getMcClass('enchantment.Enchantment').getEnumValues();
 }
 
 /**
@@ -65,7 +66,7 @@ function getEnchantments() {
  * @return org.chorusmc.chorus.minecraft.enchantment.Enchantment
  */
 function getEnchantment(name) {
-    return getMcClass('Enchantment').valueOf(name);
+    return getMcClass('enchantment.Enchantment').valueOf(name);
 }
 
 /**
@@ -73,7 +74,7 @@ function getEnchantment(name) {
  * @return org.chorusmc.chorus.minecraft.effect.Effect[]
  */
 function getEffects() {
-    return chorus_type('minecraft.effect.Effect').values();
+    return getMcClass('effect.Effects').getEnumValues();
 }
 
 /**
@@ -82,7 +83,7 @@ function getEffects() {
  * @return org.chorusmc.chorus.minecraft.effect.Effect
  */
 function getEffect(name) {
-    return chorus_type('minecraft.effect.Effect').valueOf(name);
+    return getMcClass('effect.Effects').valueOf(name);
 }
 
 /**
@@ -90,7 +91,7 @@ function getEffect(name) {
  * @return org.chorusmc.chorus.minecraft.particle.Particle[]
  */
 function getParticles() {
-    return chorus_type('minecraft.particle.Particle').values();
+    return getMcClass('particle.Particles').getEnumValues();
 }
 
 /**
@@ -99,7 +100,7 @@ function getParticles() {
  * @return org.chorusmc.chorus.minecraft.particle.Particle
  */
 function getParticle(name) {
-    return chorus_type('minecraft.particle.Particle').valueOf(name);
+    return getMcClass('particle.Particles').valueOf(name);
 }
 
 /**
@@ -107,7 +108,7 @@ function getParticle(name) {
  * @return org.chorusmc.chorus.minecraft.sound.Sound[]
  */
 function getSounds() {
-    return chorus_type('minecraft.sound.Sound').values();
+    return getMcClass('sound.Sounds').getEnumValues();
 }
 
 /**
@@ -116,7 +117,7 @@ function getSounds() {
  * @return org.chorusmc.chorus.minecraft.sound.Sound
  */
 function getSound(name) {
-    return chorus_type('minecraft.sound.Sound').valueOf(name);
+    return getMcClass('sound.Sounds').valueOf(name);
 }
 
 /**

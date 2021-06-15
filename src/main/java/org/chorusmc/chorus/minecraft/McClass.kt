@@ -8,18 +8,6 @@ import org.chorusmc.chorus.util.config
  */
 class McClass<T : McComponent> @JvmOverloads constructor(private val component: SuperMcComponents<T>, val version: McVersion = config.mcVersion) {
 
-    /*constructor(componentAsString: String) : this(
-            when(componentAsString.toLowerCase()) {
-                "item" -> Items
-                "entity" -> Entities
-                "enchantment" -> Enchantments
-                else -> null
-            }!!,
-    )*/
-
-    //val cls: Class<out McComponents<*>>
-    //    get() = Class.forName("${component!!.name}${version.replace(".", "")}") as Class<out McComponents<*>>
-
     val components: McComponents<T>
         get() = component.subComponents[version]!!
 

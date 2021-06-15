@@ -21,6 +21,7 @@ open class DefaultEffect(version: McVersion) : McComponents<Effect>("effects", v
         override val name: String = data.first()
         override val id: Short = data[1].toShort()
         override val icons: List<Image> = loadIcon(id.toString())?.let { listOf(it) } ?: emptyList()
+        override fun toString() = name
     }
 }
 

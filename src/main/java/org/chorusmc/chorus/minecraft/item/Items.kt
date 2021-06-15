@@ -29,6 +29,8 @@ open class DefaultItem(protected val version: McVersion) : McComponents<Item>("i
             loadIcon(name)?.let { list += it }
             list
         }
+
+        override fun toString() = name
     }
 }
 
@@ -44,6 +46,8 @@ object Item112 : DefaultItem(McVersion.V1_12) {
             }
             list
         }
+
+        override fun toString() = name
     }
 }
 

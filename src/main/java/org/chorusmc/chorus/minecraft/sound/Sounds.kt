@@ -19,6 +19,7 @@ object Sounds: SuperMcComponents<Sound> {
 open class DefaultSound(version: McVersion) : McComponents<Sound>("sounds", version) {
     override fun parse(data: List<String>) = object : Sound {
         override val name: String = data.first()
+        override fun toString() = name
     }
 }
 

@@ -21,6 +21,7 @@ open class DefaultParticle(version: McVersion) : McComponents<Particle>("particl
     override fun parse(data: List<String>) = object : Particle {
         override val name: String = data.first()
         override val icons: List<Image> = loadIcon(name.toLowerCase())?.let { listOf(it) } ?: emptyList()
+        override fun toString() = name
     }
 }
 

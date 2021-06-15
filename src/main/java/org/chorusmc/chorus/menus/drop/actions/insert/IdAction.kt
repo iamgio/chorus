@@ -15,7 +15,7 @@ open class IdAction<T>(private val superComponents: SuperMcComponents<T>) : Drop
     override fun onAction(area: EditorArea, x: Double, y: Double) {
         val components = McClass(superComponents).components
 
-        val menu = InsertMenu(components)
+        val menu = InsertMenu(components.components)
         if(area.selectedText.isNotEmpty()) {
             menu.textField.text =
                     try {
