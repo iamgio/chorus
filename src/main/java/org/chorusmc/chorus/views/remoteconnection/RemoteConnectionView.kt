@@ -27,12 +27,14 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         400.0
 ) {
 
-    private var ips = emptyMap<String, Triple<String, String, String?>>()
+    // ip=[username, port, rsaPath]
+    private val ips = hashMapOf<String, Triple<String, String, String?>>()
 
     private val ip = ComboBox<String>()
     private val username = TextField()
     private val password = PasswordField()
     private val port = NumericTextField()
+
     val connectButton = Button()
     private val filesBox = VBox()
 
@@ -45,8 +47,8 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
             field = value
         }
 
-    fun onConfirm(unit: (String, String, Int, String, Boolean) -> Unit) = connectButton.setOnAction {
-        unit(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text, ips[ip.selectionModel.selectedItem]?.third != null)
+    fun onConfirm(action: (RemoteConnectionCredentials) -> Unit) = connectButton.setOnAction {
+        action(RemoteConnectionCredentials(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text, ips[ip.selectionModel.selectedItem]?.third != null))
     }
 
     var onBrowse: (Pair<String, String>) -> Unit = {}
@@ -54,7 +56,7 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
     init {
         config[setting].split("\\n").forEach {
             with(it.split("|")) {
-                ips = ips + (this[0] to when(size) {
+                ips += (this[0] to when(size) {
                     2 -> Triple(this[1], defaultPort.toString(), null)
                     3 -> Triple(this[1], this[2], null)
                     4 -> if(name == "SFTP") Triple(this[1], this[2], this[3]) else return@with
@@ -67,7 +69,9 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
     override fun show() {
         val root = VBox()
         root.styleClass.addAll("pane", "sftp-pane")
+
         val addressHbox = HBox(ip)
+
         ip.selectionModel.selectedItemProperty().addListener { _ ->
             val triple = ips[ip.selectionModel.selectedItem] ?: return@addListener
             username.text = triple.first
@@ -83,24 +87,25 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         ip.items = ips.keys.toList().toObservableList()
         if(ip.items.size > 0) ip.selectionModel.selectFirst() else ip.isDisable = true
         ip.styleClass += "ip-box"
+
         username.promptText = translate("remote.username")
         username.styleClass += "username-field"
+        username.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
+        username.setOnAction { connectButton.fire() }
+
         password.text = String(psw.psw)
         password.promptText = translate("remote.password")
         password.styleClass += "password-field"
+        password.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
+        password.setOnAction { connectButton.fire() }
+
         port.promptText = translate("remote.port")
         port.styleClass += "username-field"
         port.prefWidth = 40.0
         port.alignment = Pos.CENTER
-        username.setOnAction {
-            connectButton.fire()
-        }
         port.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
-        username.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
-        password.setOnAction {
-            connectButton.fire()
-        }
-        password.disableProperty().bind(ip.selectionModel.selectedItemProperty().isNull)
+        port.setOnAction { connectButton.fire() }
+
         connectButton.text = translate("remote.connect")
         connectButton.styleClass += "connect-button"
         connectButton.disableProperty().bind(
@@ -109,27 +114,30 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
                         .or((password.textProperty().isEmpty).and(SimpleBooleanProperty(ips[ip.selectionModel.selectedItem]?.third == null)))
                         .or(port.textProperty().isEmpty)
         )
-        port.setOnAction {
-            connectButton.fire()
-        }
+
         if(ip.selectionModel.selectedItem != null) {
             addressHbox.children.addAll(username, port, connectButton)
             if(ips[ip.selectionModel.selectedItem]?.third == null) addressHbox.children.add(2, password)
         }
+
         addressHbox.styleClass += "sftp-address-box"
         addressHbox.alignment = Pos.CENTER
         addressHbox.spacing = 15.0
         addressHbox.prefHeight = 75.0
         addressHbox.minHeight = addressHbox.prefHeight
         addressHbox.prefWidthProperty().bind(root.prefWidthProperty())
+
         val scrollpane = ScrollPane(filesBox)
         stage.title = title
+
         val scene = setRoot(root)
         scrollpane.prefWidthProperty().bind(scene.widthProperty())
         scrollpane.prefHeightProperty().bind(scene.heightProperty())
         scrollpane.hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
+
         filesBox.styleClass += "files-box"
         filesBox.prefWidthProperty().bind(scrollpane.prefWidthProperty())
+
         val mainVbox = VBox(addressHbox, scrollpane)
         root.children += mainVbox
         password.requestFocus()

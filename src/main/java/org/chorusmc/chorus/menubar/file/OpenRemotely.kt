@@ -29,19 +29,19 @@ abstract class OpenRemotely(
     override fun onAction() {
         val view = this.view()
         view.show()
-        view.onConfirm { ip, username, port, password, useRsa ->
+        view.onConfirm { credentials ->
             if(connection != null && connection!!.isValid) {
                 view.title = "${translate("remote.disconnecting")}..."
                 connection?.logout()
                 connection?.disconnect()
             }
             view.title = "${translate("remote.connecting")}..."
-            connection = createConnection(ip, username, port, password, useRsa)
+            connection = createConnection(credentials.ip, credentials.username, credentials.port, credentials.password, credentials.useRsa)
             val button = view.connectButton
             if(connection!!.isValid) {
                 button.style = ""
                 button.text = translate("remote.connect")
-                val loc = lastLocation.lastLocation[ip]
+                val loc = lastLocation.lastLocation[credentials.ip]
                 if(loc != null) view.generateFiles(connection!!, loc) else view.generateFiles(connection!!)
             } else {
                 view.clear()
@@ -54,7 +54,7 @@ abstract class OpenRemotely(
                         button.text = translate("remote.connect")
                     }}, Duration.seconds(1.5))
             }
-            if(savePassword) connection?.updatePassword(password.toCharArray())
+            if(savePassword) connection?.updatePassword(credentials.password.toCharArray())
         }
         view.onSelect = Runnable {
             EditorTab(connection!!.instantiateFile(view.selectedPath)).add()
