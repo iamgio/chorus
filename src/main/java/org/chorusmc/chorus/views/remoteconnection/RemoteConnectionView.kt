@@ -12,6 +12,7 @@ import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.connection.Password
 import org.chorusmc.chorus.connection.RemoteConnection
 import org.chorusmc.chorus.nodes.control.NumericTextField
+import org.chorusmc.chorus.settings.nodes.ServerInfo
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.toObservableList
 import org.chorusmc.chorus.util.translate
@@ -27,8 +28,8 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         400.0
 ) {
 
-    // ip=[username, port, rsaPath]
-    private val ips = hashMapOf<String, Triple<String, String, String?>>()
+    // ip=server
+    private val ips = hashMapOf<String, ServerInfo>()
 
     private val ip = ComboBox<String>()
     private val username = TextField()
@@ -48,21 +49,16 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         }
 
     fun onConfirm(action: (RemoteConnectionCredentials) -> Unit) = connectButton.setOnAction {
-        action(RemoteConnectionCredentials(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text, ips[ip.selectionModel.selectedItem]?.third != null))
+        action(RemoteConnectionCredentials(ip.selectionModel.selectedItem, username.text, port.text.toInt(), password.text, ips[ip.selectionModel.selectedItem]?.keyPath?.isNotEmpty() ?: false))
     }
 
     var onBrowse: (Pair<String, String>) -> Unit = {}
 
     init {
-        config[setting].split("\\n").forEach {
-            with(it.split("|")) {
-                ips += (this[0] to when(size) {
-                    2 -> Triple(this[1], defaultPort.toString(), null)
-                    3 -> Triple(this[1], this[2], null)
-                    4 -> if(name == "SFTP") Triple(this[1], this[2], this[3]) else return@with
-                    else -> return@with
-                })
-            }
+        config[setting].split("\\n").forEach { line ->
+            val server = ServerInfo.parse(line)
+            if(server.port.isEmpty()) server.port = defaultPort.toString()
+            ips += server.ip to server
         }
     }
 
@@ -73,12 +69,12 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         val addressHbox = HBox(ip)
 
         ip.selectionModel.selectedItemProperty().addListener { _ ->
-            val triple = ips[ip.selectionModel.selectedItem] ?: return@addListener
-            username.text = triple.first
-            port.text = triple.second
-            if(triple.third == null && addressHbox.children.size > 2 && !addressHbox.children.contains(password)) {
+            val server = ips[ip.selectionModel.selectedItem] ?: return@addListener
+            username.text = server.username
+            port.text = server.port
+            if(server.keyPath.isEmpty() && addressHbox.children.size > 2 && !addressHbox.children.contains(password)) {
                 addressHbox.children.add(2, password)
-            } else if(triple.third != null && addressHbox.children.contains(password)) {
+            } else if(server.keyPath.isNotEmpty() && addressHbox.children.contains(password)) {
                 addressHbox.children -= password
             }
             password.requestFocus()
@@ -111,13 +107,13 @@ open class RemoteConnectionView(private val name: String, defaultPort: Int, sett
         connectButton.disableProperty().bind(
                 ip.selectionModel.selectedItemProperty().isNull
                         .or(username.textProperty().isEmpty)
-                        .or((password.textProperty().isEmpty).and(SimpleBooleanProperty(ips[ip.selectionModel.selectedItem]?.third == null)))
+                        .or((password.textProperty().isEmpty).and(SimpleBooleanProperty(ips[ip.selectionModel.selectedItem]?.keyPath?.isEmpty() ?: true)))
                         .or(port.textProperty().isEmpty)
         )
 
         if(ip.selectionModel.selectedItem != null) {
             addressHbox.children.addAll(username, port, connectButton)
-            if(ips[ip.selectionModel.selectedItem]?.third == null) addressHbox.children.add(2, password)
+            if(ips[ip.selectionModel.selectedItem]?.keyPath?.isEmpty() == true) addressHbox.children.add(2, password)
         }
 
         addressHbox.styleClass += "sftp-address-box"

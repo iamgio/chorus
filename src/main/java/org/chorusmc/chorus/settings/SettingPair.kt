@@ -39,13 +39,9 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
         label = Label(name)
         label.styleClass += "setting-label"
 
-        val settingInput =
-                if(inputString != null) {
-                    SettingInput.valueOf(inputString.split(" ")[0].split("{")[0])
-                } else SettingInput.TEXT
+        val settingInput = if(inputString != null) SettingInput.valueOf(inputString.split(" ")[0].split("{")[0]) else SettingInput.TEXT
 
-        @Suppress("DEPRECATION")
-        input = settingInput.clazz.newInstance()
+        input = settingInput.instantiate()
         input.id = key
         input.styleClass.addAll(settingInput.styleClass, "setting-control")
 

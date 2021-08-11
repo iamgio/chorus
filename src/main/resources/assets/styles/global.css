@@ -54,6 +54,10 @@
     -fx-opacity: .5;
 }
 
+.variables-menu .table-row-cell .text, .variables-menu .text-field {
+    -fx-font-size: 17.5;
+}
+
 .hints-scrollpane > .scroll-bar > .increment-button, .hints-scrollpane > .scroll-bar > .decrement-button {
     -fx-pref-width: .5;
     -fx-pref-height: .5;
@@ -71,7 +75,11 @@
     -fx-font-size: 15;
 }
 
-.setting-control, .setting-control .text {
+.setting-control, .setting-control .text, .setting-control .table-row-cell .text {
+    -fx-font-size: 13.5;
+}
+
+.setting-server .text-field {
     -fx-font-size: 13.5;
 }
 

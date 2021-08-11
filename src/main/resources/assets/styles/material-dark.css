@@ -382,7 +382,6 @@
 }
 
 .variables-menu .table-row-cell .text {
-    -fx-font-size: 17.5;
     -fx-fill: white;
 }
 
@@ -401,7 +400,6 @@
 .variables-menu .text-field {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-font-size: 17.5;
 }
 
 .quick-variables-menu {

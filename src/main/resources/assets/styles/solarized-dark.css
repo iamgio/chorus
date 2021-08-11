@@ -378,7 +378,6 @@
 }
 
 .variables-menu .table-row-cell .text {
-    -fx-font-size: 17.5;
     -fx-fill: -fx-base1;
 }
 
@@ -397,7 +396,6 @@
 .variables-menu .text-field {
     -fx-background-color: transparent;
     -fx-text-fill: -fx-base1;
-    -fx-font-size: 17.5;
     -fx-highlight-fill: -fx-base2;
 }
 
