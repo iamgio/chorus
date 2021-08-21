@@ -75,7 +75,7 @@ class SettingServerManager(useKeys: Boolean, val defaultPort: String) : VBox(), 
 
 data class ServerInfo(var ip: String, var username: String, var port: String, var keyPath: String) {
 
-    override fun toString() = "$ip|$username|$port|$keyPath"
+    override fun toString() = "${ip.trim()}|${username.trim()}|${port.trim()}|${keyPath.trim()}"
 
     companion object {
         fun parse(line: String): ServerInfo {
