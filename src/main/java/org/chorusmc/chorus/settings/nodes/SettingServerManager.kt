@@ -5,8 +5,10 @@ import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import javafx.scene.control.cell.PropertyValueFactory
 import javafx.scene.control.cell.TextFieldTableCell
-import javafx.scene.layout.Pane
+import javafx.scene.layout.VBox
 import org.chorusmc.chorus.configuration.ChorusConfiguration
+import org.chorusmc.chorus.menus.variables.VariablesPlaceholder
+import org.chorusmc.chorus.nodes.TableControlBar
 import org.chorusmc.chorus.settings.SettingsController
 import org.chorusmc.chorus.theme.Themes
 import org.chorusmc.chorus.util.translate
@@ -14,17 +16,17 @@ import org.chorusmc.chorus.util.translate
 /**
  * @author Giorgio Garofalo
  */
-class SettingServerManager(useKeys: Boolean) : Pane(), SettingNode {
+class SettingServerManager(useKeys: Boolean, val defaultPort: String) : VBox(), SettingNode {
 
     override lateinit var config: ChorusConfiguration
 
-    init {
-        // TODO add + and - buttons and placeholder
+    val table: TableView<ServerInfo>
 
+    init {
         styleClass += "variables-menu"
         stylesheets += Themes.byConfig().path.first()
 
-        children += TableView<ServerInfo>().apply {
+        table = TableView<ServerInfo>().apply {
             val ipColumn = column("remote.ip", "ip", resizeFactor = 1.0)                   { server, value -> server.ip = value }
             val usernameColumn = column("remote.username", "username", resizeFactor = 1.5) { server, value -> server.username = value }
             val portColumn = column("remote.port", "port", resizeFactor = 3.5)             { server, value -> server.port = value }
@@ -35,17 +37,25 @@ class SettingServerManager(useKeys: Boolean) : Pane(), SettingNode {
 
             isEditable = true
 
+            placeholder = VariablesPlaceholder()
+
             Platform.runLater { items.addAll(getServers()) }
         }
+
+        children.addAll(ServersControlBar(this), table)
     }
 
-    private fun TableView<ServerInfo>.column(translateKey: String, property: String, resizeFactor: Double, apply: (ServerInfo, String) -> Unit) =
+    fun save() {
+        config[this@SettingServerManager.id] = getOutputString()
+    }
+
+    private fun column(translateKey: String, property: String, resizeFactor: Double, apply: (ServerInfo, String) -> Unit) =
             TableColumn<ServerInfo, String>(translate(translateKey)).apply {
                 cellValueFactory = PropertyValueFactory(property)
                 cellFactory = TextFieldTableCell.forTableColumn()
                 setOnEditCommit {
                     apply(it.rowValue, it.newValue)
-                    config[this@SettingServerManager.id] = getOutputString(items)
+                    save()
                 }
 
                 val pane = SettingsController.getInstance().pane
@@ -60,7 +70,7 @@ class SettingServerManager(useKeys: Boolean) : Pane(), SettingNode {
         return config[id].toString().split("\\n").map { line -> ServerInfo.parse(line) }
     }
 
-    private fun getOutputString(servers: List<ServerInfo>) = servers.joinToString("\\n")
+    private fun getOutputString() = table.items.joinToString("\\n")
 }
 
 data class ServerInfo(var ip: String, var username: String, var port: String, var keyPath: String) {
@@ -78,4 +88,11 @@ data class ServerInfo(var ip: String, var username: String, var port: String, va
             )
         }
     }
+}
+
+class ServersControlBar(private val serverManager: SettingServerManager) : TableControlBar<ServerInfo>(serverManager.table) {
+
+    override fun createNewItem() = ServerInfo("my.server.ip", "root", serverManager.defaultPort, "")
+    override fun onCreate(item: ServerInfo) = serverManager.save()
+    override fun onRemove(item: ServerInfo) = serverManager.save()
 }

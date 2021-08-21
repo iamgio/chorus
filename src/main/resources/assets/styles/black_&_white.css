@@ -336,7 +336,7 @@
     -fx-background-color: transparent;
 }
 
-.variables-menu .variables-control-bar {
+.table-control-bar {
     -fx-background-color: -fx-secondary
 }
 

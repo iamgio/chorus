@@ -323,7 +323,7 @@
     -fx-background-color: transparent;
 }
 
-.variables-menu .variables-control-bar {
+.table-control-bar {
     -fx-background-color: derive(-fx-base3, -35%);
 }
 

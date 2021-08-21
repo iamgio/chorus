@@ -12,7 +12,7 @@ enum class SettingInput(val instantiate: () -> Node, val styleClass: String) {
     TEXTAREA({ SettingTextArea() }, "setting-field"),
     COMBOBOX({ SettingComboBox() }, "setting-combobox"),
     CHECKBOX({ SettingCheckBox() }, "setting-checkbox"),
-    DEFAULT_SERVER_MANAGER({ SettingServerManager(false) }, "setting-server"),
-    KEYED_SERVER_MANAGER({ SettingServerManager(true) }, "setting-server"),
+    DEFAULT_SERVER_MANAGER({ SettingServerManager(false, defaultPort = "21") }, "setting-server"),
+    KEYED_SERVER_MANAGER({ SettingServerManager(true, defaultPort = "22") }, "setting-server"),
     TEXT({ SettingText() }, "setting-text")
 }

@@ -326,7 +326,7 @@
     -fx-background-color: transparent;
 }
 
-.variables-menu .variables-control-bar {
+.table-control-bar {
     -fx-background-color: rgba(0, 0, 0, .25);
 }
 
