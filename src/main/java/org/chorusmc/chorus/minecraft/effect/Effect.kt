@@ -25,6 +25,6 @@ interface Effect : McComponent, Iconable, IdAble, Fetchable {
             val table = connection.document.getElementsByAttributeValue("data-description", "Effects")[0]
                     .getElementsByTag("tbody")[0]
             val tr = table.getElementsByTag("tr")[id.toInt()]
-            return tr.getElementsByTag("td")[2].text()
+            return tr.getElementsByTag("td")[3].text()
         }
 }
