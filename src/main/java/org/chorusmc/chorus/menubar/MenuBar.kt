@@ -20,13 +20,13 @@ object MenuBar {
                 MenuBarMainButton(
                         "file",
                         listOf(
-                                MenuBarButton("file.new", NewFile(), KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN)),
-                                MenuBarButton("file.open", Open(), KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN)),
-                                MenuBarButton("file.sftp", OpenFromSFTP(), KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)),
+                                MenuBarButton("file.new", NewFile(), KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN)),
+                                MenuBarButton("file.open", Open(), KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN)),
+                                MenuBarButton("file.sftp", OpenFromSFTP(), KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN)),
                                 MenuBarButton("file.ftp", OpenFromFTP()),
                                 MenuBarButton("file.refresh", Refresh(), KeyCodeCombination(KeyCode.F5)),
-                                MenuBarButton("file.test", TestFile(), KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN)),
-                                MenuBarButton("file.settings", Settings(), KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN))
+                                MenuBarButton("file.test", TestFile(), KeyCodeCombination(KeyCode.T, KeyCombination.SHORTCUT_DOWN)),
+                                MenuBarButton("file.settings", Settings(), KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN, KeyCombination.ALT_DOWN))
                         )
                 ),
                 MenuBarMainButton(
@@ -36,10 +36,10 @@ object MenuBar {
                                 MenuBarButton("edit.redo", Redo()),
                                 MenuBarButton("edit.copy", Copy()),
                                 MenuBarButton("edit.paste", Paste()),
-                                MenuBarButton("edit.search", Search(), KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN)),
-                                MenuBarButton("edit.replace", Replace(), KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN)),
-                                MenuBarButton("edit.make_string", MakeString(), KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN)),
-                                MenuBarButton("edit.variables", Variables(), KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN))
+                                MenuBarButton("edit.search", Search(), KeyCodeCombination(KeyCode.F, KeyCombination.SHORTCUT_DOWN)),
+                                MenuBarButton("edit.replace", Replace(), KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN)),
+                                MenuBarButton("edit.make_string", MakeString(), KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN)),
+                                MenuBarButton("edit.variables", Variables(), KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN))
                         )
                 ),
                 MenuBarMainButton(
