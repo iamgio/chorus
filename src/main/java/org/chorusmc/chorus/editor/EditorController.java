@@ -16,6 +16,7 @@ import org.chorusmc.chorus.file.ChorusFile;
 import org.chorusmc.chorus.file.LocalFile;
 import org.chorusmc.chorus.menubar.MenuBarMainButton;
 import org.chorusmc.chorus.nodes.Tab;
+import org.chorusmc.chorus.util.Os;
 
 import java.net.URL;
 import java.util.List;
@@ -61,6 +62,8 @@ public class EditorController implements Initializable {
                 e.getDragboard().getFiles().forEach(file -> new EditorTab(new LocalFile(file)).add());
             }
         });
+
+        if(Os.isMac()) menuBar.setUseSystemMenuBar(true);
 
         List<MenuBarMainButton> menuBarButtons = org.chorusmc.chorus.menubar.MenuBar.INSTANCE.getMenuBarButtons();
         menuBarButtons.forEach(button -> {
