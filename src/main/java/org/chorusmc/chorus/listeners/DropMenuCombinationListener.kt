@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCombination
 import javafx.scene.input.KeyEvent
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.drop.MainDropMenu
+import org.chorusmc.chorus.util.keyCombination
 
 /**
  * @author Giorgio Garofalo
@@ -13,7 +14,11 @@ import org.chorusmc.chorus.menus.drop.MainDropMenu
 class DropMenuCombinationListener : EditorEvent() {
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
-        if(KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN).match(event)) {
+        val combination = keyCombination(
+                default = KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN),
+                mac = KeyCodeCombination(KeyCode.SPACE, KeyCombination.ALT_DOWN)
+        )
+        if(combination.match(event)) {
             MainDropMenu.quickOpen()
         }
     }

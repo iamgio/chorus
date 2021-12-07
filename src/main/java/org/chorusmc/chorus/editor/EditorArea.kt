@@ -28,7 +28,6 @@ import org.fxmisc.richtext.model.PlainTextChange
 import org.fxmisc.richtext.model.StyleSpans
 import org.fxmisc.richtext.model.StyleSpansBuilder
 import java.time.Duration
-import java.util.*
 import java.util.regex.Pattern
 
 /**
@@ -317,7 +316,7 @@ class EditorArea(
 
         // Update font size on CTRL+wheel
         addEventFilter(ScrollEvent.ANY) { e ->
-            if(e.isControlDown) {
+            if(e.isShortcutDown) {
                 e.consume()
                 var fontSize = Chorus.getInstance().config.getInt(fontSizeSetting)
                 if(e.deltaY > 0) {

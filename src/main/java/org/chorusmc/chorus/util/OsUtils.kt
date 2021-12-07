@@ -1,6 +1,8 @@
 @file:JvmName("Os")
 package org.chorusmc.chorus.util
 
+import javafx.scene.input.KeyCodeCombination
+
 // OS-related utilities
 
 enum class OsType {
@@ -25,3 +27,10 @@ val isMac: Boolean
 
 val isLinux: Boolean
     get() = os == OsType.LINUX
+
+/**
+ * @param default key combination for non-mac systems
+ * @param mac key combination for macOS/OSX
+ * @return key combination based on system
+ */
+fun keyCombination(default: KeyCodeCombination, mac: KeyCodeCombination) = if(isMac) mac else default

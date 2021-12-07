@@ -9,6 +9,7 @@ import org.chorusmc.chorus.menubar.addons.MyAddons
 import org.chorusmc.chorus.menubar.edit.*
 import org.chorusmc.chorus.menubar.file.*
 import org.chorusmc.chorus.menubar.help.*
+import org.chorusmc.chorus.util.keyCombination
 
 /**
  * @author Giorgio Garofalo
@@ -24,9 +25,15 @@ object MenuBar {
                                 MenuBarButton("file.open", Open(), KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN)),
                                 MenuBarButton("file.sftp", OpenFromSFTP(), KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN)),
                                 MenuBarButton("file.ftp", OpenFromFTP()),
-                                MenuBarButton("file.refresh", Refresh(), KeyCodeCombination(KeyCode.F5)),
+                                MenuBarButton("file.refresh", Refresh(), keyCombination(
+                                        default = KeyCodeCombination(KeyCode.F5),
+                                        mac = KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN)
+                                )),
                                 MenuBarButton("file.test", TestFile(), KeyCodeCombination(KeyCode.T, KeyCombination.SHORTCUT_DOWN)),
-                                MenuBarButton("file.settings", Settings(), KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN, KeyCombination.ALT_DOWN))
+                                MenuBarButton("file.settings", Settings(), keyCombination(
+                                        default = KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN, KeyCombination.ALT_DOWN),
+                                        mac = KeyCodeCombination(KeyCode.COMMA, KeyCombination.SHORTCUT_DOWN)
+                                ))
                         )
                 ),
                 MenuBarMainButton(

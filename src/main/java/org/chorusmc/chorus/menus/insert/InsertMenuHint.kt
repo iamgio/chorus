@@ -29,7 +29,7 @@ class InsertMenuHint(val text: String, images: List<Image>?) : HBox(), Actionabl
             view.isPreserveRatio = true
             view.fitHeight = 24.0
             view.setOnMouseMoved {
-                selected = if(it.isControlDown) index else -1
+                selected = if(it.isShortcutDown) index else -1
                 setOpacity()
             }
             view.setOnMouseExited {
@@ -37,7 +37,7 @@ class InsertMenuHint(val text: String, images: List<Image>?) : HBox(), Actionabl
                 setOpacity()
             }
             view.setOnMousePressed {
-                selected = if(it.isControlDown) index else -1
+                selected = if(it.isShortcutDown) index else -1
                 setOpacity()
             }
             children += view

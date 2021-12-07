@@ -15,7 +15,7 @@ class InfoHoverListener : TabOpenerListener {
 
     override fun onTabOpen(area: EditorArea) {
         area.addEventHandler(MouseEvent.MOUSE_CLICKED) {e ->
-            if(!e.isControlDown) return@addEventHandler
+            if(!e.isShortcutDown) return@addEventHandler
             val index = area.caretPosition
             val styles = area.getStyleOfChar(index)
             if(styles.isEmpty()) return@addEventHandler

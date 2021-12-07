@@ -213,7 +213,7 @@ private class GridMember(private val n: Int, private val x: Int, private val y: 
                     removeImage()
                 }
                 MouseButton.MIDDLE -> {
-                    when(it.isControlDown) {
+                    when(it.isShortcutDown) {
                         true -> Clipboard.copied = this
                         false -> {
                             val copied = Clipboard.copied
