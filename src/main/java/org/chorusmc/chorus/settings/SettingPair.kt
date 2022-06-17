@@ -70,7 +70,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
             is SettingComboBox -> {
                 val options = stringToList(inputString!!)
                 input.items = options.toObservableList()
-                input.value = options.first { it.equals(config[key].toString(), ignoreCase = true) }
+                input.value = options.firstOrNull { it.equals(config[key].toString(), ignoreCase = true) }
                 input.selectionModel.selectedItemProperty().addListener { _ -> getActions(key)?.forEach { it.run() } }
             }
             is SettingCheckBox -> {
