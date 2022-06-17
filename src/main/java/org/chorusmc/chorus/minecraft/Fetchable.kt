@@ -22,12 +22,21 @@ interface Fetchable : Descriptionable {
     /**
      * @return Text from first paragraph of the official wiki
      */
-    fun getFirstWikiParagraph(element: Element): String {
-        val paragraphs = element.getElementById("mw-content-text")!!
-                .getElementsByTag("p")
-                .filter {!it.parents().contains(element.getElementsByClass("infobox-rows")[0])}
-        return ("${paragraphs[0].text().replace(".", ".\n")}\n${paragraphs[1].text().replace(".", ".\n")}")
-                .replace(Regex("\\[.]"), "")
+    fun getFirstWikiParagraph(element: Element, maxParagraphs: Short = 2): String {
+        val paragraphs = element.getElementById("mw-content-text")
+                ?.getElementsByTag("p")
+                ?: return ""
+
+        val builder = StringBuilder()
+        var paragraphsCount: Short = 0
+        paragraphs.forEach {
+            if(paragraphsCount < maxParagraphs && it.parent()?.tagName() != "td") {
+                builder.append(it.text().replace(".", ".\n"))
+                paragraphsCount++
+            }
+        }
+
+        return builder.toString().replace(Regex("\\[.]"), "")
     }
 }
 
