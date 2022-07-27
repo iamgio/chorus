@@ -162,14 +162,14 @@
             <version>v1.0.2</version>
         </dependency>
         <dependency>
-            <groupId>com.github.iAmGio</groupId>
+            <groupId>eu.iamgio</groupId>
             <artifactId>animated</artifactId>
-            <version>0.5.0</version>
+            <version>0.5.1</version>
         </dependency>
         <dependency>
-            <groupId>com.github.iAmGio</groupId>
+            <groupId>com.github.iamgio</groupId>
             <artifactId>froxty</artifactId>
-            <version>v1.3.0</version>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

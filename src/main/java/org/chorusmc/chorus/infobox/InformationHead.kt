@@ -18,7 +18,6 @@ class InformationHead(image: Image?, text: String? = null) : FrostyBox(FrostyEff
     val imageView = ImageView()
 
     init {
-        antialiasingLevel = .2
         child = StackPane().apply {
             if(image != null) {
                 imageView.isPreserveRatio = true
