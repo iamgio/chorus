@@ -194,6 +194,7 @@
                                         <argument>--bundle-identifier=org.chorusmc.chorus</argument>
                                         <argument>--version=${project.version}</argument>
                                         <argument>--short-version=${project.version}</argument>
+                                        <argument>--icon=${project.basedir}/src/main/resources/assets/images/icon.icns</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
