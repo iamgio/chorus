@@ -16,6 +16,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <jar2app.path>jar2app.py</jar2app.path>
     </properties>
 
     <build>
@@ -116,42 +117,92 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.akathist.maven.plugins.launch4j</groupId>
-                <artifactId>launch4j-maven-plugin</artifactId>
-                <version>2.1.1</version>
-                <executions>
-                    <execution>
-                        <id>l4j-clui</id>
-                        <phase>package</phase>
-                        <goals><goal>launch4j</goal></goals>
-                        <configuration>
-                            <dontWrapJar>false</dontWrapJar>
-                            <headerType>gui</headerType>
-                            <jar>target/chorus.jar</jar>
-                            <outfile>target/chorus.exe</outfile>
-                            <errTitle>chorus</errTitle>
-                            <icon>${project.basedir}/src/main/resources/assets/images/icon.ico</icon>
-                            <jre>
-                                <minVersion>1.8.0</minVersion>
-                            </jre>
-                            <versionInfo>
-                                <copyright>Giorgio Garofalo (c) 2018-2022</copyright>
-                                <fileDescription>${project.name}</fileDescription>
-                                <productName>${project.name}</productName>
-                                <internalName>chorus</internalName>
-                                <originalFilename>chorus.exe</originalFilename>
-                                <txtFileVersion>${project.version}</txtFileVersion>
-                                <fileVersion>${project.version}.0</fileVersion>
-                                <productVersion>${project.version}.0</productVersion>
-                                <txtProductVersion>${project.version}</txtProductVersion>
-                            </versionInfo>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <!--
+                Run with -Prelease to generate wrapped executables.
+                Property -Djar2app.path={jar2app.py path} is required to generate the macOS app bundle.
+
+                Complete example:
+                mvn -Djar2app.path=path/to/jar2app/jar2app.py clean install -Prelease
+
+                Download jar2app here:
+                https://github.com/Jorl17/jar2app#install
+            -->
+
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                        <artifactId>launch4j-maven-plugin</artifactId>
+                        <version>2.1.1</version>
+                        <executions>
+                            <execution>
+                                <id>l4j-clui</id>
+                                <phase>package</phase>
+                                <goals><goal>launch4j</goal></goals>
+                                <configuration>
+                                    <dontWrapJar>false</dontWrapJar>
+                                    <headerType>gui</headerType>
+                                    <jar>target/chorus.jar</jar>
+                                    <outfile>target/chorus.exe</outfile>
+                                    <errTitle>chorus</errTitle>
+                                    <icon>${project.basedir}/src/main/resources/assets/images/icon.ico</icon>
+                                    <jre>
+                                        <minVersion>1.8.0</minVersion>
+                                    </jre>
+                                    <versionInfo>
+                                        <copyright>Giorgio Garofalo (c) 2018-2022</copyright>
+                                        <companyName>github.com/iamgio</companyName>
+                                        <fileDescription>${project.name}</fileDescription>
+                                        <productName>${project.name}</productName>
+                                        <internalName>chorus</internalName>
+                                        <originalFilename>chorus.exe</originalFilename>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <fileVersion>${project.version}.0</fileVersion>
+                                        <productVersion>${project.version}.0</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <workingDirectory>target</workingDirectory>
+                                    <executable>python</executable>
+                                    <arguments>
+                                        <argument>${jar2app.path}</argument>
+                                        <argument>chorus.jar</argument>
+                                        <argument>--display-name=Chorus</argument>
+                                        <argument>--bundle-identifier=org.chorusmc.chorus</argument>
+                                        <argument>--version=${project.version}</argument>
+                                        <argument>--short-version=${project.version}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 
     <repositories>
