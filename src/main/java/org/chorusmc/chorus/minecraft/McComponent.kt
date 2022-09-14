@@ -33,8 +33,14 @@ abstract class McComponents<T : McComponent>(private val name: String, private v
      * Parses a .txt file into lines split by :
      */
     private fun loadFromFile(): List<List<String>> {
-        return String(McComponent::class.java.getResourceAsStream("/components/${version.packageName}/$name.txt")!!.readAllBytes()).lines()
-                .map { it.split(":") }
+        val resource = McComponent::class.java.getResourceAsStream("/components/${version.packageName}/$name.txt")!!
+        val components = mutableListOf<List<String>>()
+
+        resource.bufferedReader().forEachLine { line ->
+            components += line.split(":")
+        }
+
+        return components
     }
 
     protected fun loadIcon(imageName: String): Image? {
