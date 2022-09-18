@@ -114,6 +114,10 @@
     -fx-background-color: derive(-fx-primary, -10%);
 }
 
+.editor-corner-info {
+    -fx-text-fill: rgba(0, 0, 0, .5);
+}
+
 .scroll-bar:hover, .scroll-bar:focused {
     -fx-background-color: derive(-fx-primary, -4%);
 }

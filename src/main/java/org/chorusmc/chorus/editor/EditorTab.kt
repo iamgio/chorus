@@ -1,9 +1,10 @@
 package org.chorusmc.chorus.editor
 
+import javafx.scene.layout.StackPane
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.addon.Addons
-import org.chorusmc.chorus.listeners.Events
 import org.chorusmc.chorus.file.ChorusFile
+import org.chorusmc.chorus.listeners.Events
 import org.chorusmc.chorus.listeners.TabOpenerListener
 import org.chorusmc.chorus.menus.Showable
 import org.chorusmc.chorus.nodes.Tab
@@ -38,8 +39,13 @@ class EditorTab(private var file: ChorusFile) {
         }
 
         // Append the tab
-        val area = EditorArea(file, file.name.endsWith(".yml"))
-        val tab = Tab(file.name, VirtualizedScrollPane(area), file)
+        val area = EditorArea(file, highlight = file.name.endsWith(".yml"))
+
+        val cornerInfo = EditorCornerInfo()
+        area.cornerInfo = cornerInfo
+
+        val stackPane = StackPane(VirtualizedScrollPane(area), cornerInfo)
+        val tab = Tab(file.name, stackPane, file, area)
         tabs += path to tab
         tabPane.tabs += tab
         tabPane.selectionModel.select(tab)

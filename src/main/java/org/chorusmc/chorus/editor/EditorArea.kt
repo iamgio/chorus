@@ -57,6 +57,11 @@ class EditorArea(
     private val overlayPatterns = mutableListOf<EditorPattern>()
 
     /**
+     * An information label placed on the corner that displays information.
+     */
+    var cornerInfo: EditorCornerInfo? = null
+
+    /**
      * Updates text highlighting
      */
     private fun updateHighlighting() {
@@ -158,6 +163,8 @@ class EditorArea(
     fun saveFile() {
         if(!file.save(text)) {
             Notification(translate("error.save", file.name), NotificationType.ERROR).send()
+        } else {
+            cornerInfo?.display(translate("saved"))
         }
     }
 

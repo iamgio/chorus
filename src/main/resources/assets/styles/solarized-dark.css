@@ -115,6 +115,10 @@
     -fx-font-size: 65%;
 }
 
+.editor-corner-info {
+    -fx-text-fill: -fx-base01;
+}
+
 .scroll-bar:hover, .scroll-bar:focused {
     -fx-background-color: derive(-fx-base02, -12%);
 }
