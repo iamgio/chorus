@@ -4,7 +4,6 @@ import javafx.geometry.Pos
 import javafx.scene.control.Label
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
-import org.chorusmc.chorus.listeners.AUTOCOMPLETION_REGEX
 import org.chorusmc.chorus.listeners.AutocompletionListener
 import org.chorusmc.chorus.menus.BrowsableVBox
 import org.chorusmc.chorus.menus.MenuPlacer
@@ -23,32 +22,24 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
     init {
         styleClass += "drop-menu"
         isFocusTraversable = true
-        focusedProperty().addListener {_, _, new -> if(new) vbox.requestFocus()}
+        focusedProperty().addListener { _, _, new -> if(new) vbox.requestFocus() }
         val area = area!!
         val list = mutableListOf<String>()
-        options.forEach {option ->
-            if(!list.contains(option.key)) {
-                val button = AutocompletionButton(option.key)
-                button.setOnAction {
-                    listener.b = true
-                    var padding = 0
-                    for(i in pos until area.length) {
-                        val char = area.text[i]
-                        if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
-                        padding++
-                    }
-                    area.replaceText(pos - word.length, pos + padding, option.value)
-                    hide()
-                    listener.b = false
-                }
-                list.add(option.key)
-                vbox.children += button
+        options.forEach { option ->
+            val button = AutocompletionButton(option.key)
+            button.setOnAction {
+                listener.b = true
+                area.replaceText(pos - word.length, pos, option.value)
+                hide()
+                listener.b = false
             }
+            list.add(option.key)
+            vbox.children += button
         }
         if(vbox.children.size > 0) {
             val max = (vbox.children.maxByOrNull { (it as AutocompletionButton).prefWidth }!! as AutocompletionButton)
             prefWidth = max.prefWidth
-            vbox.children.forEach {(it as AutocompletionButton).prefWidth = max.prefWidth}
+            vbox.children.forEach { (it as AutocompletionButton).prefWidth = max.prefWidth }
             val label = Label(size.toString() + " " + translate("autocompletion.results." + if(list.size > 1) "plural" else "singular"))
             label.prefWidth = max.prefWidth
             label.styleClass += "colored-text-preview-title-bar"
@@ -88,7 +79,8 @@ class AutocompletionMenu(options: HashMap<String, String>, word: String, size: I
     override fun getMenuY(): Double = layoutY
 
     companion object {
-        @JvmStatic val current
+        @JvmStatic
+        val current
             get() = Chorus.getInstance().root.children.filterIsInstance<AutocompletionMenu>().firstOrNull()
     }
 }

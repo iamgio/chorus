@@ -16,7 +16,11 @@ import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.variable.Variables
 import org.fxmisc.richtext.model.PlainTextChange
 
-const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}_$]"
+/**
+ * Whether [char] splits a word.
+ */
+fun isWordBreaker(char: Char): Boolean =
+        char.isWhitespace() || (!char.isLetterOrDigit() && char != '_' && char != '{' && char != '}' && char != '%' && char != '$')
 
 /**
  * @author Giorgio Garofalo
@@ -24,10 +28,6 @@ const val AUTOCOMPLETION_REGEX = "[^a-zA-Z0-9%{}_$]"
 class AutocompletionListener : EditorEvent() {
 
     var b = false
-
-    init {
-        loadOptions()
-    }
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
         // Move through the menu if the down arrow key is pressed
@@ -56,20 +56,24 @@ class AutocompletionListener : EditorEvent() {
                 for(i in pos - 1 downTo 0) {
                     if(area.text.length <= i) return
                     val char = area.text[i]
-                    if(char.toString().matches(Regex(AUTOCOMPLETION_REGEX))) break
-                    word += char
+                    if(isWordBreaker(char)) break
+                    word = char + word
                 }
-                word = word.reversed()
 
 
+                // Additional optimization will be brought by caching these values.
                 if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
                     val maxSize = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
 
                     // Load game elements if the user is typing in a string
-                    val options = if("string" in area.getStyleOfChar(pos)) {
-                        LinkedHashMap()
-                    } else {
-                        options.filter { it.key.replace(" ", "_").contains(word, ignoreCase = true) } as LinkedHashMap<String, String>
+                    val options = hashMapOf<String, String>()
+                    if("string" !in area.getStyleOfChar(pos)) {
+                        for((name, formalName) in allOptions) {
+                            if(options.size == maxSize) break
+                            if(name.replace(" ", "_").contains(word, ignoreCase = true)) {
+                                options += name to formalName
+                            }
+                        }
                     }
 
                     // Load variables
@@ -77,16 +81,7 @@ class AutocompletionListener : EditorEvent() {
                         if(it.name.contains(word, ignoreCase = true)) options += it.name to it.name
                     }
 
-                    // Get amount of options (to be shown in the bottom of the menu)
-                    val optionsSize = options.size
-
-                    // Truncate the options to the max size if needed
-                    val updatedOptions = if(options.size > maxSize) {
-                        var i = -1
-                        options.filter { i++; i < maxSize } as LinkedHashMap<String, String>
-                    } else options
-
-                    val menu = AutocompletionMenu(updatedOptions, word, optionsSize, area.caretPosition, this)
+                    val menu = AutocompletionMenu(options, word, options.size, area.caretPosition, this)
                     current?.hide()
                     if(menu.children.size > 0) {
                         val bounds = area.localCaretBounds
@@ -100,20 +95,19 @@ class AutocompletionListener : EditorEvent() {
     }
 
     companion object {
-
-        lateinit var options: LinkedHashMap<String, String>
+        lateinit var allOptions: Map<String, String>
+            private set
 
         @JvmStatic fun loadOptions() {
-            options =
-                    linkedMapOf(
-                            "true" to "true", "false" to "false",
-                            *McClass(Items).enumValues                  .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Entities).enumValues               .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Particles).enumValues              .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Effects).enumValues                .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Enchantments).enumValues           .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                            *McClass(Sounds).enumValues                 .map { it.name.makeFormal() to it.name }.toTypedArray()
-                    )
+            allOptions = mapOf(
+                    "true" to "true", "false" to "false",
+                    *McClass(Items).enumValues       .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                    *McClass(Entities).enumValues    .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                    *McClass(Particles).enumValues   .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                    *McClass(Effects).enumValues     .map { it.name.makeFormal() to it.name }.toTypedArray(),
+                    *McClass(Enchantments).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
+                    *McClass(Sounds).enumValues      .map { it.name.makeFormal() to it.name }.toTypedArray()
+            )
         }
     }
 }

@@ -309,6 +309,7 @@ public class Chorus extends FXApplication {
             AutocompletionListener.loadOptions();
             FixedEditorPattern.update();
         });
+        AutocompletionListener.loadOptions();
 
         SettingsBuilder.addPlaceholder("themes", Themes.generateConfigPlaceholder());
         SettingsBuilder.addPlaceholder("languages", Lang.generateConfigPlaceholder());
