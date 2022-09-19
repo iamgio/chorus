@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Label
 import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
+import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.listeners.AutocompletionListener
 import org.chorusmc.chorus.menus.BrowsableVBox
 import org.chorusmc.chorus.menus.MenuPlacer
@@ -15,37 +16,44 @@ import org.chorusmc.chorus.util.translate
 /**
  * @author Giorgio Garofalo
  */
-class AutocompletionMenu(options: HashMap<String, String>, word: String, size: Int, pos: Int, listener: AutocompletionListener) : VBox(), Showable {
+class AutocompletionMenu(private val listener: AutocompletionListener) : VBox(), Showable {
 
     val vbox = BrowsableVBox(autoFocus = false)
+    private val resultsLabel = Label()
 
     init {
         styleClass += "drop-menu"
         isFocusTraversable = true
         focusedProperty().addListener { _, _, new -> if(new) vbox.requestFocus() }
-        val area = area!!
-        val list = mutableListOf<String>()
+
+        children.addAll(vbox, resultsLabel)
+    }
+
+    fun updateOptions(area: EditorArea, options: Map<String, String>, word: String, size: Int, pos: Int) {
+        vbox.children.clear()
         options.forEach { option ->
             val button = AutocompletionButton(option.key)
             button.setOnAction {
-                listener.b = true
+                listener.ignoreAutocompletion = true
                 area.replaceText(pos - word.length, pos, option.value)
                 hide()
-                listener.b = false
+                listener.ignoreAutocompletion = false
             }
-            list.add(option.key)
             vbox.children += button
         }
+
         if(vbox.children.size > 0) {
             val max = (vbox.children.maxByOrNull { (it as AutocompletionButton).prefWidth }!! as AutocompletionButton)
             prefWidth = max.prefWidth
             vbox.children.forEach { (it as AutocompletionButton).prefWidth = max.prefWidth }
-            val label = Label(size.toString() + " " + translate("autocompletion.results." + if(list.size > 1) "plural" else "singular"))
-            label.prefWidth = max.prefWidth
-            label.styleClass += "colored-text-preview-title-bar"
-            label.style = "-fx-font-size: 10; -fx-padding: 5; -fx-opacity: .7"
-            label.alignment = Pos.CENTER_LEFT
-            children.addAll(vbox, label)
+
+            with(resultsLabel) {
+                text = size.toString() + " " + translate("autocompletion.results." + if(options.size > 1) "plural" else "singular")
+                prefWidth = max.prefWidth
+                styleClass += "colored-text-preview-title-bar"
+                style = "-fx-font-size: 10; -fx-padding: 5; -fx-opacity: .7"
+                alignment = Pos.CENTER_LEFT
+            }
         }
 
         vbox.onSelectUpdate = {

@@ -11,6 +11,7 @@ import org.chorusmc.chorus.minecraft.entity.Entities
 import org.chorusmc.chorus.minecraft.item.Items
 import org.chorusmc.chorus.minecraft.particle.Particles
 import org.chorusmc.chorus.minecraft.sound.Sounds
+import org.chorusmc.chorus.settings.SettingsBuilder
 import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.variable.Variables
@@ -27,7 +28,26 @@ fun isWordBreaker(char: Char): Boolean =
  */
 class AutocompletionListener : EditorEvent() {
 
-    var b = false
+    private var enabled = false
+    private var minLength = 0
+    private var maxHints = 10
+
+    var ignoreAutocompletion = false
+    var menu: AutocompletionMenu? = null
+
+    init {
+        "3.YAML.4.Autocompletion".let {
+            SettingsBuilder.addAction(it, { enabled = config.getBoolean(it)}, runNow = true)
+        }
+
+        "3.YAML.5.Minimum_length_for_autocompletion".let {
+            SettingsBuilder.addAction(it, { minLength = config.getInt(it)}, runNow = true)
+        }
+
+        "3.YAML.6.Max_autocompletion_hints_size".let {
+            SettingsBuilder.addAction(it, { maxHints = config.getInt(it)}, runNow = true)
+        }
+    }
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
         // Move through the menu if the down arrow key is pressed
@@ -42,55 +62,64 @@ class AutocompletionListener : EditorEvent() {
 
     override fun onChange(change: PlainTextChange, area: EditorArea) {
         val current = AutocompletionMenu.current
-        if(!b && config.getBoolean("3.YAML.4.Autocompletion")) {
-            if(change.inserted.length > change.removed.length) {
-                val pos = area.caretPosition
-                if(area.caretPosition < area.text.length) {
-                    // Exit if the user is typing a key
-                    val style = area.getStyleOfChar(pos)
-                    if("key" in style || "colon" in style) return
-                }
+        if(!ignoreAutocompletion && enabled && change.inserted.length > change.removed.length) {
+            val pos = area.caretPosition
+            if(area.caretPosition < area.text.length) {
+                // Exit if the user is typing a key
+                val style = area.getStyleOfChar(pos)
+                if("key" in style || "colon" in style) return
+            }
 
-                // Find the current word
-                var word = ""
+            // Find the current word
+            val word = buildString {
                 for(i in pos - 1 downTo 0) {
                     if(area.text.length <= i) return
                     val char = area.text[i]
                     if(isWordBreaker(char)) break
-                    word = char + word
+                    insert(0, char)
                 }
+            }
 
 
-                // Additional optimization will be brought by caching these values.
-                if(word.length >= config.getInt("3.YAML.5.Minimum_length_for_autocompletion")) {
-                    val maxSize = config.getInt("3.YAML.6.Max_autocompletion_hints_size")
-
-                    // Load game elements if the user is typing in a string
-                    val options = hashMapOf<String, String>()
-                    if("string" !in area.getStyleOfChar(pos)) {
-                        for((name, formalName) in allOptions) {
-                            if(options.size == maxSize) break
-                            if(name.replace(" ", "_").contains(word, ignoreCase = true)) {
-                                options += name to formalName
-                            }
+            // Additional optimization will be brought by caching these values.
+            if(word.length >= minLength) {
+                // Load game elements if the user is typing in a string
+                val options = hashMapOf<String, String>()
+                if("string" !in area.getStyleOfChar(pos)) {
+                    for((name, formalName) in allOptions) {
+                        if(options.size >= maxHints) break
+                        if(name.contains(word, ignoreCase = true)) {
+                            options += name to formalName
                         }
                     }
+                }
 
-                    // Load variables
-                    Variables.getVariables().reversed().forEach {
-                        if(it.name.contains(word, ignoreCase = true)) options += it.name to it.name
-                    }
+                // Load variables
+                Variables.getVariables().forEach {
+                    if(it.name.contains(word, ignoreCase = true)) options += it.name to it.name
+                }
 
-                    val menu = AutocompletionMenu(options, word, options.size, area.caretPosition, this)
+                if(menu == null) {
+                    menu = AutocompletionMenu(this)
+                }
+
+                val menu = menu!!
+                menu.updateOptions(area, options, word, options.size, area.caretPosition)
+
+                if(menu.children.size > 0) {
+                    val bounds = area.localCaretBounds
+                    menu.layoutX = bounds?.minX ?: 0.0
+                    menu.layoutY = (bounds?.minY ?: 0.0) + 90
+                }
+
+                if(current !is AutocompletionMenu) {
                     current?.hide()
-                    if(menu.children.size > 0) {
-                        val bounds = area.localCaretBounds
-                        menu.layoutX = bounds?.minX ?: 0.0
-                        menu.layoutY = (bounds?.minY ?: 0.0) + 90
-                        menu.show()
-                    }
-                } else current?.hide()
-            } else current?.hide()
+                    menu.show()
+                }
+            } else {
+                current?.hide()
+                menu = null
+            }
         }
     }
 
