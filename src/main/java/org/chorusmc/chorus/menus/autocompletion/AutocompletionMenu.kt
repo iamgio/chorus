@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox
 import org.chorusmc.chorus.Chorus
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.listeners.AutocompletionListener
+import org.chorusmc.chorus.listeners.isWordBreaker
 import org.chorusmc.chorus.menus.BrowsableVBox
 import org.chorusmc.chorus.menus.MenuPlacer
 import org.chorusmc.chorus.menus.Showable
@@ -34,8 +35,19 @@ class AutocompletionMenu(private val listener: AutocompletionListener) : VBox(),
         options.forEach { option ->
             val button = AutocompletionButton(option.key)
             button.setOnAction {
+                // Padding improves autocompletion usability. Example:
+                // COB[caret]E
+                // Inserting COBBLESTONE from the menu will 'absorb' the final E
+                // and the result will be COBBLESTONE[caret] instead of COBBLESTONE[caret]E
+                var padding = 0
+                for(i in pos until area.length) {
+                    val char = area.text[i]
+                    if(isWordBreaker(char)) break
+                    padding++
+                }
+
                 listener.ignoreAutocompletion = true
-                area.replaceText(pos - word.length, pos, option.value)
+                area.replaceText(pos - word.length, pos + padding, option.value)
                 hide()
                 listener.ignoreAutocompletion = false
             }
