@@ -5,6 +5,7 @@ import javafx.scene.input.KeyEvent
 import org.chorusmc.chorus.editor.EditorArea
 import org.chorusmc.chorus.menus.autocompletion.AutocompletionMenu
 import org.chorusmc.chorus.minecraft.McClass
+import org.chorusmc.chorus.minecraft.SuperMcComponents
 import org.chorusmc.chorus.minecraft.effect.Effects
 import org.chorusmc.chorus.minecraft.enchantment.Enchantments
 import org.chorusmc.chorus.minecraft.entity.Entities
@@ -83,7 +84,7 @@ class AutocompletionListener : EditorEvent() {
 
             // Additional optimization will be brought by caching these values.
             if(word.length >= minLength) {
-                // Load game elements if the user is typing in a string
+                // Load game elements if the user is not typing in a string
                 val options = hashMapOf<String, String>()
                 if("string" !in area.getStyleOfChar(pos)) {
                     for((name, formalName) in allOptions) {
@@ -124,19 +125,32 @@ class AutocompletionListener : EditorEvent() {
     }
 
     companion object {
+        /**
+         * Autocompletion options in a map, with the option's shown name as key and its typed name as value.
+         */
         lateinit var allOptions: Map<String, String>
             private set
 
+        /**
+         * Stores autocompletion options.
+         */
         @JvmStatic fun loadOptions() {
             allOptions = mapOf(
                     "true" to "true", "false" to "false",
-                    *McClass(Items).enumValues       .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                    *McClass(Entities).enumValues    .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                    *McClass(Particles).enumValues   .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                    *McClass(Effects).enumValues     .map { it.name.makeFormal() to it.name }.toTypedArray(),
-                    *McClass(Enchantments).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray(),
-                    *McClass(Sounds).enumValues      .map { it.name.makeFormal() to it.name }.toTypedArray()
+                    *getOptionsFor(Items),
+                    *getOptionsFor(Entities),
+                    *getOptionsFor(Particles),
+                    *getOptionsFor(Effects),
+                    *getOptionsFor(Enchantments),
+                    *getOptionsFor(Sounds)
             )
+        }
+
+        /**
+         * Gets autocompletion options for a [superMcComponents] (e.g. [Items]).
+         */
+        private fun getOptionsFor(superMcComponents: SuperMcComponents<*>): Array<Pair<String, String>> {
+            return McClass(superMcComponents).enumValues.map { it.name.makeFormal() to it.name }.toTypedArray()
         }
     }
 }
