@@ -12,8 +12,8 @@ import org.chorusmc.chorus.minecraft.entity.Entities
 import org.chorusmc.chorus.minecraft.item.Items
 import org.chorusmc.chorus.minecraft.particle.Particles
 import org.chorusmc.chorus.minecraft.sound.Sounds
-import org.chorusmc.chorus.settings.SettingsBuilder
-import org.chorusmc.chorus.util.config
+import org.chorusmc.chorus.settings.ObservableBooleanSettingsProperty
+import org.chorusmc.chorus.settings.ObservableIntSettingsProperty
 import org.chorusmc.chorus.util.makeFormal
 import org.chorusmc.chorus.variable.Variables
 import org.fxmisc.richtext.model.PlainTextChange
@@ -29,26 +29,12 @@ fun isWordBreaker(char: Char): Boolean =
  */
 class AutocompletionListener : EditorEvent() {
 
-    private var enabled = false
-    private var minLength = 0
-    private var maxHints = 10
+    private val enabled by ObservableBooleanSettingsProperty("3.YAML.4.Autocompletion")
+    private val minLength by ObservableIntSettingsProperty("3.YAML.5.Minimum_length_for_autocompletion")
+    private val maxHints by ObservableIntSettingsProperty("3.YAML.6.Max_autocompletion_hints_size")
 
     var ignoreAutocompletion = false
     var menu: AutocompletionMenu? = null
-
-    init {
-        "3.YAML.4.Autocompletion".let {
-            SettingsBuilder.addAction(it, { enabled = config.getBoolean(it)}, runNow = true)
-        }
-
-        "3.YAML.5.Minimum_length_for_autocompletion".let {
-            SettingsBuilder.addAction(it, { minLength = config.getInt(it)}, runNow = true)
-        }
-
-        "3.YAML.6.Max_autocompletion_hints_size".let {
-            SettingsBuilder.addAction(it, { maxHints = config.getInt(it)}, runNow = true)
-        }
-    }
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
         // Move through the menu if the down arrow key is pressed
@@ -113,10 +99,7 @@ class AutocompletionListener : EditorEvent() {
                     menu.layoutY = (bounds?.minY ?: 0.0) + 90
                 }
 
-                if(current !is AutocompletionMenu) {
-                    current?.hide()
-                    menu.show()
-                }
+                if(current !is AutocompletionMenu) menu.show()
             } else {
                 current?.hide()
                 menu = null
