@@ -93,7 +93,7 @@ class AutocompletionListener : EditorEvent() {
                 val menu = menu!!
                 menu.updateOptions(area, options, word, options.size, area.caretPosition)
 
-                if(menu.children.size > 0) {
+                if(menu.children.isNotEmpty()) {
                     val bounds = area.localCaretBounds
                     menu.layoutX = bounds?.minX ?: 0.0
                     menu.layoutY = (bounds?.minY ?: 0.0) + 90

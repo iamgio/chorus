@@ -54,8 +54,8 @@ class AutocompletionMenu(private val listener: AutocompletionListener) : VBox(),
             vbox.children += button
         }
 
-        if(vbox.children.size > 0) {
-            val max = (vbox.children.maxByOrNull { (it as AutocompletionButton).prefWidth }!! as AutocompletionButton)
+        if(options.isNotEmpty()) {
+            val max = vbox.children.maxByOrNull { (it as AutocompletionButton).prefWidth }!! as AutocompletionButton
             prefWidth = max.prefWidth
             vbox.children.forEach { (it as AutocompletionButton).prefWidth = max.prefWidth }
 
@@ -65,8 +65,9 @@ class AutocompletionMenu(private val listener: AutocompletionListener) : VBox(),
                 styleClass += "colored-text-preview-title-bar"
                 style = "-fx-font-size: 10; -fx-padding: 5; -fx-opacity: .7"
                 alignment = Pos.CENTER_LEFT
+                isVisible = true
             }
-        }
+        } else resultsLabel.isVisible = false
 
         vbox.onSelectUpdate = {
             (if(vbox.hasSelectedNode) vbox else area).requestFocus()
