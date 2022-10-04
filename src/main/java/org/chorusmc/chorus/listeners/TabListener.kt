@@ -12,17 +12,13 @@ import org.chorusmc.chorus.util.config
 class TabListener : EditorEvent() {
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
-        try {
-            if(config.getBoolean("3.YAML.1.Replace_tabs_with_spaces") && event.code == KeyCode.TAB) {
-                event.consume()
-                var text = ""
-                repeat(config.getInt("3.YAML.2.Spaces_per_tab")) {text += " "}
-                val position = area.caretPosition
-                area.insertText(position, text)
-                Platform.runLater {area.moveTo(position + text.length)}
-            }
-        } catch(e: IllegalStateException) {
-            e.printStackTrace()
+        if(event.code == KeyCode.TAB && config.getBoolean("3.YAML.1.Replace_tabs_with_spaces")) {
+            event.consume()
+            var text = ""
+            repeat(config.getInt("3.YAML.2.Spaces_per_tab")) { text += " " }
+            val position = area.caretPosition
+            area.insertText(position, text)
+            Platform.runLater { area.moveTo(position + text.length) }
         }
     }
 }
