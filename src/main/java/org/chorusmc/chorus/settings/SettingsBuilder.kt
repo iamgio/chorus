@@ -7,50 +7,58 @@ import org.chorusmc.chorus.util.config
 import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.util.translateWithException
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
+ * This helper handles settings and helps to build the settings view.
+ *
  * @author Giorgio Garofalo
  */
 class SettingsBuilder private constructor() {
 
     companion object {
-        private val values
-                get() = config.internalKeys.sortedByDescending {it.toString()}
+        private val values: List<Any>
+                get() = config.internalKeys.sortedBy { it.toString() }
 
         // Actions run when a setting with an active listener is changed
-        val actions = hashMapOf<String, List<Runnable>>()
+        val actions = hashMapOf<String, List<() -> Unit>>()
 
         // Runtime replacements
         val placeholders = hashMapOf<String, String>()
 
+        /**
+         * Builds the left side of the settings view by creating a button for each config section.
+         */
         @JvmStatic fun buildLeft(): List<SettingButton> {
             // Internal settings
-            val stringList = ArrayList<String>()
-            val list = ArrayList<SettingButton>()
-            values.reversed().filter {!it.toString().startsWith("_") && !it.toString().startsWith(".")}.forEach {
-                val s = it.toString().replace("_", " ").split(".")[1]
-                if(!stringList.contains(s)) {
-                    stringList += s
-                }
+            val settingsList = mutableListOf<String>()
+            val buttons = mutableListOf<SettingButton>()
+
+            values.filter { !it.toString().startsWith("_") && !it.toString().startsWith(".") }.forEach {
+                val setting = it.toString().replace("_", " ").split(".")[1]
+                if(setting !in settingsList) settingsList += setting
             }
-            stringList.forEach {list += with(SettingButton(translate("settings.${it.toLowerCase()}"))) {id = it; this}}
+
+            settingsList.forEach {buttons += with(SettingButton(translate("settings.${it.toLowerCase()}"))) {id = it; this}}
 
             // External (add-on) settings
-            Addons.addons.filter {it.allowSettings}.forEach {
-                list += SettingButton(it.name.capitalize())
+            Addons.addons.filter { it.allowSettings }.forEach {
+                buttons += SettingButton(it.name.capitalize())
             }
 
-            return list
+            return buttons
         }
 
-        @JvmStatic fun buildRight(s: String): List<HBox> {
-            val list = mutableListOf<HBox>()
+        /**
+         * Builds the right side of the settings view for a given config [section].
+         */
+        @JvmStatic fun buildRight(section: String): List<HBox> {
+            val components = mutableListOf<HBox>()
 
-            if(s.startsWith("external:")) {
+            if(section.startsWith("external:")) {
                 // External (add-on) settings
-                Addons.addons.filter {it.allowSettings && it.name.equals(s.removePrefix("external:"), true)}.forEach { addon ->
-                    addon.configKeys.filter {!it.startsWith("_")}?.forEach {
+                val supportedAddons = Addons.addons.filter { it.allowSettings && it.name.equals(section.removePrefix("external:"), true) }
+                supportedAddons.forEach { addon ->
+                    addon.configKeys.filter { !it.startsWith("_") }.forEach {
                         val pair = SettingPair(
                                 addon.config!!,
                                 if(addon.translateSettings) addon.translate("config.$it") else it.replace("_", " ").capitalize(),
@@ -58,7 +66,7 @@ class SettingsBuilder private constructor() {
                                 null,
                                 addon
                         )
-                        list += pair.generate().also { hbox ->
+                        components += pair.generate().also { hbox ->
                             val key = "config.${it}.text"
                             if(addon.translationKeyExists(key)) {
                                 hbox.id = addon.translate(key)
@@ -66,11 +74,14 @@ class SettingsBuilder private constructor() {
                         }
                     }
                 }
-                return list
+                return components
             }
 
             // Internal settings
-            values.reversed().filter {!it.toString().startsWith("_") && !it.toString().contains("%style") && !it.toString().startsWith(".") && it.toString().split(".")[1] == s}
+            values
+                    .filter {
+                        !it.toString().startsWith("_") && !it.toString().contains("%style") &&
+                                !it.toString().startsWith(".") && it.toString().split(".")[1] == section }
                     .forEach {
                         val parts = it.toString().split(".")
                         val pair = SettingPair(
@@ -80,29 +91,32 @@ class SettingsBuilder private constructor() {
                                 config.getInternalString("$it%style"),
                                 null
                         )
-                        list += pair.generate().also {
+                        components += pair.generate().also { hbox ->
                             try {
-                                it.id = translateWithException("settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase() + ".text")
+                                hbox.id = translateWithException("settings." + parts[1].toLowerCase() + "." + parts[3].toLowerCase() + ".text")
                             } catch(ignored: MissingResourceException) {}
                         }
                     }
 
-            return list
+            return components
         }
 
-        @JvmStatic @JvmOverloads fun addAction(setting: String, runnable: Runnable, runNow: Boolean = false) {
+        /**
+         * Register a callback that is called whenever the value of the specified [setting] changes.
+         */
+        @JvmStatic @JvmOverloads fun addAction(setting: String, action: () -> Unit, runNow: Boolean = false) {
             if(!actions.containsKey(setting)) {
-                actions += setting to listOf(runnable)
+                actions += setting to listOf(action)
             } else {
                 val actions = actions[setting]!!.toMutableList()
-                actions += runnable
+                actions += action
                 this.actions += setting to actions
             }
             if(runNow) callAction(setting)
         }
 
         @JvmStatic fun callAction(setting: String) {
-            actions[setting]?.forEach {it.run()}
+            actions[setting]?.forEach { it.invoke() }
         }
 
         @JvmStatic fun addPlaceholder(placeholder: String, replacement: String) {

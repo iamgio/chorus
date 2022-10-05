@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import kotlin.Unit;
 import org.chorusmc.chorus.addon.Addon;
 import org.chorusmc.chorus.addon.Addons;
 import org.chorusmc.chorus.configuration.ChorusConfig;
@@ -299,15 +300,22 @@ public class Chorus extends FXApplication {
 
     private void loadSettingsInteractions() {
         // Change theme when the setting is updated
-        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> setTheme(Themes.byName(config.get("1.Appearance.1.Theme"))));
+        SettingsBuilder.addAction("1.Appearance.1.Theme", () -> {
+            setTheme(Themes.byName(config.get("1.Appearance.1.Theme")));
+            return Unit.INSTANCE; // These return statements will be removed once this class is brought to Kotlin.
+        });
 
         // Add notification when language is changed
-        SettingsBuilder.addAction("1.Appearance.4.Language", () -> new Notification(Utils.translate("language.restart"), NotificationType.MESSAGE).send());
+        SettingsBuilder.addAction("1.Appearance.4.Language", () -> {
+            new Notification(Utils.translate("language.restart"), NotificationType.MESSAGE).send();
+            return Unit.INSTANCE;
+        });
 
         // Change autocompletion options and RegEx patterns when the Minecraft version is updated
         SettingsBuilder.addAction("4.Minecraft.0.Server_version", () -> {
             AutocompletionListener.loadOptions();
             FixedEditorPattern.update();
+            return Unit.INSTANCE;
         });
         AutocompletionListener.loadOptions();
 

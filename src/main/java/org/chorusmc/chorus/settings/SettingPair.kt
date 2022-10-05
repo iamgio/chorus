@@ -53,7 +53,7 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
                     input.regex = Regex(inputString.replace("TEXTFIELD ", ""))
                 }
                 input.text = config[key].toString()
-                input.textProperty().addListener {_ -> getActions(key)?.forEach {it.run()}}
+                input.textProperty().addListener { _ -> getActions(key)?.forEach { it.invoke() } }
             }
             is SettingTextArea -> {
                 input.prefWidth = 400.0
@@ -65,22 +65,22 @@ class SettingPair(config: ChorusConfiguration, name: String, key: String, privat
                         this.toString().replace("\\n", "\n")
                     }
                 }
-                input.textProperty().addListener {_ -> getActions(key)?.forEach {it.run()}}
+                input.textProperty().addListener { _ -> getActions(key)?.forEach { it.invoke() } }
             }
             is SettingComboBox -> {
                 val options = stringToList(inputString!!)
                 input.items = options.toObservableList()
                 input.value = options.firstOrNull { it.equals(config[key].toString(), ignoreCase = true) }
-                input.selectionModel.selectedItemProperty().addListener { _ -> getActions(key)?.forEach { it.run() } }
+                input.selectionModel.selectedItemProperty().addListener { _ -> getActions(key)?.forEach { it.invoke() } }
             }
             is SettingCheckBox -> {
                 input.isSelected = config.getBoolean(key)
-                input.selectedProperty().addListener {_ -> getActions(key)?.forEach {it.run()}}
+                input.selectedProperty().addListener { _ -> getActions(key)?.forEach { it.invoke() } }
             }
         }
     }
 
-    private fun getActions(key: String): List<Runnable>? {
+    private fun getActions(key: String): List<() -> Unit>? {
         if(addon == null) return SettingsBuilder.actions[key]
         return SettingsBuilder.actions[addon.configPrefix + key]
     }
