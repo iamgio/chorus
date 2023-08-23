@@ -38,12 +38,15 @@ class AutocompletionListener : EditorEvent() {
 
     override fun onKeyPress(event: KeyEvent, area: EditorArea) {
         // Move through the menu if the down arrow key is pressed
-        if(event.code == KeyCode.DOWN) {
-            with(AutocompletionMenu.current ?: return) {
-                requestFocus()
-                vbox.setBVHover(0, true)
-                event.consume()
+        if (event.code == KeyCode.DOWN) {
+            val menu = AutocompletionMenu.current
+            if (menu == null || menu.children.isEmpty()) {
+                return
             }
+
+            menu.requestFocus()
+            menu.vbox.setBVHover(0, true)
+            event.consume()
         }
     }
 
