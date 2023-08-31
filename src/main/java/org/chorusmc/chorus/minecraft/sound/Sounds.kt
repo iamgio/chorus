@@ -8,6 +8,7 @@ object Sounds: SuperMcComponents<Sound> {
 
     override val subComponents: Map<McVersion, McComponents<Sound>>
         get() = mapOf(
+                McVersion.V1_19 to Sound119,
                 McVersion.V1_16 to Sound116,
                 McVersion.V1_15 to Sound115,
                 McVersion.V1_14 to Sound114,
@@ -28,3 +29,4 @@ object Sound113 : DefaultSound(McVersion.V1_13)
 object Sound114 : DefaultSound(McVersion.V1_14)
 object Sound115 : DefaultSound(McVersion.V1_15)
 object Sound116 : DefaultSound(McVersion.V1_16)
+object Sound119 : DefaultSound(McVersion.V1_19)

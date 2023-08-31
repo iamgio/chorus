@@ -8,6 +8,7 @@ import org.chorusmc.chorus.minecraft.SuperMcComponents
 object Entities : SuperMcComponents<Entity> {
     override val subComponents: Map<McVersion, McComponents<Entity>>
         get() = mapOf(
+                McVersion.V1_19 to Entity119,
                 McVersion.V1_16 to Entity116,
                 McVersion.V1_15 to Entity115,
                 McVersion.V1_14 to Entity114,
@@ -29,3 +30,4 @@ object Entity113 : DefaultEntity(McVersion.V1_13)
 object Entity114 : DefaultEntity(McVersion.V1_14)
 object Entity115 : DefaultEntity(McVersion.V1_15)
 object Entity116 : DefaultEntity(McVersion.V1_16)
+object Entity119 : DefaultEntity(McVersion.V1_19)

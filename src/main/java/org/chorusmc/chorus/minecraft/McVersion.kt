@@ -5,7 +5,7 @@ package org.chorusmc.chorus.minecraft
  * @author Giorgio Garofalo
  */
 enum class McVersion {
-    V1_12, V1_13, V1_14, V1_15, V1_16;
+    V1_12, V1_13, V1_14, V1_15, V1_16, V1_19;
 
     val commonName: String // V1_12 -> 1.12
         get() = name.substring(1).replace("_", ".")
