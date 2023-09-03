@@ -9,8 +9,13 @@ import org.chorusmc.chorus.file.FTPFile
  */
 class FTPRemoteConnection(override val ip: String, override val username: String, override val port: Int, override val password: String) : RemoteConnection {
 
-    override var isValid: Boolean = false
     override var home: String = "/"
+
+    override var isValid = false
+        private set
+
+    override var statusMessage: String? = null
+        private set
 
     val client: FTPSClient? = try {
         val client = FTPSClient()
@@ -21,6 +26,7 @@ class FTPRemoteConnection(override val ip: String, override val username: String
         home = client.printWorkingDirectory()
         client
     } catch(e: Exception) {
+        this.statusMessage = e.message
         e.printStackTrace()
         null
     }

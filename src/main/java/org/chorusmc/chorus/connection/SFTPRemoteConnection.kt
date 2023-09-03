@@ -14,7 +14,12 @@ import java.util.*
 class SFTPRemoteConnection(override val ip: String, override val username: String, override val port: Int, override val password: String, useRsa: Boolean = false) : RemoteConnection {
 
     lateinit var session: Session
+
     override var isValid = false
+        private set
+
+    override var statusMessage: String? = null
+        private set
 
     val channel: Channel? = try {
         val jsch = JSch()
@@ -28,6 +33,7 @@ class SFTPRemoteConnection(override val ip: String, override val username: Strin
         isValid = true
         channel
     } catch(e: Exception) {
+        this.statusMessage = e.message
         e.printStackTrace()
         null
     }

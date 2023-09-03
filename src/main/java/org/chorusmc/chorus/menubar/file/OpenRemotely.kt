@@ -47,7 +47,7 @@ abstract class OpenRemotely(
                 view.clear()
                 view.title = "Chorus - $name"
                 button.style = "-fx-border-width: 1; -fx-border-color: red"
-                button.text = translate("remote.invalid")
+                button.text = connection?.statusMessage ?: translate("remote.invalid")
                 WaitingTimer().start({
                     Platform.runLater {
                         button.style = ""

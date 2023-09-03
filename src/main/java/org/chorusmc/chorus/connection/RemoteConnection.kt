@@ -13,6 +13,7 @@ interface RemoteConnection {
     val port: Int
 
     val isValid: Boolean
+    val statusMessage: String?
 
     val home: String
 
