@@ -12,7 +12,7 @@ import java.io.IOException
 interface Item : McComponent, Iconable, IdAble, Fetchable {
 
     override val connection: HttpConnection
-            get() = HttpConnection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(name.toLowerCase())}")
+            get() = HttpConnection("https://minecraft.fandom.com/wiki/${StringUtils.capitalizeAll(name.toLowerCase())}")
 
     override val description: String
         get() {

@@ -15,7 +15,7 @@ import java.io.IOException
 interface Entity : McComponent, Iconable, Fetchable {
 
     override val connection: HttpConnection
-            get() = HttpConnection("https://minecraft.gamepedia.com/${StringUtils.capitalizeAll(name.toLowerCase())}")
+            get() = HttpConnection("https://minecraft.fandom.com/wiki/${StringUtils.capitalizeAll(name.toLowerCase())}")
 
     override val description: String
         get() {

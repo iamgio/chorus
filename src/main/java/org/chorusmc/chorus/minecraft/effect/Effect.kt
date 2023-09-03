@@ -2,6 +2,7 @@ package org.chorusmc.chorus.minecraft.effect
 
 import org.chorusmc.chorus.connection.HttpConnection
 import org.chorusmc.chorus.minecraft.*
+import org.chorusmc.chorus.util.StringUtils
 import java.io.IOException
 
 /**
@@ -11,7 +12,7 @@ import java.io.IOException
 interface Effect : McComponent, Iconable, IdAble, Fetchable {
 
     override val connection: HttpConnection
-        get() = HttpConnection("https://minecraft.gamepedia.com/Effect")
+        get() = HttpConnection("https://minecraft.fandom.com/wiki/${StringUtils.capitalizeAll(name.toLowerCase())}")
 
     override val description: String
         get() {
@@ -22,9 +23,6 @@ interface Effect : McComponent, Iconable, IdAble, Fetchable {
             catch(e: IOException) {
                 return NO_PAGE
             }
-            val table = connection.document.getElementsByAttributeValue("data-description", "Effects")[0]
-                    .getElementsByTag("tbody")[0]
-            val tr = table.getElementsByTag("tr")[id.toInt()]
-            return tr.getElementsByTag("td")[3].text()
+            return getFirstWikiParagraph(connection.document)
         }
 }
