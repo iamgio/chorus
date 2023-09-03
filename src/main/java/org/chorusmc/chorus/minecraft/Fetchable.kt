@@ -26,11 +26,7 @@ interface Fetchable : Descriptionable {
         val paragraphs = element.getElementsByClass("mw-parser-output").first()
                 ?: return ""
 
-        paragraphs.select("#toc ~ *").remove()
-
-        paragraphs.getElementsByClass("hatnote").remove()
-        paragraphs.getElementsByClass("portable-infobox").remove()
-        paragraphs.getElementById("toc")?.remove()
+        paragraphs.select("#toc ~ *, #toc, .hatnote, .portable-infobox").remove()
 
         return paragraphs.text().replace(Regex("\\[.]"), "")
     }
