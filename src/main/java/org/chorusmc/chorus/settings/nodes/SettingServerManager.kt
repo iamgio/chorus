@@ -67,7 +67,9 @@ class SettingServerManager(useKeys: Boolean, val defaultPort: String) : VBox(), 
             }
 
     private fun getServers(): List<ServerInfo> {
-        return config[id].toString().split("\\n").map { line -> ServerInfo.parse(line) }
+        return config[id].toString().split("\\n")
+            .filter { it.isNotBlank() }
+            .map { line -> ServerInfo.parse(line) }
     }
 
     private fun getOutputString() = table.items.joinToString("\\n")
