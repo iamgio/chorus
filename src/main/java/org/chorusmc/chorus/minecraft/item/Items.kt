@@ -8,7 +8,7 @@ import org.chorusmc.chorus.minecraft.SuperMcComponents
 object Items : SuperMcComponents<Item> {
     override val subComponents: Map<McVersion, McComponents<Item>>
         get() = mapOf(
-                McVersion.V1_19 to Item119,
+                McVersion.V1_20 to Item120,
                 McVersion.V1_16 to Item116,
                 McVersion.V1_15 to Item115,
                 McVersion.V1_14 to Item114,
@@ -56,4 +56,4 @@ object Item113 : DefaultItem(McVersion.V1_13)
 object Item114 : DefaultItem(McVersion.V1_14)
 object Item115 : DefaultItem(McVersion.V1_15)
 object Item116 : DefaultItem(McVersion.V1_16)
-object Item119 : DefaultItem(McVersion.V1_19)
+object Item120 : DefaultItem(McVersion.V1_20)

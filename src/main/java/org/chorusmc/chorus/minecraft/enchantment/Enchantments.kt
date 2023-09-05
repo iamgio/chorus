@@ -7,7 +7,7 @@ import org.chorusmc.chorus.minecraft.SuperMcComponents
 object Enchantments : SuperMcComponents<Enchantment> {
     override val subComponents: Map<McVersion, McComponents<Enchantment>>
         get() = mapOf(
-                McVersion.V1_19 to Enchantment119,
+                McVersion.V1_20 to Enchantment120,
                 McVersion.V1_16 to Enchantment116,
                 McVersion.V1_15 to Enchantment116, // Same as 1.16
                 McVersion.V1_14 to Enchantment114,
@@ -37,4 +37,4 @@ object Enchantment112 : DefaultEnchantment(McVersion.V1_12) {
 object Enchantment113 : DefaultEnchantment(McVersion.V1_13)
 object Enchantment114 : DefaultEnchantment(McVersion.V1_14)
 object Enchantment116 : DefaultEnchantment(McVersion.V1_16)
-object Enchantment119 : DefaultEnchantment(McVersion.V1_19)
+object Enchantment120 : DefaultEnchantment(McVersion.V1_20)
