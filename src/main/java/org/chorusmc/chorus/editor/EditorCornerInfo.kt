@@ -1,9 +1,7 @@
 package org.chorusmc.chorus.editor
 
-import eu.iamgio.animated.AnimationProperty
-import eu.iamgio.animated.AnimationSettings
-import eu.iamgio.animated.Curve
-import eu.iamgio.animated.property.PropertyWrapper
+import eu.iamgio.animated.binding.Curve
+import eu.iamgio.animated.binding.presets.AnimatedOpacity
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.geometry.Pos
@@ -27,10 +25,9 @@ class EditorCornerInfo : Label() {
         StackPane.setAlignment(this, Pos.TOP_RIGHT)
 
         // Let the text fade in/out
-        AnimationProperty(
-                PropertyWrapper.of(opacityProperty()),
-                AnimationSettings().withCurve(Curve.EASE_IN).withDuration(Duration.millis(500.0))
-        ).register()
+        AnimatedOpacity(this)
+            .custom { it.withCurve(Curve.EASE_IN).withDuration(Duration.millis(500.0)) }
+            .register()
     }
 
     /**

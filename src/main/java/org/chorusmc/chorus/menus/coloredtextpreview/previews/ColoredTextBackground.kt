@@ -1,7 +1,7 @@
 package org.chorusmc.chorus.menus.coloredtextpreview.previews
 
-import eu.iamgio.animated.AnimatedColor
-import eu.iamgio.animated.Curve
+import eu.iamgio.animated.binding.Curve
+import eu.iamgio.animated.binding.presets.AnimatedColor
 import javafx.scene.Node
 import javafx.scene.image.Image
 import javafx.scene.layout.StackPane
@@ -31,10 +31,12 @@ class ColoredTextBackground(animateColor: Boolean) {
     val pane = StackPane()
 
     init {
-        pane.children += if(animateColor) {
-            AnimatedColor(rectangle).custom<AnimatedColor> { it.withDuration(Duration.millis(180.0)).withCurve(Curve.EASE_IN_OUT) }
-        } else {
-            rectangle
+        pane.children += rectangle
+
+        if (animateColor) {
+            AnimatedColor(rectangle)
+                .custom { it.withDuration(Duration.millis(180.0)).withCurve(Curve.EASE_IN_OUT) }
+                .register()
         }
     }
 
