@@ -9,6 +9,7 @@ object Effects : SuperMcComponents<Effect> {
     override val subComponents: Map<McVersion, McComponents<Effect>>
         get() = mapOf(
                 McVersion.V1_20 to Effect120,
+                McVersion.V1_19 to Effect120, // Same as 1.20
                 McVersion.V1_16 to Effect116,
                 McVersion.V1_15 to Effect116, // Same as 1.16
                 McVersion.V1_14 to Effect116, // Same as 1.16

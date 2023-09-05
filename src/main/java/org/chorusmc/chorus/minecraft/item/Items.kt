@@ -9,6 +9,7 @@ object Items : SuperMcComponents<Item> {
     override val subComponents: Map<McVersion, McComponents<Item>>
         get() = mapOf(
                 McVersion.V1_20 to Item120,
+                McVersion.V1_19 to Item119,
                 McVersion.V1_16 to Item116,
                 McVersion.V1_15 to Item115,
                 McVersion.V1_14 to Item114,
@@ -17,15 +18,15 @@ object Items : SuperMcComponents<Item> {
         )
 }
 
-open class DefaultItem(protected val version: McVersion) : McComponents<Item>("items", version) {
+open class DefaultItem(protected val version: McVersion, protected val iconsVersion: McVersion = version) : McComponents<Item>("items", version) {
 
     override fun parse(data: List<String>) = object : Item {
         override val id: Short = 0
         override val name: String = data.first()
         override val icons: List<Image> = mutableListOf<Image>().let { list ->
-            val name = when(version) {
-                McVersion.V1_13 -> "${version.packageName}/${name.toLowerCase()}-0"
-                else -> version.packageName + "/" + name.toLowerCase()
+            val name = when(iconsVersion) {
+                McVersion.V1_13 -> "${iconsVersion.packageName}/${name.toLowerCase()}-0"
+                else -> iconsVersion.packageName + "/" + name.toLowerCase()
             }
             loadIcon(name)?.let { list += it }
             list
@@ -56,4 +57,5 @@ object Item113 : DefaultItem(McVersion.V1_13)
 object Item114 : DefaultItem(McVersion.V1_14)
 object Item115 : DefaultItem(McVersion.V1_15)
 object Item116 : DefaultItem(McVersion.V1_16)
+object Item119 : DefaultItem(McVersion.V1_19, iconsVersion = McVersion.V1_20)
 object Item120 : DefaultItem(McVersion.V1_20)

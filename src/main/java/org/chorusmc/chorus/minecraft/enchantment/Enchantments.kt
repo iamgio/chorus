@@ -8,6 +8,7 @@ object Enchantments : SuperMcComponents<Enchantment> {
     override val subComponents: Map<McVersion, McComponents<Enchantment>>
         get() = mapOf(
                 McVersion.V1_20 to Enchantment120,
+                McVersion.V1_19 to Enchantment120, // Same as 1.20
                 McVersion.V1_16 to Enchantment116,
                 McVersion.V1_15 to Enchantment116, // Same as 1.16
                 McVersion.V1_14 to Enchantment114,
