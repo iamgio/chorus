@@ -9,7 +9,7 @@ import org.chorusmc.chorus.nodes.control.UrlLabel
 import org.chorusmc.chorus.util.translate
 import org.chorusmc.chorus.views.HelpView
 import org.jsoup.Jsoup
-import java.util.Locale
+import java.util.*
 
 class Credits : MenuBarAction {
 
@@ -34,7 +34,7 @@ class Donate : MenuBarAction {
 
         val helpView = HelpView(translate("help.donate.title"))
         helpView.addText(translate("help.donate.text", locale = Locale.ENGLISH))
-        helpView.addNode(UrlLabel(translate("help.donate.url_text"), "http://donate.chorusmc.org"))
+        helpView.addNode(UrlLabel(translate("help.donate.url_text"), "https://paypal.me/giogar"))
         helpView.show()
     }
 }

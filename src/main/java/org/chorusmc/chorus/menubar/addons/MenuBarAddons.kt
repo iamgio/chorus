@@ -5,7 +5,7 @@ import org.chorusmc.chorus.addon.Addons
 import org.chorusmc.chorus.menubar.MenuBarAction
 import org.chorusmc.chorus.views.addons.AddonsView
 
-private const val ADDONS_URL = "http://addons.chorusmc.org"
+private const val ADDONS_URL = "https://github.com/iamgio/chorus-addons"
 
 class MyAddons : MenuBarAction {
 

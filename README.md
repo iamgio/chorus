@@ -2,7 +2,7 @@
   <img src="https://i.imgur.com/4FyinoS.png" alt="Banner" />
 </p>
 
-[![Code Quality](https://www.codefactor.io/repository/github/iamgio/chorus/badge)](https://www.codefactor.io/repository/github/iamgio/chorus) ![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg) [![Release](https://img.shields.io/github/release/iamgio/chorus.svg)](https://chorusmc.org) [![GitHub license](https://img.shields.io/github/license/iAmGio/chorus)](https://github.com/iAmGio/chorus/blob/master/LICENSE)
+[![Code Quality](https://www.codefactor.io/repository/github/iamgio/chorus/badge)](https://www.codefactor.io/repository/github/iamgio/chorus) ![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg) [![Release](https://img.shields.io/github/release/iamgio/chorus.svg)](https://chorus.iamgio.eu) [![GitHub license](https://img.shields.io/github/license/iAmGio/chorus)](https://github.com/iAmGio/chorus/blob/master/LICENSE)
 
 ## What is Chorus?
 Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for anyone who works on [Spigot](https://spigotmc.org)-based Minecraft servers.  
@@ -85,7 +85,7 @@ To see the structure of a style file, take a look at this theme:
 If you want to make it public, you can add it to the official [themes repository](https://github.com/iAmGio/chorus-themes) following [these](https://github.com/iAmGio/chorus-themes/blob/master/README.md) guidelines.
 
 ## Downloading
-Chorus is downloadable on [chorusmc.org](https://chorusmc.org).  
+Chorus is downloadable on [chorus.iamgio.eu](https://chorus.iamgio.eu).  
 Older versions can be found [here](https://github.com/iAmGio/chorus/releases).  
 Make sure you have Java 8 or above installed.
 
