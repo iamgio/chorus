@@ -43,7 +43,7 @@ class DonatorsList : MenuBarAction {
 
     override fun onAction() {
         val helpView = HelpView(translate("help.donators.title"))
-        val connection = HttpConnection("https://iamgio.altervista.org/chorus/donators.html")
+        val connection = HttpConnection("https://chorus.iamgio.eu/donors.html")
         try {
             connection.connect()
             helpView.addText(translate("help.donators.text"))
