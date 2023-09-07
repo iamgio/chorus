@@ -7,7 +7,7 @@
     <name>Chorus</name>
     <groupId>org.chorusmc.chorus</groupId>
     <artifactId>chorus</artifactId>
-    <version>1.3.2</version>
+    <version>1.4.0</version>
 
     <properties>
         <kotlin.version>1.4.21</kotlin.version>

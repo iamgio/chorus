@@ -9,7 +9,7 @@ import org.json.simple.JSONObject
 import java.io.File
 import java.io.IOException
 
-        const val VERSION = "1.3.2"                                                      // Current version
+        const val VERSION = "1.4.0"                                                      // Current version
 private const val URL     = "https://api.github.com/repos/iAmGio/chorus/releases/latest" // GitHub API endpoint
 
 /**
