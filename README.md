@@ -9,7 +9,7 @@
 > However, 5 years (as of 2023) have passed since its initial release, and I feel the need to move on to some new,
 > exciting projects that would teach me new things along the way.
 > After all, this is what coding is:
-> 5-years-ago me made some designing choices that I would not have picked now,
+> 5-years-ago me made some design choices that I would not have picked now,
 > but I guess that's how you grow up: you fail and learn,
 > and I'm proud of what Chorus has taught me.
 
