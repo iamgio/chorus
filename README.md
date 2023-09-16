@@ -2,7 +2,16 @@
   <img src="https://i.imgur.com/4FyinoS.png" alt="Banner" />
 </p>
 
-[![Code Quality](https://www.codefactor.io/repository/github/iamgio/chorus/badge)](https://www.codefactor.io/repository/github/iamgio/chorus) ![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg) [![Release](https://img.shields.io/github/release/iamgio/chorus.svg)](https://chorus.iamgio.eu) [![GitHub license](https://img.shields.io/github/license/iAmGio/chorus)](https://github.com/iAmGio/chorus/blob/master/LICENSE)
+![Downloads](https://img.shields.io/github/downloads/iamgio/chorus/total.svg) [![Release](https://img.shields.io/github/release/iamgio/chorus.svg)](https://chorus.iamgio.eu) [![GitHub license](https://img.shields.io/github/license/iAmGio/chorus)](https://github.com/iAmGio/chorus/blob/master/LICENSE)
+
+> This is going to be Chorus' last major release.
+> I'm extremely thankful for the support this software has received and I'm glad you enjoyed it!
+> However, 5 years (as of 2023) have passed since its initial release, and I feel the need to move on to some new,
+> exciting projects that would teach me new things along the way.
+> After all, this is what coding is:
+> 5-years-ago me made some designing choices that I would not have picked now,
+> but I guess that's how you grow up: you fail and learn,
+> and I'm proud of what Chorus has taught me.
 
 ## What is Chorus?
 Chorus is an easy-to-use and lightweight [YAML](http://yaml.org/) editor, created for anyone who works on [Spigot](https://spigotmc.org)-based Minecraft servers.  
@@ -93,15 +102,17 @@ Make sure you have Java 8 or above installed.
 Download chorus-X.X.X.exe, move it to the desired installation folder and run it.  
 
 #### macOS
-Download chorus-X.X.X.app.zip, extract the .app file and open it.
+**ARM:** Download chorus-X.X.X-arm.app.zip  
+**Intel:** Download chorus-X.X.X-x86.app.zip  
+Extract the .app file, move it to the Applications folder and open it.
 
 #### Linux
 Download chorus-X.X.X.jar, move it to the desired installation folder and run it.  
 
 ### Donating
-I (yes, Chorus is mantained by a single guy) worked so hard on this project.  
-If you like this software, or just want to support me, I'd really enjoy donations.     
-By donating, you'll be added to the 'Donators List' accessible from the program.
+I worked so hard on this project.  
+If you like this software, or just want to support me, I'd really enjoy [donations](https://paypal.me/giogar).     
+By donating, you'll be added to the 'Donors List' accessible from the program.
 
 ### License
 Chorus and its source code are under GPL-3 license. For further information, check [LICENSE](https://github.com/iAmGio/chorus/blob/master/LICENSE).  
